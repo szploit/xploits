@@ -47,7 +47,7 @@ export default function Externals() {
           <div style={{ width: 3, height: 24, background: 'var(--red)', borderRadius: 2 }} />
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.03em' }}>Externals</h1>
         </div>
-        <p style={{ color: 'var(--muted)', fontSize: '0.9rem' }}>Useful external tools and resources for Roblox cheating</p>
+        <p style={{ color: 'var(--muted)', fontSize: '0.9rem' }}>Useful external tools and resources for Reverse engineering and more</p>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 12 }}>
