@@ -5,6 +5,7 @@ import Home from './pages/Home.jsx'
 import Executors from './pages/Executors.jsx'
 import Externals from './pages/Externals.jsx'
 import Tools from './pages/Tools.jsx'
+import RDD from './pages/RDD.jsx'
 
 function PageWrapper({ children }) {
   const [visible, setVisible] = useState(false)
@@ -36,6 +37,7 @@ export default function App() {
         <Route path="/executors" element={<PageWrapper><Executors /></PageWrapper>} />
         <Route path="/externals" element={<PageWrapper><Externals /></PageWrapper>} />
         <Route path="/tools" element={<PageWrapper><Tools /></PageWrapper>} />
+        <Route path="/rdd" element={<PageWrapper><RDD /></PageWrapper>} />
       </Routes>
     </>
   )
