@@ -134,7 +134,6 @@ export default function Home() {
           animationDelay: '0.2s',
         }}>
           Roblox exploit tracker, and useful tools.<br />
-          Real-time status. No guessing.
         </p>
 
         {/* CTA Buttons */}
