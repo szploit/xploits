@@ -7,7 +7,7 @@ const windowsExecutors = [
   { name: 'Synapse Z', detection: 'Detected', up: true, price: '$3.99 Weekly', website: 'z.synapse.do', purchase: 'angxlzz.store/?ref=synz#products', discord: 'discord.gg/synz' },
   { name: "Madium", detection: "Likely Detected", up: true, price: "Free", website: null, purchase: null, discord: "discord.gg/olemad" },
   { name: 'Cosmic', detection: 'Undetected', up: false, price: '$9.99 Lifetime', website: 'cosmic.best', purchase: 'cosmic.best', discord: 'discord.gg/getcosmic' },
-  { name: 'Volcano', detection: 'Undetected', up: false, price: '$5.99 Weekly', website: null, purchase: null, discord: null },
+  { name: 'Volcano', detection: 'Undetected', up: false, price: '$5.99 Weekly', website: "volcano.wtf", purchase: "robloxcheatz.com", discord: null },
   { name: 'Velocity', detection: 'Undetected', up: false, price: "Free", website: "realvelocity.xyz" , purchase: null, discord: "discord.gg/velocityide" },
   { name: 'Seliware', detection: 'Detected', up: false, price: "3.99$ Weekly", website: "seliware.com" , purchase: "robloxcheatz.com", discord: "https://discord.gg/theseliware" },
   { name: 'Bunni', detection: 'Detected', up: false, price: "Free", website: null, purchase: "robloxcheatz.com", discord: "discord.gg/bunni-fun" },
