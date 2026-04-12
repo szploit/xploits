@@ -1,12 +1,12 @@
 import React from 'react'
 
 const externals = [
-  { name: 'WhatExpsAre.Online', desc: 'Live executor version tracker and exploit list', url: 'https://whatexpsare.online', tag: 'Tracker' },
+  { name: 'Anker Games', desc: 'Free PC download website that offers free steam pre-installed games', url: 'https://ankergames.net', tag: 'Cracked' },
   { name: 'ScriptBlox', desc: 'Huge library of free Roblox scripts', url: 'https://scriptblox.com', tag: 'Scripts' },
-  { name: 'RBXScripts', desc: 'Curated Roblox script database', url: 'https://rbxscripts.xyz', tag: 'Scripts' },
-  { name: 'RDC Tracker', desc: 'Track Roblox version hashes for Windows & Mac', url: '#', tag: 'Versions' },
-  { name: 'Blox.link', desc: 'Discord → Roblox verification service', url: 'https://blox.link', tag: 'Utility' },
-  { name: 'RoMonitor Stats', desc: 'Track Roblox game stats and analytics', url: 'https://romonitorstats.com', tag: 'Analytics' },
+  { name: 'Pirate Bay Proxy', desc: 'Cracked apps and games for free', url: 'https://piratebayproxy.net/', tag: 'Cracked' },
+  { name: 'Cheat Engine', desc: 'Memory scanning and debugging tool used for cheats', url: 'https://www.cheatengine.org/', tag: 'Utility' },
+  { name: 'x64dbg', desc: 'User-mode debugger for windows for reverse engineering and malware analysis', url: 'https://x64dbg.com/', tag: 'Utility' },
+  { name: 'Process Hacker', desc: 'Advanced task manager tool used for injecting DLLS and monitoring', url: 'https://sourceforge.net/projects/processhacker/', tag: 'Utility' },
 ]
 
 const tagColors = {
@@ -14,7 +14,7 @@ const tagColors = {
   'Scripts': { bg: 'rgba(230,57,70,0.1)', color: '#ff8b8b', border: 'rgba(230,57,70,0.2)' },
   'Versions': { bg: 'rgba(251,191,36,0.1)', color: '#fbbf24', border: 'rgba(251,191,36,0.2)' },
   'Utility': { bg: 'rgba(167,139,250,0.1)', color: '#a78bfa', border: 'rgba(167,139,250,0.2)' },
-  'Analytics': { bg: 'rgba(74,222,128,0.1)', color: '#4ade80', border: 'rgba(74,222,128,0.2)' },
+  'Cracked': { bg: 'rgba(74,222,128,0.1)', color: '#4ade80', border: 'rgba(74,222,128,0.2)' },
 }
 
 export default function Externals() {
