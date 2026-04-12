@@ -1,150 +1,121 @@
 import React, { useState } from 'react'
-
-const executors = [
-  { name: 'Wave', version: 'NEW-1.2.1', unc: 'sUNC', price: '$5.99 Weekly', status: 'updated', platform: 'Windows', updated: '4/12/2026' },
-  { name: 'Volt', version: '1.2.11', unc: 'sUNC', price: '$5.99 Weekly', status: 'updated', platform: 'Windows', updated: '4/12/2026' },
-  { name: 'Potassium', version: '2.1.0', unc: 'sUNC', price: '$22.99 Lifetime', status: 'updated', platform: 'Windows', updated: '4/9/2026' },
-  { name: 'Solara', version: '3.0.2', unc: 'UNC', price: 'Free', status: 'updated', platform: 'Windows', updated: '4/11/2026' },
-  { name: 'Seliware', version: '1.8.4', unc: 'sUNC', price: '$9.99 Monthly', status: 'not-updated', platform: 'Windows', updated: '4/5/2026' },
-  { name: 'Xeno', version: '2.3.1', unc: 'UNC', price: 'Free', status: 'updated', platform: 'Windows / Mac', updated: '4/10/2026' },
-  { name: 'Delta', version: '4.1.7', unc: 'pUNC', price: 'Free', status: 'updated', platform: 'Mobile', updated: '4/12/2026' },
-  { name: 'Arceus X', version: '3.1.0', unc: 'pUNC', price: 'Free', status: 'not-updated', platform: 'Mobile', updated: '4/8/2026' },
-  { name: 'Fluxus', version: '6.9', unc: 'pUNC', price: 'Free', status: 'patched', platform: 'Mobile', updated: '4/1/2026' },
+ 
+const windowsExecutors = [
+  { name: 'Volt', detection: 'Undetected', up: true, price: '$5.99 Weekly', website: 'volt.bz', purchase: 'robloxcheatz.com', discord: 'discord.gg/voltbz' },
+  { name: 'Potassium', detection: 'Undetected', up: true, price: null, website: 'potassium.pro', purchase: 'bloxproducts.com', discord: 'discord.gg/potassium' },
+  { name: 'Wave', detection: 'Undetected', up: false, price: null, website: 'getwave.gg', purchase: 'robloxcheatz.com', discord: 'discord.gg/ykAyabv9' },
+  { name: 'Synapse Z', detection: 'Detected', up: true, price: '$3.99 Weekly', website: 'z.synapse.do', purchase: 'angxlzz.store/?ref=synz#products', discord: 'discord.gg/synz' },
+  { name: 'Cosmic', detection: 'Undetected', up: false, price: '$9.99 Lifetime', website: 'cosmic.best', purchase: 'cosmic.best', discord: 'discord.gg/getcosmic' },
+  { name: 'Volcano', detection: 'Undetected', up: false, price: '$5.99 Weekly', website: null, purchase: null, discord: null },
+  { name: 'Velocity', detection: 'Undetected', up: false, price: null, website: null, purchase: null, discord: null },
+  { name: 'Seliware', detection: 'Detected', up: false, price: null, website: null, purchase: null, discord: null },
+  { name: 'Bunni', detection: 'Detected', up: false, price: null, website: null, purchase: null, discord: null },
+  { name: 'SirHurt', detection: 'Undetected', up: true, price: null, website: null, purchase: null, discord: null },
+  { name: 'Xeno', detection: 'Undetected', up: true, price: 'Free', website: null, purchase: null, discord: null },
+  { name: 'Solara', detection: 'Undetected', up: true, price: 'Free', website: null, purchase: null, discord: null },
 ]
-
-const statusMeta = {
-  'updated': { label: 'Updated', bg: 'rgba(74,222,128,0.1)', color: '#4ade80', border: 'rgba(74,222,128,0.2)', dot: '#4ade80' },
-  'not-updated': { label: 'Not Updated', bg: 'rgba(251,191,36,0.1)', color: '#fbbf24', border: 'rgba(251,191,36,0.2)', dot: '#fbbf24' },
-  'patched': { label: 'Patched', bg: 'rgba(230,57,70,0.1)', color: 'var(--red)', border: 'rgba(230,57,70,0.2)', dot: 'var(--red)' },
+ 
+const androidExecutors = [
+  { name: 'Delta', detection: 'Undetected', up: true, price: 'Free', website: null, purchase: null, discord: null },
+  { name: 'Vega X', detection: 'Undetected', up: true, price: 'Free', website: null, purchase: null, discord: null },
+  { name: 'Codex', detection: 'Undetected', up: true, price: 'Free', website: null, purchase: null, discord: null },
+  { name: 'Cryptic', detection: 'Undetected', up: false, price: null, website: null, purchase: null, discord: null },
+]
+ 
+const iosExecutors = [
+  { name: 'Delta', detection: 'Undetected', up: true, price: 'Free', website: null, purchase: null, discord: null },
+]
+ 
+function LinkBtn({ href, label }) {
+  if (!href) return null
+  const url = href.startsWith('http') ? href : 'https://' + href
+  return (
+    <a href={url} target="_blank" rel="noopener noreferrer" style={{
+      textDecoration: 'none', fontSize: '0.72rem', fontFamily: 'var(--font-mono)',
+      color: 'var(--muted)', background: 'var(--bg)', border: '1px solid var(--muted2)',
+      borderRadius: 6, padding: '3px 8px', transition: 'color 0.15s, border-color 0.15s', whiteSpace: 'nowrap',
+    }}
+      onMouseEnter={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'rgba(230,57,70,0.4)' }}
+      onMouseLeave={e => { e.currentTarget.style.color = 'var(--muted)'; e.currentTarget.style.borderColor = 'var(--muted2)' }}
+    >{label}</a>
+  )
 }
-
+ 
+function ExecutorRow({ ex, i }) {
+  const upColor = ex.up ? '#4ade80' : '#e63946'
+  const detColor = ex.detection === 'Undetected' ? '#4ade80' : '#fbbf24'
+  return (
+    <div className="exec-row" style={{ animationDelay: i * 0.04 + 's' }}>
+      <div style={{ width: 3, alignSelf: 'stretch', background: upColor, borderRadius: 2, flexShrink: 0 }} />
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', marginBottom: 6 }}>
+          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1rem' }}>{ex.name}</span>
+          {ex.price && (
+            <span style={{
+              fontFamily: 'var(--font-mono)', fontSize: '0.7rem',
+              color: ex.price === 'Free' ? '#4ade80' : '#fbbf24',
+              background: ex.price === 'Free' ? 'rgba(74,222,128,0.08)' : 'rgba(251,191,36,0.08)',
+              padding: '2px 7px', borderRadius: 4,
+              border: '1px solid ' + (ex.price === 'Free' ? 'rgba(74,222,128,0.15)' : 'rgba(251,191,36,0.15)'),
+            }}>{ex.price}</span>
+          )}
+        </div>
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+          <LinkBtn href={ex.website} label="🌐 Website" />
+          <LinkBtn href={ex.purchase} label="🛒 Purchase" />
+          <LinkBtn href={ex.discord} label="💬 Discord" />
+        </div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 5, flexShrink: 0 }}>
+        <div style={{ padding: '3px 10px', borderRadius: 100, background: detColor + '18', color: detColor, border: '1px solid ' + detColor + '30', fontSize: '0.72rem', fontWeight: 600, fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>
+          {ex.detection === 'Undetected' ? 'Undetected' : 'Detected'}
+        </div>
+        <div style={{ padding: '3px 10px', borderRadius: 100, background: upColor + '18', color: upColor, border: '1px solid ' + upColor + '30', fontSize: '0.72rem', fontWeight: 600, fontFamily: 'var(--font-body)' }}>
+          {ex.up ? 'Up' : 'Down'}
+        </div>
+      </div>
+    </div>
+  )
+}
+ 
+function Section({ title, executors, startIndex }) {
+  if (!executors.length) return null
+  return (
+    <div style={{ marginBottom: '2.5rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: '1rem' }}>
+        <div style={{ width: 3, height: 18, background: 'var(--red)', borderRadius: 2 }} />
+        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '0.85rem', fontWeight: 700, color: 'var(--muted)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>{title}</h2>
+        <div style={{ flex: 1, height: '1px', background: 'var(--muted2)' }} />
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--muted)' }}>{executors.length}</span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {executors.map((ex, i) => <ExecutorRow key={ex.name + i} ex={ex} i={startIndex + i} />)}
+      </div>
+    </div>
+  )
+}
+ 
 export default function Executors() {
-  const [filter, setFilter] = useState('all')
   const [search, setSearch] = useState('')
-  const [platform, setPlatform] = useState('all')
-
-  const filtered = executors.filter(e => {
-    if (filter !== 'all' && e.status !== filter) return false
-    if (platform !== 'all' && !e.platform.toLowerCase().includes(platform)) return false
-    if (search && !e.name.toLowerCase().includes(search.toLowerCase())) return false
-    return true
-  })
-
+  const f = list => search ? list.filter(e => e.name.toLowerCase().inclUndetectedes(search.toLowerCase())) : list
   return (
     <div style={{ minHeight: '100vh', padding: '6rem 2rem 4rem', maxWidth: 900, margin: '0 auto' }}>
       <style>{`
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(16px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .exec-row {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          padding: 1rem 1.25rem;
-          background: var(--bg-card);
-          border: 1px solid var(--muted2);
-          border-radius: 10px;
-          transition: border-color 0.2s, background 0.2s;
-          animation: fadeUp 0.4s ease both;
-        }
-        .exec-row:hover {
-          border-color: rgba(230,57,70,0.3);
-          background: var(--bg-card2);
-        }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+        .exec-row { display:flex; align-items:center; gap:14px; padding:1rem 1.25rem; background:var(--bg-card); border:1px solid var(--muted2); border-radius:10px; transition:border-color 0.2s,background 0.2s; animation:fadeUp 0.4s ease both; }
+        .exec-row:hover { border-color:rgba(230,57,70,0.3); background:var(--bg-card2); }
       `}</style>
-
-      {/* Header */}
-      <div style={{ marginBottom: '2.5rem' }}>
+      <div style={{ marginBottom: '2rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
           <div style={{ width: 3, height: 24, background: 'var(--red)', borderRadius: 2 }} />
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.03em' }}>Executors</h1>
         </div>
-        <p style={{ color: 'var(--muted)', fontSize: '0.9rem' }}>Live status tracking for Roblox script executors</p>
+        <p style={{ color: 'var(--muted)', fontSize: '0.9rem', marginBottom: '1.25rem' }}>Live status tracking for Roblox script executors</p>
+        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search executors..." style={{ background: 'var(--bg-card)', border: '1px solid var(--muted2)', borderRadius: 8, padding: '8px 14px', color: 'var(--text)', fontFamily: 'var(--font-body)', fontSize: '0.85rem', outline: 'none', width: 240 }} />
       </div>
-
-      {/* Filters */}
-      <div style={{ display: 'flex', gap: 10, marginBottom: '1.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
-        <input
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          placeholder="Search executors..."
-          style={{
-            background: 'var(--bg-card)', border: '1px solid var(--muted2)',
-            borderRadius: 8, padding: '7px 14px',
-            color: 'var(--text)', fontFamily: 'var(--font-body)', fontSize: '0.85rem',
-            outline: 'none', minWidth: 180,
-          }}
-        />
-        {['all', 'updated', 'not-updated', 'patched'].map(f => (
-          <button key={f} onClick={() => setFilter(f)} style={{
-            padding: '6px 14px', borderRadius: 8,
-            background: filter === f ? 'rgba(230,57,70,0.12)' : 'var(--bg-card)',
-            border: filter === f ? '1px solid rgba(230,57,70,0.3)' : '1px solid var(--muted2)',
-            color: filter === f ? '#fff' : 'var(--muted)',
-            cursor: 'pointer', fontFamily: 'var(--font-body)', fontSize: '0.8rem',
-            fontWeight: filter === f ? 600 : 400,
-            transition: 'all 0.15s',
-            textTransform: 'capitalize',
-          }}>{f === 'all' ? 'All' : f.replace('-', ' ')}</button>
-        ))}
-        <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
-          {['all', 'windows', 'mobile', 'mac'].map(p => (
-            <button key={p} onClick={() => setPlatform(p)} style={{
-              padding: '6px 12px', borderRadius: 8,
-              background: platform === p ? 'rgba(230,57,70,0.1)' : 'transparent',
-              border: '1px solid ' + (platform === p ? 'rgba(230,57,70,0.25)' : 'var(--muted2)'),
-              color: platform === p ? '#fff' : 'var(--muted)',
-              cursor: 'pointer', fontFamily: 'var(--font-mono)', fontSize: '0.75rem',
-              transition: 'all 0.15s', textTransform: 'capitalize',
-            }}>{p}</button>
-          ))}
-        </div>
-      </div>
-
-      {/* List */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {filtered.map((ex, i) => {
-          const s = statusMeta[ex.status]
-          return (
-            <div key={ex.name} className="exec-row" style={{ animationDelay: `${i * 0.04}s` }}>
-              {/* Color accent */}
-              <div style={{ width: 3, height: 36, background: s.dot, borderRadius: 2, flexShrink: 0 }} />
-
-              {/* Name + tags */}
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-                  <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1rem' }}>{ex.name}</span>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--muted)', background: 'var(--surface)', padding: '2px 6px', borderRadius: 4 }}>{ex.version}</span>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#93c5fd', background: 'rgba(147,197,253,0.08)', padding: '2px 6px', borderRadius: 4, border: '1px solid rgba(147,197,253,0.12)' }}>{ex.unc}</span>
-                </div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--muted)', marginTop: 3 }}>
-                  {ex.platform} · Updated {ex.updated}
-                </div>
-              </div>
-
-              {/* Price */}
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: ex.price === 'Free' ? '#4ade80' : '#fbbf24', fontWeight: 500 }}>
-                {ex.price}
-              </div>
-
-              {/* Status badge */}
-              <div style={{
-                padding: '4px 12px', borderRadius: 100,
-                background: s.bg, color: s.color, border: `1px solid ${s.border}`,
-                fontSize: '0.75rem', fontWeight: 600, fontFamily: 'var(--font-body)',
-                whiteSpace: 'nowrap',
-              }}>
-                {s.label}
-              </div>
-            </div>
-          )
-        })}
-      </div>
-
-      {filtered.length === 0 && (
-        <div style={{ textAlign: 'center', padding: '4rem', color: 'var(--muted)' }}>No executors match your filter.</div>
-      )}
+      <Section title="Windows" executors={f(windowsExecutors)} startIndex={0} />
+      <Section title="Android" executors={f(androidExecutors)} startIndex={windowsExecutors.length} />
+      <Section title="iOS" executors={f(iosExecutors)} startIndex={windowsExecutors.length + androidExecutors.length} />
     </div>
   )
 }
