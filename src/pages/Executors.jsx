@@ -10,21 +10,21 @@ const windowsExecutors = [
   { name: 'Volcano', detection: 'Undetected', up: false, price: '$5.99 Weekly', website: null, purchase: null, discord: null },
   { name: 'Velocity', detection: 'Undetected', up: false, price: "Free", website: "realvelocity.xyz" , purchase: null, discord: "discord.gg/velocityide" },
   { name: 'Seliware', detection: 'Detected', up: false, price: "3.99$ Weekly", website: "seliware.com" , purchase: "robloxcheatz.com", discord: "https://discord.gg/theseliware" },
-  { name: 'Bunni', detection: 'Detected', up: false, price: "Free", website: null, purchase: null, discord: null },
-  { name: 'SirHurt', detection: 'Undetected', up: true, price: "Free", website: null, purchase: null, discord: null },
-  { name: 'Xeno', detection: 'Undetected', up: true, price: 'Free', website: null, purchase: null, discord: null },
-  { name: 'Solara', detection: 'Undetected', up: true, price: 'Free', website: null, purchase: null, discord: null },
+  { name: 'Bunni', detection: 'Detected', up: false, price: "Free", website: null, purchase: "robloxcheatz.com", discord: "discord.gg/bunni-fun" },
+  { name: 'SirHurt', detection: 'Undetected', up: true, price: "Free", website: "sirhurt.net", purchase: "sirhurt.net", discord: "discord.gg/sirhurt" },
+  { name: 'Xeno', detection: 'Undetected', up: true, price: 'Free', website: "xeno.onl", purchase: null, discord: "discord.gg/xe-no" },
+  { name: 'Solara', detection: 'Undetected', up: true, price: 'Free', website: null, purchase: null, discord: "getsolara.dev" },
 ]
  
 const androidExecutors = [
-  { name: 'Delta', detection: 'Undetected', up: true, price: 'Free', website: null, purchase: null, discord: null },
-  { name: 'Vega X', detection: 'Undetected', up: true, price: 'Free', website: null, purchase: null, discord: null },
-  { name: 'Codex', detection: 'Undetected', up: true, price: 'Free', website: null, purchase: null, discord: null },
-  { name: 'Cryptic', detection: 'Undetected', up: false, price: "Free", website: null, purchase: null, discord: null },
+  { name: 'Delta', detection: 'Undetected', up: true, price: 'Free', website: "deltaexploits.gg", purchase: "deltaexploits.gg", discord: "discord.gg/deltax" },
+  { name: 'Vega X', detection: 'Undetected', up: true, price: 'Free', website: "vegax.gg", purchase: "vegaexploits.gg", discord: null },
+  { name: 'Codex', detection: 'Undetected', up: true, price: 'Free', website: "codex.lol", purchase: null, discord: "discord.gg/codexlol" },
+  { name: 'Cryptic', detection: 'Undetected', up: false, price: "Free", website: null, purchase: null, discord: "https://discord.com/invite/vegasupport"},
 ]
  
 const iosExecutors = [
-  { name: 'Delta', detection: 'Undetected', up: true, price: 'Free', website: null, purchase: null, discord: null },
+  { name: 'Delta', detection: 'Undetected', up: true, price: 'Free', website: "deltaexploits.gg", purchase: "deltaexploits.gg", discord: "discord.gg/deltax" },
 ]
  
 function LinkBtn({ href, label }) {
@@ -74,7 +74,7 @@ function ExecutorRow({ ex, i }) {
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 5, flexShrink: 0 }}>
         <div style={{ padding: '3px 10px', borderRadius: 100, background: detColor + '18', color: detColor, border: '1px solid ' + detColor + '30', fontSize: '0.72rem', fontWeight: 600, fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>
-          {ex.detection === 'Undetected' ? 'Undetected' : 'Detected'}
+          {ex.detection}
         </div>
         <div style={{ padding: '3px 10px', borderRadius: 100, background: upColor + '18', color: upColor, border: '1px solid ' + upColor + '30', fontSize: '0.72rem', fontWeight: 600, fontFamily: 'var(--font-body)' }}>
           {ex.up ? 'Updated' : 'Down'}
