@@ -9,6 +9,8 @@ const windowsExecutors = [
   { name: "UniCheats", detection: "Undetected", up: false, price: "14.99$ Lifetime", website: "unicheats.online", purchase: "unicheats.online", discord: "https://discord.gg/t59SbfRea" },
   { name: 'Cosmic', detection: 'Undetected', up: false, price: '$9.99 Lifetime', website: 'cosmic.best', purchase: 'cosmic.best', discord: 'discord.gg/getcosmic' },
   { name: 'Volcano', detection: 'Undetected', up: false, price: '$5.99 Weekly', website: "volcano.wtf", purchase: "robloxcheatz.com", discord: null },
+  { name: 'Isaeva', detection: 'Undetected', up: false, price: '$4.99 Weekly', website: "isaeva.xyz", purchase: "bloxkeys.com", discord: "discord.gg/isaeva" },
+  { name: 'Yub-X', detection: 'Likely Detected', up: true, price: null, website: "yub-x.net", purchase: "yub-x.net", discord: "discord.gg/yubx" },
   { name: 'Velocity', detection: 'Undetected', up: false, price: "Free", website: "realvelocity.xyz" , purchase: null, discord: "discord.gg/velocityide" },
   { name: 'Seliware', detection: 'Detected', up: false, price: "3.99$ Weekly", website: "seliware.com" , purchase: "robloxcheatz.com", discord: "https://discord.gg/theseliware" },
   { name: 'Bunni', detection: 'Detected', up: false, price: "Free", website: null, purchase: "robloxcheatz.com", discord: "discord.gg/bunni-fun" },
