@@ -1,35 +1,35 @@
 import React, { useState } from 'react'
- 
+
 const windowsExecutors = [
-  { name: 'Volt', detection: 'Undetected', up: true, price: '$5.99 Weekly', website: 'volt.bz', purchase: 'robloxcheatz.com', discord: 'discord.gg/voltbz' },
-  { name: 'Potassium', detection: 'Undetected', up: true, price: "$22.99 Lifetime", website: 'potassium.pro', purchase: 'bloxproducts.com', discord: 'discord.gg/potassium' },
-  { name: 'Wave', detection: 'Undetected', up: false, price: "Free", website: 'getwave.gg', purchase: 'robloxcheatz.com', discord: 'discord.gg/ykAyabv9' },
-  { name: 'Synapse Z', detection: 'Detected', up: true, price: '$3.99 Weekly', website: 'z.synapse.do', purchase: 'angxlzz.store/?ref=synz#products', discord: 'discord.gg/synz' },
-  { name: "Madium", detection: "Likely Detected", up: true, price: "Free", website: null, purchase: null, discord: "discord.gg/olemad" },
-  { name: "UniCheats", detection: "Undetected", up: false, price: "14.99$ Lifetime", website: "unicheats.online", purchase: "unicheats.online", discord: "https://discord.gg/t59SbfRea" },
-  { name: 'Cosmic', detection: 'Undetected', up: false, price: '$9.99 Lifetime', website: 'cosmic.best', purchase: 'cosmic.best', discord: 'discord.gg/getcosmic' },
-  { name: 'Volcano', detection: 'Undetected', up: false, price: '$5.99 Weekly', website: "volcano.wtf", purchase: "robloxcheatz.com", discord: null },
-  { name: 'Isaeva', detection: 'Undetected', up: false, price: '$4.99 Weekly', website: "isaeva.xyz", purchase: "bloxkeys.com", discord: "discord.gg/isaeva" },
-  { name: 'Yub-X', detection: 'Likely Detected', up: true, price: null, website: "yub-x.net", purchase: "yub-x.net", discord: "discord.gg/yubx" },
-  { name: 'Velocity', detection: 'Undetected', up: false, price: "Free", website: "realvelocity.xyz" , purchase: null, discord: "discord.gg/velocityide" },
-  { name: 'Seliware', detection: 'Detected', up: false, price: "3.99$ Weekly", website: "seliware.com" , purchase: "robloxcheatz.com", discord: "https://discord.gg/theseliware" },
-  { name: 'Bunni', detection: 'Detected', up: false, price: "Free", website: null, purchase: "robloxcheatz.com", discord: "discord.gg/bunni-fun" },
-  { name: 'SirHurt', detection: 'Undetected', up: true, price: "2.80$ Weekly", website: "sirhurt.net", purchase: "sirhurt.net", discord: "discord.gg/sirhurt" },
-  { name: 'Xeno', detection: 'Undetected', up: true, price: 'Free', website: "xeno.onl", purchase: null, discord: "discord.gg/xe-no" },
-  { name: 'Solara', detection: 'Undetected', up: true, price: 'Free', website: null, purchase: null, discord: "getsolara.dev" },
+  { name: 'Volt', detection: 'Undetected', up: true, price: '$5.99 Weekly', website: 'volt.bz', purchase: 'robloxcheatz.com', discord: 'discord.gg/voltbz', sunc: 'https://sunc.rubis.app/?scrap=R8TAYhDROIHtBfkG&key=ASk65OXbpeyNbEyCKX1nDJaG30mdJ2ap' },
+  { name: 'Potassium', detection: 'Undetected', up: true, price: '$22.99 Lifetime', website: 'potassium.pro', purchase: 'bloxproducts.com', discord: 'discord.gg/potassium', sunc: 'https://sunc.rubis.app/?scrap=WGHMg2g0Eemw56r2&key=8TJfLcbRVBRFIvMy9xBHnFLPrWpsfRbd' },
+  { name: 'Wave', detection: 'Undetected', up: false, price: 'Free', website: 'getwave.gg', purchase: 'robloxcheatz.com', discord: 'discord.gg/ykAyabv9', sunc: 'https://sunc.rubis.app/?scrap=sUSMILer2W4h6cEv&key=H4zy64gtK8cyHnjxH3sZUPLBfNHaGC4A' },
+  { name: 'Synapse Z', detection: 'Detected', up: true, price: '$3.99 Weekly', website: 'z.synapse.do', purchase: 'angxlzz.store/?ref=synz#products', discord: 'discord.gg/synz', sunc: 'https://sunc.rubis.app/?scrap=MyOUpBJFDFjHPf2B&key=Ip7nZqxEdMXK0KMXJ43lInX016T7qztj' },
+  { name: 'Madium', detection: 'Likely Detected', up: true, price: 'Free', website: null, purchase: null, discord: 'discord.gg/olemad', sunc: null },
+  { name: 'UniCheats', detection: 'Undetected', up: false, price: '$14.99 Lifetime', website: 'unicheats.online', purchase: 'unicheats.online', discord: 'https://discord.gg/t59SbfRea', sunc: null },
+  { name: 'Cosmic', detection: 'Undetected', up: false, price: '$9.99 Lifetime', website: 'cosmic.best', purchase: 'cosmic.best', discord: 'discord.gg/getcosmic', sunc: 'https://sunc.rubis.app/?scrap=NnqoAm6x2mMpwvyi&key=HQfS0tCjYBM0lpTacseWOQvmouTs8qWW' },
+  { name: 'Volcano', detection: 'Undetected', up: false, price: '$5.99 Weekly', website: 'volcano.wtf', purchase: 'robloxcheatz.com', discord: null, sunc: 'https://sunc.rubis.app/?scrap=Hi3PrRpwKCKQfSRI&key=zqg8jFsm4mqESnp6hvgSHw1MIrj2vOcT' },
+  { name: 'Isaeva', detection: 'Undetected', up: false, price: '$4.99 Weekly', website: 'isaeva.xyz', purchase: 'bloxkeys.com', discord: 'discord.gg/isaeva', sunc: 'https://sunc.rubis.app/?scrap=PVuBLGuIAxToEuaI&key=ZcCtYcgxGimDL7Q9G9sXw5puKbBH27OX' },
+  { name: 'Yub-X', detection: 'Likely Detected', up: true, price: null, website: 'yub-x.net', purchase: 'yub-x.net', discord: 'discord.gg/yubx', sunc: null },
+  { name: 'Velocity', detection: 'Undetected', up: false, price: 'Free', website: 'realvelocity.xyz', purchase: null, discord: 'discord.gg/velocityide', sunc: 'https://sunc.rubis.app/?scrap=Rz2fo7fxhdneY9d9&key=bQLGtQ5Zln68D9AwzPk52hnYxOtBbcbS' },
+  { name: 'Seliware', detection: 'Detected', up: false, price: '$3.99 Weekly', website: 'seliware.com', purchase: 'robloxcheatz.com', discord: 'https://discord.gg/theseliware', sunc: 'https://sunc.rubis.app/?scrap=uqSvdxDWd0DZ0kDk&key=yc0jD95cspFiF6Cfmh9JbiIJWdRNVA7q' },
+  { name: 'Bunni', detection: 'Detected', up: false, price: 'Free', website: null, purchase: 'robloxcheatz.com', discord: 'discord.gg/bunni-fun', sunc: 'https://sunc.rubis.app/?scrap=0HpHPszmPffbANYH&key=kHnUvVsLbSMqSBydsnmRNy8dsfcFhsXR' },
+  { name: 'SirHurt', detection: 'Undetected', up: true, price: '$2.80 Weekly', website: 'sirhurt.net', purchase: 'sirhurt.net', discord: 'discord.gg/sirhurt', sunc: 'https://sunc.rubis.app/?scrap=IZ2ozXNNm5IkW94m&key=KGgWvHlfq08uaeB9yHt2eSKDBLraYAqO' },
+  { name: 'Xeno', detection: 'Undetected', up: true, price: 'Free', website: 'xeno.onl', purchase: null, discord: 'discord.gg/xe-no', sunc: 'https://sunc.rubis.app/?scrap=bHuVFBkI6jJaT0aX&key=c8yD77H6bDgnptRG0cX0kkVvNePVMBGO' },
+  { name: 'Solara', detection: 'Undetected', up: true, price: 'Free', website: null, purchase: null, discord: 'getsolara.dev', sunc: 'https://sunc.rubis.app/?scrap=uXUVoFhAQ6E6n1C4&key=AC5YL7jPBSBKCq4Y8dtKaFDarBHKTiqp' },
 ]
- 
+
 const androidExecutors = [
-  { name: 'Delta', detection: 'Undetected', up: true, price: 'Free', website: "deltaexploits.gg", purchase: "deltaexploits.gg", discord: "discord.gg/deltax" },
-  { name: 'Vega X', detection: 'Undetected', up: true, price: 'Free', website: "vegax.gg", purchase: "vegaexploits.gg", discord: null },
-  { name: 'Codex', detection: 'Undetected', up: true, price: 'Free', website: "codex.lol", purchase: null, discord: "discord.gg/codexlol" },
-  { name: 'Cryptic', detection: 'Undetected', up: false, price: "Free", website: null, purchase: null, discord: "https://discord.com/invite/vegasupport"},
+  { name: 'Delta', detection: 'Undetected', up: true, price: 'Free', website: 'deltaexploits.gg', purchase: 'deltaexploits.gg', discord: 'discord.gg/deltax', sunc: 'https://sunc.rubis.app/?scrap=ju715lqo46qpiR1c&key=9BRz1IBo7t8vVBaHgnaOZ1xRDNNtdAF9' },
+  { name: 'Vega X', detection: 'Undetected', up: true, price: 'Free', website: 'vegax.gg', purchase: 'vegaexploits.gg', discord: null, sunc: null },
+  { name: 'Codex', detection: 'Undetected', up: true, price: 'Free', website: 'codex.lol', purchase: null, discord: 'discord.gg/codexlol', sunc: 'https://sunc.rubis.app/?scrap=U1qoiWmhnXU4xX8K&key=CJOxliNasyotGtl1QWl2ydRASGmvybqo' },
+  { name: 'Cryptic', detection: 'Undetected', up: false, price: 'Free', website: null, purchase: null, discord: 'https://discord.com/invite/vegasupport', sunc: 'https://sunc.rubis.app/?scrap=pTqBpY0oIxJBpcMV&key=V7fuG4KxZVbyApRXoMZr3OyO34r6LK0I' },
 ]
- 
+
 const iosExecutors = [
-  { name: 'Delta', detection: 'Undetected', up: true, price: 'Free', website: "deltaexploits.gg", purchase: "deltaexploits.gg", discord: "discord.gg/deltax" },
+  { name: 'Delta', detection: 'Undetected', up: true, price: 'Free', website: 'deltaexploits.gg', purchase: 'deltaexploits.gg', discord: 'discord.gg/deltax', sunc: 'https://sunc.rubis.app/?scrap=ju715lqo46qpiR1c&key=9BRz1IBo7t8vVBaHgnaOZ1xRDNNtdAF9' },
 ]
- 
+
 function LinkBtn({ href, label }) {
   if (!href) return null
   const url = href.startsWith('http') ? href : 'https://' + href
@@ -44,15 +44,32 @@ function LinkBtn({ href, label }) {
     >{label}</a>
   )
 }
- 
+
+function SuncBadge({ url }) {
+  if (!url) return null
+  return (
+    <a href={url} target="_blank" rel="noopener noreferrer" style={{
+      textDecoration: 'none', fontSize: '0.7rem', fontFamily: 'var(--font-mono)',
+      color: '#a78bfa',
+      background: 'rgba(167,139,250,0.08)',
+      border: '1px solid rgba(167,139,250,0.2)',
+      borderRadius: 6, padding: '3px 8px',
+      transition: 'all 0.15s', whiteSpace: 'nowrap',
+      fontWeight: 600, letterSpacing: '0.02em',
+    }}
+      onMouseEnter={e => { e.currentTarget.style.background = 'rgba(167,139,250,0.16)'; e.currentTarget.style.borderColor = 'rgba(167,139,250,0.4)'; e.currentTarget.style.color = '#c4b5fd' }}
+      onMouseLeave={e => { e.currentTarget.style.background = 'rgba(167,139,250,0.08)'; e.currentTarget.style.borderColor = 'rgba(167,139,250,0.2)'; e.currentTarget.style.color = '#a78bfa' }}
+    >sUNC ↗</a>
+  )
+}
+
 function ExecutorRow({ ex, i }) {
   const upColor = ex.up ? '#4ade80' : '#e63946'
   const detColor =
-  ex.detection === 'Undetected'
-    ? '#4ade80'  
-    : ex.detection === 'Likely Detected'
-    ? '#a855f7'  
-    : '#fbbf24' 
+    ex.detection === 'Undetected' ? '#4ade80'
+    : ex.detection === 'Likely Detected' ? '#a855f7'
+    : '#fbbf24'
+
   return (
     <div className="exec-row" style={{ animationDelay: i * 0.04 + 's' }}>
       <div style={{ width: 3, alignSelf: 'stretch', background: upColor, borderRadius: 2, flexShrink: 0 }} />
@@ -68,6 +85,7 @@ function ExecutorRow({ ex, i }) {
               border: '1px solid ' + (ex.price === 'Free' ? 'rgba(74,222,128,0.15)' : 'rgba(251,191,36,0.15)'),
             }}>{ex.price}</span>
           )}
+          <SuncBadge url={ex.sunc} />
         </div>
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
           <LinkBtn href={ex.website} label="🌐 Website" />
@@ -80,13 +98,13 @@ function ExecutorRow({ ex, i }) {
           {ex.detection}
         </div>
         <div style={{ padding: '3px 10px', borderRadius: 100, background: upColor + '18', color: upColor, border: '1px solid ' + upColor + '30', fontSize: '0.72rem', fontWeight: 600, fontFamily: 'var(--font-body)' }}>
-          {ex.up ? 'Updated' : 'Down'}
+          {ex.up ? 'Up' : 'Down'}
         </div>
       </div>
     </div>
   )
 }
- 
+
 function Section({ title, executors, startIndex }) {
   if (!executors.length) return null
   return (
@@ -103,7 +121,7 @@ function Section({ title, executors, startIndex }) {
     </div>
   )
 }
- 
+
 export default function Executors() {
   const [search, setSearch] = useState('')
   const f = list => search ? list.filter(e => e.name.toLowerCase().includes(search.toLowerCase())) : list
