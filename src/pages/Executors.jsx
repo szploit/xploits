@@ -2,7 +2,7 @@ import React, { useState } from 'react'
  
 const windowsExecutors = [
   { name: 'Volt', detection: 'Undetected', up: true, price: '$5.99 Weekly', website: 'volt.bz', purchase: 'robloxcheatz.com', discord: 'discord.gg/voltbz' },
-  { name: 'Potassium', detection: 'Undetected', up: true, price: "Free", website: 'potassium.pro', purchase: 'bloxproducts.com', discord: 'discord.gg/potassium' },
+  { name: 'Potassium', detection: 'Undetected', up: true, price: "$22.99 Lifetime", website: 'potassium.pro', purchase: 'bloxproducts.com', discord: 'discord.gg/potassium' },
   { name: 'Wave', detection: 'Undetected', up: false, price: "Free", website: 'getwave.gg', purchase: 'robloxcheatz.com', discord: 'discord.gg/ykAyabv9' },
   { name: 'Synapse Z', detection: 'Detected', up: true, price: '$3.99 Weekly', website: 'z.synapse.do', purchase: 'angxlzz.store/?ref=synz#products', discord: 'discord.gg/synz' },
   { name: "Madium", detection: "Likely Detected", up: true, price: "Free", website: null, purchase: null, discord: "discord.gg/olemad" },
@@ -12,7 +12,7 @@ const windowsExecutors = [
   { name: 'Velocity', detection: 'Undetected', up: false, price: "Free", website: "realvelocity.xyz" , purchase: null, discord: "discord.gg/velocityide" },
   { name: 'Seliware', detection: 'Detected', up: false, price: "3.99$ Weekly", website: "seliware.com" , purchase: "robloxcheatz.com", discord: "https://discord.gg/theseliware" },
   { name: 'Bunni', detection: 'Detected', up: false, price: "Free", website: null, purchase: "robloxcheatz.com", discord: "discord.gg/bunni-fun" },
-  { name: 'SirHurt', detection: 'Undetected', up: true, price: "Free", website: "sirhurt.net", purchase: "sirhurt.net", discord: "discord.gg/sirhurt" },
+  { name: 'SirHurt', detection: 'Undetected', up: true, price: "2.80$ Weekly", website: "sirhurt.net", purchase: "sirhurt.net", discord: "discord.gg/sirhurt" },
   { name: 'Xeno', detection: 'Undetected', up: true, price: 'Free', website: "xeno.onl", purchase: null, discord: "discord.gg/xe-no" },
   { name: 'Solara', detection: 'Undetected', up: true, price: 'Free', website: null, purchase: null, discord: "getsolara.dev" },
 ]
