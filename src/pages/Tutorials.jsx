@@ -8,22 +8,20 @@ const tutorials = [
     tagBg: 'rgba(147,197,253,0.08)',
     tagBorder: 'rgba(147,197,253,0.15)',
     title: 'Getting the Lua State',
-    desc: 'How to retrieve the Lua state from Roblox\'s script context using offsets and decryption.',
+    desc: 'How to get the Lua state from Roblox\'s script context using offsets and decryption.',
     content: `To get the Lua state in a Roblox executor, you need to call GetGlobalState from the script context, then decrypt the result and create a new thread from it.
 
-Here's a clean implementation:`,
+Here's a source:`,
     code: `lua_State* get_lua_state() {
     int32_t ignore = 2;
     uintptr_t ignore1 = { 0 };
 
-    // Get the encrypted global state from the script context
     uintptr_t Gs = Roblox::GetGlobalState(
         get_script_context() + Offsets::LuaState::GlobalState,
         &ignore,
         &ignore1
     );
 
-    // Decrypt the state and create a new thread
     lua_State* state = lua_newthread(
         (lua_State*)(Roblox::DecryptState(Gs + Offsets::LuaState::DecryptState))
     );
@@ -32,9 +30,6 @@ Here's a clean implementation:`,
 }`,
     notes: [
       'Replace Offsets::LuaState::GlobalState and Offsets::LuaState::DecryptState with your current offsets.',
-      'GetGlobalState and DecryptState are Roblox internals — you need to find and hook these yourself.',
-      'The ignore variables are required parameters for GetGlobalState to work correctly.',
-      'Store the returned lua_State* somewhere accessible for your execution pipeline.',
     ],
     link: null,
   },
@@ -45,12 +40,12 @@ Here's a clean implementation:`,
     tagBg: 'rgba(251,191,36,0.08)',
     tagBorder: 'rgba(251,191,36,0.15)',
     title: 'Roblox Offsets',
-    desc: 'Current Roblox memory offsets for executor development. Updated regularly.',
-    content: 'Roblox offsets are memory addresses used to find internal structures like the Lua state, script context, and more. These change every Roblox update and need to be re-found after each patch.',
+    desc: 'Current roblox memory offsets used for developing executors, updated daily by the Yub-X website owner',
+    content: 'Roblox offsets are memory addresses used to find internal structures These change every Roblox update and need to be reversed after each update.',
     code: null,
     notes: [
-      'Offsets change every Roblox update — always verify after a new deployment.',
-      'Use a pattern scanner to automate finding offsets instead of hardcoding them.',
+      'Offsets change every Roblox update.',
+      'Use IDA, Ghidra, or a Pattern Scanner to grab them.',
     ],
     link: { label: 'View Offsets on Yub-X', url: 'https://yub-x.net/hyperion' },
   },
@@ -71,30 +66,22 @@ Here's a clean implementation:`,
 }
 
 local function spoofDevice(deviceType)
-    local targetDevice = deviceSpoofs[deviceType]
-    if not targetDevice then
-        warn("Invalid device type: " .. tostring(deviceType))
-        return
-    end
+    local device = deviceSpoofs[deviceType]
 
     game:GetService("ReplicatedStorage")
         :WaitForChild("Remotes")
         :WaitForChild("Replication")
         :WaitForChild("Fighter")
         :WaitForChild("SetControls")
-        :FireServer(targetDevice)
-
-    print("Spoofed device to: " .. targetDevice)
+        :FireServer(device)
 end
 
--- Usage: change "Mobile" to whichever device you want
 spoofDevice("Mobile")`,
     notes: [
       'Valid options: "Computer", "Mobile", "Console", "VR"',
-      'This fires a legitimate game remote — it\'s not patching memory.',
+      'This fires a legitimate game remote.',
       'May stop working if Rivals updates their remote structure.',
     ],
-    link: { label: 'Join Rivals Cheating Discord', url: 'https://discord.gg/rsdu3mzw' },
   },
   {
     id: 'roblox-math',
@@ -104,36 +91,162 @@ spoofDevice("Mobile")`,
     tagBorder: 'rgba(248,113,113,0.15)',
     title: 'Roblox Math Types',
     desc: 'C++ implementations of Roblox math types: Vector2, Vector3, UDim2, CFrame and more.',
-    content: 'These are clean C++ implementations of the core Roblox math types you\'ll need when building an executor or cheat. Includes Vector2, Vector3, UDim, UDim2, and CFrame with all standard operations.',
-    code: `// Vector3 example
+    content: 'These are clean C++ sources of the Roblox math types you\'ll need when building an external. Includes Vector2, Vector3, UDim, UDim2, and CFrame with all standard operations.',
+    code: `#pragma once
+#include <cmath>
+#include <algorithm>
+
+namespace rbx {
+
+constexpr float kEps = 1e-6f;
+inline bool feq(float a, float b, float e=kEps){ return std::fabs(a-b)<=e; }
+
+struct Vector2 {
+    float x{}, y{};
+    constexpr Vector2()=default;
+    constexpr Vector2(float X,float Y):x(X),y(Y){}
+    static constexpr Vector2 zero(){ return {}; }
+    static constexpr Vector2 one(){ return {1.f,1.f}; }
+    constexpr Vector2 operator+(const Vector2& v) const { return {x+v.x,y+v.y}; }
+    constexpr Vector2 operator-(const Vector2& v) const { return {x-v.x,y-v.y}; }
+    constexpr Vector2 operator*(float s) const { return {x*s,y*s}; }
+    constexpr Vector2 operator/(float s) const { return {x/s,y/s}; }
+    Vector2& operator+=(const Vector2& v){ x+=v.x; y+=v.y; return *this; }
+    Vector2& operator-=(const Vector2& v){ x-=v.x; y-=v.y; return *this; }
+    Vector2& operator*=(float s){ x*=s; y*=s; return *this; }
+    Vector2& operator/=(float s){ x/=s; y/=s; return *this; }
+    constexpr bool operator==(const Vector2& v) const { return feq(x,v.x)&&feq(y,v.y); }
+    constexpr bool operator!=(const Vector2& v) const { return !(*this==v); }
+    float magnitude() const { return std::sqrt(x*x+y*y); }
+    float sqrMagnitude() const { return x*x+y*y; }
+    Vector2 unit() const { float m=magnitude(); return m>kEps?(*this)/m:Vector2{}; }
+    static float dot(const Vector2&a,const Vector2&b){ return a.x*b.x+a.y*b.y; }
+    static Vector2 lerp(const Vector2&a,const Vector2&b,float t){ return a+(b-a)*t; }
+};
+inline Vector2 operator*(float s,const Vector2&v){ return v*s; }
+
 struct Vector3 {
     float x{}, y{}, z{};
+    constexpr Vector3()=default;
+    constexpr Vector3(float X,float Y,float Z):x(X),y(Y),z(Z){}
+    static constexpr Vector3 zero(){ return {}; }
+    static constexpr Vector3 one(){ return {1.f,1.f,1.f}; }
+    static constexpr Vector3 up(){ return {0.f,1.f,0.f}; }
+    static constexpr Vector3 right(){ return {1.f,0.f,0.f}; }
+    static constexpr Vector3 back(){ return {0.f,0.f,1.f}; }
+    constexpr Vector3 operator+(const Vector3& v) const { return {x+v.x,y+v.y,z+v.z}; }
+    constexpr Vector3 operator-(const Vector3& v) const { return {x-v.x,y-v.y,z-v.z}; }
+    constexpr Vector3 operator*(float s) const { return {x*s,y*s,z*s}; }
+    constexpr Vector3 operator/(float s) const { return {x/s,y/s,z/s}; }
+    Vector3& operator+=(const Vector3& v){ x+=v.x; y+=v.y; z+=v.z; return *this; }
+    Vector3& operator-=(const Vector3& v){ x-=v.x; y-=v.y; z-=v.z; return *this; }
+    Vector3& operator*=(float s){ x*=s; y*=s; z*=s; return *this; }
+    Vector3& operator/=(float s){ x/=s; y/=s; z/=s; return *this; }
+    constexpr bool operator==(const Vector3& v) const { return feq(x,v.x)&&feq(y,v.y)&&feq(z,v.z); }
+    constexpr bool operator!=(const Vector3& v) const { return !(*this==v); }
+    float magnitude() const { return std::sqrt(x*x+y*y+z*z); }
+    float sqrMagnitude() const { return x*x+y*y+z*z; }
+    Vector3 unit() const { float m=magnitude(); return m>kEps?(*this)/m:Vector3{}; }
+    static float dot(const Vector3&a,const Vector3&b){ return a.x*b.x+a.y*b.y+a.z*b.z; }
+    static Vector3 cross(const Vector3&a,const Vector3&b){ return {a.y*b.z-a.z*b.y,a.z*b.x-a.x*b.z,a.x*b.y-a.y*b.x}; }
+    static Vector3 lerp(const Vector3&a,const Vector3&b,float t){ return a+(b-a)*t; }
+};
+inline Vector3 operator*(float s,const Vector3&v){ return v*s; }
 
-    Vector3 operator+(const Vector3& v) const { return {x+v.x, y+v.y, z+v.z}; }
-    Vector3 operator-(const Vector3& v) const { return {x-v.x, y-v.y, z-v.z}; }
-    Vector3 operator*(float s)          const { return {x*s,   y*s,   z*s};   }
-
-    float magnitude() const { return std::sqrt(x*x + y*y + z*z); }
-    Vector3 unit()    const { float m = magnitude(); return m > 1e-6f ? (*this)/m : Vector3{}; }
-
-    static float  dot  (const Vector3& a, const Vector3& b) { return a.x*b.x + a.y*b.y + a.z*b.z; }
-    static Vector3 cross(const Vector3& a, const Vector3& b) {
-        return { a.y*b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.x };
-    }
-    static Vector3 lerp(const Vector3& a, const Vector3& b, float t) { return a + (b-a)*t; }
+struct UDim {
+    float Scale{0.f};
+    float Offset{0.f};
+    constexpr UDim()=default;
+    constexpr UDim(float s,float o):Scale(s),Offset(o){}
+    static constexpr UDim fromScale(float s){ return {s,0.f}; }
+    static constexpr UDim fromOffset(float o){ return {0.f,o}; }
+    constexpr UDim operator+(const UDim& u) const { return {Scale+u.Scale,Offset+u.Offset}; }
+    constexpr UDim operator-(const UDim& u) const { return {Scale-u.Scale,Offset-u.Offset}; }
 };
 
-// CFrame lookAt example
-CFrame lookAt(const Vector3& eye, const Vector3& target) {
-    Vector3 f = (target - eye).unit();
-    Vector3 r = Vector3::cross(Vector3{0,1,0}, f).unit();
-    Vector3 u = Vector3::cross(f, r);
-    return CFrame(r.x,r.y,r.z, u.x,u.y,u.z, f.x,f.y,f.z, eye);
+struct UDim2 {
+    UDim X{}, Y{};
+    constexpr UDim2()=default;
+    constexpr UDim2(UDim x,UDim y):X(x),Y(y){}
+    static constexpr UDim2 fromScale(float sx,float sy){ return {UDim{sx,0.f},UDim{sy,0.f}}; }
+    static constexpr UDim2 fromOffset(float ox,float oy){ return {UDim{0.f,ox},UDim{0.f,oy}}; }
+    constexpr UDim2 operator+(const UDim2& u) const { return {X+u.X,Y+u.Y}; }
+    constexpr UDim2 operator-(const UDim2& u) const { return {X-u.X,Y-u.Y}; }
+    static Vector2 resolve(const UDim2& u,float w,float h){ return {u.X.Scale*w+u.X.Offset,u.Y.Scale*h+u.Y.Offset}; }
+    static UDim2 lerp(const UDim2&a,const UDim2&b,float t){
+        return UDim2(
+            UDim(a.X.Scale+(b.X.Scale-a.X.Scale)*t, a.X.Offset+(b.X.Offset-a.X.Offset)*t),
+            UDim(a.Y.Scale+(b.Y.Scale-a.Y.Scale)*t, a.Y.Offset+(b.Y.Offset-a.Y.Offset)*t)
+        );
+    }
+    UDim width() const { return X; }
+    UDim height() const { return Y; }
+};
+
+struct CFrame {
+    float r00{1},r01{0},r02{0};
+    float r10{0},r11{1},r12{0};
+    float r20{0},r21{0},r22{1};
+    Vector3 p{0,0,0};
+    constexpr CFrame()=default;
+    constexpr CFrame(const Vector3& pos):p(pos){}
+    constexpr CFrame(float R00,float R01,float R02,float R10,float R11,float R12,float R20,float R21,float R22,const Vector3& pos)
+        :r00(R00),r01(R01),r02(R02),r10(R10),r11(R11),r12(R12),r20(R20),r21(R21),r22(R22),p(pos){}
+    static CFrame fromEulerXYZ(float rx,float ry,float rz){
+        float cx=std::cos(rx),sx=std::sin(rx),cy=std::cos(ry),sy=std::sin(ry),cz=std::cos(rz),sz=std::sin(rz);
+        float R00=cz*cy, R01=cz*sy*sx - sz*cx, R02=cz*sy*cx + sz*sx;
+        float R10=sz*cy, R11=sz*sy*sx + cz*cx, R12=sz*sy*cx - cz*sx;
+        float R20=-sy,   R21=cy*sx,            R22=cy*cx;
+        return CFrame(R00,R01,R02,R10,R11,R12,R20,R21,R22,{0,0,0});
+    }
+    static CFrame lookAt(const Vector3& eye,const Vector3& target,const Vector3& upHint=Vector3::up()){
+        Vector3 f=(target-eye).unit();
+        Vector3 r=Vector3::cross(upHint.unit(),f).unit();
+        Vector3 u=Vector3::cross(f,r);
+        return CFrame(r.x,r.y,r.z,u.x,u.y,u.z,f.x,f.y,f.z,eye);
+    }
+    CFrame operator*(const CFrame& b) const {
+        CFrame o;
+        o.r00=r00*b.r00 + r01*b.r10 + r02*b.r20;
+        o.r01=r00*b.r01 + r01*b.r11 + r02*b.r21;
+        o.r02=r00*b.r02 + r01*b.r12 + r02*b.r22;
+        o.r10=r10*b.r00 + r11*b.r10 + r12*b.r20;
+        o.r11=r10*b.r01 + r11*b.r11 + r12*b.r21;
+        o.r12=r10*b.r02 + r11*b.r12 + r12*b.r22;
+        o.r20=r20*b.r00 + r21*b.r10 + r22*b.r20;
+        o.r21=r20*b.r01 + r21*b.r11 + r22*b.r21;
+        o.r22=r20*b.r02 + r21*b.r12 + r22*b.r22;
+        o.p.x=r00*b.p.x + r01*b.p.y + r02*b.p.z + p.x;
+        o.p.y=r10*b.p.x + r11*b.p.y + r12*b.p.z + p.y;
+        o.p.z=r20*b.p.x + r21*b.p.y + r22*b.p.z + p.z;
+        return o;
+    }
+    Vector3 pointToWorld(const Vector3& v) const {
+        return {r00*v.x + r01*v.y + r02*v.z + p.x,
+                r10*v.x + r11*v.y + r12*v.z + p.y,
+                r20*v.x + r21*v.y + r22*v.z + p.z};
+    }
+    Vector3 vectorToWorld(const Vector3& v) const {
+        return {r00*v.x + r01*v.y + r02*v.z,
+                r10*v.x + r11*v.y + r12*v.z,
+                r20*v.x + r21*v.y + r22*v.z};
+    }
+    CFrame inverse() const {
+        CFrame inv;
+        inv.r00=r00; inv.r01=r10; inv.r02=r20;
+        inv.r10=r01; inv.r11=r11; inv.r12=r21;
+        inv.r20=r02; inv.r21=r12; inv.r22=r22;
+        inv.p.x=-(inv.r00*p.x + inv.r01*p.y + inv.r02*p.z);
+        inv.p.y=-(inv.r10*p.x + inv.r11*p.y + inv.r12*p.z);
+        inv.p.z=-(inv.r20*p.x + inv.r21*p.y + inv.r22*p.z);
+        return inv;
+    }
+};
+
 }`,
     notes: [
-      'Full implementation includes Vector2, Vector3, UDim, UDim2, and CFrame.',
-      'CFrame uses a 3x3 rotation matrix + position vector (standard Roblox layout).',
-      'All types use float precision — use double if you need more accuracy.',
+      'Full source includes Vector2, Vector3, UDim, UDim2, and CFrame.',
+      'CFrame uses a 3x3 rotation matrix + position vector.',
     ],
     link: null,
   },
@@ -145,35 +258,12 @@ CFrame lookAt(const Vector3& eye, const Vector3& target) {
     tagBorder: 'rgba(167,139,250,0.15)',
     title: 'Free ImGui Designs',
     desc: 'Free ImGui themes and designs for cheat menus.',
-    content: 'A collection of free ImGui themes you can drop into your cheat menu. These cover dark, minimal, and gaming aesthetics. Most are header-only and just need you to call the style function before your ImGui render loop.',
-    code: `// Example: Dark red theme
-void ApplyRedTheme() {
-    ImGuiStyle& style = ImGui::GetStyle();
-    style.WindowRounding    = 6.0f;
-    style.FrameRounding     = 4.0f;
-    style.ScrollbarRounding = 4.0f;
-    style.GrabRounding      = 3.0f;
-
-    ImVec4* colors = style.Colors;
-    colors[ImGuiCol_WindowBg]       = ImVec4(0.06f, 0.06f, 0.06f, 0.96f);
-    colors[ImGuiCol_Header]         = ImVec4(0.55f, 0.08f, 0.10f, 0.80f);
-    colors[ImGuiCol_HeaderHovered]  = ImVec4(0.70f, 0.10f, 0.13f, 0.90f);
-    colors[ImGuiCol_HeaderActive]   = ImVec4(0.85f, 0.12f, 0.16f, 1.00f);
-    colors[ImGuiCol_Button]         = ImVec4(0.55f, 0.08f, 0.10f, 0.80f);
-    colors[ImGuiCol_ButtonHovered]  = ImVec4(0.70f, 0.10f, 0.13f, 0.90f);
-    colors[ImGuiCol_ButtonActive]   = ImVec4(0.85f, 0.12f, 0.16f, 1.00f);
-    colors[ImGuiCol_FrameBg]        = ImVec4(0.12f, 0.12f, 0.12f, 0.80f);
-    colors[ImGuiCol_FrameBgHovered] = ImVec4(0.18f, 0.18f, 0.18f, 0.90f);
-    colors[ImGuiCol_CheckMark]      = ImVec4(0.90f, 0.20f, 0.22f, 1.00f);
-    colors[ImGuiCol_SliderGrab]     = ImVec4(0.80f, 0.15f, 0.18f, 1.00f);
-    colors[ImGuiCol_TitleBgActive]  = ImVec4(0.50f, 0.07f, 0.09f, 1.00f);
-}`,
+    content: 'A collection of free ImGui and paid themes you can drop into your cheat menu.',
+    code: null,
     notes: [
-      'Call ApplyRedTheme() once after ImGui::CreateContext() and before your render loop.',
-      'Tweak the alpha values (4th float) to adjust transparency.',
-      'More free themes available on GitHub — search "imgui themes" or "imgui style".',
+      'All are found on the Free ImGui themes and designs discord, there are multiple that can fit your liking.',
     ],
-    link: null,
+     link: { label: 'Join', url: 'https://discord.gg/rsdu3mzw' },
   },
 ]
 
@@ -217,7 +307,7 @@ function TutorialCard({ t, i }) {
       animation: 'fadeUp 0.4s ease both', animationDelay: i * 0.07 + 's',
       transition: 'border-color 0.2s',
     }}>
-      {/* Header - always visible */}
+      {}
       <div onClick={() => setOpen(o => !o)} style={{
         padding: '1.25rem 1.5rem', cursor: 'pointer', display: 'flex',
         alignItems: 'center', gap: 12,
