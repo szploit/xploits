@@ -30,7 +30,7 @@
     "active": true,
     "targets": "all",
     "icon": [
-      "icons/icon.png"
+      "icons/icon.ico"
     ],
     "windows": {
       "certificateThumbprint": null,
@@ -38,6 +38,6 @@
       "timestampUrl": ""
     },
     "shortDescription": "Roblox exploit tracker",
-    "longDescription": "Xploits the best Roblox exploit tracker, Live status, tools, and tutorials"
+    "longDescription": "Xploits, the best Roblox exploit tracker. Live status, tools, and tutorials."
   }
 }
