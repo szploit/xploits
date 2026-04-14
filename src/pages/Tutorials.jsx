@@ -251,8 +251,8 @@ struct CFrame {
     link: null,
   },
   {
-    id: 'imgui',
-    tag: 'ImGui',
+    id: 'datamodel',
+    tag: 'C++',
     tagColor: '#a78bfa',
     tagBg: 'rgba(167,139,250,0.08)',
     tagBorder: 'rgba(167,139,250,0.15)',
@@ -264,6 +264,27 @@ struct CFrame {
       'All are found on the Free ImGui themes and designs discord, there are multiple that can fit your liking.',
     ],
      link: { label: 'Join', url: 'https://discord.gg/rsdu3mzw' },
+  },
+  {
+    id: 'imgui',
+    tag: 'ImGui',
+    tagColor: '#a78bfa',
+    tagBg: 'rgba(167,139,250,0.08)',
+    tagBorder: 'rgba(167,139,250,0.15)',
+    title: 'Getting DataModel Externally',
+    desc: 'DataModel is a tree like structure that includes the workspace, replicatedStorage, and more. it has to be in every external',
+    content: 'This is the code of how to get the DataModel externally.',
+    code: `uintptr_t task_scheduler::get_data_model()
+    {
+    const uintptr_t fake_dm = memory->read<uintptr_t>(globals::base + offsets::datamodel::fakedatamodel);
+    return memory->read<uintptr_t>(fake_dm + offsets::datamodel::fakedmtodm);
+    }`,
+    notes: [
+      'Add the FakeDataModel offset to your Roblox module base',
+      "Then add the FakeDataModelToRealDataModel offset to your added offset which is the module base + the FakeDataModel",
+      "This will return the real DataModel",
+    ],
+     link: null,
   },
 ]
 
