@@ -266,7 +266,7 @@ struct CFrame {
      link: { label: 'Join', url: 'https://discord.gg/rsdu3mzw' },
   },
   {
-    id: 'datamodel',
+    id: 'imgui',
     tag: 'C++',
     tagColor: '#a78bfa',
     tagBg: 'rgba(167,139,250,0.08)',
