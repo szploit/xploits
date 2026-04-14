@@ -56,7 +56,16 @@ export default function Navbar() {
           )
         })}
       </div>
-
+      <a href="https://github.com/szploit/xploits/releases/download/V1.0.0/Xploits.exe" target="_blank" rel="noopener noreferrer" style={{
+  textDecoration: 'none', padding: '7px 18px', borderRadius: 8,
+  background: 'transparent', color: '#fff', fontFamily: 'var(--font-body)',
+  fontWeight: 600, fontSize: '0.85rem',
+  border: '1px solid var(--muted2)',
+  cursor: 'pointer', transition: 'all 0.2s ease', marginRight: 8,
+}}
+  onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(230,57,70,0.4)'; e.currentTarget.style.background = 'rgba(230,57,70,0.06)' }}
+  onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--muted2)'; e.currentTarget.style.background = 'transparent' }}
+>⬇ Download</a>
       <a href="https://discord.gg/jeyCcaC3" target="_blank" rel="noopener noreferrer" style={{
         textDecoration: 'none', padding: '7px 18px', borderRadius: 8,
         background: 'var(--red)', color: '#fff', fontFamily: 'var(--font-body)',
