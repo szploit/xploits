@@ -246,19 +246,19 @@ function WebhookSender() {
           <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
             <div>
               <label style={labelStyle}>Alert Title</label>
-              <input value={alertTitle} onChange={e => setAlertTitle(e.target.value)} placeholder="e.g. SUCCESS: INVITE SENT" style={inputStyle} />
+              <input value={alertTitle} onChange={e => setAlertTitle(e.target.value)} placeholder="e.g. SUCCESS: USER VISITED" style={inputStyle} />
             </div>
             <div>
               <label style={labelStyle}>Message</label>
-              <textarea value={alertMsg} onChange={e => setAlertMsg(e.target.value)} placeholder="e.g. Invite successfully sent to Username: pixll_phantom" style={{ ...inputStyle, minHeight:70, resize:'vertical' }} />
+              <textarea value={alertMsg} onChange={e => setAlertMsg(e.target.value)} placeholder="e.g. TOTAL VISITS: ..." style={{ ...inputStyle, minHeight:70, resize:'vertical' }} />
             </div>
             <div>
               <label style={labelStyle}>Target Info</label>
-              <input value={alertTarget} onChange={e => setAlertTarget(e.target.value)} placeholder="e.g. Cappuccino Assassino | Mut: Diamond" style={inputStyle} />
+              <input value={alertTarget} onChange={e => setAlertTarget(e.target.value)} placeholder="e.g. XPLOITS VISITS: ..." style={inputStyle} />
             </div>
             <div>
               <label style={labelStyle}>Footer Text</label>
-              <input value={alertFooter} onChange={e => setAlertFooter(e.target.value)} placeholder="e.g. VoidExternal | Automated System" style={inputStyle} />
+              <input value={alertFooter} onChange={e => setAlertFooter(e.target.value)} placeholder="e.g. Xploits Automated System" style={inputStyle} />
             </div>
           </div>
         )}
