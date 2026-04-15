@@ -328,7 +328,6 @@ function RobloxUserLookup() {
     const data = await fetchJsonFrom(
       [
         'https://users.roproxy.com/v1/usernames/users',
-        'https://users.roblox.com/v1/usernames/users',
       ],
       {
         method: 'POST',
@@ -362,55 +361,46 @@ function RobloxUserLookup() {
         fetchJsonFrom(
           [
             `https://users.roproxy.com/v1/users/${userId}`,
-            `https://users.roblox.com/v1/users/${userId}`,
           ]
         ),
         fetchJsonFrom(
           [
             `https://users.roproxy.com/v1/users/${userId}/username-history?limit=20&sortOrder=Desc`,
-            `https://users.roblox.com/v1/users/${userId}/username-history?limit=20&sortOrder=Desc`,
           ]
         ).catch(() => ({ data: [] })),
         fetchJsonFrom(
           [
             `https://friends.roproxy.com/v1/users/${userId}/friends/count`,
-            `https://friends.roblox.com/v1/users/${userId}/friends/count`,
           ]
         ).catch(() => ({ count: 0 })),
         fetchJsonFrom(
           [
             `https://friends.roproxy.com/v1/users/${userId}/followers/count`,
-            `https://friends.roblox.com/v1/users/${userId}/followers/count`,
           ]
         ).catch(() => ({ count: 0 })),
         fetchJsonFrom(
           [
             `https://friends.roproxy.com/v1/users/${userId}/followings/count`,
-            `https://friends.roblox.com/v1/users/${userId}/followings/count`,
           ]
         ).catch(() => ({ count: 0 })),
         fetchJsonFrom(
           [
             `https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds=${userId}&size=352x352&format=Png&isCircular=false`,
-            `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=352x352&format=Png&isCircular=false`,
           ]
         ).catch(() => ({ data: [] })),
         fetchJsonFrom(
           [
             `https://groups.roproxy.com/v2/users/${userId}/groups/roles`,
-            `https://groups.roblox.com/v2/users/${userId}/groups/roles`,
           ]
         ).catch(() => ({ data: [] })),
         fetchJsonFrom(
           [
             `https://inventory.roproxy.com/v1/users/${userId}/can-view-inventory`,
-            `https://inventory.roblox.com/v1/users/${userId}/can-view-inventory`,
           ]
         ).catch(() => ({ canView: false })),
         fetchJsonFrom(
           [
             `https://games.roproxy.com/v2/users/${userId}/games?accessFilter=Public&limit=10&sortOrder=Desc`,
-            `https://games.roblox.com/v2/users/${userId}/games?accessFilter=Public&limit=10&sortOrder=Desc`,
           ]
         ).catch(() => ({ data: [] })),
       ])
@@ -432,7 +422,12 @@ function RobloxUserLookup() {
         games: createdGames.data || [],
       })
     } catch (err) {
-      setError(err?.message || 'Lookup failed')
+      const msg = err?.message || ''
+      if (msg.toLowerCase().includes('failed to fetch') || msg.toLowerCase().includes('network')) {
+        setError('Lookup failed: network/CORS blocked. Try again in a moment or use a backend proxy endpoint.')
+      } else {
+        setError(msg || 'Lookup failed')
+      }
     } finally {
       setLoading(false)
     }
