@@ -335,7 +335,7 @@ function RobloxUserLookup() {
         body: JSON.stringify(body),
       }
     )
-    if (!data?.data?.length) throw new Error('User not found')
+    if (!data || !data.data || !data.data.length) throw new Error('User not found')
     return data.data[0].id
   }
 
@@ -413,10 +413,10 @@ function RobloxUserLookup() {
         description: userInfo.description || 'No description',
         isBanned: Boolean(userInfo.isBanned),
         oldUsernames: (usernameHistory.data || []).map(item => item.name).filter(Boolean),
-        friends: friendCount.count ?? 0,
-        followers: followerCount.count ?? 0,
-        following: followingCount.count ?? 0,
-        avatarImage: avatarThumb.data?.[0]?.imageUrl || '',
+        friends: friendCount && typeof friendCount.count === 'number' ? friendCount.count : 0,
+        followers: followerCount && typeof followerCount.count === 'number' ? followerCount.count : 0,
+        following: followingCount && typeof followingCount.count === 'number' ? followingCount.count : 0,
+        avatarImage: avatarThumb && avatarThumb.data && avatarThumb.data[0] ? avatarThumb.data[0].imageUrl || '' : '',
         groups: groupRoles.data || [],
         canViewInventory: Boolean(inventoryAccess.canView),
         games: createdGames.data || [],
@@ -492,7 +492,7 @@ function RobloxUserLookup() {
               <strong>Old Usernames:</strong> {result.oldUsernames.length ? result.oldUsernames.slice(0, 10).join(', ') : 'None found'}
             </div>
             <div style={{ fontSize:'0.8rem' }}>
-              <strong>Groups:</strong> {result.groups.length ? result.groups.slice(0, 8).map(g => g.group?.name).filter(Boolean).join(', ') : 'No groups found'}
+              <strong>Groups:</strong> {result.groups.length ? result.groups.slice(0, 8).map(g => (g && g.group ? g.group.name : '')).filter(Boolean).join(', ') : 'No groups found'}
             </div>
             <div style={{ fontSize:'0.8rem' }}>
               <strong>Created Games:</strong> {result.games.length ? result.games.slice(0, 8).map(g => g.name).join(', ') : 'No public games found'}
