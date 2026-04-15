@@ -8,7 +8,7 @@ const tutorials = [
     tagBg: 'rgba(147,197,253,0.08)',
     tagBorder: 'rgba(147,197,253,0.15)',
     title: 'Getting the Lua State',
-    desc: 'How to get the Lua state from Roblox\'s script context using offsets and decryption.',
+    desc: 'How to get the Lua state from Roblox\'s script context using offsets and more.',
     content: `To get the Lua state in a Roblox executor, you need to call GetGlobalState from the script context, then decrypt the result and create a new thread from it.
 
 Here's a source:`,
