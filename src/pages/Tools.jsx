@@ -297,11 +297,229 @@ function WebhookSender() {
   )
 }
 
+function RobloxUserLookup() {
+  const [query, setQuery] = useState('')
+  const [result, setResult] = useState(null)
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const fetchJsonFrom = async (endpoints, options) => {
+    let lastError = null
+    for (const endpoint of endpoints) {
+      try {
+        const res = await fetch(endpoint, options)
+        if (!res.ok) {
+          lastError = new Error(`HTTP ${res.status}`)
+          continue
+        }
+        return await res.json()
+      } catch (err) {
+        lastError = err
+      }
+    }
+    throw lastError || new Error('Failed to fetch data')
+  }
+
+  const normalizeUserId = async value => {
+    const trimmed = value.trim()
+    if (/^\d+$/.test(trimmed)) return Number(trimmed)
+
+    const body = { usernames: [trimmed], excludeBannedUsers: false }
+    const data = await fetchJsonFrom(
+      [
+        'https://users.roproxy.com/v1/usernames/users',
+        'https://users.roblox.com/v1/usernames/users',
+      ],
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      }
+    )
+    if (!data?.data?.length) throw new Error('User not found')
+    return data.data[0].id
+  }
+
+  const lookup = async () => {
+    if (!query.trim()) return
+    setLoading(true)
+    setError('')
+    setResult(null)
+
+    try {
+      const userId = await normalizeUserId(query)
+      const [
+        userInfo,
+        usernameHistory,
+        friendCount,
+        followerCount,
+        followingCount,
+        avatarThumb,
+        groupRoles,
+        inventoryAccess,
+        createdGames,
+      ] = await Promise.all([
+        fetchJsonFrom(
+          [
+            `https://users.roproxy.com/v1/users/${userId}`,
+            `https://users.roblox.com/v1/users/${userId}`,
+          ]
+        ),
+        fetchJsonFrom(
+          [
+            `https://users.roproxy.com/v1/users/${userId}/username-history?limit=20&sortOrder=Desc`,
+            `https://users.roblox.com/v1/users/${userId}/username-history?limit=20&sortOrder=Desc`,
+          ]
+        ).catch(() => ({ data: [] })),
+        fetchJsonFrom(
+          [
+            `https://friends.roproxy.com/v1/users/${userId}/friends/count`,
+            `https://friends.roblox.com/v1/users/${userId}/friends/count`,
+          ]
+        ).catch(() => ({ count: 0 })),
+        fetchJsonFrom(
+          [
+            `https://friends.roproxy.com/v1/users/${userId}/followers/count`,
+            `https://friends.roblox.com/v1/users/${userId}/followers/count`,
+          ]
+        ).catch(() => ({ count: 0 })),
+        fetchJsonFrom(
+          [
+            `https://friends.roproxy.com/v1/users/${userId}/followings/count`,
+            `https://friends.roblox.com/v1/users/${userId}/followings/count`,
+          ]
+        ).catch(() => ({ count: 0 })),
+        fetchJsonFrom(
+          [
+            `https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds=${userId}&size=352x352&format=Png&isCircular=false`,
+            `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=352x352&format=Png&isCircular=false`,
+          ]
+        ).catch(() => ({ data: [] })),
+        fetchJsonFrom(
+          [
+            `https://groups.roproxy.com/v2/users/${userId}/groups/roles`,
+            `https://groups.roblox.com/v2/users/${userId}/groups/roles`,
+          ]
+        ).catch(() => ({ data: [] })),
+        fetchJsonFrom(
+          [
+            `https://inventory.roproxy.com/v1/users/${userId}/can-view-inventory`,
+            `https://inventory.roblox.com/v1/users/${userId}/can-view-inventory`,
+          ]
+        ).catch(() => ({ canView: false })),
+        fetchJsonFrom(
+          [
+            `https://games.roproxy.com/v2/users/${userId}/games?accessFilter=Public&limit=10&sortOrder=Desc`,
+            `https://games.roblox.com/v2/users/${userId}/games?accessFilter=Public&limit=10&sortOrder=Desc`,
+          ]
+        ).catch(() => ({ data: [] })),
+      ])
+
+      setResult({
+        id: userInfo.id,
+        username: userInfo.name,
+        displayName: userInfo.displayName,
+        created: userInfo.created ? new Date(userInfo.created).toLocaleString() : 'Unknown',
+        description: userInfo.description || 'No description',
+        isBanned: Boolean(userInfo.isBanned),
+        oldUsernames: (usernameHistory.data || []).map(item => item.name).filter(Boolean),
+        friends: friendCount.count ?? 0,
+        followers: followerCount.count ?? 0,
+        following: followingCount.count ?? 0,
+        avatarImage: avatarThumb.data?.[0]?.imageUrl || '',
+        groups: groupRoles.data || [],
+        canViewInventory: Boolean(inventoryAccess.canView),
+        games: createdGames.data || [],
+      })
+    } catch (err) {
+      setError(err?.message || 'Lookup failed')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const fieldStyle = {
+    background: 'var(--bg)',
+    border: '1px solid var(--muted2)',
+    borderRadius: 8,
+    padding: '10px 12px',
+  }
+
+  return (
+    <div>
+      <p style={{ color:'var(--muted)', fontSize:'0.78rem', marginTop:0, marginBottom:10 }}>
+        Public profile lookup only. No password or private account data is requested.
+      </p>
+      <div style={{ display:'flex', gap:8 }}>
+        <input
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          placeholder="Enter Roblox username or user ID"
+          style={{ flex:1, background:'var(--bg)', border:'1px solid var(--muted2)', borderRadius:8, padding:'8px 14px', color:'var(--text)', fontFamily:'var(--font-mono)', fontSize:'0.8rem', outline:'none' }}
+        />
+        <button
+          onClick={lookup}
+          disabled={loading}
+          style={{ padding:'8px 18px', borderRadius:8, background:loading ? 'var(--surface)' : 'var(--red)', color:'#fff', border:'none', cursor:loading ? 'not-allowed' : 'pointer', fontSize:'0.85rem', fontWeight:600, fontFamily:'var(--font-body)' }}
+        >
+          {loading ? 'Searching...' : 'Lookup'}
+        </button>
+      </div>
+
+      {error && (
+        <div style={{ marginTop:10, color:'#ff8b8b', fontSize:'0.8rem' }}>
+          {error}
+        </div>
+      )}
+
+      {result && (
+        <div style={{ marginTop:12, display:'flex', flexDirection:'column', gap:10 }}>
+          <div style={{ ...fieldStyle, display:'flex', gap:14, alignItems:'center', flexWrap:'wrap' }}>
+            {result.avatarImage ? (
+              <img src={result.avatarImage} alt="Avatar" style={{ width:58, height:58, borderRadius:8, border:'1px solid var(--muted2)' }} />
+            ) : null}
+            <div>
+              <div style={{ fontSize:'0.95rem', fontWeight:700, fontFamily:'var(--font-display)' }}>
+                {result.displayName} <span style={{ color:'var(--muted)', fontWeight:400 }}>@{result.username}</span>
+              </div>
+              <div style={{ fontSize:'0.78rem', color:'var(--muted)' }}>
+                User ID: {result.id}
+              </div>
+            </div>
+          </div>
+
+          <div style={{ ...fieldStyle, display:'grid', gap:6 }}>
+            <div style={{ fontSize:'0.8rem' }}><strong>Created:</strong> {result.created}</div>
+            <div style={{ fontSize:'0.8rem' }}><strong>Banned/Terminated:</strong> {result.isBanned ? 'Yes' : 'No'}</div>
+            <div style={{ fontSize:'0.8rem' }}><strong>Friends:</strong> {result.friends} | <strong>Followers:</strong> {result.followers} | <strong>Following:</strong> {result.following}</div>
+            <div style={{ fontSize:'0.8rem' }}><strong>Inventory Public:</strong> {result.canViewInventory ? 'Yes' : 'No'}</div>
+            <div style={{ fontSize:'0.8rem' }}>
+              <strong>Old Usernames:</strong> {result.oldUsernames.length ? result.oldUsernames.slice(0, 10).join(', ') : 'None found'}
+            </div>
+            <div style={{ fontSize:'0.8rem' }}>
+              <strong>Groups:</strong> {result.groups.length ? result.groups.slice(0, 8).map(g => g.group?.name).filter(Boolean).join(', ') : 'No groups found'}
+            </div>
+            <div style={{ fontSize:'0.8rem' }}>
+              <strong>Created Games:</strong> {result.games.length ? result.games.slice(0, 8).map(g => g.name).join(', ') : 'No public games found'}
+            </div>
+          </div>
+
+          <div style={fieldStyle}>
+            <div style={{ fontSize:'0.72rem', color:'var(--muted)', marginBottom:4 }}>Account Description</div>
+            <div style={{ fontSize:'0.8rem', whiteSpace:'pre-wrap' }}>{result.description}</div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 const tools = [
   { id:'webhook', title:'Webhook Sender', desc:'Send custom messages to any Discord webhook', component:<WebhookSender /> },
   { id:'unc', title:'UNC Checker', desc:'Detect UNC functions in your scripts', component:<UNCChecker /> },
   { id:'b64', title:'Base64 Encoder / Decoder', desc:'Encode or decode base64 strings', component:<Base64Tool /> },
   { id:'ver', title:'Version Hash Lookup', desc:'Look up Roblox version hashes', component:<VersionLookup /> },
+  { id:'roblox-user', title:'Roblox User Lookup', desc:'Find public account details by username or ID', component:<RobloxUserLookup /> },
 ]
 
 export default function Tools() {
