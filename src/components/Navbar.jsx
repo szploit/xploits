@@ -6,7 +6,6 @@ const links = [
   { to: '/executors', label: 'Executors' },
   { to: '/externals', label: 'Externals' },
   { to: '/tools', label: 'Tools' },
-  { to: '/upload', label: 'Upload' },
   { to: '/rdd', label: 'RDD' },
   { to: '/tutorials', label: 'Tutorials' },
 ]
