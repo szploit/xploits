@@ -1,24 +1,42 @@
-import { saveScript } from './_store.js'
-
-export default function handler(req, res) {
-  if (req.method !== 'POST') {
-    res.status(405).json({ error: 'Method not allowed' })
-    return
+    })
   }
-
-  const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {})
-  const name = typeof body.name === 'string' ? body.name : ''
-  const content = typeof body.content === 'string' ? body.content : ''
-
+  let body = null
+  try {
+    body = await request.json()
+  } catch {
+    return new Response(JSON.stringify({ error: 'Invalid JSON body' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    })
+  }
+  const name = typeof body?.name === 'string' ? body.name : ''
+  const content = typeof body?.content === 'string' ? body.content : ''
   if (!content.trim()) {
-    res.status(400).json({ error: 'Script content is required' })
-    return
+    return new Response(JSON.stringify({ error: 'Script content is required' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    })
   }
-
-  const token = saveScript({ name, content })
-  const origin = `https://${req.headers.host}`
-  res.status(200).json({
+  let token = createToken()
+  // Keep token unique.
+  while (await env.SCRIPTS.get(token)) token = createToken()
+  await env.SCRIPTS.put(
     token,
-    url: `${origin}/api/${token}/script`,
-  })
+    JSON.stringify({
+      name,
+      content,
+      createdAt: Date.now(),
+    }),
+  )
+  const origin = new URL(request.url).origin
+  return new Response(
+    JSON.stringify({
+      token,
+      url: `${origin}/api/${token}/script`,
+    }),
+    {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    },
+  )
 }
