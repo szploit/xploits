@@ -7,7 +7,6 @@ import Externals from './pages/Externals.jsx'
 import Tools from './pages/Tools.jsx'
 import RDD from './pages/RDD.jsx'
 import Tutorials from './pages/Tutorials.jsx'
-import Upload from './pages/Upload.jsx'
 
 function PageWrapper({ children }) {
   const [visible, setVisible] = useState(false)
