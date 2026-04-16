@@ -54,7 +54,7 @@ export default function Upload() {
       }
       if (!res.ok || !data?.url) {
         if (!res.ok && !data) {
-          throw new Error('Upload API unavailable. If local, run with Vercel (`vercel dev`) or deploy.')
+          throw new Error('Upload API unavailable. On Cloudflare, deploy Pages Functions and bind KV namespace SCRIPTS.')
         }
         throw new Error(data?.error || 'Upload failed')
       }
