@@ -44,8 +44,6 @@ export default function Upload() {
     setCopied(false)
 
     try {
-      // Frontend placeholder: token generation. Replace with a real API call
-      // if you want to persist scripts server-side.
       await new Promise(resolve => setTimeout(resolve, 700))
       const token = makeToken()
       setGeneratedLink(`https://xploits.xyz/api/${token}/script`)
@@ -148,7 +146,7 @@ export default function Upload() {
 
         {error && (
           <div style={{ marginTop: 10, padding: '10px 14px', borderRadius: 8, background: 'rgba(230,57,70,0.08)', border: '1px solid rgba(230,57,70,0.2)', color: '#ff8b8b', fontSize: '0.82rem', fontFamily: 'var(--font-body)' }}>
-            ✗ {error}
+            X {error}
           </div>
         )}
 
