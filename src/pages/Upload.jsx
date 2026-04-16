@@ -1,14 +1,5 @@
 import React, { useMemo, useState } from 'react'
 
-function makeToken(length = 14) {
-  const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-  let out = ''
-  for (let i = 0; i < length; i += 1) {
-    out += chars[Math.floor(Math.random() * chars.length)]
-  }
-  return out
-}
-
 export default function Upload() {
   const [scriptName, setScriptName] = useState('')
   const [scriptText, setScriptText] = useState('')
@@ -44,11 +35,24 @@ export default function Upload() {
     setCopied(false)
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 700))
-      const token = makeToken()
-      setGeneratedLink(`https://xploits.xyz/api/${token}/script`)
-    } catch {
-      setError('Upload failed')
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: scriptName.trim(),
+          content: scriptText,
+        }),
+      })
+      const data = await res.json()
+      if (!res.ok || !data?.url) {
+        throw new Error(data?.error || 'Upload failed')
+      }
+      const absoluteUrl = data.url.startsWith('http')
+        ? data.url
+        : `${window.location.origin}${data.url}`
+      setGeneratedLink(absoluteUrl)
+    } catch (err) {
+      setError(err?.message || 'Upload failed')
     }
 
     setLoading(false)
