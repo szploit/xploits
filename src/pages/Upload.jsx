@@ -43,8 +43,19 @@ export default function Upload() {
           content: scriptText,
         }),
       })
-      const data = await res.json()
+      const raw = await res.text()
+      let data = null
+      if (raw) {
+        try {
+          data = JSON.parse(raw)
+        } catch {
+          data = null
+        }
+      }
       if (!res.ok || !data?.url) {
+        if (!res.ok && !data) {
+          throw new Error('Upload API unavailable. If local, run with Vercel (`vercel dev`) or deploy.')
+        }
         throw new Error(data?.error || 'Upload failed')
       }
       const absoluteUrl = data.url.startsWith('http')
