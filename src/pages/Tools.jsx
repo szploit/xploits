@@ -72,6 +72,97 @@ function VersionLookup() {
   )
 }
 
+function IPLookupTool() {
+  const [query, setQuery] = useState('')
+  const [result, setResult] = useState(null)
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const lookup = async () => {
+    setError('')
+    setResult(null)
+    setLoading(true)
+
+    try {
+      const target = query.trim()
+      const url = target
+        ? `https://ipapi.co/${encodeURIComponent(target)}/json/`
+        : 'https://ipapi.co/json/'
+
+      const res = await fetch(url)
+      const data = await res.json()
+
+      if (!res.ok || data.error) {
+        throw new Error(data.reason || 'Lookup failed')
+      }
+
+      setResult({
+        ip: data.ip || 'N/A',
+        city: data.city || 'N/A',
+        region: data.region || 'N/A',
+        country: data.country_name && data.country_code ? `${data.country_name} (${data.country_code})` : (data.country_name || 'N/A'),
+        postal: data.postal || 'N/A',
+        timezone: data.timezone || 'N/A',
+        org: data.org || 'N/A',
+        asn: data.asn || 'N/A',
+        latitude: data.latitude ?? 'N/A',
+        longitude: data.longitude ?? 'N/A',
+      })
+    } catch (err) {
+      setError(err?.message || 'Network error')
+    }
+
+    setLoading(false)
+  }
+
+  const inputStyle = {
+    width:'100%',
+    background:'var(--bg)',
+    border:'1px solid var(--muted2)',
+    borderRadius:8,
+    padding:'8px 14px',
+    color:'var(--text)',
+    fontFamily:'var(--font-mono)',
+    fontSize:'0.8rem',
+    outline:'none',
+  }
+
+  return (
+    <div>
+      <div style={{ display:'flex', gap:8 }}>
+        <input
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          placeholder="IP or domain (blank = your IP)"
+          style={{ ...inputStyle, flex:1 }}
+        />
+        <button onClick={lookup} disabled={loading} style={{ padding:'8px 18px', borderRadius:8, background:loading ? 'var(--surface)' : 'var(--red)', color:'#fff', border:'none', cursor:loading ? 'not-allowed' : 'pointer', fontSize:'0.85rem', fontWeight:600, fontFamily:'var(--font-body)' }}>
+          {loading ? '...' : 'Look up'}
+        </button>
+      </div>
+
+      {error && (
+        <div style={{ marginTop:10, padding:'10px 14px', borderRadius:8, background:'rgba(230,57,70,0.08)', border:'1px solid rgba(230,57,70,0.2)', color:'#ff8b8b', fontSize:'0.82rem', fontFamily:'var(--font-body)' }}>
+          ✗ {error}
+        </div>
+      )}
+
+      {result && (
+        <div style={{ marginTop:12, padding:'12px 16px', background:'var(--bg)', border:'1px solid var(--muted2)', borderRadius:8 }}>
+          <div style={{ display:'flex', gap:24, flexWrap:'wrap' }}>
+            {Object.entries(result).map(([k, v]) => (
+              <div key={k}>
+                <div style={{ fontSize:'0.7rem', color:'var(--muted)', marginBottom:2, textTransform:'capitalize' }}>{k}</div>
+                <div style={{ fontFamily:'var(--font-mono)', fontSize:'0.8rem', color:'#4ade80' }}>{String(v)}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 // Webhook Sender
 const STYLES = [
   { id: 'plain', label: 'Plain Text', desc: 'Simple message, no embeds' },
@@ -385,6 +476,7 @@ const tools = [
   { id:'unc', title:'UNC Checker', desc:'Detect UNC functions in your scripts', component:<UNCChecker /> },
   { id:'b64', title:'Base64 Encoder / Decoder', desc:'Encode or decode base64 strings', component:<Base64Tool /> },
   { id:'ver', title:'Version Hash Lookup', desc:'Look up Roblox version hashes', component:<VersionLookup /> },
+  { id:'ip', title:'IP Address Lookup', desc:'Shows public geolocation and network metadata', component:<IPLookupTool /> },
   { id:'lua-obf', title:'Lua Script Obfuscator', desc:'Convert Lua source into a basic encoded loader', component:<LuaObfuscator /> },
 ]
 
