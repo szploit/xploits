@@ -5,8 +5,6 @@ import Home from './pages/Home.jsx'
 import Executors from './pages/Executors.jsx'
 import Externals from './pages/Externals.jsx'
 import Tools from './pages/Tools.jsx'
-import RDD from './pages/RDD.jsx'
-import Tutorials from './pages/Tutorials.jsx'
 import Upload from './pages/Upload.jsx'
 
 function PageWrapper({ children }) {
@@ -16,8 +14,14 @@ function PageWrapper({ children }) {
     const t = setTimeout(() => setVisible(true), 20)
     return () => clearTimeout(t)
   }, [children])
+
   return (
-    <div style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(12px)', transition: 'opacity 0.4s ease, transform 0.4s ease', minHeight: '100vh' }}>
+    <div style={{
+      opacity: visible ? 1 : 0,
+      transform: visible ? 'translateY(0)' : 'translateY(12px)',
+      transition: 'opacity 0.4s ease, transform 0.4s ease',
+      minHeight: '100vh',
+    }}>
       {children}
     </div>
   )
@@ -33,9 +37,8 @@ export default function App() {
         <Route path="/executors" element={<PageWrapper><Executors /></PageWrapper>} />
         <Route path="/externals" element={<PageWrapper><Externals /></PageWrapper>} />
         <Route path="/tools" element={<PageWrapper><Tools /></PageWrapper>} />
-        <Route path="/rdd" element={<PageWrapper><RDD /></PageWrapper>} />
-        <Route path="/tutorials" element={<PageWrapper><Tutorials /></PageWrapper>} />
         <Route path="/upload" element={<PageWrapper><Upload /></PageWrapper>} />
+        <Route path="/uploads" element={<PageWrapper><Upload /></PageWrapper>} />
       </Routes>
     </>
   )
