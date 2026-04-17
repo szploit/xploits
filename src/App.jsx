@@ -34,7 +34,6 @@ export default function App() {
         <Route path="/tools" element={<PageWrapper><Tools /></PageWrapper>} />
         <Route path="/rdd" element={<PageWrapper><RDD /></PageWrapper>} />
         <Route path="/tutorials" element={<PageWrapper><Tutorials /></PageWrapper>} />
-        <Route path="/upload" element={<PageWrapper><Upload /></PageWrapper>} />
       </Routes>
     </>
   )
