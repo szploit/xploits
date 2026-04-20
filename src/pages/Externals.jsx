@@ -2,7 +2,7 @@ import React from 'react'
 
 const externals = [
   { name: 'Anker Games', desc: 'Free PC download website that offers free steam pre-installed games', url: 'https://ankergames.net', tag: 'Cracked' },
-  { name: 'ScriptBlox', desc: 'Huge library of free Roblox scripts', url: 'https://scriptblox.com', tag: 'Scripts' },
+  { name: 'Roblox Account Manager', desc: 'Built for managing accounts from one interface, can be used to not get banned on main accounts while exploiting on alts.', url: 'https://scriptblox.com', tag: 'Scripts' },
   { name: 'Pirate Bay Proxy', desc: 'Cracked apps and games for free', url: 'https://piratebayproxy.net/', tag: 'Cracked' },
   { name: 'Cheat Engine', desc: 'Memory scanning and debugging tool used for cheats', url: 'https://www.cheatengine.org/', tag: 'Utility' },
   { name: 'x64dbg', desc: 'User-mode debugger for windows for reverse engineering and malware analysis', url: 'https://x64dbg.com/', tag: 'Utility' },
