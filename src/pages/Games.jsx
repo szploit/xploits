@@ -66,7 +66,6 @@ export default function Games() {
         ))}
       </div>
 
-      /}
       <div style={{ marginTop: '2rem', padding: '1rem 1.25rem', background: 'rgba(251,191,36,0.04)', border: '1px solid rgba(251,191,36,0.12)', borderRadius: 10 }}>
         <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.8rem', color: 'var(--muted)', lineHeight: 1.7, margin: 0 }}>
           <span style={{ color: '#fbbf24', fontWeight: 600 }}>Note</span> Games hosted here are for personal use. More games will be added over time. Join the <a href="https://discord.gg/4hseHSkCEE" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--red)', textDecoration: 'none' }}>Discord</a> to suggest games.
