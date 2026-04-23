@@ -4,7 +4,7 @@ const externals = [
   { name: 'Anker Games', desc: 'Free PC download website that offers free steam pre-installed games', url: 'https://ankergames.net', tag: 'Cracked' },
   { name: 'Roblox Account Manager', desc: 'Built for managing accounts from one interface, can be used to not get banned on main accounts while exploiting on alts.', url: 'https://github.com/ic3w0lf22/Roblox-Account-Manager', tag: 'Utility' },
   { name: 'Pirate Bay Proxy', desc: 'Cracked apps and games for free', url: 'https://piratebayproxy.net/', tag: 'Cracked' },
-  { name: 'Cheat Engine', desc: 'Memory scanning and debugging tool used for cheats', url: 'https://www.cheatengine.org/', tag: 'Utility' },
+  { name: '1337x', desc: 'Apps and games for free', url: 'https://www.1337x.to/', tag: 'Cracked' },
   { name: 'x64dbg', desc: 'User-mode debugger for windows for reverse engineering and malware analysis', url: 'https://x64dbg.com/', tag: 'Utility' },
   { name: 'Process Hacker', desc: 'Advanced task manager tool used for injecting DLLS and monitoring', url: 'https://sourceforge.net/projects/processhacker/', tag: 'Utility' },
 ]
