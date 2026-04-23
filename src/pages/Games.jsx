@@ -10,6 +10,15 @@ const games = [
     download: 'https://github.com/szploit/cracked-games/releases/download/GD/Geometry-Dash-Xploits.zip',
     color: '#fbbf24',
   },
+  {
+    name: 'Schoolboy Runaway',
+    version: '1.0',
+    description: 'Escape from school, avoid teachers and complete missions in this fun stealth adventure game.',
+    tags: ['Adventure', 'Stealth', 'Cracked'],
+    size: 'varies',
+    download: 'https://github.com/szploit/cracked-games/releases/download/SR/SchoolBoy-Runaway-Xploits.zip',
+    color: '#60a5fa',
+  },
 ]
 
 export default function Games() {
