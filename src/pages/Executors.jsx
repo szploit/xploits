@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 const windowsExecutors = [
-  { name: 'Volt', detection: 'Undetected', up: false, price: '$5.99 Weekly', website: 'volt.bz', purchase: 'robloxcheatz.com', discord: 'discord.gg/voltbz', sunc: 'https://sunc.rubis.app/?scrap=R8TAYhDROIHtBfkG&key=ASk65OXbpeyNbEyCKX1nDJaG30mdJ2ap' },
+  { name: 'Volt', detection: 'Undetected', up: true, price: '$5.99 Weekly', website: 'volt.bz', purchase: 'robloxcheatz.com', discord: 'discord.gg/voltbz', sunc: 'https://sunc.rubis.app/?scrap=R8TAYhDROIHtBfkG&key=ASk65OXbpeyNbEyCKX1nDJaG30mdJ2ap' },
   { name: 'Potassium', detection: 'Undetected', up: true, price: '$22.99 Lifetime', website: 'potassium.pro', purchase: 'bloxproducts.com', discord: 'discord.gg/potassium', sunc: 'https://sunc.rubis.app/?scrap=WGHMg2g0Eemw56r2&key=8TJfLcbRVBRFIvMy9xBHnFLPrWpsfRbd' },
   { name: 'Seliware', detection: 'Detected', up: true, price: '$3.99 Weekly', website: 'seliware.com', purchase: 'robloxcheatz.com', discord: 'https://discord.gg/theseliware', sunc: 'https://sunc.rubis.app/?scrap=YGSnLlcFc9GJcx3t&key=jA4nvLFvy2TomhDZgL1zIrXTn5p9ySbg' },
   { name: 'Wave', detection: 'Undetected', up: false, price: 'Free', website: 'getwave.gg', purchase: 'robloxcheatz.com', discord: 'discord.gg/ykAyabv9', sunc: 'https://sunc.rubis.app/?scrap=sUSMILer2W4h6cEv&key=H4zy64gtK8cyHnjxH3sZUPLBfNHaGC4A' },
