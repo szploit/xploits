@@ -159,7 +159,7 @@ export default function Home() {
           >
             View Executors
           </Link>
-          <a href="https://discord.gg/jeyCcaC3" target="_blank" rel="noopener noreferrer" style={{
+          <a href="https://discord.gg/4hseHSkCEE" target="_blank" rel="noopener noreferrer" style={{
             textDecoration: 'none',
             padding: '12px 28px',
             borderRadius: 10,
