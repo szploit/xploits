@@ -26,7 +26,16 @@ const games = [
     tags: ['Climbing', 'Hardcore', 'Low-End PCS'],
     size: 'varies',
     download: 'https://github.com/szploit/cracked-games/releases/download/IA/IdolsOfAsh_v1_23_WINDOWS.rar',
-    color: '#60a5fa',
+    color: '#0008ff',
+  },
+  {
+    name: 'The Long Drive',
+    version: '1.0',
+    description: 'A randomly generated, open-world survival driving game for PC.',
+    tags: ['Driving', 'Long Distance', 'Fun'],
+    size: 'varies',
+    download: 'https://github.com/szploit/cracked-games/releases/download/TD/The-Long-Drive-Xploits.zip',
+    color: '#b8a52c',
   },
 ]
 
