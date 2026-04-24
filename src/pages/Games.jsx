@@ -20,9 +20,9 @@ const games = [
     color: '#60a5fa',
   },
   {
-    name: 'Schoolboy Runaway',
-    version: '1.0',
-    description: 'A fun first-person indie horror climbing game, with checkpoints and supported for low-end Laptops or Computers.',
+    name: 'Idols Of Ash',
+    version: '1.13',
+    description: 'A fun first-person indie horror climbing game while a hostile centipede chases you, with checkpoints and supported for low-end Laptops or Computers.',
     tags: ['Climbing', 'Hardcore', 'Low-End PCS'],
     size: 'varies',
     download: 'https://github.com/szploit/cracked-games/releases/download/IA/IdolsOfAsh_v1_23_WINDOWS.rar',
