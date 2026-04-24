@@ -19,6 +19,15 @@ const games = [
     download: 'https://github.com/szploit/cracked-games/releases/download/SR/SchoolBoy-Runaway-Xploits.zip',
     color: '#60a5fa',
   },
+  {
+    name: 'Schoolboy Runaway',
+    version: '1.0',
+    description: 'A fun first-person indie horror climbing game, with checkpoints and supported for low-end Laptops or Computers.',
+    tags: ['Climbing', 'Hardcore', 'Low-End PCS'],
+    size: 'varies',
+    download: 'https://github.com/szploit/cracked-games/releases/download/IA/IdolsOfAsh_v1_23_WINDOWS.rar',
+    color: '#60a5fa',
+  },
 ]
 
 export default function Games() {
