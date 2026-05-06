@@ -1,0 +1,5820 @@
+--[=[
+ d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
+88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
+88      88    88    88            odD'      88      88    88 88ooo88 
+88  ooo 88    88    88          .88'        88      88    88 88~~~88 
+88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88    @uniquadev
+ Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
+]=]
+
+-- Instances: 256 | Scripts: 52 | Modules: 0 | Tags: 0
+local G2L = {};
+
+-- StarterGui.Xploits
+G2L["1"] = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"));
+G2L["1"]["Name"] = [[Xploits]];
+G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
+
+
+-- StarterGui.Xploits.Frame
+G2L["2"] = Instance.new("Frame", G2L["1"]);
+G2L["2"]["BorderSizePixel"] = 0;
+G2L["2"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["2"]["Size"] = UDim2.new(0, 327, 0, 29);
+G2L["2"]["Position"] = UDim2.new(0.39093, 0, 0.08385, 0);
+G2L["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["2"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.Frame.Drag
+G2L["3"] = Instance.new("LocalScript", G2L["2"]);
+G2L["3"]["Name"] = [[Drag]];
+
+
+-- StarterGui.Xploits.Frame.UICorner
+G2L["4"] = Instance.new("UICorner", G2L["2"]);
+G2L["4"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.Frame.TextLabel
+G2L["5"] = Instance.new("TextLabel", G2L["2"]);
+G2L["5"]["TextWrapped"] = true;
+G2L["5"]["BorderSizePixel"] = 0;
+G2L["5"]["TextSize"] = 23;
+G2L["5"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["5"]["FontFace"] = Font.new([[rbxasset://fonts/families/HighwayGothic.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["5"]["TextColor3"] = Color3.fromRGB(239, 0, 5);
+G2L["5"]["BackgroundTransparency"] = 1;
+G2L["5"]["Size"] = UDim2.new(0, 327, 0, 29);
+G2L["5"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["5"]["Text"] = [[Xploits Duels | 60 FPS | 200ms]];
+
+
+-- StarterGui.Xploits.Frame.TextLabel.FPSPING
+G2L["6"] = Instance.new("LocalScript", G2L["5"]);
+G2L["6"]["Name"] = [[FPSPING]];
+
+
+-- StarterGui.Xploits.Frame.UIStroke
+G2L["7"] = Instance.new("UIStroke", G2L["2"]);
+G2L["7"]["Color"] = Color3.fromRGB(164, 16, 63);
+
+
+-- StarterGui.Xploits.MainGui
+G2L["8"] = Instance.new("Frame", G2L["1"]);
+G2L["8"]["BorderSizePixel"] = 0;
+G2L["8"]["BackgroundColor3"] = Color3.fromRGB(36, 36, 36);
+G2L["8"]["ClipsDescendants"] = true;
+G2L["8"]["Size"] = UDim2.new(0, 236, 0, 265);
+G2L["8"]["Position"] = UDim2.new(0.02535, 0, 0.34032, 0);
+G2L["8"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["8"]["Name"] = [[MainGui]];
+G2L["8"]["BackgroundTransparency"] = 0.5;
+
+
+-- StarterGui.Xploits.MainGui.Drag
+G2L["9"] = Instance.new("LocalScript", G2L["8"]);
+G2L["9"]["Name"] = [[Drag]];
+
+
+-- StarterGui.Xploits.MainGui.UIStroke
+G2L["a"] = Instance.new("UIStroke", G2L["8"]);
+G2L["a"]["Color"] = Color3.fromRGB(233, 2, 13);
+
+
+-- StarterGui.Xploits.MainGui.UICorner
+G2L["b"] = Instance.new("UICorner", G2L["8"]);
+
+
+
+-- StarterGui.Xploits.MainGui.Melee
+G2L["c"] = Instance.new("TextButton", G2L["8"]);
+G2L["c"]["TextStrokeTransparency"] = 0;
+G2L["c"]["BorderSizePixel"] = 0;
+G2L["c"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["c"]["TextSize"] = 14;
+G2L["c"]["TextColor3"] = Color3.fromRGB(244, 8, 12);
+G2L["c"]["BackgroundColor3"] = Color3.fromRGB(36, 36, 36);
+G2L["c"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["c"]["Size"] = UDim2.new(0, 50, 0, 32);
+G2L["c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["c"]["Text"] = [[Melee]];
+G2L["c"]["Name"] = [[Melee]];
+G2L["c"]["Position"] = UDim2.new(0.032, 0, 0.15, 0);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ShowSF
+G2L["d"] = Instance.new("LocalScript", G2L["c"]);
+G2L["d"]["Name"] = [[ShowSF]];
+
+
+-- StarterGui.Xploits.MainGui.Melee.UICorner
+G2L["e"] = Instance.new("UICorner", G2L["c"]);
+G2L["e"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame
+G2L["f"] = Instance.new("ScrollingFrame", G2L["c"]);
+G2L["f"]["Active"] = true;
+G2L["f"]["ScrollingDirection"] = Enum.ScrollingDirection.Y;
+G2L["f"]["BorderSizePixel"] = 0;
+G2L["f"]["CanvasSize"] = UDim2.new(0, 100, 0, 700);
+G2L["f"]["CanvasPosition"] = Vector2.new(0, 100);
+G2L["f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["f"]["Size"] = UDim2.new(0, 225, 0, 273);
+G2L["f"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["f"]["Position"] = UDim2.new(0, 0, 1.26923, 0);
+G2L["f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["f"]["BackgroundTransparency"] = 1;
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton
+G2L["10"] = Instance.new("TextButton", G2L["f"]);
+G2L["10"]["TextStrokeTransparency"] = 0;
+G2L["10"]["BorderSizePixel"] = 0;
+G2L["10"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["10"]["TextStrokeColor3"] = Color3.fromRGB(233, 233, 233);
+G2L["10"]["TextSize"] = 20;
+G2L["10"]["TextColor3"] = Color3.fromRGB(226, 6, 10);
+G2L["10"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["10"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["10"]["BackgroundTransparency"] = 0.5;
+G2L["10"]["Size"] = UDim2.new(0, 206, 0, 45);
+G2L["10"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["10"]["Text"] = [[Auto Bat]];
+G2L["10"]["Position"] = UDim2.new(0, 0, 0.00857, 0);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.UICorner
+G2L["11"] = Instance.new("UICorner", G2L["10"]);
+G2L["11"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.UIPadding
+G2L["12"] = Instance.new("UIPadding", G2L["10"]);
+G2L["12"]["PaddingLeft"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame
+G2L["13"] = Instance.new("Frame", G2L["10"]);
+G2L["13"]["BorderSizePixel"] = 0;
+G2L["13"]["BackgroundColor3"] = Color3.fromRGB(114, 114, 114);
+G2L["13"]["Size"] = UDim2.new(0, 52, 0, 22);
+G2L["13"]["Position"] = UDim2.new(0.67347, 0, 0.26667, 0);
+G2L["13"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["13"]["Name"] = [[colorFrame]];
+G2L["13"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.Move
+G2L["14"] = Instance.new("LocalScript", G2L["13"]);
+G2L["14"]["Name"] = [[Move]];
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.UICorner
+G2L["15"] = Instance.new("UICorner", G2L["13"]);
+G2L["15"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.ImageButton
+G2L["16"] = Instance.new("ImageButton", G2L["13"]);
+G2L["16"]["BorderSizePixel"] = 0;
+G2L["16"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["16"]["Size"] = UDim2.new(0, 23, 0, 21);
+G2L["16"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["16"]["Position"] = UDim2.new(0, 0, -0.00216, 0);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.ImageButton.UICorner
+G2L["17"] = Instance.new("UICorner", G2L["16"]);
+G2L["17"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton
+G2L["18"] = Instance.new("TextButton", G2L["f"]);
+G2L["18"]["TextStrokeTransparency"] = 0;
+G2L["18"]["BorderSizePixel"] = 0;
+G2L["18"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["18"]["TextStrokeColor3"] = Color3.fromRGB(233, 233, 233);
+G2L["18"]["TextSize"] = 20;
+G2L["18"]["TextColor3"] = Color3.fromRGB(226, 6, 10);
+G2L["18"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["18"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["18"]["BackgroundTransparency"] = 0.5;
+G2L["18"]["Size"] = UDim2.new(0, 206, 0, 45);
+G2L["18"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["18"]["Text"] = [[Anti Sentry]];
+G2L["18"]["Position"] = UDim2.new(0, 0, 0.08143, 0);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.UICorner
+G2L["19"] = Instance.new("UICorner", G2L["18"]);
+G2L["19"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.UIPadding
+G2L["1a"] = Instance.new("UIPadding", G2L["18"]);
+G2L["1a"]["PaddingLeft"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame
+G2L["1b"] = Instance.new("Frame", G2L["18"]);
+G2L["1b"]["BorderSizePixel"] = 0;
+G2L["1b"]["BackgroundColor3"] = Color3.fromRGB(114, 114, 114);
+G2L["1b"]["Size"] = UDim2.new(0, 52, 0, 22);
+G2L["1b"]["Position"] = UDim2.new(0.67347, 0, 0.26667, 0);
+G2L["1b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["1b"]["Name"] = [[colorFrame]];
+G2L["1b"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.Move
+G2L["1c"] = Instance.new("LocalScript", G2L["1b"]);
+G2L["1c"]["Name"] = [[Move]];
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.UICorner
+G2L["1d"] = Instance.new("UICorner", G2L["1b"]);
+G2L["1d"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.ImageButton
+G2L["1e"] = Instance.new("ImageButton", G2L["1b"]);
+G2L["1e"]["BorderSizePixel"] = 0;
+G2L["1e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["1e"]["Size"] = UDim2.new(0, 23, 0, 21);
+G2L["1e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["1e"]["Position"] = UDim2.new(0, 0, -0.00216, 0);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.ImageButton.UICorner
+G2L["1f"] = Instance.new("UICorner", G2L["1e"]);
+G2L["1f"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton
+G2L["20"] = Instance.new("TextButton", G2L["f"]);
+G2L["20"]["TextStrokeTransparency"] = 0;
+G2L["20"]["BorderSizePixel"] = 0;
+G2L["20"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["20"]["TextStrokeColor3"] = Color3.fromRGB(233, 233, 233);
+G2L["20"]["TextSize"] = 18;
+G2L["20"]["TextColor3"] = Color3.fromRGB(226, 6, 10);
+G2L["20"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["20"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["20"]["BackgroundTransparency"] = 0.5;
+G2L["20"]["Size"] = UDim2.new(0, 206, 0, 45);
+G2L["20"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["20"]["Text"] = [[Counter Medusa]];
+G2L["20"]["Position"] = UDim2.new(0, 0, 0.15571, 0);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.UICorner
+G2L["21"] = Instance.new("UICorner", G2L["20"]);
+G2L["21"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.UIPadding
+G2L["22"] = Instance.new("UIPadding", G2L["20"]);
+G2L["22"]["PaddingLeft"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame
+G2L["23"] = Instance.new("Frame", G2L["20"]);
+G2L["23"]["BorderSizePixel"] = 0;
+G2L["23"]["BackgroundColor3"] = Color3.fromRGB(114, 114, 114);
+G2L["23"]["Size"] = UDim2.new(0, 52, 0, 22);
+G2L["23"]["Position"] = UDim2.new(0.67347, 0, 0.26667, 0);
+G2L["23"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["23"]["Name"] = [[colorFrame]];
+G2L["23"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.Move
+G2L["24"] = Instance.new("LocalScript", G2L["23"]);
+G2L["24"]["Name"] = [[Move]];
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.UICorner
+G2L["25"] = Instance.new("UICorner", G2L["23"]);
+G2L["25"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.ImageButton
+G2L["26"] = Instance.new("ImageButton", G2L["23"]);
+G2L["26"]["BorderSizePixel"] = 0;
+G2L["26"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["26"]["Size"] = UDim2.new(0, 23, 0, 21);
+G2L["26"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["26"]["Position"] = UDim2.new(0, 0, -0.00216, 0);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.ImageButton.UICorner
+G2L["27"] = Instance.new("UICorner", G2L["26"]);
+G2L["27"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton
+G2L["28"] = Instance.new("TextButton", G2L["f"]);
+G2L["28"]["TextWrapped"] = true;
+G2L["28"]["TextStrokeTransparency"] = 0;
+G2L["28"]["BorderSizePixel"] = 0;
+G2L["28"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["28"]["TextStrokeColor3"] = Color3.fromRGB(233, 233, 233);
+G2L["28"]["TextSize"] = 20;
+G2L["28"]["TextColor3"] = Color3.fromRGB(226, 6, 10);
+G2L["28"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["28"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["28"]["BackgroundTransparency"] = 0.5;
+G2L["28"]["Size"] = UDim2.new(0, 206, 0, 45);
+G2L["28"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["28"]["Text"] = [[Anti Ragdoll]];
+G2L["28"]["Position"] = UDim2.new(0, 0, 0.23143, 0);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.UICorner
+G2L["29"] = Instance.new("UICorner", G2L["28"]);
+G2L["29"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.UIPadding
+G2L["2a"] = Instance.new("UIPadding", G2L["28"]);
+G2L["2a"]["PaddingLeft"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame
+G2L["2b"] = Instance.new("Frame", G2L["28"]);
+G2L["2b"]["BorderSizePixel"] = 0;
+G2L["2b"]["BackgroundColor3"] = Color3.fromRGB(114, 114, 114);
+G2L["2b"]["Size"] = UDim2.new(0, 52, 0, 22);
+G2L["2b"]["Position"] = UDim2.new(0.67347, 0, 0.26667, 0);
+G2L["2b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["2b"]["Name"] = [[colorFrame]];
+G2L["2b"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.Move
+G2L["2c"] = Instance.new("LocalScript", G2L["2b"]);
+G2L["2c"]["Name"] = [[Move]];
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.UICorner
+G2L["2d"] = Instance.new("UICorner", G2L["2b"]);
+G2L["2d"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.ImageButton
+G2L["2e"] = Instance.new("ImageButton", G2L["2b"]);
+G2L["2e"]["BorderSizePixel"] = 0;
+G2L["2e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["2e"]["Size"] = UDim2.new(0, 23, 0, 21);
+G2L["2e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["2e"]["Position"] = UDim2.new(0, 0, -0.00216, 0);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.ImageButton.UICorner
+G2L["2f"] = Instance.new("UICorner", G2L["2e"]);
+G2L["2f"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton
+G2L["30"] = Instance.new("TextButton", G2L["f"]);
+G2L["30"]["TextWrapped"] = true;
+G2L["30"]["TextStrokeTransparency"] = 0;
+G2L["30"]["BorderSizePixel"] = 0;
+G2L["30"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["30"]["TextStrokeColor3"] = Color3.fromRGB(233, 233, 233);
+G2L["30"]["TextSize"] = 14;
+G2L["30"]["TextColor3"] = Color3.fromRGB(226, 6, 10);
+G2L["30"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["30"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["30"]["BackgroundTransparency"] = 0.5;
+G2L["30"]["Size"] = UDim2.new(0, 206, 0, 45);
+G2L["30"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["30"]["Text"] = [[Ragdoll TP Opponent]];
+G2L["30"]["Position"] = UDim2.new(0, 0, 0.30743, 0);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.UICorner
+G2L["31"] = Instance.new("UICorner", G2L["30"]);
+G2L["31"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.UIPadding
+G2L["32"] = Instance.new("UIPadding", G2L["30"]);
+G2L["32"]["PaddingLeft"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame
+G2L["33"] = Instance.new("Frame", G2L["30"]);
+G2L["33"]["BorderSizePixel"] = 0;
+G2L["33"]["BackgroundColor3"] = Color3.fromRGB(114, 114, 114);
+G2L["33"]["Size"] = UDim2.new(0, 52, 0, 22);
+G2L["33"]["Position"] = UDim2.new(0.67347, 0, 0.26667, 0);
+G2L["33"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["33"]["Name"] = [[colorFrame]];
+G2L["33"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.Move
+G2L["34"] = Instance.new("LocalScript", G2L["33"]);
+G2L["34"]["Name"] = [[Move]];
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.UICorner
+G2L["35"] = Instance.new("UICorner", G2L["33"]);
+G2L["35"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.ImageButton
+G2L["36"] = Instance.new("ImageButton", G2L["33"]);
+G2L["36"]["BorderSizePixel"] = 0;
+G2L["36"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["36"]["Size"] = UDim2.new(0, 23, 0, 21);
+G2L["36"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["36"]["Position"] = UDim2.new(0, 0, -0.00216, 0);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.ImageButton.UICorner
+G2L["37"] = Instance.new("UICorner", G2L["36"]);
+G2L["37"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton
+G2L["38"] = Instance.new("TextButton", G2L["f"]);
+G2L["38"]["TextWrapped"] = true;
+G2L["38"]["TextStrokeTransparency"] = 0;
+G2L["38"]["BorderSizePixel"] = 0;
+G2L["38"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["38"]["TextStrokeColor3"] = Color3.fromRGB(233, 233, 233);
+G2L["38"]["TextSize"] = 20;
+G2L["38"]["TextColor3"] = Color3.fromRGB(226, 6, 10);
+G2L["38"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["38"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["38"]["BackgroundTransparency"] = 0.5;
+G2L["38"]["Size"] = UDim2.new(0, 206, 0, 45);
+G2L["38"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["38"]["Text"] = [[Melee Aimbot]];
+G2L["38"]["Position"] = UDim2.new(0, 0, 0.38457, 0);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.UICorner
+G2L["39"] = Instance.new("UICorner", G2L["38"]);
+G2L["39"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.UIPadding
+G2L["3a"] = Instance.new("UIPadding", G2L["38"]);
+G2L["3a"]["PaddingLeft"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame
+G2L["3b"] = Instance.new("Frame", G2L["38"]);
+G2L["3b"]["BorderSizePixel"] = 0;
+G2L["3b"]["BackgroundColor3"] = Color3.fromRGB(114, 114, 114);
+G2L["3b"]["Size"] = UDim2.new(0, 52, 0, 22);
+G2L["3b"]["Position"] = UDim2.new(0.67347, 0, 0.26667, 0);
+G2L["3b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["3b"]["Name"] = [[colorFrame]];
+G2L["3b"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.Move
+G2L["3c"] = Instance.new("LocalScript", G2L["3b"]);
+G2L["3c"]["Name"] = [[Move]];
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.UICorner
+G2L["3d"] = Instance.new("UICorner", G2L["3b"]);
+G2L["3d"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.ImageButton
+G2L["3e"] = Instance.new("ImageButton", G2L["3b"]);
+G2L["3e"]["BorderSizePixel"] = 0;
+G2L["3e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["3e"]["Size"] = UDim2.new(0, 23, 0, 21);
+G2L["3e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["3e"]["Position"] = UDim2.new(0, 0, -0.00216, 0);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.ImageButton.UICorner
+G2L["3f"] = Instance.new("UICorner", G2L["3e"]);
+G2L["3f"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton
+G2L["40"] = Instance.new("TextButton", G2L["f"]);
+G2L["40"]["TextWrapped"] = true;
+G2L["40"]["TextStrokeTransparency"] = 0;
+G2L["40"]["BorderSizePixel"] = 0;
+G2L["40"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["40"]["TextStrokeColor3"] = Color3.fromRGB(233, 233, 233);
+G2L["40"]["TextSize"] = 20;
+G2L["40"]["TextColor3"] = Color3.fromRGB(226, 6, 10);
+G2L["40"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["40"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["40"]["BackgroundTransparency"] = 0.5;
+G2L["40"]["Size"] = UDim2.new(0, 206, 0, 45);
+G2L["40"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["40"]["Text"] = [[Auto Steal]];
+G2L["40"]["Position"] = UDim2.new(0, 0, 0.46171, 0);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.UICorner
+G2L["41"] = Instance.new("UICorner", G2L["40"]);
+G2L["41"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.UIPadding
+G2L["42"] = Instance.new("UIPadding", G2L["40"]);
+G2L["42"]["PaddingLeft"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame
+G2L["43"] = Instance.new("Frame", G2L["40"]);
+G2L["43"]["BorderSizePixel"] = 0;
+G2L["43"]["BackgroundColor3"] = Color3.fromRGB(114, 114, 114);
+G2L["43"]["Size"] = UDim2.new(0, 52, 0, 22);
+G2L["43"]["Position"] = UDim2.new(0.67347, 0, 0.26667, 0);
+G2L["43"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["43"]["Name"] = [[colorFrame]];
+G2L["43"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.Move
+G2L["44"] = Instance.new("LocalScript", G2L["43"]);
+G2L["44"]["Name"] = [[Move]];
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.UICorner
+G2L["45"] = Instance.new("UICorner", G2L["43"]);
+G2L["45"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.ImageButton
+G2L["46"] = Instance.new("ImageButton", G2L["43"]);
+G2L["46"]["BorderSizePixel"] = 0;
+G2L["46"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["46"]["Size"] = UDim2.new(0, 23, 0, 21);
+G2L["46"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["46"]["Position"] = UDim2.new(0, 0, -0.00216, 0);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.ImageButton.UICorner
+G2L["47"] = Instance.new("UICorner", G2L["46"]);
+G2L["47"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton
+G2L["48"] = Instance.new("TextButton", G2L["f"]);
+G2L["48"]["TextWrapped"] = true;
+G2L["48"]["TextStrokeTransparency"] = 0;
+G2L["48"]["BorderSizePixel"] = 0;
+G2L["48"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["48"]["TextStrokeColor3"] = Color3.fromRGB(233, 233, 233);
+G2L["48"]["TextSize"] = 20;
+G2L["48"]["TextColor3"] = Color3.fromRGB(226, 6, 10);
+G2L["48"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["48"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["48"]["BackgroundTransparency"] = 0.5;
+G2L["48"]["Size"] = UDim2.new(0, 206, 0, 45);
+G2L["48"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["48"]["Text"] = [[Ragdoll TP]];
+G2L["48"]["Position"] = UDim2.new(0, 0, 0.53457, 0);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.UICorner
+G2L["49"] = Instance.new("UICorner", G2L["48"]);
+G2L["49"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.UIPadding
+G2L["4a"] = Instance.new("UIPadding", G2L["48"]);
+G2L["4a"]["PaddingLeft"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame
+G2L["4b"] = Instance.new("Frame", G2L["48"]);
+G2L["4b"]["BorderSizePixel"] = 0;
+G2L["4b"]["BackgroundColor3"] = Color3.fromRGB(114, 114, 114);
+G2L["4b"]["Size"] = UDim2.new(0, 52, 0, 22);
+G2L["4b"]["Position"] = UDim2.new(0.67347, 0, 0.26667, 0);
+G2L["4b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["4b"]["Name"] = [[colorFrame]];
+G2L["4b"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.Move
+G2L["4c"] = Instance.new("LocalScript", G2L["4b"]);
+G2L["4c"]["Name"] = [[Move]];
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.UICorner
+G2L["4d"] = Instance.new("UICorner", G2L["4b"]);
+G2L["4d"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.ImageButton
+G2L["4e"] = Instance.new("ImageButton", G2L["4b"]);
+G2L["4e"]["BorderSizePixel"] = 0;
+G2L["4e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["4e"]["Size"] = UDim2.new(0, 23, 0, 21);
+G2L["4e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["4e"]["Position"] = UDim2.new(0, 0, -0.00216, 0);
+
+
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.ImageButton.UICorner
+G2L["4f"] = Instance.new("UICorner", G2L["4e"]);
+G2L["4f"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Player
+G2L["50"] = Instance.new("TextButton", G2L["8"]);
+G2L["50"]["TextStrokeTransparency"] = 0;
+G2L["50"]["BorderSizePixel"] = 0;
+G2L["50"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["50"]["TextSize"] = 14;
+G2L["50"]["TextColor3"] = Color3.fromRGB(244, 8, 12);
+G2L["50"]["BackgroundColor3"] = Color3.fromRGB(36, 36, 36);
+G2L["50"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["50"]["Size"] = UDim2.new(0, 54, 0, 32);
+G2L["50"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["50"]["Text"] = [[Player]];
+G2L["50"]["Name"] = [[Player]];
+G2L["50"]["Position"] = UDim2.new(0.273, 0, 0.15, 0);
+
+
+-- StarterGui.Xploits.MainGui.Player.ShowSF
+G2L["51"] = Instance.new("LocalScript", G2L["50"]);
+G2L["51"]["Name"] = [[ShowSF]];
+
+
+-- StarterGui.Xploits.MainGui.Player.UICorner
+G2L["52"] = Instance.new("UICorner", G2L["50"]);
+G2L["52"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame
+G2L["53"] = Instance.new("ScrollingFrame", G2L["50"]);
+G2L["53"]["Visible"] = false;
+G2L["53"]["Active"] = true;
+G2L["53"]["ScrollingDirection"] = Enum.ScrollingDirection.Y;
+G2L["53"]["BorderSizePixel"] = 0;
+G2L["53"]["CanvasSize"] = UDim2.new(0, 0, 0, 500);
+G2L["53"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["53"]["Size"] = UDim2.new(0, 225, 0, 273);
+G2L["53"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["53"]["Position"] = UDim2.new(-1.05326, 0, 1.26923, 0);
+G2L["53"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["53"]["BackgroundTransparency"] = 1;
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton
+G2L["54"] = Instance.new("TextButton", G2L["53"]);
+G2L["54"]["TextStrokeTransparency"] = 0;
+G2L["54"]["BorderSizePixel"] = 0;
+G2L["54"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["54"]["TextStrokeColor3"] = Color3.fromRGB(233, 233, 233);
+G2L["54"]["TextSize"] = 20;
+G2L["54"]["TextColor3"] = Color3.fromRGB(226, 6, 10);
+G2L["54"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["54"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["54"]["BackgroundTransparency"] = 0.5;
+G2L["54"]["Size"] = UDim2.new(0, 206, 0, 45);
+G2L["54"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["54"]["Text"] = [[Speed Booster]];
+G2L["54"]["Position"] = UDim2.new(0, 0, 0.01057, 0);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.UICorner
+G2L["55"] = Instance.new("UICorner", G2L["54"]);
+G2L["55"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.UIPadding
+G2L["56"] = Instance.new("UIPadding", G2L["54"]);
+G2L["56"]["PaddingLeft"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame
+G2L["57"] = Instance.new("Frame", G2L["54"]);
+G2L["57"]["BorderSizePixel"] = 0;
+G2L["57"]["BackgroundColor3"] = Color3.fromRGB(114, 114, 114);
+G2L["57"]["Size"] = UDim2.new(0, 52, 0, 22);
+G2L["57"]["Position"] = UDim2.new(0.67347, 0, 0.26667, 0);
+G2L["57"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["57"]["Name"] = [[colorFrame]];
+G2L["57"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.Move
+G2L["58"] = Instance.new("LocalScript", G2L["57"]);
+G2L["58"]["Name"] = [[Move]];
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.UICorner
+G2L["59"] = Instance.new("UICorner", G2L["57"]);
+G2L["59"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.ImageButton
+G2L["5a"] = Instance.new("ImageButton", G2L["57"]);
+G2L["5a"]["BorderSizePixel"] = 0;
+G2L["5a"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["5a"]["Size"] = UDim2.new(0, 23, 0, 21);
+G2L["5a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["5a"]["Position"] = UDim2.new(0, 0, -0.00216, 0);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.ImageButton.UICorner
+G2L["5b"] = Instance.new("UICorner", G2L["5a"]);
+G2L["5b"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton
+G2L["5c"] = Instance.new("TextButton", G2L["53"]);
+G2L["5c"]["TextStrokeTransparency"] = 0;
+G2L["5c"]["BorderSizePixel"] = 0;
+G2L["5c"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["5c"]["TextStrokeColor3"] = Color3.fromRGB(233, 233, 233);
+G2L["5c"]["TextSize"] = 16;
+G2L["5c"]["TextColor3"] = Color3.fromRGB(226, 6, 10);
+G2L["5c"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["5c"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["5c"]["BackgroundTransparency"] = 0.5;
+G2L["5c"]["Size"] = UDim2.new(0, 206, 0, 45);
+G2L["5c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["5c"]["Text"] = [[Disable Animation]];
+G2L["5c"]["Position"] = UDim2.new(0, 0, 0.11457, 0);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.UICorner
+G2L["5d"] = Instance.new("UICorner", G2L["5c"]);
+G2L["5d"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.UIPadding
+G2L["5e"] = Instance.new("UIPadding", G2L["5c"]);
+G2L["5e"]["PaddingLeft"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame
+G2L["5f"] = Instance.new("Frame", G2L["5c"]);
+G2L["5f"]["BorderSizePixel"] = 0;
+G2L["5f"]["BackgroundColor3"] = Color3.fromRGB(114, 114, 114);
+G2L["5f"]["Size"] = UDim2.new(0, 52, 0, 22);
+G2L["5f"]["Position"] = UDim2.new(0.67347, 0, 0.26667, 0);
+G2L["5f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["5f"]["Name"] = [[colorFrame]];
+G2L["5f"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.Move
+G2L["60"] = Instance.new("LocalScript", G2L["5f"]);
+G2L["60"]["Name"] = [[Move]];
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.UICorner
+G2L["61"] = Instance.new("UICorner", G2L["5f"]);
+G2L["61"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.ImageButton
+G2L["62"] = Instance.new("ImageButton", G2L["5f"]);
+G2L["62"]["BorderSizePixel"] = 0;
+G2L["62"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["62"]["Size"] = UDim2.new(0, 23, 0, 21);
+G2L["62"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["62"]["Position"] = UDim2.new(0, 0, -0.00216, 0);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.ImageButton.UICorner
+G2L["63"] = Instance.new("UICorner", G2L["62"]);
+G2L["63"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton
+G2L["64"] = Instance.new("TextButton", G2L["53"]);
+G2L["64"]["TextStrokeTransparency"] = 0;
+G2L["64"]["BorderSizePixel"] = 0;
+G2L["64"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["64"]["TextStrokeColor3"] = Color3.fromRGB(233, 233, 233);
+G2L["64"]["TextSize"] = 21;
+G2L["64"]["TextColor3"] = Color3.fromRGB(226, 6, 10);
+G2L["64"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["64"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["64"]["BackgroundTransparency"] = 0.5;
+G2L["64"]["Size"] = UDim2.new(0, 206, 0, 45);
+G2L["64"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["64"]["Text"] = [[Infinite Jump]];
+G2L["64"]["Position"] = UDim2.new(0, 0, 0.22057, 0);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.UICorner
+G2L["65"] = Instance.new("UICorner", G2L["64"]);
+G2L["65"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.UIPadding
+G2L["66"] = Instance.new("UIPadding", G2L["64"]);
+G2L["66"]["PaddingLeft"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame
+G2L["67"] = Instance.new("Frame", G2L["64"]);
+G2L["67"]["BorderSizePixel"] = 0;
+G2L["67"]["BackgroundColor3"] = Color3.fromRGB(114, 114, 114);
+G2L["67"]["Size"] = UDim2.new(0, 52, 0, 22);
+G2L["67"]["Position"] = UDim2.new(0.67347, 0, 0.26667, 0);
+G2L["67"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["67"]["Name"] = [[colorFrame]];
+G2L["67"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.Move
+G2L["68"] = Instance.new("LocalScript", G2L["67"]);
+G2L["68"]["Name"] = [[Move]];
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.UICorner
+G2L["69"] = Instance.new("UICorner", G2L["67"]);
+G2L["69"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.ImageButton
+G2L["6a"] = Instance.new("ImageButton", G2L["67"]);
+G2L["6a"]["BorderSizePixel"] = 0;
+G2L["6a"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["6a"]["Size"] = UDim2.new(0, 23, 0, 21);
+G2L["6a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["6a"]["Position"] = UDim2.new(0, 0, -0.00216, 0);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.ImageButton.UICorner
+G2L["6b"] = Instance.new("UICorner", G2L["6a"]);
+G2L["6b"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton
+G2L["6c"] = Instance.new("TextButton", G2L["53"]);
+G2L["6c"]["TextStrokeTransparency"] = 0;
+G2L["6c"]["BorderSizePixel"] = 0;
+G2L["6c"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["6c"]["TextStrokeColor3"] = Color3.fromRGB(233, 233, 233);
+G2L["6c"]["TextSize"] = 21;
+G2L["6c"]["TextColor3"] = Color3.fromRGB(226, 6, 10);
+G2L["6c"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["6c"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["6c"]["BackgroundTransparency"] = 0.5;
+G2L["6c"]["Size"] = UDim2.new(0, 206, 0, 45);
+G2L["6c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["6c"]["Text"] = [[Slow Fall]];
+G2L["6c"]["Position"] = UDim2.new(0, 0, 0.32657, 0);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.UICorner
+G2L["6d"] = Instance.new("UICorner", G2L["6c"]);
+G2L["6d"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.UIPadding
+G2L["6e"] = Instance.new("UIPadding", G2L["6c"]);
+G2L["6e"]["PaddingLeft"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame
+G2L["6f"] = Instance.new("Frame", G2L["6c"]);
+G2L["6f"]["BorderSizePixel"] = 0;
+G2L["6f"]["BackgroundColor3"] = Color3.fromRGB(114, 114, 114);
+G2L["6f"]["Size"] = UDim2.new(0, 52, 0, 22);
+G2L["6f"]["Position"] = UDim2.new(0.67347, 0, 0.26667, 0);
+G2L["6f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["6f"]["Name"] = [[colorFrame]];
+G2L["6f"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.Move
+G2L["70"] = Instance.new("LocalScript", G2L["6f"]);
+G2L["70"]["Name"] = [[Move]];
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.UICorner
+G2L["71"] = Instance.new("UICorner", G2L["6f"]);
+G2L["71"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.ImageButton
+G2L["72"] = Instance.new("ImageButton", G2L["6f"]);
+G2L["72"]["BorderSizePixel"] = 0;
+G2L["72"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["72"]["Size"] = UDim2.new(0, 23, 0, 21);
+G2L["72"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["72"]["Position"] = UDim2.new(0, 0, -0.00216, 0);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.ImageButton.UICorner
+G2L["73"] = Instance.new("UICorner", G2L["72"]);
+G2L["73"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton
+G2L["74"] = Instance.new("TextButton", G2L["53"]);
+G2L["74"]["TextStrokeTransparency"] = 0;
+G2L["74"]["BorderSizePixel"] = 0;
+G2L["74"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["74"]["TextStrokeColor3"] = Color3.fromRGB(233, 233, 233);
+G2L["74"]["TextSize"] = 21;
+G2L["74"]["TextColor3"] = Color3.fromRGB(226, 6, 10);
+G2L["74"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["74"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["74"]["BackgroundTransparency"] = 0.5;
+G2L["74"]["Size"] = UDim2.new(0, 206, 0, 45);
+G2L["74"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["74"]["Text"] = [[Spinbot]];
+G2L["74"]["Position"] = UDim2.new(0, 0, 0.42657, 0);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.UICorner
+G2L["75"] = Instance.new("UICorner", G2L["74"]);
+G2L["75"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.UIPadding
+G2L["76"] = Instance.new("UIPadding", G2L["74"]);
+G2L["76"]["PaddingLeft"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame
+G2L["77"] = Instance.new("Frame", G2L["74"]);
+G2L["77"]["BorderSizePixel"] = 0;
+G2L["77"]["BackgroundColor3"] = Color3.fromRGB(114, 114, 114);
+G2L["77"]["Size"] = UDim2.new(0, 52, 0, 22);
+G2L["77"]["Position"] = UDim2.new(0.67347, 0, 0.26667, 0);
+G2L["77"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["77"]["Name"] = [[colorFrame]];
+G2L["77"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.Move
+G2L["78"] = Instance.new("LocalScript", G2L["77"]);
+G2L["78"]["Name"] = [[Move]];
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.UICorner
+G2L["79"] = Instance.new("UICorner", G2L["77"]);
+G2L["79"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.ImageButton
+G2L["7a"] = Instance.new("ImageButton", G2L["77"]);
+G2L["7a"]["BorderSizePixel"] = 0;
+G2L["7a"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["7a"]["Size"] = UDim2.new(0, 23, 0, 21);
+G2L["7a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["7a"]["Position"] = UDim2.new(0, 0, -0.00216, 0);
+
+
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.ImageButton.UICorner
+G2L["7b"] = Instance.new("UICorner", G2L["7a"]);
+G2L["7b"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Visuals
+G2L["7c"] = Instance.new("TextButton", G2L["8"]);
+G2L["7c"]["TextStrokeTransparency"] = 0;
+G2L["7c"]["BorderSizePixel"] = 0;
+G2L["7c"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["7c"]["TextSize"] = 14;
+G2L["7c"]["TextColor3"] = Color3.fromRGB(244, 8, 12);
+G2L["7c"]["BackgroundColor3"] = Color3.fromRGB(36, 36, 36);
+G2L["7c"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["7c"]["Size"] = UDim2.new(0, 49, 0, 32);
+G2L["7c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["7c"]["Text"] = [[Visuals]];
+G2L["7c"]["Name"] = [[Visuals]];
+G2L["7c"]["Position"] = UDim2.new(0.527, 0, 0.15, 0);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ShowSF
+G2L["7d"] = Instance.new("LocalScript", G2L["7c"]);
+G2L["7d"]["Name"] = [[ShowSF]];
+
+
+-- StarterGui.Xploits.MainGui.Visuals.UICorner
+G2L["7e"] = Instance.new("UICorner", G2L["7c"]);
+G2L["7e"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame
+G2L["7f"] = Instance.new("ScrollingFrame", G2L["7c"]);
+G2L["7f"]["Visible"] = false;
+G2L["7f"]["Active"] = true;
+G2L["7f"]["ScrollingDirection"] = Enum.ScrollingDirection.Y;
+G2L["7f"]["BorderSizePixel"] = 0;
+G2L["7f"]["CanvasSize"] = UDim2.new(0, 0, 0, 500);
+G2L["7f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["7f"]["Size"] = UDim2.new(0, 225, 0, 273);
+G2L["7f"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["7f"]["Position"] = UDim2.new(-2.38408, 0, 1.26923, 0);
+G2L["7f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["7f"]["BackgroundTransparency"] = 1;
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton
+G2L["80"] = Instance.new("TextButton", G2L["7f"]);
+G2L["80"]["TextStrokeTransparency"] = 0;
+G2L["80"]["BorderSizePixel"] = 0;
+G2L["80"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["80"]["TextStrokeColor3"] = Color3.fromRGB(233, 233, 233);
+G2L["80"]["TextSize"] = 23;
+G2L["80"]["TextColor3"] = Color3.fromRGB(226, 6, 10);
+G2L["80"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["80"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["80"]["BackgroundTransparency"] = 0.5;
+G2L["80"]["Size"] = UDim2.new(0, 206, 0, 45);
+G2L["80"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["80"]["Text"] = [[ESP Players]];
+G2L["80"]["Position"] = UDim2.new(0, 0, 0.002, 0);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.UICorner
+G2L["81"] = Instance.new("UICorner", G2L["80"]);
+G2L["81"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.UIPadding
+G2L["82"] = Instance.new("UIPadding", G2L["80"]);
+G2L["82"]["PaddingLeft"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame
+G2L["83"] = Instance.new("Frame", G2L["80"]);
+G2L["83"]["BorderSizePixel"] = 0;
+G2L["83"]["BackgroundColor3"] = Color3.fromRGB(114, 114, 114);
+G2L["83"]["Size"] = UDim2.new(0, 52, 0, 22);
+G2L["83"]["Position"] = UDim2.new(0.67347, 0, 0.26667, 0);
+G2L["83"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["83"]["Name"] = [[colorFrame]];
+G2L["83"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.Move
+G2L["84"] = Instance.new("LocalScript", G2L["83"]);
+G2L["84"]["Name"] = [[Move]];
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.UICorner
+G2L["85"] = Instance.new("UICorner", G2L["83"]);
+G2L["85"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.ImageButton
+G2L["86"] = Instance.new("ImageButton", G2L["83"]);
+G2L["86"]["BorderSizePixel"] = 0;
+G2L["86"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["86"]["Size"] = UDim2.new(0, 23, 0, 21);
+G2L["86"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["86"]["Position"] = UDim2.new(0, 0, -0.00216, 0);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.ImageButton.UICorner
+G2L["87"] = Instance.new("UICorner", G2L["86"]);
+G2L["87"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton
+G2L["88"] = Instance.new("TextButton", G2L["7f"]);
+G2L["88"]["TextStrokeTransparency"] = 0;
+G2L["88"]["BorderSizePixel"] = 0;
+G2L["88"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["88"]["TextStrokeColor3"] = Color3.fromRGB(233, 233, 233);
+G2L["88"]["TextSize"] = 23;
+G2L["88"]["TextColor3"] = Color3.fromRGB(226, 6, 10);
+G2L["88"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["88"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["88"]["BackgroundTransparency"] = 0.5;
+G2L["88"]["Size"] = UDim2.new(0, 206, 0, 45);
+G2L["88"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["88"]["Text"] = [[Optimizer]];
+G2L["88"]["Position"] = UDim2.new(0, 0, 0.30857, 0);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.UICorner
+G2L["89"] = Instance.new("UICorner", G2L["88"]);
+G2L["89"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.UIPadding
+G2L["8a"] = Instance.new("UIPadding", G2L["88"]);
+G2L["8a"]["PaddingLeft"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame
+G2L["8b"] = Instance.new("Frame", G2L["88"]);
+G2L["8b"]["BorderSizePixel"] = 0;
+G2L["8b"]["BackgroundColor3"] = Color3.fromRGB(114, 114, 114);
+G2L["8b"]["Size"] = UDim2.new(0, 52, 0, 22);
+G2L["8b"]["Position"] = UDim2.new(0.67347, 0, 0.26667, 0);
+G2L["8b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["8b"]["Name"] = [[colorFrame]];
+G2L["8b"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.Move
+G2L["8c"] = Instance.new("LocalScript", G2L["8b"]);
+G2L["8c"]["Name"] = [[Move]];
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.UICorner
+G2L["8d"] = Instance.new("UICorner", G2L["8b"]);
+G2L["8d"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.ImageButton
+G2L["8e"] = Instance.new("ImageButton", G2L["8b"]);
+G2L["8e"]["BorderSizePixel"] = 0;
+G2L["8e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["8e"]["Size"] = UDim2.new(0, 23, 0, 21);
+G2L["8e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["8e"]["Position"] = UDim2.new(0, 0, -0.00216, 0);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.ImageButton.UICorner
+G2L["8f"] = Instance.new("UICorner", G2L["8e"]);
+G2L["8f"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton
+G2L["90"] = Instance.new("TextButton", G2L["7f"]);
+G2L["90"]["TextStrokeTransparency"] = 0;
+G2L["90"]["BorderSizePixel"] = 0;
+G2L["90"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["90"]["TextStrokeColor3"] = Color3.fromRGB(233, 233, 233);
+G2L["90"]["TextSize"] = 20;
+G2L["90"]["TextColor3"] = Color3.fromRGB(226, 6, 10);
+G2L["90"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["90"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["90"]["BackgroundTransparency"] = 0.5;
+G2L["90"]["Size"] = UDim2.new(0, 206, 0, 45);
+G2L["90"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["90"]["Text"] = [[Anti Bee/Disco]];
+G2L["90"]["Position"] = UDim2.new(0, 0, 0.106, 0);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.UICorner
+G2L["91"] = Instance.new("UICorner", G2L["90"]);
+G2L["91"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.UIPadding
+G2L["92"] = Instance.new("UIPadding", G2L["90"]);
+G2L["92"]["PaddingLeft"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame
+G2L["93"] = Instance.new("Frame", G2L["90"]);
+G2L["93"]["BorderSizePixel"] = 0;
+G2L["93"]["BackgroundColor3"] = Color3.fromRGB(114, 114, 114);
+G2L["93"]["Size"] = UDim2.new(0, 52, 0, 22);
+G2L["93"]["Position"] = UDim2.new(0.67347, 0, 0.26667, 0);
+G2L["93"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["93"]["Name"] = [[colorFrame]];
+G2L["93"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.Move
+G2L["94"] = Instance.new("LocalScript", G2L["93"]);
+G2L["94"]["Name"] = [[Move]];
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.UICorner
+G2L["95"] = Instance.new("UICorner", G2L["93"]);
+G2L["95"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.ImageButton
+G2L["96"] = Instance.new("ImageButton", G2L["93"]);
+G2L["96"]["BorderSizePixel"] = 0;
+G2L["96"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["96"]["Size"] = UDim2.new(0, 23, 0, 21);
+G2L["96"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["96"]["Position"] = UDim2.new(0, 0, -0.00216, 0);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.ImageButton.UICorner
+G2L["97"] = Instance.new("UICorner", G2L["96"]);
+G2L["97"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton
+G2L["98"] = Instance.new("TextButton", G2L["7f"]);
+G2L["98"]["TextStrokeTransparency"] = 0;
+G2L["98"]["BorderSizePixel"] = 0;
+G2L["98"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["98"]["TextStrokeColor3"] = Color3.fromRGB(233, 233, 233);
+G2L["98"]["TextSize"] = 20;
+G2L["98"]["TextColor3"] = Color3.fromRGB(226, 6, 10);
+G2L["98"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["98"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["98"]["BackgroundTransparency"] = 0.5;
+G2L["98"]["Size"] = UDim2.new(0, 206, 0, 45);
+G2L["98"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["98"]["Text"] = [[Xray Bases]];
+G2L["98"]["Position"] = UDim2.new(0, 0, 0.208, 0);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.UICorner
+G2L["99"] = Instance.new("UICorner", G2L["98"]);
+G2L["99"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.UIPadding
+G2L["9a"] = Instance.new("UIPadding", G2L["98"]);
+G2L["9a"]["PaddingLeft"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame
+G2L["9b"] = Instance.new("Frame", G2L["98"]);
+G2L["9b"]["BorderSizePixel"] = 0;
+G2L["9b"]["BackgroundColor3"] = Color3.fromRGB(114, 114, 114);
+G2L["9b"]["Size"] = UDim2.new(0, 52, 0, 22);
+G2L["9b"]["Position"] = UDim2.new(0.67347, 0, 0.26667, 0);
+G2L["9b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["9b"]["Name"] = [[colorFrame]];
+G2L["9b"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.Move
+G2L["9c"] = Instance.new("LocalScript", G2L["9b"]);
+G2L["9c"]["Name"] = [[Move]];
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.UICorner
+G2L["9d"] = Instance.new("UICorner", G2L["9b"]);
+G2L["9d"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.ImageButton
+G2L["9e"] = Instance.new("ImageButton", G2L["9b"]);
+G2L["9e"]["BorderSizePixel"] = 0;
+G2L["9e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["9e"]["Size"] = UDim2.new(0, 23, 0, 21);
+G2L["9e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["9e"]["Position"] = UDim2.new(0, 0, -0.00216, 0);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.ImageButton.UICorner
+G2L["9f"] = Instance.new("UICorner", G2L["9e"]);
+G2L["9f"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton
+G2L["a0"] = Instance.new("TextButton", G2L["7f"]);
+G2L["a0"]["TextStrokeTransparency"] = 0;
+G2L["a0"]["BorderSizePixel"] = 0;
+G2L["a0"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["a0"]["TextStrokeColor3"] = Color3.fromRGB(233, 233, 233);
+G2L["a0"]["TextSize"] = 16;
+G2L["a0"]["TextColor3"] = Color3.fromRGB(226, 6, 10);
+G2L["a0"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["a0"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["a0"]["BackgroundTransparency"] = 0.5;
+G2L["a0"]["Size"] = UDim2.new(0, 206, 0, 45);
+G2L["a0"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["a0"]["Text"] = [[Paintball Spammer]];
+G2L["a0"]["Position"] = UDim2.new(0, 0, 0.41057, 0);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.UICorner
+G2L["a1"] = Instance.new("UICorner", G2L["a0"]);
+G2L["a1"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.UIPadding
+G2L["a2"] = Instance.new("UIPadding", G2L["a0"]);
+G2L["a2"]["PaddingLeft"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame
+G2L["a3"] = Instance.new("Frame", G2L["a0"]);
+G2L["a3"]["BorderSizePixel"] = 0;
+G2L["a3"]["BackgroundColor3"] = Color3.fromRGB(114, 114, 114);
+G2L["a3"]["Size"] = UDim2.new(0, 52, 0, 22);
+G2L["a3"]["Position"] = UDim2.new(0.67347, 0, 0.26667, 0);
+G2L["a3"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["a3"]["Name"] = [[colorFrame]];
+G2L["a3"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.Move
+G2L["a4"] = Instance.new("LocalScript", G2L["a3"]);
+G2L["a4"]["Name"] = [[Move]];
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.UICorner
+G2L["a5"] = Instance.new("UICorner", G2L["a3"]);
+G2L["a5"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.ImageButton
+G2L["a6"] = Instance.new("ImageButton", G2L["a3"]);
+G2L["a6"]["BorderSizePixel"] = 0;
+G2L["a6"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["a6"]["Size"] = UDim2.new(0, 23, 0, 21);
+G2L["a6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["a6"]["Position"] = UDim2.new(0, 0, -0.00216, 0);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.ImageButton.UICorner
+G2L["a7"] = Instance.new("UICorner", G2L["a6"]);
+G2L["a7"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton
+G2L["a8"] = Instance.new("TextButton", G2L["7f"]);
+G2L["a8"]["TextStrokeTransparency"] = 0;
+G2L["a8"]["BorderSizePixel"] = 0;
+G2L["a8"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["a8"]["TextStrokeColor3"] = Color3.fromRGB(233, 233, 233);
+G2L["a8"]["TextSize"] = 16;
+G2L["a8"]["TextColor3"] = Color3.fromRGB(226, 6, 10);
+G2L["a8"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["a8"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["a8"]["BackgroundTransparency"] = 0.5;
+G2L["a8"]["Size"] = UDim2.new(0, 206, 0, 45);
+G2L["a8"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["a8"]["Text"] = [[Web & Laser Aim]];
+G2L["a8"]["Position"] = UDim2.new(0, 0, 0.51457, 0);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.UICorner
+G2L["a9"] = Instance.new("UICorner", G2L["a8"]);
+G2L["a9"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.UIPadding
+G2L["aa"] = Instance.new("UIPadding", G2L["a8"]);
+G2L["aa"]["PaddingLeft"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame
+G2L["ab"] = Instance.new("Frame", G2L["a8"]);
+G2L["ab"]["BorderSizePixel"] = 0;
+G2L["ab"]["BackgroundColor3"] = Color3.fromRGB(114, 114, 114);
+G2L["ab"]["Size"] = UDim2.new(0, 52, 0, 22);
+G2L["ab"]["Position"] = UDim2.new(0.67347, 0, 0.26667, 0);
+G2L["ab"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["ab"]["Name"] = [[colorFrame]];
+G2L["ab"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.Move
+G2L["ac"] = Instance.new("LocalScript", G2L["ab"]);
+G2L["ac"]["Name"] = [[Move]];
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.UICorner
+G2L["ad"] = Instance.new("UICorner", G2L["ab"]);
+G2L["ad"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.ImageButton
+G2L["ae"] = Instance.new("ImageButton", G2L["ab"]);
+G2L["ae"]["BorderSizePixel"] = 0;
+G2L["ae"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["ae"]["Size"] = UDim2.new(0, 23, 0, 21);
+G2L["ae"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["ae"]["Position"] = UDim2.new(0, 0, -0.00216, 0);
+
+
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.ImageButton.UICorner
+G2L["af"] = Instance.new("UICorner", G2L["ae"]);
+G2L["af"]["CornerRadius"] = UDim.new(0, 15);
+
+
+-- StarterGui.Xploits.MainGui.Settings
+G2L["b0"] = Instance.new("TextButton", G2L["8"]);
+G2L["b0"]["TextStrokeTransparency"] = 0;
+G2L["b0"]["BorderSizePixel"] = 0;
+G2L["b0"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["b0"]["TextSize"] = 14;
+G2L["b0"]["TextColor3"] = Color3.fromRGB(244, 8, 12);
+G2L["b0"]["BackgroundColor3"] = Color3.fromRGB(36, 36, 36);
+G2L["b0"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["b0"]["Size"] = UDim2.new(0, 54, 0, 32);
+G2L["b0"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["b0"]["Text"] = [[Settings]];
+G2L["b0"]["Name"] = [[Settings]];
+G2L["b0"]["Position"] = UDim2.new(0.76, 0, 0.15, 0);
+
+
+-- StarterGui.Xploits.MainGui.Settings.ShowSF
+G2L["b1"] = Instance.new("LocalScript", G2L["b0"]);
+G2L["b1"]["Name"] = [[ShowSF]];
+
+
+-- StarterGui.Xploits.MainGui.Settings.UICorner
+G2L["b2"] = Instance.new("UICorner", G2L["b0"]);
+G2L["b2"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.MainGui.Settings.ScrollingFrame
+G2L["b3"] = Instance.new("ScrollingFrame", G2L["b0"]);
+G2L["b3"]["Visible"] = false;
+G2L["b3"]["Active"] = true;
+G2L["b3"]["ScrollingDirection"] = Enum.ScrollingDirection.Y;
+G2L["b3"]["BorderSizePixel"] = 0;
+G2L["b3"]["CanvasSize"] = UDim2.new(0, 0, 0, 500);
+G2L["b3"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["b3"]["Size"] = UDim2.new(0, 225, 0, 273);
+G2L["b3"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["b3"]["Position"] = UDim2.new(-3.18163, 0, 1.26923, 0);
+G2L["b3"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["b3"]["BackgroundTransparency"] = 1;
+
+
+-- StarterGui.Xploits.MainGui.Settings.ScrollingFrame.UIListLayout
+G2L["b4"] = Instance.new("UIListLayout", G2L["b3"]);
+G2L["b4"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
+
+
+-- StarterGui.Xploits.MainGui.TextLabel
+G2L["b5"] = Instance.new("TextLabel", G2L["8"]);
+G2L["b5"]["TextStrokeTransparency"] = 0;
+G2L["b5"]["BorderSizePixel"] = 0;
+G2L["b5"]["TextSize"] = 27;
+G2L["b5"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["b5"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["b5"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["b5"]["TextColor3"] = Color3.fromRGB(237, 2, 6);
+G2L["b5"]["BackgroundTransparency"] = 1;
+G2L["b5"]["Size"] = UDim2.new(0, 200, 0, 25);
+G2L["b5"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["b5"]["Text"] = [[Xploits]];
+G2L["b5"]["Position"] = UDim2.new(0.07627, 0, 0.02264, 0);
+
+
+-- StarterGui.Xploits.TextButton
+G2L["b6"] = Instance.new("TextButton", G2L["1"]);
+G2L["b6"]["TextWrapped"] = true;
+G2L["b6"]["BorderSizePixel"] = 0;
+G2L["b6"]["TextSize"] = 14;
+G2L["b6"]["TextScaled"] = true;
+G2L["b6"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["b6"]["BackgroundColor3"] = Color3.fromRGB(240, 3, 7);
+G2L["b6"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["b6"]["Size"] = UDim2.new(0, 43, 0, 41);
+G2L["b6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["b6"]["Text"] = [[X]];
+G2L["b6"]["Position"] = UDim2.new(0.89038, 0, 0.34649, 0);
+
+
+-- StarterGui.Xploits.TextButton.Drag
+G2L["b7"] = Instance.new("LocalScript", G2L["b6"]);
+G2L["b7"]["Name"] = [[Drag]];
+
+
+-- StarterGui.Xploits.TextButton.Open
+G2L["b8"] = Instance.new("LocalScript", G2L["b6"]);
+G2L["b8"]["Name"] = [[Open]];
+
+
+-- StarterGui.Xploits.DropBrainrot
+G2L["b9"] = Instance.new("TextButton", G2L["1"]);
+G2L["b9"]["TextWrapped"] = true;
+G2L["b9"]["BorderSizePixel"] = 0;
+G2L["b9"]["TextSize"] = 27;
+G2L["b9"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["b9"]["BackgroundColor3"] = Color3.fromRGB(19, 19, 19);
+G2L["b9"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["b9"]["BackgroundTransparency"] = 0.5;
+G2L["b9"]["Size"] = UDim2.new(0, 113, 0, 43);
+G2L["b9"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["b9"]["Text"] = [[Drop]];
+G2L["b9"]["Name"] = [[DropBrainrot]];
+G2L["b9"]["Position"] = UDim2.new(0.68307, 0, 0.65721, 0);
+
+
+-- StarterGui.Xploits.DropBrainrot.Drag
+G2L["ba"] = Instance.new("LocalScript", G2L["b9"]);
+G2L["ba"]["Name"] = [[Drag]];
+
+
+-- StarterGui.Xploits.DropBrainrot.Drop
+G2L["bb"] = Instance.new("LocalScript", G2L["b9"]);
+G2L["bb"]["Name"] = [[Drop]];
+
+
+-- StarterGui.Xploits.DropBrainrot.UICorner
+G2L["bc"] = Instance.new("UICorner", G2L["b9"]);
+G2L["bc"]["CornerRadius"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.DropBrainrot.UIStroke
+G2L["bd"] = Instance.new("UIStroke", G2L["b9"]);
+G2L["bd"]["Thickness"] = 2;
+
+
+-- StarterGui.Xploits.Speed
+G2L["be"] = Instance.new("Frame", G2L["1"]);
+G2L["be"]["Visible"] = false;
+G2L["be"]["BorderSizePixel"] = 0;
+G2L["be"]["BackgroundColor3"] = Color3.fromRGB(18, 18, 18);
+G2L["be"]["Size"] = UDim2.new(0, 190, 0, 180);
+G2L["be"]["Position"] = UDim2.new(0.37509, 0, 0.2651, 0);
+G2L["be"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["be"]["Name"] = [[Speed]];
+G2L["be"]["BackgroundTransparency"] = 0.5;
+
+
+-- StarterGui.Xploits.Speed.Drag
+G2L["bf"] = Instance.new("LocalScript", G2L["be"]);
+G2L["bf"]["Name"] = [[Drag]];
+
+
+-- StarterGui.Xploits.Speed.UICorner
+G2L["c0"] = Instance.new("UICorner", G2L["be"]);
+G2L["c0"]["CornerRadius"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.Speed.TextLabel
+G2L["c1"] = Instance.new("TextLabel", G2L["be"]);
+G2L["c1"]["TextStrokeTransparency"] = 0;
+G2L["c1"]["BorderSizePixel"] = 0;
+G2L["c1"]["TextSize"] = 20;
+G2L["c1"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["c1"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["c1"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["c1"]["TextColor3"] = Color3.fromRGB(255, 0, 5);
+G2L["c1"]["BackgroundTransparency"] = 1;
+G2L["c1"]["Size"] = UDim2.new(0, 190, 0, 30);
+G2L["c1"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["c1"]["Text"] = [[Speed Booster]];
+
+
+-- StarterGui.Xploits.Speed.TextButton
+G2L["c2"] = Instance.new("TextButton", G2L["be"]);
+G2L["c2"]["TextStrokeTransparency"] = 0;
+G2L["c2"]["BorderSizePixel"] = 0;
+G2L["c2"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["c2"]["TextSize"] = 20;
+G2L["c2"]["TextColor3"] = Color3.fromRGB(255, 0, 5);
+G2L["c2"]["BackgroundColor3"] = Color3.fromRGB(19, 19, 19);
+G2L["c2"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["c2"]["Size"] = UDim2.new(0, 174, 0, 25);
+G2L["c2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["c2"]["Text"] = [[OFF]];
+G2L["c2"]["Position"] = UDim2.new(0.04211, 0, 0.2, 0);
+
+
+-- StarterGui.Xploits.Speed.TextButton.Speed
+G2L["c3"] = Instance.new("LocalScript", G2L["c2"]);
+G2L["c3"]["Name"] = [[Speed]];
+
+
+-- StarterGui.Xploits.Speed.TextButton.UICorner
+G2L["c4"] = Instance.new("UICorner", G2L["c2"]);
+G2L["c4"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.Speed.TextLabel
+G2L["c5"] = Instance.new("TextLabel", G2L["be"]);
+G2L["c5"]["TextStrokeTransparency"] = 0;
+G2L["c5"]["BorderSizePixel"] = 0;
+G2L["c5"]["TextSize"] = 20;
+G2L["c5"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["c5"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["c5"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["c5"]["TextColor3"] = Color3.fromRGB(255, 0, 5);
+G2L["c5"]["BackgroundTransparency"] = 1;
+G2L["c5"]["Size"] = UDim2.new(0, 129, 0, 30);
+G2L["c5"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["c5"]["Text"] = [[Speed]];
+G2L["c5"]["Position"] = UDim2.new(-0.14737, 0, 0.38889, 0);
+
+
+-- StarterGui.Xploits.Speed.TextLabel
+G2L["c6"] = Instance.new("TextLabel", G2L["be"]);
+G2L["c6"]["TextStrokeTransparency"] = 0;
+G2L["c6"]["BorderSizePixel"] = 0;
+G2L["c6"]["TextSize"] = 20;
+G2L["c6"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["c6"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["c6"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["c6"]["TextColor3"] = Color3.fromRGB(255, 0, 5);
+G2L["c6"]["BackgroundTransparency"] = 1;
+G2L["c6"]["Size"] = UDim2.new(0, 129, 0, 30);
+G2L["c6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["c6"]["Text"] = [[Steal Speed]];
+G2L["c6"]["Position"] = UDim2.new(-0.03158, 0, 0.55556, 0);
+
+
+-- StarterGui.Xploits.Speed.TextLabel
+G2L["c7"] = Instance.new("TextLabel", G2L["be"]);
+G2L["c7"]["TextStrokeTransparency"] = 0;
+G2L["c7"]["BorderSizePixel"] = 0;
+G2L["c7"]["TextSize"] = 20;
+G2L["c7"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["c7"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["c7"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["c7"]["TextColor3"] = Color3.fromRGB(255, 0, 5);
+G2L["c7"]["BackgroundTransparency"] = 1;
+G2L["c7"]["Size"] = UDim2.new(0, 135, 0, 30);
+G2L["c7"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["c7"]["Text"] = [[Jump]];
+G2L["c7"]["Position"] = UDim2.new(-0.17895, 0, 0.72222, 0);
+
+
+-- StarterGui.Xploits.Speed.Speed
+G2L["c8"] = Instance.new("TextBox", G2L["be"]);
+G2L["c8"]["TextStrokeTransparency"] = 0;
+G2L["c8"]["Name"] = [[Speed]];
+G2L["c8"]["BorderSizePixel"] = 0;
+G2L["c8"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["c8"]["TextSize"] = 17;
+G2L["c8"]["TextColor3"] = Color3.fromRGB(255, 0, 39);
+G2L["c8"]["BackgroundColor3"] = Color3.fromRGB(19, 19, 19);
+G2L["c8"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["c8"]["ClearTextOnFocus"] = false;
+G2L["c8"]["Size"] = UDim2.new(0, 64, 0, 17);
+G2L["c8"]["Position"] = UDim2.new(0.62105, 0, 0.45, 0);
+G2L["c8"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["c8"]["Text"] = [[57]];
+
+
+-- StarterGui.Xploits.Speed.Speed.UICorner
+G2L["c9"] = Instance.new("UICorner", G2L["c8"]);
+G2L["c9"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.Speed.StealSpeed
+G2L["ca"] = Instance.new("TextBox", G2L["be"]);
+G2L["ca"]["TextStrokeTransparency"] = 0;
+G2L["ca"]["Name"] = [[StealSpeed]];
+G2L["ca"]["BorderSizePixel"] = 0;
+G2L["ca"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["ca"]["TextSize"] = 17;
+G2L["ca"]["TextColor3"] = Color3.fromRGB(255, 0, 39);
+G2L["ca"]["BackgroundColor3"] = Color3.fromRGB(19, 19, 19);
+G2L["ca"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["ca"]["ClearTextOnFocus"] = false;
+G2L["ca"]["Size"] = UDim2.new(0, 64, 0, 17);
+G2L["ca"]["Position"] = UDim2.new(0.62105, 0, 0.6, 0);
+G2L["ca"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["ca"]["Text"] = [[28]];
+
+
+-- StarterGui.Xploits.Speed.StealSpeed.UICorner
+G2L["cb"] = Instance.new("UICorner", G2L["ca"]);
+G2L["cb"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.Speed.Jump
+G2L["cc"] = Instance.new("TextBox", G2L["be"]);
+G2L["cc"]["TextStrokeTransparency"] = 0;
+G2L["cc"]["Name"] = [[Jump]];
+G2L["cc"]["BorderSizePixel"] = 0;
+G2L["cc"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["cc"]["TextSize"] = 17;
+G2L["cc"]["TextColor3"] = Color3.fromRGB(255, 0, 39);
+G2L["cc"]["BackgroundColor3"] = Color3.fromRGB(19, 19, 19);
+G2L["cc"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["cc"]["ClearTextOnFocus"] = false;
+G2L["cc"]["Size"] = UDim2.new(0, 64, 0, 17);
+G2L["cc"]["Position"] = UDim2.new(0.62105, 0, 0.75556, 0);
+G2L["cc"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["cc"]["Text"] = [[57]];
+
+
+-- StarterGui.Xploits.Speed.Jump.UICorner
+G2L["cd"] = Instance.new("UICorner", G2L["cc"]);
+G2L["cd"]["CornerRadius"] = UDim.new(0, 5);
+
+
+-- StarterGui.Xploits.Speed.UIStroke
+G2L["ce"] = Instance.new("UIStroke", G2L["be"]);
+G2L["ce"]["Thickness"] = 2;
+G2L["ce"]["Color"] = Color3.fromRGB(254, 0, 5);
+
+
+-- StarterGui.Xploits.AutoLeft
+G2L["cf"] = Instance.new("TextButton", G2L["1"]);
+G2L["cf"]["TextWrapped"] = true;
+G2L["cf"]["BorderSizePixel"] = 0;
+G2L["cf"]["TextSize"] = 27;
+G2L["cf"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["cf"]["BackgroundColor3"] = Color3.fromRGB(19, 19, 19);
+G2L["cf"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["cf"]["BackgroundTransparency"] = 0.5;
+G2L["cf"]["Size"] = UDim2.new(0, 113, 0, 43);
+G2L["cf"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["cf"]["Text"] = [[Auto Left]];
+G2L["cf"]["Name"] = [[AutoLeft]];
+G2L["cf"]["Position"] = UDim2.new(0.78598, 0, 0.65721, 0);
+
+
+-- StarterGui.Xploits.AutoLeft.Drag
+G2L["d0"] = Instance.new("LocalScript", G2L["cf"]);
+G2L["d0"]["Name"] = [[Drag]];
+
+
+-- StarterGui.Xploits.AutoLeft.Drop
+G2L["d1"] = Instance.new("LocalScript", G2L["cf"]);
+G2L["d1"]["Name"] = [[Drop]];
+
+
+-- StarterGui.Xploits.AutoLeft.UICorner
+G2L["d2"] = Instance.new("UICorner", G2L["cf"]);
+G2L["d2"]["CornerRadius"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.AutoLeft.UIStroke
+G2L["d3"] = Instance.new("UIStroke", G2L["cf"]);
+G2L["d3"]["Thickness"] = 2;
+
+
+-- StarterGui.Xploits.AutoRight
+G2L["d4"] = Instance.new("TextButton", G2L["1"]);
+G2L["d4"]["TextWrapped"] = true;
+G2L["d4"]["BorderSizePixel"] = 0;
+G2L["d4"]["TextSize"] = 22;
+G2L["d4"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["d4"]["BackgroundColor3"] = Color3.fromRGB(19, 19, 19);
+G2L["d4"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["d4"]["BackgroundTransparency"] = 0.5;
+G2L["d4"]["Size"] = UDim2.new(0, 113, 0, 43);
+G2L["d4"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["d4"]["Text"] = [[Auto Right]];
+G2L["d4"]["Name"] = [[AutoRight]];
+G2L["d4"]["Position"] = UDim2.new(0.78598, 0, 0.72256, 0);
+
+
+-- StarterGui.Xploits.AutoRight.Drag
+G2L["d5"] = Instance.new("LocalScript", G2L["d4"]);
+G2L["d5"]["Name"] = [[Drag]];
+
+
+-- StarterGui.Xploits.AutoRight.Drop
+G2L["d6"] = Instance.new("LocalScript", G2L["d4"]);
+G2L["d6"]["Name"] = [[Drop]];
+
+
+-- StarterGui.Xploits.AutoRight.UICorner
+G2L["d7"] = Instance.new("UICorner", G2L["d4"]);
+G2L["d7"]["CornerRadius"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.AutoRight.UIStroke
+G2L["d8"] = Instance.new("UIStroke", G2L["d4"]);
+G2L["d8"]["Thickness"] = 2;
+
+
+-- StarterGui.Xploits.RTP
+G2L["d9"] = Instance.new("TextButton", G2L["1"]);
+G2L["d9"]["TextWrapped"] = true;
+G2L["d9"]["BorderSizePixel"] = 0;
+G2L["d9"]["TextSize"] = 23;
+G2L["d9"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["d9"]["BackgroundColor3"] = Color3.fromRGB(19, 19, 19);
+G2L["d9"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["d9"]["BackgroundTransparency"] = 0.5;
+G2L["d9"]["Size"] = UDim2.new(0, 113, 0, 43);
+G2L["d9"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["d9"]["Text"] = [[Ragdoll TP]];
+G2L["d9"]["Name"] = [[RTP]];
+G2L["d9"]["Position"] = UDim2.new(0.68307, 0, 0.72256, 0);
+
+
+-- StarterGui.Xploits.RTP.Drag
+G2L["da"] = Instance.new("LocalScript", G2L["d9"]);
+G2L["da"]["Name"] = [[Drag]];
+
+
+-- StarterGui.Xploits.RTP.Drop
+G2L["db"] = Instance.new("LocalScript", G2L["d9"]);
+G2L["db"]["Name"] = [[Drop]];
+
+
+-- StarterGui.Xploits.RTP.UICorner
+G2L["dc"] = Instance.new("UICorner", G2L["d9"]);
+G2L["dc"]["CornerRadius"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.RTP.UIStroke
+G2L["dd"] = Instance.new("UIStroke", G2L["d9"]);
+G2L["dd"]["Thickness"] = 2;
+
+
+-- StarterGui.Xploits.RTO
+G2L["de"] = Instance.new("TextButton", G2L["1"]);
+G2L["de"]["TextWrapped"] = true;
+G2L["de"]["BorderSizePixel"] = 0;
+G2L["de"]["TextSize"] = 20;
+G2L["de"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["de"]["BackgroundColor3"] = Color3.fromRGB(19, 19, 19);
+G2L["de"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["de"]["BackgroundTransparency"] = 0.5;
+G2L["de"]["Size"] = UDim2.new(0, 113, 0, 43);
+G2L["de"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["de"]["Text"] = [[Ragdoll TP Opponent]];
+G2L["de"]["Name"] = [[RTO]];
+G2L["de"]["Position"] = UDim2.new(0.58673, 0, 0.65721, 0);
+
+
+-- StarterGui.Xploits.RTO.Drag
+G2L["df"] = Instance.new("LocalScript", G2L["de"]);
+G2L["df"]["Name"] = [[Drag]];
+
+
+-- StarterGui.Xploits.RTO.Drop
+G2L["e0"] = Instance.new("LocalScript", G2L["de"]);
+G2L["e0"]["Name"] = [[Drop]];
+
+
+-- StarterGui.Xploits.RTO.UICorner
+G2L["e1"] = Instance.new("UICorner", G2L["de"]);
+G2L["e1"]["CornerRadius"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.RTO.UIStroke
+G2L["e2"] = Instance.new("UIStroke", G2L["de"]);
+G2L["e2"]["Thickness"] = 2;
+
+
+-- StarterGui.Xploits.CreateConfig
+G2L["e3"] = Instance.new("TextButton", G2L["1"]);
+G2L["e3"]["TextWrapped"] = true;
+G2L["e3"]["BorderSizePixel"] = 0;
+G2L["e3"]["TextSize"] = 18;
+G2L["e3"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["e3"]["BackgroundColor3"] = Color3.fromRGB(19, 19, 19);
+G2L["e3"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["e3"]["BackgroundTransparency"] = 0.5;
+G2L["e3"]["Size"] = UDim2.new(0, 113, 0, 43);
+G2L["e3"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["e3"]["Text"] = [[Create Config]];
+G2L["e3"]["Name"] = [[CreateConfig]];
+G2L["e3"]["Position"] = UDim2.new(0.58598, 0, 0.72256, 0);
+
+
+-- StarterGui.Xploits.CreateConfig.Drag
+G2L["e4"] = Instance.new("LocalScript", G2L["e3"]);
+G2L["e4"]["Name"] = [[Drag]];
+
+
+-- StarterGui.Xploits.CreateConfig.Drop
+G2L["e5"] = Instance.new("LocalScript", G2L["e3"]);
+G2L["e5"]["Name"] = [[Drop]];
+
+
+-- StarterGui.Xploits.CreateConfig.UICorner
+G2L["e6"] = Instance.new("UICorner", G2L["e3"]);
+G2L["e6"]["CornerRadius"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.CreateConfig.UIStroke
+G2L["e7"] = Instance.new("UIStroke", G2L["e3"]);
+G2L["e7"]["Thickness"] = 2;
+
+
+-- StarterGui.Xploits.CreateConfig.Frame
+G2L["e8"] = Instance.new("Frame", G2L["e3"]);
+G2L["e8"]["Visible"] = false;
+G2L["e8"]["BorderSizePixel"] = 0;
+G2L["e8"]["BackgroundColor3"] = Color3.fromRGB(49, 49, 49);
+G2L["e8"]["Size"] = UDim2.new(0, 193, 0, 179);
+G2L["e8"]["Position"] = UDim2.new(-3.25664, 0, -5.93605, 0);
+G2L["e8"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["e8"]["BackgroundTransparency"] = 0.5;
+
+
+-- StarterGui.Xploits.CreateConfig.Frame.Drag
+G2L["e9"] = Instance.new("LocalScript", G2L["e8"]);
+G2L["e9"]["Name"] = [[Drag]];
+
+
+-- StarterGui.Xploits.CreateConfig.Frame.Create
+G2L["ea"] = Instance.new("TextButton", G2L["e8"]);
+G2L["ea"]["TextWrapped"] = true;
+G2L["ea"]["BorderSizePixel"] = 0;
+G2L["ea"]["TextSize"] = 27;
+G2L["ea"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["ea"]["BackgroundColor3"] = Color3.fromRGB(19, 19, 19);
+G2L["ea"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["ea"]["BackgroundTransparency"] = 0.5;
+G2L["ea"]["Size"] = UDim2.new(0, 152, 0, 43);
+G2L["ea"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["ea"]["Text"] = [[Create]];
+G2L["ea"]["Name"] = [[Create]];
+G2L["ea"]["Position"] = UDim2.new(0.10148, 0, 0.13001, 0);
+
+
+-- StarterGui.Xploits.CreateConfig.Frame.Create.Drop
+G2L["eb"] = Instance.new("LocalScript", G2L["ea"]);
+G2L["eb"]["Name"] = [[Drop]];
+
+
+-- StarterGui.Xploits.CreateConfig.Frame.Create.UIStroke
+G2L["ec"] = Instance.new("UIStroke", G2L["ea"]);
+G2L["ec"]["Thickness"] = 2;
+
+
+-- StarterGui.Xploits.CreateConfig.Frame.TextBox
+G2L["ed"] = Instance.new("TextBox", G2L["e8"]);
+G2L["ed"]["BorderSizePixel"] = 0;
+G2L["ed"]["TextSize"] = 14;
+G2L["ed"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["ed"]["BackgroundColor3"] = Color3.fromRGB(12, 12, 12);
+G2L["ed"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["ed"]["ClearTextOnFocus"] = false;
+G2L["ed"]["Size"] = UDim2.new(0, 152, 0, 38);
+G2L["ed"]["Position"] = UDim2.new(0.10369, 0, 0.60757, 0);
+G2L["ed"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["ed"]["Text"] = [[]];
+G2L["ed"]["BackgroundTransparency"] = 0.5;
+
+
+-- StarterGui.Xploits.LoadConfig
+G2L["ee"] = Instance.new("TextButton", G2L["1"]);
+G2L["ee"]["TextWrapped"] = true;
+G2L["ee"]["BorderSizePixel"] = 0;
+G2L["ee"]["TextSize"] = 18;
+G2L["ee"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["ee"]["BackgroundColor3"] = Color3.fromRGB(19, 19, 19);
+G2L["ee"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["ee"]["BackgroundTransparency"] = 0.5;
+G2L["ee"]["Size"] = UDim2.new(0, 113, 0, 43);
+G2L["ee"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["ee"]["Text"] = [[Load Config]];
+G2L["ee"]["Name"] = [[LoadConfig]];
+G2L["ee"]["Position"] = UDim2.new(0.58598, 0, 0.78545, 0);
+
+
+-- StarterGui.Xploits.LoadConfig.Drag
+G2L["ef"] = Instance.new("LocalScript", G2L["ee"]);
+G2L["ef"]["Name"] = [[Drag]];
+
+
+-- StarterGui.Xploits.LoadConfig.Drop
+G2L["f0"] = Instance.new("LocalScript", G2L["ee"]);
+G2L["f0"]["Name"] = [[Drop]];
+
+
+-- StarterGui.Xploits.LoadConfig.UICorner
+G2L["f1"] = Instance.new("UICorner", G2L["ee"]);
+G2L["f1"]["CornerRadius"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.LoadConfig.UIStroke
+G2L["f2"] = Instance.new("UIStroke", G2L["ee"]);
+G2L["f2"]["Thickness"] = 2;
+
+
+-- StarterGui.Xploits.LoadConfig.ScrollingFrame
+G2L["f3"] = Instance.new("ScrollingFrame", G2L["ee"]);
+G2L["f3"]["Visible"] = false;
+G2L["f3"]["Active"] = true;
+G2L["f3"]["BorderSizePixel"] = 0;
+G2L["f3"]["CanvasSize"] = UDim2.new(0, 0, 15, 0);
+G2L["f3"]["BackgroundColor3"] = Color3.fromRGB(22, 22, 22);
+G2L["f3"]["Size"] = UDim2.new(0, 195, 0, 203);
+G2L["f3"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["f3"]["Position"] = UDim2.new(-1.0531, 0, -8.95349, 0);
+G2L["f3"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["f3"]["BackgroundTransparency"] = 0.5;
+
+
+-- StarterGui.Xploits.LoadConfig.ScrollingFrame.Drag
+G2L["f4"] = Instance.new("LocalScript", G2L["f3"]);
+G2L["f4"]["Name"] = [[Drag]];
+
+
+-- StarterGui.Xploits.AutoBat
+G2L["f5"] = Instance.new("TextButton", G2L["1"]);
+G2L["f5"]["TextWrapped"] = true;
+G2L["f5"]["BorderSizePixel"] = 0;
+G2L["f5"]["TextSize"] = 22;
+G2L["f5"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["f5"]["BackgroundColor3"] = Color3.fromRGB(19, 19, 19);
+G2L["f5"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["f5"]["BackgroundTransparency"] = 0.5;
+G2L["f5"]["Size"] = UDim2.new(0, 113, 0, 43);
+G2L["f5"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["f5"]["Text"] = [[Auto Bat]];
+G2L["f5"]["Name"] = [[AutoBat]];
+G2L["f5"]["Position"] = UDim2.new(0.68307, 0, 0.78545, 0);
+
+
+-- StarterGui.Xploits.AutoBat.Drag
+G2L["f6"] = Instance.new("LocalScript", G2L["f5"]);
+G2L["f6"]["Name"] = [[Drag]];
+
+
+-- StarterGui.Xploits.AutoBat.Drop
+G2L["f7"] = Instance.new("LocalScript", G2L["f5"]);
+G2L["f7"]["Name"] = [[Drop]];
+
+
+-- StarterGui.Xploits.AutoBat.UICorner
+G2L["f8"] = Instance.new("UICorner", G2L["f5"]);
+G2L["f8"]["CornerRadius"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.AutoBat.UIStroke
+G2L["f9"] = Instance.new("UIStroke", G2L["f5"]);
+G2L["f9"]["Thickness"] = 2;
+
+
+-- StarterGui.Xploits.AutoBat.ScrollingFrame
+G2L["fa"] = Instance.new("ScrollingFrame", G2L["f5"]);
+G2L["fa"]["Visible"] = false;
+G2L["fa"]["Active"] = true;
+G2L["fa"]["BorderSizePixel"] = 0;
+G2L["fa"]["CanvasSize"] = UDim2.new(0, 0, 15, 0);
+G2L["fa"]["BackgroundColor3"] = Color3.fromRGB(22, 22, 22);
+G2L["fa"]["Size"] = UDim2.new(0, 195, 0, 203);
+G2L["fa"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["fa"]["Position"] = UDim2.new(-1.0531, 0, -8.95349, 0);
+G2L["fa"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["fa"]["BackgroundTransparency"] = 0.5;
+
+
+-- StarterGui.Xploits.AutoBat.ScrollingFrame.Drag
+G2L["fb"] = Instance.new("LocalScript", G2L["fa"]);
+G2L["fb"]["Name"] = [[Drag]];
+
+
+-- StarterGui.Xploits.MeleeAim
+G2L["fc"] = Instance.new("TextButton", G2L["1"]);
+G2L["fc"]["TextWrapped"] = true;
+G2L["fc"]["BorderSizePixel"] = 0;
+G2L["fc"]["TextSize"] = 22;
+G2L["fc"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["fc"]["BackgroundColor3"] = Color3.fromRGB(19, 19, 19);
+G2L["fc"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["fc"]["BackgroundTransparency"] = 0.5;
+G2L["fc"]["Size"] = UDim2.new(0, 113, 0, 43);
+G2L["fc"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["fc"]["Text"] = [[Melee Aim]];
+G2L["fc"]["Name"] = [[MeleeAim]];
+G2L["fc"]["Position"] = UDim2.new(0.78539, 0, 0.78545, 0);
+
+
+-- StarterGui.Xploits.MeleeAim.Drag
+G2L["fd"] = Instance.new("LocalScript", G2L["fc"]);
+G2L["fd"]["Name"] = [[Drag]];
+
+
+-- StarterGui.Xploits.MeleeAim.Drop
+G2L["fe"] = Instance.new("LocalScript", G2L["fc"]);
+G2L["fe"]["Name"] = [[Drop]];
+
+
+-- StarterGui.Xploits.MeleeAim.UICorner
+G2L["ff"] = Instance.new("UICorner", G2L["fc"]);
+G2L["ff"]["CornerRadius"] = UDim.new(0, 10);
+
+
+-- StarterGui.Xploits.MeleeAim.UIStroke
+G2L["100"] = Instance.new("UIStroke", G2L["fc"]);
+G2L["100"]["Thickness"] = 2;
+
+
+-- StarterGui.Xploits.Frame.Drag
+local function C_3()
+local script = G2L["3"];
+	local UserInputService = game:GetService("UserInputService")
+	
+	local gui = script.Parent
+	
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	
+	local function update(input)
+		local delta = input.Position - dragStart
+		gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+	
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+			
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+end;
+task.spawn(C_3);
+-- StarterGui.Xploits.Frame.TextLabel.FPSPING
+local function C_6()
+local script = G2L["6"];
+	local Players = game:GetService("Players")
+	local RunService = game:GetService("RunService")
+	local Stats = game:GetService("Stats")
+	
+	local player = Players.LocalPlayer
+	local label = script.Parent
+	
+	RunService.RenderStepped:Connect(function(delta)
+		local fps = math.floor(1 / delta)
+		local ping = player:GetNetworkPing() * 1000
+	
+		label.Text = "Xploits Duels | FPS: " .. fps
+			.. "  |  Ping: " .. math.floor(ping) .. "ms"
+	end)
+end;
+task.spawn(C_6);
+-- StarterGui.Xploits.MainGui.Drag
+local function C_9()
+local script = G2L["9"];
+	local UserInputService = game:GetService("UserInputService")
+	
+	local gui = script.Parent
+	
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	
+	local function update(input)
+		local delta = input.Position - dragStart
+		gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+	
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+			
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+end;
+task.spawn(C_9);
+-- StarterGui.Xploits.MainGui.Melee.ShowSF
+local function C_d()
+local script = G2L["d"];
+	script.Parent.MouseButton1Click:Connect(function()
+		local MainGui = script.Parent.Parent.Parent.MainGui
+		MainGui.Player.ScrollingFrame.Visible = false
+		MainGui.Visuals.ScrollingFrame.Visible = false
+		MainGui.Settings.ScrollingFrame.Visible = false
+		script.Parent.ScrollingFrame.Visible = true
+		script.Parent.Parent.Melee.BackgroundColor3 = Color3.new(1, 0, 0.0156863)
+		MainGui.Player.BackgroundColor3 = Color3.new(0.137255, 0.137255, 0.137255)
+		MainGui.Visuals.BackgroundColor3 = Color3.new(0.137255, 0.137255, 0.137255)
+		MainGui.Settings.BackgroundColor3 = Color3.new(0.137255, 0.137255, 0.137255)
+	end)
+end;
+task.spawn(C_d);
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.Move
+local function C_14()
+local script = G2L["14"];
+	local colorFrame = script.Parent
+	local toggleKnob = colorFrame:WaitForChild("ImageButton")
+	local isOn = false
+	local tweenService = game:GetService("TweenService")
+	local RunService = game:GetService("RunService")
+	local LocalPlayer = game.Players.LocalPlayer
+	local Players = game.Players
+	local Connections = {}
+	local Enabled = {
+		BatAimbot = false,
+	}
+	
+	
+	local function getBat()
+		local char = LocalPlayer.Character
+		if not char then return nil end
+		local tool = char:FindFirstChildWhichIsA("Tool")
+		if tool and tool.Name == "Bat" then return tool end
+		local bp = LocalPlayer:FindFirstChild("Backpack")
+		if bp then
+			local bt = bp:FindFirstChild("Bat")
+			if bt then return bt end
+		end
+		return nil
+	end
+	
+	local function findNearestEnemy(myHRP)
+		local nearest, nearestDist, nearestTorso = nil, math.huge, nil
+		for _, p in ipairs(Players:GetPlayers()) do
+			if p ~= LocalPlayer and p.Character then
+				local eh    = p.Character:FindFirstChild("HumanoidRootPart")
+				local torso = p.Character:FindFirstChild("UpperTorso") or p.Character:FindFirstChild("Torso")
+				local hum   = p.Character:FindFirstChildOfClass("Humanoid")
+				if eh and hum and hum.Health > 0 then
+					local d = (eh.Position - myHRP.Position).Magnitude
+					if d < nearestDist then
+						nearestDist = d
+						nearest = eh
+						nearestTorso = torso or eh
+					end
+				end
+			end
+		end
+		return nearest, nearestDist, nearestTorso
+	end
+	
+	local function startBatAimbot()
+		if Connections.batAimbot then return end
+		Connections.batAimbot = RunService.Heartbeat:Connect(function()
+			if not Enabled.BatAimbot then return end
+			local c = LocalPlayer.Character
+			if not c then return end
+			local h = c:FindFirstChild("HumanoidRootPart")
+			local hum = c:FindFirstChildOfClass("Humanoid")
+			if not h or not hum then return end
+			local bat = getBat()
+			if not bat then return end
+			local target, dist, torso = findNearestEnemy(h)
+			if not target or not torso then return end
+			local targetVel = torso.AssemblyLinearVelocity
+			local dir = torso.Position - h.Position
+			local flatDir = Vector3.new(dir.X, 0, dir.Z)
+			local flatDist = flatDir.Magnitude
+			local timeToReach = flatDist / 80
+			local predictedPos = torso.Position + targetVel * timeToReach
+			local spd = 58
+			if flatDist > 1 then
+				local moveDir = Vector3.new(predictedPos.X - h.Position.X, 0, predictedPos.Z - h.Position.Z).Unit
+				local yDiff = torso.Position.Y - h.Position.Y
+				local ySpeed = math.abs(yDiff) > 0.5 and math.clamp(yDiff * 8, -100, 100) or targetVel.Y
+				h.AssemblyLinearVelocity = Vector3.new(moveDir.X * spd, ySpeed, moveDir.Z * spd)
+			else
+				h.AssemblyLinearVelocity = Vector3.new(targetVel.X, targetVel.Y, targetVel.Z)
+			end
+		end)
+	end
+	
+	local function stopBatAimbot()
+		if Connections.batAimbot then
+			Connections.batAimbot:Disconnect()
+			Connections.batAimbot = nil
+		end
+	end
+	
+	_G.XploitsCFG = _G.XploitsCFG or {}
+	_G.XploitsCFG["AutoBat"] = {
+		getState = function() return isOn end,
+		setState = function(state)
+			if state == isOn then return end
+			isOn = state
+			Enabled.BatAimbot = isOn
+			local knobSize = toggleKnob.AbsoluteSize.X
+			local targetPosition
+			if isOn then
+				startBatAimbot()
+				targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+			else
+				stopBatAimbot()
+				targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+			end
+			tweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Position = targetPosition
+			}):Play()
+		end
+	}
+	
+	toggleKnob.MouseButton1Click:Connect(function()
+		isOn = not isOn
+		Enabled.BatAimbot = isOn
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+		if isOn then
+			startBatAimbot()
+			targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		else
+			stopBatAimbot()
+			targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		end
+		local tween = tweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = targetPosition
+		})
+		tween:Play()
+	end)
+end;
+task.spawn(C_14);
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.Move
+local function C_1c()
+local script = G2L["1c"];
+	local RunService = game:GetService("RunService")
+	local LocalPlayer = game.Players.LocalPlayer
+	local tweenService = game:GetService("TweenService")
+	local toggleKnob = script.Parent.ImageButton
+	local isOn = false
+	
+	local PULL_DISTANCE = -3
+	local DETECTION_DISTANCE = 50
+	
+	local antiSentryConnection = nil
+	local antiSentryTarget = nil
+	
+	local function getCharacter()
+		return LocalPlayer.Character
+	end
+	
+	local function getWeapon()
+		local char = getCharacter()
+		if not char then return nil end
+		return LocalPlayer.Backpack:FindFirstChild("Bat") or char:FindFirstChild("Bat")
+	end
+	
+	local function findSentryTarget()
+		local char = getCharacter()
+		if not char or not char:FindFirstChild("HumanoidRootPart") then return end
+	
+		local rootPos = char.HumanoidRootPart.Position
+	
+		for _, obj in pairs(workspace:GetChildren()) do
+			if obj.Name:find("Sentry") and not obj.Name:lower():find("bullet") then
+	
+				local ownerId = obj.Name:match("Sentry_(%d+)")
+				if not ownerId or tonumber(ownerId) ~= LocalPlayer.UserId then
+	
+					local part = obj:IsA("BasePart") and obj
+						or obj:IsA("Model") and (obj.PrimaryPart or obj:FindFirstChildWhichIsA("BasePart"))
+	
+					if part and (rootPos - part.Position).Magnitude <= DETECTION_DISTANCE then
+						return obj
+					end
+	
+				end
+			end
+		end
+	end
+	
+	local function moveSentry(obj)
+		local char = getCharacter()
+		if not char or not char:FindFirstChild("HumanoidRootPart") then return end
+	
+		for _, part in pairs(obj:GetDescendants()) do
+			if part:IsA("BasePart") then
+				part.CanCollide = false
+			end
+		end
+	
+		local root = char.HumanoidRootPart
+		local cf = root.CFrame * CFrame.new(0, 0, PULL_DISTANCE)
+	
+		if obj:IsA("BasePart") then
+			obj.CFrame = cf
+		elseif obj:IsA("Model") then
+			local main = obj.PrimaryPart or obj:FindFirstChildWhichIsA("BasePart")
+			if main then
+				main.CFrame = cf
+			end
+		end
+	end
+	
+	local function attackSentry()
+		local char = getCharacter()
+		if not char then return end
+	
+		local hum = char:FindFirstChildOfClass("Humanoid")
+		if not hum then return end
+	
+		local weapon = getWeapon()
+		if not weapon then return end
+	
+		if weapon.Parent == LocalPlayer.Backpack then
+			hum:EquipTool(weapon)
+			task.wait(0.1)
+		end
+	
+		local handle = weapon:FindFirstChild("Handle")
+		if handle then
+			handle.CanCollide = false
+		end
+	
+		pcall(function() weapon:Activate() end)
+	
+		for _, r in pairs(weapon:GetDescendants()) do
+			if r:IsA("RemoteEvent") then
+				pcall(function() r:FireServer() end)
+			end
+		end
+	end
+	
+	local function startAntiSentry()
+		if antiSentryConnection then return end
+		antiSentryConnection = RunService.Heartbeat:Connect(function()
+			if antiSentryTarget and antiSentryTarget.Parent == workspace then
+				moveSentry(antiSentryTarget)
+				attackSentry()
+			else
+				antiSentryTarget = findSentryTarget()
+			end
+		end)
+	end
+	
+	local function stopAntiSentry()
+		if antiSentryConnection then
+			antiSentryConnection:Disconnect()
+			antiSentryConnection = nil
+		end
+		antiSentryTarget = nil
+	end
+	
+	_G.XploitsCFG = _G.XploitsCFG or {}
+	_G.XploitsCFG["AntiSentry"] = {
+		getState = function() return isOn end,
+		setState = function(state)
+			if state == isOn then return end
+			isOn = state
+			local knobSize = toggleKnob.AbsoluteSize.X
+			local targetPosition
+			if isOn then
+				startAntiSentry()
+				targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+			else
+				stopAntiSentry()
+				targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+			end
+			tweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Position = targetPosition
+			}):Play()
+		end
+	}
+	
+	
+	-- toggle button
+	toggleKnob.MouseButton1Click:Connect(function()
+		isOn = not isOn
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+	
+		if isOn then
+			startAntiSentry()
+			targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		else
+			stopAntiSentry()
+			targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		end
+	
+		local tween = tweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = targetPosition
+		})
+		tween:Play()
+	end)
+end;
+task.spawn(C_1c);
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.Move
+local function C_24()
+local script = G2L["24"];
+	-- Services
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+	local TweenService = game:GetService("TweenService")
+	local LocalPlayer = Players.LocalPlayer
+	
+	-- Variables
+	local medusaNames = { ["medusa's head"]=true, ["medusa"]=true }
+	local medusaCounterConn = nil
+	local medusaToolConns = {}
+	local medusaPlayerConns = {}
+	local lastMedusaUse = 0
+	local lastBoogieUse = 0
+	local isOn = false
+	
+	local Enabled = {
+		CounterMedusa = false,
+	}
+	
+	local toggleKnob = script.Parent.ImageButton
+	
+	-- Helper functions
+	local function getHRP()
+		local char = LocalPlayer.Character
+		if not char then return nil end
+		return char:FindFirstChild("HumanoidRootPart")
+	end
+	
+	local function safeDiscMedusa(conn)
+		if conn then pcall(function() conn:Disconnect() end) end
+	end
+	
+	local function isMedusaToolName(name)
+		if not name then return false end
+		local lower = name:lower()
+		if medusaNames[lower] then return true end
+		return lower:find("medusa") ~= nil
+	end
+	
+	local function enemyHasMedusa(character)
+		if not character then return false end
+		for _, i in ipairs(character:GetChildren()) do
+			if i:IsA("Tool") and isMedusaToolName(i.Name) then return true end
+		end
+		return false
+	end
+	
+	local function getMedusaTool()
+		local char = LocalPlayer.Character
+		if char then
+			for _, i in ipairs(char:GetChildren()) do
+				if i:IsA("Tool") and isMedusaToolName(i.Name) then return i end
+			end
+		end
+		local bp = LocalPlayer:FindFirstChildOfClass("Backpack")
+		if bp then
+			for _, i in ipairs(bp:GetChildren()) do
+				if i:IsA("Tool") and isMedusaToolName(i.Name) then return i end
+			end
+		end
+	end
+	
+	local function getBoogieTool()
+		local char = LocalPlayer.Character
+		if char then
+			for _, i in ipairs(char:GetChildren()) do
+				if i:IsA("Tool") and i.Name:lower():find("boogie") then return i end
+			end
+		end
+		local bp = LocalPlayer:FindFirstChildOfClass("Backpack")
+		if bp then
+			for _, i in ipairs(bp:GetChildren()) do
+				if i:IsA("Tool") and i.Name:lower():find("boogie") then return i end
+			end
+		end
+	end
+	
+	local function activateMedusa(tool)
+		if not tool then return end
+		local now = workspace:GetServerTimeNow()
+		if now - lastMedusaUse <= 0.3 then return end
+		local hum = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+		if not hum then return end
+		if tool.Parent ~= LocalPlayer.Character then pcall(function() hum:EquipTool(tool) end) end
+		pcall(function() if type(tool.Activate) == "function" then tool:Activate() end end)
+		lastMedusaUse = now
+		task.delay(0.1, function()
+			local h = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+			if h then pcall(function() h:UnequipTools() end) end
+		end)
+	end
+	
+	local function activateBoogie(tool)
+		if not tool then return end
+		local now = workspace:GetServerTimeNow()
+		if now - lastBoogieUse <= 0.3 then return end
+		local hum = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+		if not hum then return end
+		if tool.Parent ~= LocalPlayer.Character then pcall(function() hum:EquipTool(tool) end) end
+		pcall(function() if type(tool.Activate) == "function" then tool:Activate() end end)
+		lastBoogieUse = now
+		task.delay(0.1, function()
+			local h = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+			if h then pcall(function() h:UnequipTools() end) end
+		end)
+	end
+	
+	local function useCounterTool()
+		local now = workspace:GetServerTimeNow()
+		if now - lastMedusaUse > 0.3 then
+			local t = getMedusaTool()
+			if t then activateMedusa(t); return true end
+		end
+		if now - lastBoogieUse > 0.3 then
+			local t = getBoogieTool()
+			if t then activateBoogie(t); return true end
+		end
+		return false
+	end
+	
+	local function unbindMedusaTool(tool)
+		if medusaToolConns[tool] then
+			safeDiscMedusa(medusaToolConns[tool])
+			medusaToolConns[tool] = nil
+		end
+	end
+	
+	local function bindMedusaTool(tool)
+		if not tool or not tool:IsA("Tool") or medusaToolConns[tool] then return end
+		if not isMedusaToolName(tool.Name) then return end
+		local conn = tool.Activated:Connect(function()
+			if not Enabled.CounterMedusa then return end
+			local attackerRoot = tool.Parent and tool.Parent:FindFirstChild("HumanoidRootPart")
+			local myHRP = getHRP()
+			if not (attackerRoot and myHRP) then return end
+			if (attackerRoot.Position - myHRP.Position).Magnitude <= 20 then
+				useCounterTool()
+			end
+		end)
+		medusaToolConns[tool] = conn
+		tool.Destroying:Connect(function() unbindMedusaTool(tool) end)
+	end
+	
+	local function unbindPlayerMedusa(plr)
+		local list = medusaPlayerConns[plr]
+		if list then
+			for _, c in ipairs(list) do safeDiscMedusa(c) end
+			medusaPlayerConns[plr] = nil
+		end
+	end
+	
+	local function bindPlayerMedusa(plr)
+		if not plr or plr == LocalPlayer then return end
+		unbindPlayerMedusa(plr)
+		local conns = {}
+		local function scan(char)
+			if not char then return end
+			for _, child in ipairs(char:GetChildren()) do
+				if child:IsA("Tool") then bindMedusaTool(child) end
+			end
+			table.insert(conns, char.ChildAdded:Connect(function(obj)
+				if obj:IsA("Tool") then bindMedusaTool(obj) end
+			end))
+		end
+		local cChar = plr.Character or plr.CharacterAdded:Wait()
+		scan(cChar)
+		table.insert(conns, plr.CharacterAdded:Connect(function(c) scan(c) end))
+		medusaPlayerConns[plr] = conns
+	end
+	
+	local function startCounterMedusa()
+		if medusaCounterConn then return end
+		Enabled.CounterMedusa = true
+		for _, plr in ipairs(Players:GetPlayers()) do
+			if plr ~= LocalPlayer then bindPlayerMedusa(plr) end
+		end
+		medusaPlayerConns["_added"] = Players.PlayerAdded:Connect(bindPlayerMedusa)
+		medusaCounterConn = RunService.Heartbeat:Connect(function()
+			if not Enabled.CounterMedusa then return end
+			local myHRP = getHRP(); if not myHRP then return end
+			for _, plr in ipairs(Players:GetPlayers()) do
+				if plr ~= LocalPlayer then
+					local ch = plr.Character
+					local hrp = ch and ch:FindFirstChild("HumanoidRootPart")
+					if hrp and enemyHasMedusa(ch) then
+						if (hrp.Position - myHRP.Position).Magnitude <= 5 then
+							useCounterTool(); break
+						end
+					end
+				end
+			end
+		end)
+	end
+	
+	local function stopCounterMedusa()
+		Enabled.CounterMedusa = false
+		if medusaCounterConn then safeDiscMedusa(medusaCounterConn); medusaCounterConn = nil end
+		if medusaPlayerConns["_added"] then safeDiscMedusa(medusaPlayerConns["_added"]); medusaPlayerConns["_added"] = nil end
+		for tool, _ in pairs(medusaToolConns) do unbindMedusaTool(tool) end
+		for plr, _ in pairs(medusaPlayerConns) do
+			if plr ~= "_added" then unbindPlayerMedusa(plr) end
+		end
+	end
+	
+	-- Toggle
+	toggleKnob.MouseButton1Click:Connect(function()
+		isOn = not isOn
+		Enabled.CounterMedusa = isOn
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+	
+		if isOn then
+			startCounterMedusa()
+			targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		else
+			stopCounterMedusa()
+			targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		end
+	
+		local tween = TweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = targetPosition
+		})
+		tween:Play()
+	end)
+end;
+task.spawn(C_24);
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.Move
+local function C_2c()
+local script = G2L["2c"];
+	
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+	local TweenService = game:GetService("TweenService")
+	local LocalPlayer = Players.LocalPlayer
+	
+	local isOn = false
+	local Connections = {}
+	local Enabled = {
+		AntiRagdoll = false,
+	}
+	
+	local toggleKnob = script.Parent.ImageButton
+	
+	local function startAntiRagdoll()
+		if Connections.antiRagdoll then return end
+		Connections.antiRagdoll = RunService.Heartbeat:Connect(function()
+			if not Enabled.AntiRagdoll then return end
+			local char = LocalPlayer.Character
+			if not char then return end
+			local root = char:FindFirstChild("HumanoidRootPart")
+			local hum = char:FindFirstChildOfClass("Humanoid")
+			if hum then
+				local humState = hum:GetState()
+				if humState == Enum.HumanoidStateType.Physics or humState == Enum.HumanoidStateType.Ragdoll or humState == Enum.HumanoidStateType.FallingDown then
+					hum:ChangeState(Enum.HumanoidStateType.Running)
+					workspace.CurrentCamera.CameraSubject = hum
+					pcall(function()
+						if LocalPlayer.Character then
+							local PM = LocalPlayer.PlayerScripts:FindFirstChild("PlayerModule")
+							if PM then require(PM:FindFirstChild("ControlModule")):Enable() end
+						end
+					end)
+					if root then
+						root.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+						root.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+					end
+				end
+			end
+			for _, obj in ipairs(char:GetDescendants()) do
+				if obj:IsA("Motor6D") and obj.Enabled == false then obj.Enabled = true end
+			end
+		end)
+	end
+	
+	local function stopAntiRagdoll()
+		if Connections.antiRagdoll then
+			Connections.antiRagdoll:Disconnect()
+			Connections.antiRagdoll = nil
+		end
+	end
+	
+	toggleKnob.MouseButton1Click:Connect(function()
+		isOn = not isOn
+		Enabled.AntiRagdoll = isOn
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+	
+		if isOn then
+			startAntiRagdoll()
+			targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		else
+			stopAntiRagdoll()
+			targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		end
+	
+		local tween = TweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = targetPosition
+		})
+		tween:Play()
+	end)
+end;
+task.spawn(C_2c);
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.Move
+local function C_34()
+local script = G2L["34"];
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+	local TweenService = game:GetService("TweenService")
+	local LocalPlayer = Players.LocalPlayer
+	
+	local isOn = false
+	local tpWasRagdolled = false
+	local tpCooldown = false
+	local tpStateConn = nil
+	local tpChildConn = nil
+	local tpChildRemConn = nil
+	
+	local Enabled = {
+		RagdollTP = false,
+	}
+	
+	local TP_RAGDOLL_STATES = {
+		[Enum.HumanoidStateType.Physics] = true,
+		[Enum.HumanoidStateType.Ragdoll] = true,
+		[Enum.HumanoidStateType.FallingDown] = true,
+	}
+	
+	local TP_PRE_STEP = Vector3.new(-452.5, -6.6, 57.7)
+	local TP_STEPS = {
+		Left  = { Vector3.new(-475.0, -6.6, 94.7), Vector3.new(-482.6, -4.7, 94.6) },
+		Right = { Vector3.new(-475.2, -6.6, 23.5), Vector3.new(-482.2, -4.7, 23.4) },
+	}
+	local TP_PRE_STEP_DELAY = 0.10
+	local TP_STEP_DELAY     = 0.10
+	local TP_COOLDOWN_SEC   = 1.2
+	
+	local MEDUSA_OBJECT_NAMES = {
+		["Petrified"]=true,["Petrify"]=true,["Stone"]=true,["MedusaStone"]=true,
+		["MedusaEffect"]=true,["Stoned"]=true,["MedusaHead"]=true,["Frozen"]=true,
+		["Statue"]=true,["PetrifyEffect"]=true,
+	}
+	
+	local toggleKnob = script.Parent.ImageButton
+	
+	local function getSideOpponent()
+		local plots = workspace:FindFirstChild("Plots")
+		if not plots then return "Left" end
+		for _, plot in ipairs(plots:GetChildren()) do
+			local success, label = pcall(function()
+				return plot.PlotSign.SurfaceGui.Frame.TextLabel
+			end)
+			if success and label and label.Text ~= LocalPlayer.Name and label.Text ~= "" then
+				local hrp = plot:FindFirstChildWhichIsA("BasePart", true)
+				if hrp then
+					return hrp.Position.Z > 57 and "Left" or "Right"
+				end
+			end
+		end
+		return "Left"
+	end
+	
+	local function teleportToBase()
+		if tpCooldown then return end
+		tpCooldown = true
+	
+		local char = LocalPlayer.Character
+		local root = char and char:FindFirstChild("HumanoidRootPart")
+		if not root then tpCooldown = false; return end
+	
+		root.CFrame = CFrame.new(TP_PRE_STEP)
+		task.wait(TP_PRE_STEP_DELAY)
+	
+		char = LocalPlayer.Character
+		root = char and char:FindFirstChild("HumanoidRootPart")
+		if not root then tpCooldown = false; return end
+	
+		local side = getSideOpponent()
+		local steps = TP_STEPS[side]
+	
+		for _, pos in ipairs(steps) do
+			char = LocalPlayer.Character
+			root = char and char:FindFirstChild("HumanoidRootPart")
+			if not root then tpCooldown = false; return end
+			root.CFrame = CFrame.new(pos)
+			task.wait(TP_STEP_DELAY)
+		end
+	
+		task.wait(TP_COOLDOWN_SEC)
+		tpCooldown = false
+	end
+	
+	local function isCharacterPetrified(char)
+		if not char then return false end
+		for _, obj in ipairs(char:GetChildren()) do
+			if MEDUSA_OBJECT_NAMES[obj.Name] then return true end
+			if obj:IsA("BoolValue") or obj:IsA("IntValue") then
+				local low = obj.Name:lower()
+				if low:find("medusa") or low:find("petri") or low:find("stone") or low:find("statue") then return true end
+			end
+		end
+		local ok, CS = pcall(function() return game:GetService("CollectionService") end)
+		if ok and CS then
+			for _, tag in ipairs(CS:GetTags(char)) do
+				local low = tag:lower()
+				if low:find("medusa") or low:find("petri") or low:find("stone") or low:find("statue") then return true end
+			end
+		end
+		return false
+	end
+	
+	local function hookTPCharacter(char)
+		if tpStateConn    then tpStateConn:Disconnect();    tpStateConn    = nil end
+		if tpChildConn    then tpChildConn:Disconnect();    tpChildConn    = nil end
+		if tpChildRemConn then tpChildRemConn:Disconnect(); tpChildRemConn = nil end
+	
+		local hum = char:WaitForChild("Humanoid")
+	
+		tpStateConn = hum.StateChanged:Connect(function(_, newState)
+			if not Enabled.RagdollTP then return end
+			if TP_RAGDOLL_STATES[newState] then
+				if isCharacterPetrified(char) then return end
+				if not tpWasRagdolled then tpWasRagdolled = true; task.defer(teleportToBase) end
+			else
+				tpWasRagdolled = false
+			end
+		end)
+	
+		tpChildConn = char.ChildAdded:Connect(function(child)
+			if not Enabled.RagdollTP then return end
+			if MEDUSA_OBJECT_NAMES[child.Name] then tpWasRagdolled = false; return end
+			if child:IsA("BoolValue") or child:IsA("IntValue") then
+				local low = child.Name:lower()
+				if low:find("medusa") or low:find("petri") or low:find("stone") or low:find("statue") then
+					tpWasRagdolled = false; return
+				end
+			end
+			if child.Name == "Ragdoll" or child.Name == "IsRagdoll" then
+				if not tpWasRagdolled then tpWasRagdolled = true; task.defer(teleportToBase) end
+			end
+		end)
+	
+		tpChildRemConn = char.ChildRemoved:Connect(function(child)
+			if child.Name == "Ragdoll" or child.Name == "IsRagdoll" then tpWasRagdolled = false end
+		end)
+	end
+	
+	local function startRagdollTP()
+		tpWasRagdolled = false; tpCooldown = false
+		local char = LocalPlayer.Character
+		if char then hookTPCharacter(char) end
+	end
+	
+	local function stopRagdollTP()
+		if tpStateConn    then tpStateConn:Disconnect();    tpStateConn    = nil end
+		if tpChildConn    then tpChildConn:Disconnect();    tpChildConn    = nil end
+		if tpChildRemConn then tpChildRemConn:Disconnect(); tpChildRemConn = nil end
+		tpWasRagdolled = false
+	end
+	
+	LocalPlayer.CharacterAdded:Connect(function(char)
+		tpWasRagdolled = false; tpCooldown = false
+		if Enabled.RagdollTP then hookTPCharacter(char) end
+	end)
+	
+	toggleKnob.MouseButton1Click:Connect(function()
+		isOn = not isOn
+		Enabled.RagdollTP = isOn
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+		if isOn then
+			startRagdollTP()
+			targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		else
+			stopRagdollTP()
+			targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		end
+		local tween = TweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = targetPosition
+		})
+		tween:Play()
+	end)
+end;
+task.spawn(C_34);
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.Move
+local function C_3c()
+local script = G2L["3c"];
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+	local TweenService = game:GetService("TweenService")
+	local player = Players.LocalPlayer
+	local character = player.Character or player.CharacterAdded:Wait()
+	
+	local MELEE_ONLY_ENEMIES = true
+	local MELEE_RANGE = 20
+	
+	local meleeEnabled = false
+	local meleeConnection
+	local meleeAlignOrientation
+	local meleeAttachment
+	
+	local toggleKnob = script.Parent.ImageButton
+	
+	local function isValidMeleeTarget(humanoid, rootPart)
+		if not (humanoid and rootPart) then return false end
+		if humanoid.Health <= 0 then return false end
+		if MELEE_ONLY_ENEMIES then
+			local targetPlayer = Players:GetPlayerFromCharacter(humanoid.Parent)
+			if not targetPlayer or targetPlayer == player then
+				return false
+			end
+		end
+		return true
+	end
+	
+	local function getClosestMeleeTarget(hrp)
+		local closest
+		local minDist = MELEE_RANGE
+		for _, p in ipairs(Players:GetPlayers()) do
+			if p == player then continue end
+			local char = p.Character
+			if not char then continue end
+			local targetHrp = char:FindFirstChild("HumanoidRootPart")
+			local hum = char:FindFirstChildOfClass("Humanoid")
+			if isValidMeleeTarget(hum, targetHrp) then
+				local dist = (targetHrp.Position - hrp.Position).Magnitude
+				if dist < minDist then
+					minDist = dist
+					closest = targetHrp
+				end
+			end
+		end
+		return closest
+	end
+	
+	local function createMeleeAimbot(char)
+		local hrp = char:WaitForChild("HumanoidRootPart", 8)
+		local humanoid = char:WaitForChild("Humanoid", 8)
+		if not (hrp and humanoid) then return end
+	
+		if meleeAlignOrientation then
+			pcall(function() meleeAlignOrientation:Destroy() end)
+		end
+		if meleeAttachment then
+			pcall(function() meleeAttachment:Destroy() end)
+		end
+	
+		meleeAttachment = Instance.new("Attachment")
+		meleeAttachment.Parent = hrp
+	
+		meleeAlignOrientation = Instance.new("AlignOrientation")
+		meleeAlignOrientation.Attachment0 = meleeAttachment
+		meleeAlignOrientation.Mode = Enum.OrientationAlignmentMode.OneAttachment
+		meleeAlignOrientation.RigidityEnabled = true
+		meleeAlignOrientation.MaxTorque = 100000
+		meleeAlignOrientation.Responsiveness = 200
+		meleeAlignOrientation.Parent = hrp
+	
+		if meleeConnection then
+			meleeConnection:Disconnect()
+		end
+	
+		meleeConnection = RunService.RenderStepped:Connect(function()
+			if not char.Parent or not meleeEnabled then return end
+			local target = getClosestMeleeTarget(hrp)
+			if target then
+				humanoid.AutoRotate = false
+				meleeAlignOrientation.Enabled = true
+				local targetPos = Vector3.new(target.Position.X, hrp.Position.Y, target.Position.Z)
+				meleeAlignOrientation.CFrame = CFrame.lookAt(hrp.Position, targetPos)
+			else
+				meleeAlignOrientation.Enabled = false
+				humanoid.AutoRotate = true
+			end
+		end)
+	end
+	
+	local function disableMeleeAimbot()
+		meleeEnabled = false
+		if meleeConnection then
+			meleeConnection:Disconnect()
+			meleeConnection = nil
+		end
+		if meleeAlignOrientation then
+			meleeAlignOrientation.Enabled = false
+			pcall(function() meleeAlignOrientation:Destroy() end)
+			meleeAlignOrientation = nil
+		end
+		if character and character:FindFirstChild("Humanoid") then
+			character.Humanoid.AutoRotate = true
+		end
+		if meleeAttachment then
+			pcall(function() meleeAttachment:Destroy() end)
+			meleeAttachment = nil
+		end
+	end
+	
+	player.CharacterAdded:Connect(function(newChar)
+		character = newChar
+		if meleeEnabled then createMeleeAimbot(newChar) end
+	end)
+	
+	toggleKnob.MouseButton1Click:Connect(function()
+		meleeEnabled = not meleeEnabled
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+	
+		if meleeEnabled then
+			local char = player.Character
+			if char and meleeEnabled then createMeleeAimbot(char) end
+			targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		else
+			disableMeleeAimbot()
+			targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		end
+	
+		local tween = TweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = targetPosition
+		})
+		tween:Play()
+	end)
+end;
+task.spawn(C_3c);
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.Move
+local function C_44()
+local script = G2L["44"];
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+	local TweenService = game:GetService("TweenService")
+	local LocalPlayer = Players.LocalPlayer
+	
+	local toggleKnob = script.Parent.ImageButton
+	local isOn = false
+	
+	local grabRadius = 50
+	local autoStealEnabled = false
+	local StealData = {}
+	local isStealing = false
+	local stealStartTime = 0
+	local progressConnection = nil
+	local lastStealScan = 0
+	
+	local Values = { STEAL_DURATION = 1.2 }
+	
+	local function ResetProgressBar() end
+	local function UpdatePhantomLetters(prog) end
+	
+	local function findNearestPrompt()
+		local char = LocalPlayer.Character
+		if not char then return nil end
+		local root = char:FindFirstChild("HumanoidRootPart")
+		if not root then return nil end
+		local nearest, dist, nearestName = nil, math.huge, nil
+		for _, desc in ipairs(workspace:GetDescendants()) do
+			if desc:IsA("ProximityPrompt") and desc.Enabled and desc.ActionText == "Steal" then
+				local part = desc.Parent:IsA("BasePart") and desc.Parent or desc:FindFirstAncestorWhichIsA("BasePart")
+				if part then
+					local d = (part.Position - root.Position).Magnitude
+					if d < dist and d <= grabRadius then
+						nearest = desc
+						dist = d
+						nearestName = desc.Parent.Name
+					end
+				end
+			end
+		end
+		return nearest, dist, nearestName
+	end
+	
+	local function cachePromptData(prompt)
+		if StealData[prompt] then return StealData[prompt] end
+		local data = {hold={}, trigger={}, ready=true}
+		pcall(function()
+			if getconnections then
+				for _, c in ipairs(getconnections(prompt.PromptButtonHoldBegan)) do if c.Function then table.insert(data.hold, c.Function) end end
+				for _, c in ipairs(getconnections(prompt.Triggered)) do if c.Function then table.insert(data.trigger, c.Function) end end
+			end
+		end)
+		StealData[prompt] = data
+		return data
+	end
+	
+	local function executeSteal(prompt)
+		if isStealing then return end
+		local data = cachePromptData(prompt)
+		if not data.ready then return end
+		data.ready = false
+		isStealing = true
+		stealStartTime = tick()
+	
+		if progressConnection then progressConnection:Disconnect(); progressConnection = nil end
+	
+		progressConnection = RunService.Heartbeat:Connect(function()
+			if not isStealing then
+				if progressConnection then progressConnection:Disconnect(); progressConnection = nil end
+				return
+			end
+			local prog = math.clamp((tick() - stealStartTime) / Values.STEAL_DURATION, 0, 1)
+			UpdatePhantomLetters(prog)
+		end)
+	
+		task.spawn(function()
+			pcall(function()
+				for _, f in ipairs(data.hold) do task.spawn(pcall, f) end
+				task.wait(Values.STEAL_DURATION)
+				for _, f in ipairs(data.trigger) do task.spawn(pcall, f) end
+			end)
+			if progressConnection then progressConnection:Disconnect(); progressConnection = nil end
+			ResetProgressBar()
+			StealData[prompt] = nil
+			isStealing = false
+		end)
+	end
+	
+	local MAX_STEAL_TIME = Values.STEAL_DURATION + 1
+	
+	local function startAutoSteal()
+		if isOn then return end
+		isOn = true
+		autoStealEnabled = true
+		RunService.Heartbeat:Connect(function()
+			if not autoStealEnabled then return end
+			if isStealing and (tick() - stealStartTime) > MAX_STEAL_TIME then
+				isStealing = false
+				if progressConnection then progressConnection:Disconnect(); progressConnection = nil end
+				ResetProgressBar()
+				for _, d in pairs(StealData) do d.ready = true end
+			end
+			if isStealing then return end
+			local now = tick()
+			if now - lastStealScan < 0.05 then return end
+			lastStealScan = now
+			local p = findNearestPrompt()
+			if p then executeSteal(p) end
+		end)
+	end
+	
+	local function stopAutoSteal()
+		isOn = false
+		autoStealEnabled = false
+		isStealing = false
+		if progressConnection then progressConnection:Disconnect(); progressConnection = nil end
+		ResetProgressBar()
+	end
+	
+	_G.XploitsCFG = _G.XploitsCFG or {}
+	_G.XploitsCFG["AutoSteal"] = {
+		getState = function() return isOn end,
+		setState = function(state)
+			if state == isOn then return end
+			local knobSize = toggleKnob.AbsoluteSize.X
+			local targetPosition
+			if state then
+				startAutoSteal()
+				targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+			else
+				stopAutoSteal()
+				targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+			end
+			TweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = targetPosition}):Play()
+		end
+	}
+	
+	toggleKnob.MouseButton1Click:Connect(function()
+		if isOn then
+			stopAutoSteal()
+			TweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Position = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+			}):Play()
+		else
+			startAutoSteal()
+			TweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Position = UDim2.new(1, -(toggleKnob.AbsoluteSize.X + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+			}):Play()
+		end
+	end)
+end;
+task.spawn(C_44);
+-- StarterGui.Xploits.MainGui.Melee.ScrollingFrame.TextButton.colorFrame.Move
+local function C_4c()
+local script = G2L["4c"];
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+	local TweenService = game:GetService("TweenService")
+	local LocalPlayer = Players.LocalPlayer
+	
+	local isOn = false
+	local tpWasRagdolled = false
+	local tpCooldown = false
+	local tpStateConn = nil
+	local tpChildConn = nil
+	local tpChildRemConn = nil
+	
+	local Enabled = {
+		RagdollTP = false,
+	}
+	
+	local TP_RAGDOLL_STATES = {
+		[Enum.HumanoidStateType.Physics] = true,
+		[Enum.HumanoidStateType.Ragdoll] = true,
+		[Enum.HumanoidStateType.FallingDown] = true,
+	}
+	
+	local TP_PRE_STEP = Vector3.new(-452.5, -6.6, 57.7)
+	local TP_STEPS = {
+		Left  = { Vector3.new(-475.0, -6.6, 94.7), Vector3.new(-482.6, -4.7, 94.6) },
+		Right = { Vector3.new(-475.2, -6.6, 23.5), Vector3.new(-482.2, -4.7, 23.4) },
+	}
+	local TP_PRE_STEP_DELAY = 0.10
+	local TP_STEP_DELAY     = 0.10
+	local TP_COOLDOWN_SEC   = 1.2
+	
+	local MEDUSA_OBJECT_NAMES = {
+		["Petrified"]=true,["Petrify"]=true,["Stone"]=true,["MedusaStone"]=true,
+		["MedusaEffect"]=true,["Stoned"]=true,["MedusaHead"]=true,["Frozen"]=true,
+		["Statue"]=true,["PetrifyEffect"]=true,
+	}
+	
+	local toggleKnob = script.Parent.ImageButton
+	
+	local function getSideOwn()
+		local plots = workspace:FindFirstChild("Plots")
+		if not plots then return "Left" end
+		for _, plot in ipairs(plots:GetChildren()) do
+			local success, label = pcall(function()
+				return plot.PlotSign.SurfaceGui.Frame.TextLabel
+			end)
+			if success and label and label.Text == LocalPlayer.Name then
+				local hrp = plot:FindFirstChildWhichIsA("BasePart", true)
+				if hrp then
+					return hrp.Position.Z > 57 and "Left" or "Right"
+				end
+			end
+		end
+		return "Left"
+	end
+	
+	local function teleportToBase()
+		if tpCooldown then return end
+		tpCooldown = true
+	
+		local char = LocalPlayer.Character
+		local root = char and char:FindFirstChild("HumanoidRootPart")
+		if not root then tpCooldown = false; return end
+	
+		root.CFrame = CFrame.new(TP_PRE_STEP)
+		task.wait(TP_PRE_STEP_DELAY)
+	
+		char = LocalPlayer.Character
+		root = char and char:FindFirstChild("HumanoidRootPart")
+		if not root then tpCooldown = false; return end
+	
+		local side = getSideOwn()
+		local steps = TP_STEPS[side]
+	
+		for _, pos in ipairs(steps) do
+			char = LocalPlayer.Character
+			root = char and char:FindFirstChild("HumanoidRootPart")
+			if not root then tpCooldown = false; return end
+			root.CFrame = CFrame.new(pos)
+			task.wait(TP_STEP_DELAY)
+		end
+	
+		task.wait(TP_COOLDOWN_SEC)
+		tpCooldown = false
+	end
+	
+	local function isCharacterPetrified(char)
+		if not char then return false end
+		for _, obj in ipairs(char:GetChildren()) do
+			if MEDUSA_OBJECT_NAMES[obj.Name] then return true end
+			if obj:IsA("BoolValue") or obj:IsA("IntValue") then
+				local low = obj.Name:lower()
+				if low:find("medusa") or low:find("petri") or low:find("stone") or low:find("statue") then return true end
+			end
+		end
+		local ok, CS = pcall(function() return game:GetService("CollectionService") end)
+		if ok and CS then
+			for _, tag in ipairs(CS:GetTags(char)) do
+				local low = tag:lower()
+				if low:find("medusa") or low:find("petri") or low:find("stone") or low:find("statue") then return true end
+			end
+		end
+		return false
+	end
+	
+	local function hookTPCharacter(char)
+		if tpStateConn    then tpStateConn:Disconnect();    tpStateConn    = nil end
+		if tpChildConn    then tpChildConn:Disconnect();    tpChildConn    = nil end
+		if tpChildRemConn then tpChildRemConn:Disconnect(); tpChildRemConn = nil end
+	
+		local hum = char:WaitForChild("Humanoid")
+	
+		tpStateConn = hum.StateChanged:Connect(function(_, newState)
+			if not Enabled.RagdollTP then return end
+			if TP_RAGDOLL_STATES[newState] then
+				if isCharacterPetrified(char) then return end
+				if not tpWasRagdolled then tpWasRagdolled = true; task.defer(teleportToBase) end
+			else
+				tpWasRagdolled = false
+			end
+		end)
+	
+		tpChildConn = char.ChildAdded:Connect(function(child)
+			if not Enabled.RagdollTP then return end
+			if MEDUSA_OBJECT_NAMES[child.Name] then tpWasRagdolled = false; return end
+			if child:IsA("BoolValue") or child:IsA("IntValue") then
+				local low = child.Name:lower()
+				if low:find("medusa") or low:find("petri") or low:find("stone") or low:find("statue") then
+					tpWasRagdolled = false; return
+				end
+			end
+			if child.Name == "Ragdoll" or child.Name == "IsRagdoll" then
+				if not tpWasRagdolled then tpWasRagdolled = true; task.defer(teleportToBase) end
+			end
+		end)
+	
+		tpChildRemConn = char.ChildRemoved:Connect(function(child)
+			if child.Name == "Ragdoll" or child.Name == "IsRagdoll" then tpWasRagdolled = false end
+		end)
+	end
+	
+	local function startRagdollTP()
+		tpWasRagdolled = false; tpCooldown = false
+		local char = LocalPlayer.Character
+		if char then hookTPCharacter(char) end
+	end
+	
+	local function stopRagdollTP()
+		if tpStateConn    then tpStateConn:Disconnect();    tpStateConn    = nil end
+		if tpChildConn    then tpChildConn:Disconnect();    tpChildConn    = nil end
+		if tpChildRemConn then tpChildRemConn:Disconnect(); tpChildRemConn = nil end
+		tpWasRagdolled = false
+	end
+	
+	LocalPlayer.CharacterAdded:Connect(function(char)
+		tpWasRagdolled = false; tpCooldown = false
+		if Enabled.RagdollTP then hookTPCharacter(char) end
+	end)
+	
+	toggleKnob.MouseButton1Click:Connect(function()
+		isOn = not isOn
+		Enabled.RagdollTP = isOn
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+		if isOn then
+			startRagdollTP()
+			targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		else
+			stopRagdollTP()
+			targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		end
+		local tween = TweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = targetPosition
+		})
+		tween:Play()
+	end)
+end;
+task.spawn(C_4c);
+-- StarterGui.Xploits.MainGui.Player.ShowSF
+local function C_51()
+local script = G2L["51"];
+	script.Parent.MouseButton1Click:Connect(function()
+		local MainGui = script.Parent.Parent.Parent.MainGui
+		MainGui.Melee.ScrollingFrame.Visible = false
+		MainGui.Visuals.ScrollingFrame.Visible = false
+		MainGui.Settings.ScrollingFrame.Visible = false
+		script.Parent.ScrollingFrame.Visible = true
+		script.Parent.Parent.Player.BackgroundColor3 = Color3.new(1, 0, 0.0156863)
+		MainGui.Melee.BackgroundColor3 = Color3.new(0.137255, 0.137255, 0.137255)
+		MainGui.Visuals.BackgroundColor3 = Color3.new(0.137255, 0.137255, 0.137255)
+		MainGui.Settings.BackgroundColor3 = Color3.new(0.137255, 0.137255, 0.137255)
+	end)
+end;
+task.spawn(C_51);
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.Move
+local function C_58()
+local script = G2L["58"];
+	local colorFrame = script.Parent
+	local toggleKnob1 = script.Parent.Parent.Parent.TextButton
+	local toggleKnob = colorFrame:WaitForChild("ImageButton")
+	local isOn = false
+	local tweenService = game:GetService("TweenService")
+	toggleKnob.MouseButton1Click:Connect(function()
+		isOn = not isOn
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+	
+		if isOn then
+			script.Parent.Parent.Parent.Parent.Parent.Parent.Speed.Visible = true
+			targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		else
+			script.Parent.Parent.Parent.Parent.Parent.Parent.Speed.Visible = false
+			targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		end
+	
+		local tween = tweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = targetPosition
+		})
+		tween:Play()
+	end)
+	
+	toggleKnob1.MouseButton1Click:Connect(function()
+		isOn = not isOn
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+	
+		if isOn then
+			script.Parent.Parent.Parent.Parent.Parent.Parent.Speed.Visible = true
+			targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		else
+			script.Parent.Parent.Parent.Parent.Parent.Parent.Speed.Visible = false
+			targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		end
+	
+		local tween = tweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = targetPosition
+		})
+		tween:Play()
+	end)
+end;
+task.spawn(C_58);
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.Move
+local function C_60()
+local script = G2L["60"];
+	local colorFrame = script.Parent
+	local toggleKnob = colorFrame:WaitForChild("ImageButton")
+	local isOn = false
+	local savedAnimations = {}
+	local LocalPlayer = game.Players.LocalPlayer
+	local tweenService = game:GetService("TweenService")
+	
+	local function startUnwalk()
+		local c = LocalPlayer.Character
+		if not c then return end
+		local hum = c:FindFirstChildOfClass("Humanoid")
+		if hum then
+			for _, t in ipairs(hum:GetPlayingAnimationTracks()) do t:Stop() end
+		end
+		local anim = c:FindFirstChild("Animate")
+		if anim then
+			savedAnimations.Animate = anim:Clone()
+			anim:Destroy()
+		end
+	end
+	
+	local function stopUnwalk()
+		local c = LocalPlayer.Character
+		if c and savedAnimations.Animate then
+			savedAnimations.Animate:Clone().Parent = c
+			savedAnimations.Animate = nil
+		end
+	end
+	
+	toggleKnob.MouseButton1Click:Connect(function()
+		isOn = not isOn
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+	
+		if isOn then
+			startUnwalk()
+			targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		else
+			stopUnwalk()
+			targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		end
+	
+		local tween = tweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = targetPosition
+		})
+		tween:Play()
+	end)
+end;
+task.spawn(C_60);
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.Move
+local function C_68()
+local script = G2L["68"];
+	local UserInputService = game:GetService("UserInputService")
+	local Players = game:GetService("Players")
+	local LocalPlayer = Players.LocalPlayer
+	local TweenService = game:GetService("TweenService")
+	
+	local toggleKnob = script.Parent.ImageButton
+	local isOn = false
+	
+	UserInputService.JumpRequest:Connect(function()
+		if not isOn then return end
+		local char = LocalPlayer.Character
+		if not char then return end
+		local hrp = char:FindFirstChild("HumanoidRootPart")
+		if not hrp then return end
+		hrp.AssemblyLinearVelocity = Vector3.new(
+			hrp.AssemblyLinearVelocity.X,
+			50,
+			hrp.AssemblyLinearVelocity.Z
+		)
+	end)
+	
+	toggleKnob.MouseButton1Click:Connect(function()
+		isOn = not isOn
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+		if isOn then
+			targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		else
+			targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		end
+		local tween = TweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = targetPosition})
+		tween:Play()
+	end)
+end;
+task.spawn(C_68);
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.Move
+local function C_70()
+local script = G2L["70"];
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+	local LocalPlayer = Players.LocalPlayer
+	local TweenService = game:GetService("TweenService")
+	
+	local toggleKnob = script.Parent.ImageButton
+	local isOn = false
+	
+	RunService.Heartbeat:Connect(function()
+		if not isOn then return end
+		local char = LocalPlayer.Character
+		if not char then return end
+		local hrp = char:FindFirstChild("HumanoidRootPart")
+		local hum = char:FindFirstChildOfClass("Humanoid")
+		if not hrp or not hum then return end
+		if hum:GetState() == Enum.HumanoidStateType.Freefall then
+			local vel = hrp.AssemblyLinearVelocity
+			if vel.Y < -1 then
+				hrp.AssemblyLinearVelocity = Vector3.new(vel.X, vel.Y * 0.5, vel.Z)
+			end
+		end
+	end)
+	
+	toggleKnob.MouseButton1Click:Connect(function()
+		isOn = not isOn
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+		if isOn then
+			targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		else
+			targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		end
+		local tween = TweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = targetPosition})
+		tween:Play()
+	end)
+end;
+task.spawn(C_70);
+-- StarterGui.Xploits.MainGui.Player.ScrollingFrame.TextButton.colorFrame.Move
+local function C_78()
+local script = G2L["78"];
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+	local LocalPlayer = Players.LocalPlayer
+	local TweenService = game:GetService("TweenService")
+	
+	local toggleKnob = script.Parent.ImageButton
+	local isOn = false
+	local spinConnection = nil
+	
+	local function startSpin()
+		if spinConnection then return end
+		spinConnection = RunService.Heartbeat:Connect(function()
+			if not isOn then return end
+			local char = LocalPlayer.Character
+			if not char then return end
+			local hrp = char:FindFirstChild("HumanoidRootPart")
+			local hum = char:FindFirstChildOfClass("Humanoid")
+			if not hrp or not hum then return end
+			hum.AutoRotate = false
+			hrp.CFrame = hrp.CFrame * CFrame.Angles(0, math.rad(15), 0)
+		end)
+	end
+	
+	local function stopSpin()
+		if spinConnection then
+			spinConnection:Disconnect()
+			spinConnection = nil
+		end
+		local char = LocalPlayer.Character
+		if char then
+			local hum = char:FindFirstChildOfClass("Humanoid")
+			if hum then hum.AutoRotate = true end
+		end
+	end
+	
+	toggleKnob.MouseButton1Click:Connect(function()
+		isOn = not isOn
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+		if isOn then
+			startSpin()
+			targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		else
+			stopSpin()
+			targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		end
+		local tween = TweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = targetPosition})
+		tween:Play()
+	end)
+end;
+task.spawn(C_78);
+-- StarterGui.Xploits.MainGui.Visuals.ShowSF
+local function C_7d()
+local script = G2L["7d"];
+	script.Parent.MouseButton1Click:Connect(function()
+		local MainGui = script.Parent.Parent.Parent.MainGui
+		MainGui.Melee.ScrollingFrame.Visible = false
+		MainGui.Settings.ScrollingFrame.Visible = false
+		MainGui.Player.ScrollingFrame.Visible = false
+		MainGui.Visuals.ScrollingFrame.Visible = true
+		script.Parent.Parent.Visuals.BackgroundColor3 = Color3.new(1, 0, 0.0156863)
+		MainGui.Player.BackgroundColor3 = Color3.new(0.137255, 0.137255, 0.137255)
+		MainGui.Melee.BackgroundColor3 = Color3.new(0.137255, 0.137255, 0.137255)
+		MainGui.Settings.BackgroundColor3 = Color3.new(0.137255, 0.137255, 0.137255)
+	end)
+end;
+task.spawn(C_7d);
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.Move
+local function C_84()
+local script = G2L["84"];
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+	local TweenService = game:GetService("TweenService")
+	local LocalPlayer = Players.LocalPlayer
+	
+	local toggleKnob = script.Parent.ImageButton
+	local isOn = false
+	local highlights = {}
+	
+	local function addESP(player)
+		if player == LocalPlayer then return end
+		if highlights[player] then return end
+		local function applyHighlight(char)
+			if highlights[player] then
+				highlights[player]:Destroy()
+				highlights[player] = nil
+			end
+			if not char then return end
+			local hl = Instance.new("Highlight")
+			hl.Parent = char
+			hl.FillColor = Color3.fromRGB(255, 0, 0)
+			hl.OutlineColor = Color3.fromRGB(255, 255, 255)
+			hl.FillTransparency = 0.5
+			hl.OutlineTransparency = 0
+			hl.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+			highlights[player] = hl
+		end
+		applyHighlight(player.Character)
+		player.CharacterAdded:Connect(function(char)
+			if not isOn then return end
+			task.wait(0.1)
+			applyHighlight(char)
+		end)
+	end
+	
+	local function removeESP(player)
+		if highlights[player] then
+			highlights[player]:Destroy()
+			highlights[player] = nil
+		end
+	end
+	
+	local function enableESP()
+		for _, player in ipairs(Players:GetPlayers()) do
+			addESP(player)
+		end
+		Players.PlayerAdded:Connect(function(player)
+			if not isOn then return end
+			addESP(player)
+		end)
+		Players.PlayerRemoving:Connect(function(player)
+			removeESP(player)
+		end)
+	end
+	
+	local function disableESP()
+		for player, _ in pairs(highlights) do
+			removeESP(player)
+		end
+	end
+	
+	toggleKnob.MouseButton1Click:Connect(function()
+		isOn = not isOn
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+		if isOn then
+			enableESP()
+			targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		else
+			disableESP()
+			targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		end
+		local tween = TweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = targetPosition})
+		tween:Play()
+	end)
+end;
+task.spawn(C_84);
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.Move
+local function C_8c()
+local script = G2L["8c"];
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+	local TweenService = game:GetService("TweenService")
+	local Lighting = game:GetService("Lighting")
+	
+	local toggleKnob = script.Parent.ImageButton
+	local isOn = false
+	
+	local optimizerEnabled = false
+	local savedLighting = {}
+	local optimized = {}
+	
+	local function enableOptimizer()
+		if optimizerEnabled then return end
+		optimizerEnabled = true
+	
+		savedLighting = {
+			GlobalShadows = Lighting.GlobalShadows,
+			FogStart = Lighting.FogStart,
+			FogEnd = Lighting.FogEnd,
+			Brightness = Lighting.Brightness,
+			EnvironmentDiffuseScale = Lighting.EnvironmentDiffuseScale,
+			EnvironmentSpecularScale = Lighting.EnvironmentSpecularScale
+		}
+	
+		Lighting.GlobalShadows = false
+		Lighting.FogStart = 0
+		Lighting.FogEnd = 1e9
+		Lighting.Brightness = 1
+		Lighting.EnvironmentDiffuseScale = 0
+		Lighting.EnvironmentSpecularScale = 0
+	
+		for _, v in ipairs(workspace:GetDescendants()) do
+			if v:IsA("BasePart") then
+				optimized[v] = {v.Material, v.Reflectance}
+				v.Material = Enum.Material.Plastic
+				v.Reflectance = 0
+			elseif v:IsA("Decal") or v:IsA("Texture") then
+				optimized[v] = v.Transparency
+				v.Transparency = 1
+			elseif v:IsA("ParticleEmitter") or v:IsA("Trail") or v:IsA("Smoke") or v:IsA("Fire") then
+				optimized[v] = v.Enabled
+				v.Enabled = false
+			end
+		end
+	end
+	
+	local function disableOptimizer()
+		if not optimizerEnabled then return end
+		optimizerEnabled = false
+	
+		for k, v in pairs(savedLighting) do Lighting[k] = v end
+	
+		for obj, val in pairs(optimized) do
+			if obj and obj.Parent then
+				if typeof(val) == "table" then
+					obj.Material = val[1]
+					obj.Reflectance = val[2]
+				elseif typeof(val) == "boolean" then
+					obj.Enabled = val
+				else
+					obj.Transparency = val
+				end
+			end
+		end
+	
+		optimized = {}
+	end
+	
+	toggleKnob.MouseButton1Click:Connect(function()
+		isOn = not isOn
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+		if isOn then
+			enableOptimizer()
+			targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		else
+			disableOptimizer()
+			targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		end
+		local tween = TweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = targetPosition})
+		tween:Play()
+	end)
+end;
+task.spawn(C_8c);
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.Move
+local function C_94()
+local script = G2L["94"];
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+	local TweenService = game:GetService("TweenService")
+	local player = Players.LocalPlayer
+	
+	local toggleKnob = script.Parent.ImageButton
+	local isOn = false
+	
+	local ANTI_BEE_DISCO = {
+		enabled = false,
+		connections = {},
+		originalMoveFunction = nil,
+		controlsProtected = false
+	}
+	
+	local BAD_LIGHTING_NAMES = {
+		Blue = true,
+		DiscoEffect = true,
+		BeeBlur = true,
+		ColorCorrection = true,
+	}
+	
+	local function antiBeeDiscoNuke(obj)
+		if not obj or not obj.Parent then return end
+		if BAD_LIGHTING_NAMES[obj.Name] then
+			pcall(function() obj:Destroy() end)
+		end
+	end
+	
+	local function antiBeeDiscoDisconnectAll()
+		for _, conn in ipairs(ANTI_BEE_DISCO.connections) do
+			if typeof(conn) == "RBXScriptConnection" then
+				conn:Disconnect()
+			end
+		end
+		ANTI_BEE_DISCO.connections = {}
+	end
+	
+	local function blockBuzzingSound()
+		pcall(function()
+			local PlayerScripts = player.PlayerScripts
+			local beeScript = PlayerScripts:FindFirstChild("Bee", true)
+			if beeScript then
+				local buzzing = beeScript:FindFirstChild("Buzzing")
+				if buzzing and buzzing:IsA("Sound") then
+					buzzing:Stop()
+					buzzing.Volume = 0
+				end
+			end
+		end)
+	end
+	
+	local function protectControls()
+		if ANTI_BEE_DISCO.controlsProtected then return end
+		pcall(function()
+			local PlayerScripts = player.PlayerScripts
+			local PlayerModule = PlayerScripts:FindFirstChild("PlayerModule")
+			if not PlayerModule then return end
+			local Controls = require(PlayerModule):GetControls()
+			if not Controls then return end
+			if not ANTI_BEE_DISCO.originalMoveFunction then
+				ANTI_BEE_DISCO.originalMoveFunction = Controls.moveFunction
+			end
+			local function protectedMoveFunction(self, moveVector, relativeToCamera)
+				if ANTI_BEE_DISCO.originalMoveFunction then
+					ANTI_BEE_DISCO.originalMoveFunction(self, moveVector, relativeToCamera)
+				end
+			end
+			local controlCheckConn = RunService.Heartbeat:Connect(function()
+				if not ANTI_BEE_DISCO.enabled then return end
+				if Controls.moveFunction ~= protectedMoveFunction then
+					Controls.moveFunction = protectedMoveFunction
+				end
+			end)
+			table.insert(ANTI_BEE_DISCO.connections, controlCheckConn)
+			Controls.moveFunction = protectedMoveFunction
+			ANTI_BEE_DISCO.controlsProtected = true
+		end)
+	end
+	
+	local function restoreControls()
+		if not ANTI_BEE_DISCO.controlsProtected then return end
+		pcall(function()
+			local PlayerScripts = player.PlayerScripts
+			local PlayerModule = PlayerScripts:FindFirstChild("PlayerModule")
+			if not PlayerModule then return end
+			local Controls = require(PlayerModule):GetControls()
+			if not Controls or not ANTI_BEE_DISCO.originalMoveFunction then return end
+			Controls.moveFunction = ANTI_BEE_DISCO.originalMoveFunction
+			ANTI_BEE_DISCO.controlsProtected = false
+		end)
+	end
+	
+	local function enableAntiBee()
+		if ANTI_BEE_DISCO.enabled then return end
+		ANTI_BEE_DISCO.enabled = true
+		local Lighting = game:GetService("Lighting")
+		for _, inst in ipairs(Lighting:GetDescendants()) do
+			antiBeeDiscoNuke(inst)
+		end
+		local addedConn = Lighting.DescendantAdded:Connect(function(obj)
+			if not ANTI_BEE_DISCO.enabled then return end
+			antiBeeDiscoNuke(obj)
+		end)
+		table.insert(ANTI_BEE_DISCO.connections, addedConn)
+		protectControls()
+		local soundConn = RunService.Heartbeat:Connect(function()
+			if not ANTI_BEE_DISCO.enabled then return end
+			blockBuzzingSound()
+		end)
+		table.insert(ANTI_BEE_DISCO.connections, soundConn)
+	end
+	
+	local function disableAntiBee()
+		if not ANTI_BEE_DISCO.enabled then return end
+		ANTI_BEE_DISCO.enabled = false
+		restoreControls()
+		antiBeeDiscoDisconnectAll()
+	end
+	
+	toggleKnob.MouseButton1Click:Connect(function()
+		isOn = not isOn
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+		if isOn then
+			enableAntiBee()
+			targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		else
+			disableAntiBee()
+			targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		end
+		local tween = TweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = targetPosition})
+		tween:Play()
+	end)
+end;
+task.spawn(C_94);
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.Move
+local function C_9c()
+local script = G2L["9c"];
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+	local TweenService = game:GetService("TweenService")
+	
+	local toggleKnob = script.Parent.ImageButton
+	local isOn = false
+	
+	local baseOriginalTransparencies = {}
+	local plotConnections = {}
+	local xrayConnection = nil
+	
+	local function applyXray(plot)
+		if baseOriginalTransparencies[plot] then return end
+		baseOriginalTransparencies[plot] = {}
+	
+		local oldHL = plot:FindFirstChild("BaseXRayHighlight")
+		if oldHL then oldHL:Destroy() end
+	
+		for _, part in ipairs(plot:GetDescendants()) do
+			if part:IsA("BasePart") then
+				local oldPartHL = part:FindFirstChild("BaseXRayHighlight")
+				if oldPartHL then oldPartHL:Destroy() end
+				if part.Transparency < 0.6 then
+					baseOriginalTransparencies[plot][part] = part.Transparency
+					part.Transparency = 0.68
+				end
+			end
+		end
+	
+		plotConnections[plot] = plot.DescendantAdded:Connect(function(desc)
+			if desc:IsA("BasePart") and desc.Transparency < 0.6 then
+				baseOriginalTransparencies[plot][desc] = desc.Transparency
+				desc.Transparency = 0.68
+			end
+		end)
+	end
+	
+	local function enableXray()
+		local plots = workspace:FindFirstChild("Plots")
+		if not plots then return end
+		for _, plot in ipairs(plots:GetChildren()) do applyXray(plot) end
+		xrayConnection = plots.ChildAdded:Connect(function(newPlot)
+			task.wait(0.2)
+			applyXray(newPlot)
+		end)
+	end
+	
+	local function disableXray()
+		for _, conn in pairs(plotConnections) do conn:Disconnect() end
+		plotConnections = {}
+		if xrayConnection then xrayConnection:Disconnect(); xrayConnection = nil end
+		for plot, parts in pairs(baseOriginalTransparencies) do
+			for part, original in pairs(parts) do
+				if part and part.Parent then part.Transparency = original end
+			end
+		end
+		baseOriginalTransparencies = {}
+	end
+	
+	toggleKnob.MouseButton1Click:Connect(function()
+		isOn = not isOn
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+		if isOn then
+			enableXray()
+			targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		else
+			disableXray()
+			targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		end
+		local tween = TweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = targetPosition})
+		tween:Play()
+	end)
+end;
+task.spawn(C_9c);
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.Move
+local function C_a4()
+local script = G2L["a4"];
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+	local TweenService = game:GetService("TweenService")
+	local LocalPlayer = Players.LocalPlayer
+	
+	local toggleKnob = script.Parent.ImageButton
+	local isOn = false
+	
+	local paintballConnection = nil
+	local lastShot = 0
+	local fireDelay = 0.0
+	
+	local function equipPaintballGun()
+		local char = LocalPlayer.Character
+		if not char then return end
+		local hum = char:FindFirstChildOfClass("Humanoid")
+		local backpack = LocalPlayer:FindFirstChildOfClass("Backpack")
+		local gun = backpack and backpack:FindFirstChild("Paintball Gun")
+		if hum and gun and gun.Parent ~= char then
+			hum:EquipTool(gun)
+		end
+	end
+	
+	local function autoShoot()
+		local char = LocalPlayer.Character
+		if not char then return end
+		local gun = char:FindFirstChild("Paintball Gun")
+		if not gun then return end
+		if tick() - lastShot < fireDelay then return end
+		lastShot = tick()
+		gun:Activate()
+	end
+	
+	local function enablePaintball()
+		if paintballConnection then return end
+		paintballConnection = RunService.Heartbeat:Connect(function()
+			equipPaintballGun()
+			autoShoot()
+		end)
+	end
+	
+	local function disablePaintball()
+		if paintballConnection then
+			paintballConnection:Disconnect()
+			paintballConnection = nil
+		end
+	end
+	
+	toggleKnob.MouseButton1Click:Connect(function()
+		isOn = not isOn
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+		if isOn then
+			enablePaintball()
+			targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		else
+			disablePaintball()
+			targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		end
+		local tween = TweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = targetPosition})
+		tween:Play()
+	end)
+end;
+task.spawn(C_a4);
+-- StarterGui.Xploits.MainGui.Visuals.ScrollingFrame.TextButton.colorFrame.Move
+local function C_ac()
+local script = G2L["ac"];
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+	local TweenService = game:GetService("TweenService")
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	local LocalPlayer = Players.LocalPlayer
+	
+	local toggleKnob = script.Parent.ImageButton
+	local isOn = false
+	
+	local aimbotConn = nil
+	local MAX_DISTANCE = 60
+	local COOLDOWN = 0.1
+	local OBSTACLE_DISABLE_TIME = 0.5
+	
+	local UseItemEvent = nil
+	pcall(function()
+		UseItemEvent = ReplicatedStorage:WaitForChild("Packages"):WaitForChild("Net"):WaitForChild("RE/UseItem")
+	end)
+	
+	local function getNearestPlayer()
+		local char = LocalPlayer.Character
+		if not char or not char:FindFirstChild("HumanoidRootPart") then return nil, math.huge end
+		local myPos = char.HumanoidRootPart.Position
+		local closest, closestDist = nil, math.huge
+		for _, plr in pairs(Players:GetPlayers()) do
+			if plr ~= LocalPlayer and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+				local d = (myPos - plr.Character.HumanoidRootPart.Position).Magnitude
+				if d < closestDist then closest, closestDist = plr, d end
+			end
+		end
+		return closest, closestDist
+	end
+	
+	local function chooseHitPart(char)
+		for _, name in ipairs({"Head", "UpperTorso", "LowerTorso", "HumanoidRootPart"}) do
+			local part = char:FindFirstChild(name)
+			if part and part:IsA("BasePart") then return part end
+		end
+		return char:FindFirstChildWhichIsA("BasePart")
+	end
+	
+	local function enableAimbot()
+		if aimbotConn then return end
+		local lastFire = 0
+		aimbotConn = RunService.Heartbeat:Connect(function()
+			if not UseItemEvent then return end
+			if tick() - lastFire < COOLDOWN then return end
+			local char = LocalPlayer.Character
+			if not char or not char:FindFirstChild("HumanoidRootPart") then return end
+			local tool = char:FindFirstChildOfClass("Tool")
+			if not tool then return end
+			local targetPlayer, dist = getNearestPlayer()
+			if not targetPlayer or dist > MAX_DISTANCE then return end
+			local hitPart = chooseHitPart(targetPlayer.Character)
+			if not hitPart then return end
+			local hitPos = hitPart.Position
+			local raycastParams = RaycastParams.new()
+			raycastParams.FilterDescendantsInstances = {LocalPlayer.Character}
+			raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+			local result = workspace:Raycast(char.HumanoidRootPart.Position, (hitPos - char.HumanoidRootPart.Position).Unit * dist, raycastParams)
+			if result and result.Instance and result.Instance.CanCollide then
+				result.Instance.CanCollide = false
+				task.delay(OBSTACLE_DISABLE_TIME, function()
+					if result.Instance and result.Instance.Parent then result.Instance.CanCollide = true end
+				end)
+			end
+			pcall(function() UseItemEvent:FireServer(hitPos, hitPart) end)
+			lastFire = tick()
+		end)
+	end
+	
+	local function disableAimbot()
+		if aimbotConn then
+			aimbotConn:Disconnect()
+			aimbotConn = nil
+		end
+	end
+	
+	toggleKnob.MouseButton1Click:Connect(function()
+		isOn = not isOn
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+		if isOn then
+			enableAimbot()
+			targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		else
+			disableAimbot()
+			targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+		end
+		local tween = TweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = targetPosition})
+		tween:Play()
+	end)
+end;
+task.spawn(C_ac);
+-- StarterGui.Xploits.MainGui.Settings.ShowSF
+local function C_b1()
+local script = G2L["b1"];
+	script.Parent.MouseButton1Click:Connect(function()
+		local MainGui = script.Parent.Parent.Parent.MainGui
+		MainGui.Melee.ScrollingFrame.Visible = false
+		MainGui.Player.ScrollingFrame.Visible = false
+		MainGui.Visuals.ScrollingFrame.Visible = false
+		MainGui.Settings.ScrollingFrame.Visible = true
+		script.Parent.Parent.Settings.BackgroundColor3 = Color3.new(1, 0, 0.0156863)
+		MainGui.Visuals.BackgroundColor3 = Color3.new(0.137255, 0.137255, 0.137255)
+		MainGui.Player.BackgroundColor3 = Color3.new(0.137255, 0.137255, 0.137255)
+		MainGui.Melee.BackgroundColor3 = Color3.new(0.137255, 0.137255, 0.137255)
+	end)
+end;
+task.spawn(C_b1);
+-- StarterGui.Xploits.TextButton.Drag
+local function C_b7()
+local script = G2L["b7"];
+	local UserInputService = game:GetService("UserInputService")
+	
+	local gui = script.Parent
+	
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	
+	local function update(input)
+		local delta = input.Position - dragStart
+		gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+	
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+			
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+end;
+task.spawn(C_b7);
+-- StarterGui.Xploits.TextButton.Open
+local function C_b8()
+local script = G2L["b8"];
+	script.Parent.MouseButton1Click:Connect(function()
+		local MainGui = script.Parent.Parent.MainGui
+		if MainGui.Visible == false then
+			MainGui.Visible = true
+		elseif MainGui.Visible == true then
+			MainGui.Visible = false		
+		end
+	end)
+end;
+task.spawn(C_b8);
+-- StarterGui.Xploits.DropBrainrot.Drag
+local function C_ba()
+local script = G2L["ba"];
+	local UserInputService = game:GetService("UserInputService")
+	
+	local gui = script.Parent
+	
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	
+	local function update(input)
+		local delta = input.Position - dragStart
+		gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+	
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+			
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+end;
+task.spawn(C_ba);
+-- StarterGui.Xploits.DropBrainrot.Drop
+local function C_bb()
+local script = G2L["bb"];
+	script.Parent.MouseButton1Click:Connect(function()
+		local function doDropBrainrots()
+			local r = game.Players.LocalPlayer.Character.HumanoidRootPart; if not r then return end
+			r.AssemblyLinearVelocity = Vector3.new(0, 125, 0)
+			task.wait(0.4)
+			r.AssemblyLinearVelocity = Vector3.new(0, -600, 0)
+		end
+		doDropBrainrots()
+	end)
+end;
+task.spawn(C_bb);
+-- StarterGui.Xploits.Speed.Drag
+local function C_bf()
+local script = G2L["bf"];
+	local UserInputService = game:GetService("UserInputService")
+	
+	local gui = script.Parent
+	
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	
+	local function update(input)
+		local delta = input.Position - dragStart
+		gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+	
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+			
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+end;
+task.spawn(C_bf);
+-- StarterGui.Xploits.Speed.TextButton.Speed
+local function C_c3()
+local script = G2L["c3"];
+	local RunService = game:GetService("RunService")
+	local UserInputService = game:GetService("UserInputService")
+	local Players = game:GetService("Players")
+	local player = Players.LocalPlayer
+	local character = player.Character or player.CharacterAdded:Wait()
+	local hrp = character:FindFirstChild("HumanoidRootPart")
+	local hum = character:FindFirstChildOfClass("Humanoid")
+	
+	local activate = script.Parent
+	local speedBox = script.Parent.Parent.Speed
+	local stealBox = script.Parent.Parent.StealSpeed
+	local jumpBox = script.Parent.Parent.Jump
+	
+	local active = false
+	local speedConnection = nil
+	local infiniteJumpEnabled = false
+	
+	local function applyInput(box, min, max, default)
+		box.FocusLost:Connect(function()
+			local text = box.Text:gsub("%D", "")
+			local num = tonumber(text) or default
+			num = math.clamp(num, min, max)
+			box.Text = tostring(num)
+		end)
+	end
+	
+	applyInput(speedBox, 15, 200, 53)
+	applyInput(stealBox, 15, 200, 29)
+	applyInput(jumpBox, 50, 200, 60)
+	
+	player.CharacterAdded:Connect(function(newChar)
+		character = newChar
+		hrp = newChar:WaitForChild("HumanoidRootPart")
+		hum = newChar:WaitForChild("Humanoid")
+	end)
+	
+	activate.MouseButton1Click:Connect(function()
+		active = not active
+	
+		if active then
+			activate.Text = "ON"
+	
+			speedConnection = RunService.Heartbeat:Connect(function()
+				if character and hrp and hum then
+					local speedNoStealValue = tonumber(speedBox.Text) or 53
+					local speedStealValue = tonumber(stealBox.Text) or 29
+					local moveDirection = hum.MoveDirection
+	
+					if moveDirection.Magnitude > 0 then
+						local isSteal = hum.WalkSpeed < 25
+						local currentSpeed = isSteal and speedStealValue or speedNoStealValue
+	
+						hrp.AssemblyLinearVelocity = Vector3.new(
+							moveDirection.X * currentSpeed,
+							hrp.AssemblyLinearVelocity.Y,
+							moveDirection.Z * currentSpeed
+						)
+					end
+				end
+			end)
+		else
+			activate.Text = "OFF"
+			if speedConnection then
+				speedConnection:Disconnect()
+				speedConnection = nil
+			end
+		end
+	end)
+	
+	UserInputService.JumpRequest:Connect(function()
+		if not character or not hum or not hrp then return end
+	
+		local state = hum:GetState()
+	
+		if active then
+			if state == Enum.HumanoidStateType.Running
+				or state == Enum.HumanoidStateType.Landed then
+				local jumpPower = tonumber(jumpBox.Text) or 60
+				hrp.AssemblyLinearVelocity = Vector3.new(
+					hrp.AssemblyLinearVelocity.X,
+					jumpPower,
+					hrp.AssemblyLinearVelocity.Z
+				)
+			end
+		end
+	
+		if infiniteJumpEnabled then
+			hrp.AssemblyLinearVelocity = Vector3.new(
+				hrp.AssemblyLinearVelocity.X,
+				50,
+				hrp.AssemblyLinearVelocity.Z
+			)
+		end
+	end)
+end;
+task.spawn(C_c3);
+-- StarterGui.Xploits.AutoLeft.Drag
+local function C_d0()
+local script = G2L["d0"];
+	local UserInputService = game:GetService("UserInputService")
+	
+	local gui = script.Parent
+	
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	
+	local function update(input)
+		local delta = input.Position - dragStart
+		gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+	
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+			
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+end;
+task.spawn(C_d0);
+-- StarterGui.Xploits.AutoLeft.Drop
+local function C_d1()
+local script = G2L["d1"];
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+	local LocalPlayer = Players.LocalPlayer
+	
+	local btn = script.Parent
+	local enabled = false
+	local connection = nil
+	local pathIndex = 1
+	local paused = false
+	
+	local path = {
+		Vector3.new(-476.2, -6.5, 94.8),
+		Vector3.new(-484.1, -4.7, 94.7),
+		Vector3.new(-476.5, -6.1, 94.7),
+		Vector3.new(-476.5, -6.1, 7.5),
+	}
+	
+	local function getHRP()
+		local c = LocalPlayer.Character
+		return c and c:FindFirstChild("HumanoidRootPart")
+	end
+	
+	local function getHum()
+		local c = LocalPlayer.Character
+		return c and c:FindFirstChildOfClass("Humanoid")
+	end
+	
+	local function stop()
+		enabled = false
+		paused = false
+		pathIndex = 1
+		if connection then connection:Disconnect(); connection = nil end
+		local hum = getHum()
+		if hum then hum:Move(Vector3.zero) end
+	end
+	
+	local function start()
+		if not getHRP() then return end
+		enabled = true
+		pathIndex = 1
+		paused = false
+		if connection then connection:Disconnect() end
+		connection = RunService.Stepped:Connect(function()
+			if not enabled or paused then return end
+			local hrp = getHRP(); local hum = getHum()
+			if not hrp or not hum then return end
+			local target = path[pathIndex]
+			if not target then stop(); return end
+			local flat = Vector3.new(target.X, hrp.Position.Y, target.Z)
+			local dist = (flat - hrp.Position).Magnitude
+			if dist < 3 then
+				if pathIndex == 2 then
+					paused = true
+					hum:Move(Vector3.zero)
+					task.delay(1.5, function()
+						pathIndex += 1
+						paused = false
+					end)
+					return
+				end
+				if pathIndex >= #path then stop(); return end
+				pathIndex += 1
+				return
+			end
+			hum:Move((flat - hrp.Position).Unit)
+		end)
+	end
+	
+	btn.MouseButton1Click:Connect(function()
+		if enabled then stop() else start() end
+	end)
+end;
+task.spawn(C_d1);
+-- StarterGui.Xploits.AutoRight.Drag
+local function C_d5()
+local script = G2L["d5"];
+	local UserInputService = game:GetService("UserInputService")
+	
+	local gui = script.Parent
+	
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	
+	local function update(input)
+		local delta = input.Position - dragStart
+		gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+	
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+			
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+end;
+task.spawn(C_d5);
+-- StarterGui.Xploits.AutoRight.Drop
+local function C_d6()
+local script = G2L["d6"];
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+	local LocalPlayer = Players.LocalPlayer
+	
+	local enabled = false
+	local connection = nil
+	local pathIndex = 1
+	local path = {}
+	local paused = false
+	
+	local function getHRP()
+		local c = LocalPlayer.Character
+		return c and c:FindFirstChild("HumanoidRootPart")
+	end
+	
+	local function getHum()
+		local c = LocalPlayer.Character
+		return c and c:FindFirstChildOfClass("Humanoid")
+	end
+	
+	local function stop()
+		enabled = false
+		paused = false
+		pathIndex = 1
+		if connection then connection:Disconnect(); connection = nil end
+		local hum = getHum(); local hrp = getHRP()
+		if hum then hum:Move(Vector3.zero) end
+		if hrp then hrp.AssemblyLinearVelocity = Vector3.new(0, hrp.AssemblyLinearVelocity.Y, 0) end
+	end
+	
+	script.Parent.MouseButton1Click:Connect(function()
+		if enabled then stop(); return end
+	
+		local hrp = getHRP()
+		if not hrp then return end
+	
+		enabled = true
+		pathIndex = 1
+		paused = false
+	
+		local path = {
+			Vector3.new(-476.2, -6.1, 25.8),
+			Vector3.new(-484.1, -4.7, 25.9),
+			Vector3.new(-476.2, -6.1, 25.8),
+			Vector3.new(-476.2, -6.2, 113.5),
+		}
+	
+		if connection then connection:Disconnect() end
+		connection = RunService.Stepped:Connect(function()
+			if not enabled or paused then return end
+			local hrp = getHRP(); local hum = getHum()
+			if not hrp or not hum then return end
+	
+			local target = path[pathIndex]
+			if not target then stop(); return end
+	
+			local flat = Vector3.new(target.X, hrp.Position.Y, target.Z)
+			local dir = flat - hrp.Position
+			local dist = dir.Magnitude
+	
+			if dist < 3 then
+				if pathIndex == 2 then
+					paused = true
+					hum:Move(Vector3.zero)
+					hrp.AssemblyLinearVelocity = Vector3.new(0, hrp.AssemblyLinearVelocity.Y, 0)
+					task.delay(1.5, function()
+						pathIndex += 1
+						paused = false
+					end)
+					return
+				end
+				if pathIndex >= #path then
+					stop()
+					return
+				end
+				pathIndex += 1
+				return
+			end
+	
+			local flatDir = dir.Unit
+			hum:Move(flatDir)
+			hrp.AssemblyLinearVelocity = Vector3.new(flatDir.X * hum.WalkSpeed, hrp.AssemblyLinearVelocity.Y, flatDir.Z * hum.WalkSpeed)
+		end)
+	end)
+end;
+task.spawn(C_d6);
+-- StarterGui.Xploits.RTP.Drag
+local function C_da()
+local script = G2L["da"];
+	local UserInputService = game:GetService("UserInputService")
+	
+	local gui = script.Parent
+	
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	
+	local function update(input)
+		local delta = input.Position - dragStart
+		gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+	
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+			
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+end;
+task.spawn(C_da);
+-- StarterGui.Xploits.RTP.Drop
+local function C_db()
+local script = G2L["db"];
+	local Players = game:GetService("Players")
+	local LocalPlayer = Players.LocalPlayer
+	
+	local TP_PRE_STEP = Vector3.new(-452.5, -6.6, 57.7)
+	local TP_STEPS = {
+		Left  = { Vector3.new(-475.0, -6.6, 94.7), Vector3.new(-482.6, -4.7, 94.6) },
+		Right = { Vector3.new(-475.2, -6.6, 23.5), Vector3.new(-482.2, -4.7, 23.4) },
+	}
+	local TP_PRE_STEP_DELAY = 0.10
+	local TP_STEP_DELAY     = 0.10
+	local TP_COOLDOWN_SEC   = 1.2
+	local tpCooldown = false
+	
+	local function getSideOwn()
+		local plots = workspace:FindFirstChild("Plots")
+		if not plots then return "Left" end
+		for _, plot in ipairs(plots:GetChildren()) do
+			local success, label = pcall(function()
+				return plot.PlotSign.SurfaceGui.Frame.TextLabel
+			end)
+			if success and label and label.Text == LocalPlayer.Name then
+				local hrp = plot:FindFirstChildWhichIsA("BasePart", true)
+				if hrp then
+					return hrp.Position.Z > 57 and "Left" or "Right"
+				end
+			end
+		end
+		return "Left"
+	end
+	
+	local function teleportToBase()
+		if tpCooldown then return end
+		tpCooldown = true
+	
+		local char = LocalPlayer.Character
+		local root = char and char:FindFirstChild("HumanoidRootPart")
+		if not root then tpCooldown = false; return end
+	
+		root.CFrame = CFrame.new(TP_PRE_STEP)
+		task.wait(TP_PRE_STEP_DELAY)
+	
+		char = LocalPlayer.Character
+		root = char and char:FindFirstChild("HumanoidRootPart")
+		if not root then tpCooldown = false; return end
+	
+		local side = getSideOwn()
+		local steps = TP_STEPS[side]
+	
+		for _, pos in ipairs(steps) do
+			char = LocalPlayer.Character
+			root = char and char:FindFirstChild("HumanoidRootPart")
+			if not root then tpCooldown = false; return end
+			root.CFrame = CFrame.new(pos)
+			task.wait(TP_STEP_DELAY)
+		end
+	
+		task.wait(TP_COOLDOWN_SEC)
+		tpCooldown = false
+	end
+	
+	script.Parent.MouseButton1Click:Connect(function()
+		teleportToBase()
+	end)
+end;
+task.spawn(C_db);
+-- StarterGui.Xploits.RTO.Drag
+local function C_df()
+local script = G2L["df"];
+	local UserInputService = game:GetService("UserInputService")
+	
+	local gui = script.Parent
+	
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	
+	local function update(input)
+		local delta = input.Position - dragStart
+		gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+	
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+			
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+end;
+task.spawn(C_df);
+-- StarterGui.Xploits.RTO.Drop
+local function C_e0()
+local script = G2L["e0"];
+	local Players = game:GetService("Players")
+	local LocalPlayer = Players.LocalPlayer
+	
+	local TP_PRE_STEP = Vector3.new(-452.5, -6.6, 57.7)
+	local TP_STEPS = {
+	    Left  = { Vector3.new(-475.0, -6.6, 94.7), Vector3.new(-482.6, -4.7, 94.6) },
+	    Right = { Vector3.new(-475.2, -6.6, 23.5), Vector3.new(-482.2, -4.7, 23.4) },
+	}
+	local TP_PRE_STEP_DELAY = 0.10
+	local TP_STEP_DELAY     = 0.10
+	local TP_COOLDOWN_SEC   = 1.2
+	local tpCooldown = false
+	
+	local function getSideOpponent()
+	    local plots = workspace:FindFirstChild("Plots")
+	    if not plots then return "Left" end
+	    for _, plot in ipairs(plots:GetChildren()) do
+	        local success, label = pcall(function()
+	            return plot.PlotSign.SurfaceGui.Frame.TextLabel
+	        end)
+	        if success and label and label.Text ~= LocalPlayer.Name and label.Text ~= "" then
+	            local hrp = plot:FindFirstChildWhichIsA("BasePart", true)
+	            if hrp then
+	                return hrp.Position.Z > 57 and "Left" or "Right"
+	            end
+	        end
+	    end
+	    return "Left"
+	end
+	
+	local function teleportToBase()
+	    if tpCooldown then return end
+	    tpCooldown = true
+	
+	    local char = LocalPlayer.Character
+	    local root = char and char:FindFirstChild("HumanoidRootPart")
+	    if not root then tpCooldown = false; return end
+	
+	    root.CFrame = CFrame.new(TP_PRE_STEP)
+	    task.wait(TP_PRE_STEP_DELAY)
+	
+	    char = LocalPlayer.Character
+	    root = char and char:FindFirstChild("HumanoidRootPart")
+	    if not root then tpCooldown = false; return end
+	
+	    local side = getSideOpponent()
+	    local steps = TP_STEPS[side]
+	
+	    for _, pos in ipairs(steps) do
+	        char = LocalPlayer.Character
+	        root = char and char:FindFirstChild("HumanoidRootPart")
+	        if not root then tpCooldown = false; return end
+	        root.CFrame = CFrame.new(pos)
+	        task.wait(TP_STEP_DELAY)
+	    end
+	
+	    task.wait(TP_COOLDOWN_SEC)
+	    tpCooldown = false
+	end
+	
+	script.Parent.MouseButton1Click:Connect(function()
+	    teleportToBase()
+	end)
+end;
+task.spawn(C_e0);
+-- StarterGui.Xploits.CreateConfig.Drag
+local function C_e4()
+local script = G2L["e4"];
+	local UserInputService = game:GetService("UserInputService")
+	
+	local gui = script.Parent
+	
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	
+	local function update(input)
+		local delta = input.Position - dragStart
+		gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+	
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+			
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+end;
+task.spawn(C_e4);
+-- StarterGui.Xploits.CreateConfig.Drop
+local function C_e5()
+local script = G2L["e5"];
+	local HttpService = game:GetService("HttpService")
+	
+	local createBtn = script.Parent
+	local frame = createBtn:WaitForChild("Frame")
+	local textBox = frame:WaitForChild("TextBox")
+	local confirmBtn = frame:WaitForChild("Create")
+	
+	frame.Visible = false
+	
+	createBtn.MouseButton1Click:Connect(function()
+	    frame.Visible = not frame.Visible
+	end)
+	
+	confirmBtn.MouseButton1Click:Connect(function()
+		local name = textBox.Text
+		if name == "" then return end
+		_G.XploitsCFG = _G.XploitsCFG or {}
+	
+		print("Saving config, registered keys:")
+		for key, _ in pairs(_G.XploitsCFG) do
+			print(" -", key)
+		end
+	
+		local data = {}
+		for key, entry in pairs(_G.XploitsCFG) do
+			pcall(function()
+				data[key] = entry.getState()
+			end)
+		end
+		
+	    local ok, encoded = pcall(function()
+	        return HttpService:JSONEncode(data)
+	    end)
+	
+	    if not ok then return end
+	
+	    writefile("XploitsDuels_" .. name .. ".json", encoded)
+	
+	    confirmBtn.Text = "Saved!"
+	    task.wait(1.5)
+	    confirmBtn.Text = "Create"
+	    frame.Visible = false
+	    textBox.Text = ""
+	end)
+end;
+task.spawn(C_e5);
+-- StarterGui.Xploits.CreateConfig.Frame.Drag
+local function C_e9()
+local script = G2L["e9"];
+	local UserInputService = game:GetService("UserInputService")
+	
+	local gui = script.Parent
+	
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	
+	local function update(input)
+		local delta = input.Position - dragStart
+		gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+	
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+			
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+end;
+task.spawn(C_e9);
+-- StarterGui.Xploits.CreateConfig.Frame.Create.Drop
+local function C_eb()
+local script = G2L["eb"];
+	local HttpService = game:GetService("HttpService")
+	
+	local createBtn = script.Parent
+	local frame = createBtn:WaitForChild("Frame")
+	local textBox = frame:WaitForChild("TextBox")
+	local confirmBtn = frame:WaitForChild("Create")
+	
+	frame.Visible = false
+	
+	createBtn.MouseButton1Click:Connect(function()
+		frame.Visible = not frame.Visible
+	end)
+	
+	confirmBtn.MouseButton1Click:Connect(function()
+		local name = textBox.Text
+		if name == "" then return end
+	
+		_G.XploitsCFG = _G.XploitsCFG or {}
+		local data = {}
+	
+		for key, entry in pairs(_G.XploitsCFG) do
+			pcall(function()
+				data[key] = entry.getState()
+			end)
+		end
+	
+		local ok, encoded = pcall(function()
+			return HttpService:JSONEncode(data)
+		end)
+	
+		if not ok then return end
+	
+		writefile("XploitsDuels_" .. name .. ".json", encoded)
+	
+		confirmBtn.Text = "✅ Saved!"
+		task.wait(1.5)
+		confirmBtn.Text = "Create"
+		frame.Visible = false
+		textBox.Text = ""
+	end)
+end;
+task.spawn(C_eb);
+-- StarterGui.Xploits.LoadConfig.Drag
+local function C_ef()
+local script = G2L["ef"];
+	local UserInputService = game:GetService("UserInputService")
+	
+	local gui = script.Parent
+	
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	
+	local function update(input)
+		local delta = input.Position - dragStart
+		gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+	
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+			
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+end;
+task.spawn(C_ef);
+-- StarterGui.Xploits.LoadConfig.Drop
+local function C_f0()
+local script = G2L["f0"];
+	local HttpService = game:GetService("HttpService")
+	
+	local loadBtn = script.Parent
+	local scroll = loadBtn:WaitForChild("ScrollingFrame")
+	local layout = scroll:FindFirstChildOfClass("UIListLayout")
+	
+	scroll.Visible = false
+	
+	local function applyConfig(data)
+		_G.XploitsCFG = _G.XploitsCFG or {}
+	
+		local pending = {}
+		for key, state in pairs(data) do
+			pending[key] = state
+		end
+	
+		local stillPending = {}
+		for key, state in pairs(pending) do
+			if _G.XploitsCFG[key] then
+				pcall(function()
+					_G.XploitsCFG[key].setState(state)
+				end)
+			else
+				stillPending[key] = state
+			end
+		end
+	
+		if next(stillPending) then
+			task.spawn(function()
+				local elapsed = 0
+				while next(stillPending) and elapsed < 5 do
+					task.wait(0.1)
+					elapsed += 0.1
+					for key, state in pairs(stillPending) do
+						if _G.XploitsCFG[key] then
+							pcall(function()
+								_G.XploitsCFG[key].setState(state)
+							end)
+							stillPending[key] = nil
+						end
+					end
+				end
+				for key in pairs(stillPending) do
+					print("CFG key never registered: " .. tostring(key))
+				end
+			end)
+		end
+	end
+	
+	local function loadConfig(name)
+		local path = "XploitsDuels_" .. name .. ".json"
+		if not isfile(path) then return end
+		local ok, data = pcall(function()
+			return HttpService:JSONDecode(readfile(path))
+		end)
+		if not ok then return end
+		applyConfig(data)
+	end
+	
+	local function deleteConfig(name)
+		local path = "XploitsDuels_" .. name .. ".json"
+		if isfile(path) then delfile(path) end
+	end
+	
+	local function refreshList()
+		for _, child in ipairs(scroll:GetChildren()) do
+			if child:IsA("Frame") then child:Destroy() end
+		end
+	
+		local files = listfiles(".")
+		local count = 0
+	
+		for _, file in ipairs(files) do
+			-- Normalize slashes and grab just the filename
+			local normalized = file:gsub("\\", "/")
+			local fileName = normalized:match("([^/]+)$") or normalized
+	
+			if fileName:match("^XploitsDuels_") and fileName:match("%.json$") then
+				local name = fileName:gsub("^XploitsDuels_", ""):gsub("%.json$", "")
+				count += 1
+	
+				local row = Instance.new("Frame")
+				row.Size = UDim2.new(1, -8, 0, 35)
+				row.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+				row.BorderSizePixel = 0
+				row.ZIndex = 21
+				row.Parent = scroll
+				Instance.new("UICorner", row).CornerRadius = UDim.new(0, 6)
+	
+				local nameBtn = Instance.new("TextButton")
+				nameBtn.Size = UDim2.new(0.75, 0, 1, 0)
+				nameBtn.BackgroundTransparency = 1
+				nameBtn.Text = name
+				nameBtn.TextColor3 = Color3.fromRGB(200, 200, 200)
+				nameBtn.Font = Enum.Font.GothamBold
+				nameBtn.TextSize = 13
+				nameBtn.TextXAlignment = Enum.TextXAlignment.Left
+				nameBtn.ZIndex = 22
+				nameBtn.Parent = row
+	
+				local delBtn = Instance.new("TextButton")
+				delBtn.Size = UDim2.new(0.25, 0, 1, 0)
+				delBtn.Position = UDim2.new(0.75, 0, 0, 0)
+				delBtn.BackgroundTransparency = 1
+				delBtn.Text = "🗑"
+				delBtn.TextColor3 = Color3.fromRGB(200, 60, 60)
+				delBtn.Font = Enum.Font.GothamBold
+				delBtn.TextSize = 14
+				delBtn.ZIndex = 22
+				delBtn.Parent = row
+	
+				nameBtn.MouseButton1Click:Connect(function()
+					loadConfig(name)
+					scroll.Visible = false
+				end)
+	
+				delBtn.MouseButton1Click:Connect(function()
+					deleteConfig(name)
+					refreshList()
+				end)
+			end
+		end
+	
+		if layout then
+			scroll.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 8)
+		else
+			scroll.CanvasSize = UDim2.new(0, 0, 0, count * 39 + 8)
+		end
+	end
+	
+	loadBtn.MouseButton1Click:Connect(function()
+		scroll.Visible = not scroll.Visible
+		if scroll.Visible then
+			refreshList()
+		end
+	end)
+end;
+task.spawn(C_f0);
+-- StarterGui.Xploits.LoadConfig.ScrollingFrame.Drag
+local function C_f4()
+local script = G2L["f4"];
+	local UserInputService = game:GetService("UserInputService")
+	
+	local gui = script.Parent
+	
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	
+	local function update(input)
+		local delta = input.Position - dragStart
+		gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+	
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+			
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+end;
+task.spawn(C_f4);
+-- StarterGui.Xploits.AutoBat.Drag
+local function C_f6()
+local script = G2L["f6"];
+	local UserInputService = game:GetService("UserInputService")
+	
+	local gui = script.Parent
+	
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	
+	local function update(input)
+		local delta = input.Position - dragStart
+		gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+	
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+			
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+end;
+task.spawn(C_f6);
+-- StarterGui.Xploits.AutoBat.Drop
+local function C_f7()
+local script = G2L["f7"];
+	local colorFrame = script.Parent
+	local toggleKnob = script.Parent
+	local isOn = false
+	local tweenService = game:GetService("TweenService")
+	local RunService = game:GetService("RunService")
+	local LocalPlayer = game.Players.LocalPlayer
+	local Players = game.Players
+	local Connections = {}
+	local Enabled = {
+		BatAimbot = false,
+	}
+	
+	
+	local function getBat()
+		local char = LocalPlayer.Character
+		if not char then return nil end
+		local tool = char:FindFirstChildWhichIsA("Tool")
+		if tool and tool.Name == "Bat" then return tool end
+		local bp = LocalPlayer:FindFirstChild("Backpack")
+		if bp then
+			local bt = bp:FindFirstChild("Bat")
+			if bt then return bt end
+		end
+		return nil
+	end
+	
+	local function findNearestEnemy(myHRP)
+		local nearest, nearestDist, nearestTorso = nil, math.huge, nil
+		for _, p in ipairs(Players:GetPlayers()) do
+			if p ~= LocalPlayer and p.Character then
+				local eh    = p.Character:FindFirstChild("HumanoidRootPart")
+				local torso = p.Character:FindFirstChild("UpperTorso") or p.Character:FindFirstChild("Torso")
+				local hum   = p.Character:FindFirstChildOfClass("Humanoid")
+				if eh and hum and hum.Health > 0 then
+					local d = (eh.Position - myHRP.Position).Magnitude
+					if d < nearestDist then
+						nearestDist = d
+						nearest = eh
+						nearestTorso = torso or eh
+					end
+				end
+			end
+		end
+		return nearest, nearestDist, nearestTorso
+	end
+	
+	local function startBatAimbot()
+		if Connections.batAimbot then return end
+		Connections.batAimbot = RunService.Heartbeat:Connect(function()
+			if not Enabled.BatAimbot then return end
+			local c = LocalPlayer.Character
+			if not c then return end
+			local h = c:FindFirstChild("HumanoidRootPart")
+			local hum = c:FindFirstChildOfClass("Humanoid")
+			if not h or not hum then return end
+			local bat = getBat()
+			if not bat then return end
+			local target, dist, torso = findNearestEnemy(h)
+			if not target or not torso then return end
+			local targetVel = torso.AssemblyLinearVelocity
+			local dir = torso.Position - h.Position
+			local flatDir = Vector3.new(dir.X, 0, dir.Z)
+			local flatDist = flatDir.Magnitude
+			local timeToReach = flatDist / 80
+			local predictedPos = torso.Position + targetVel * timeToReach
+			local spd = 58
+			if flatDist > 1 then
+				local moveDir = Vector3.new(predictedPos.X - h.Position.X, 0, predictedPos.Z - h.Position.Z).Unit
+				local yDiff = torso.Position.Y - h.Position.Y
+				local ySpeed = math.abs(yDiff) > 0.5 and math.clamp(yDiff * 8, -100, 100) or targetVel.Y
+				h.AssemblyLinearVelocity = Vector3.new(moveDir.X * spd, ySpeed, moveDir.Z * spd)
+			else
+				h.AssemblyLinearVelocity = Vector3.new(targetVel.X, targetVel.Y, targetVel.Z)
+			end
+		end)
+	end
+	
+	local function stopBatAimbot()
+		if Connections.batAimbot then
+			Connections.batAimbot:Disconnect()
+			Connections.batAimbot = nil
+		end
+	end
+	
+	_G.XploitsCFG = _G.XploitsCFG or {}
+	_G.XploitsCFG["AutoBat"] = {
+		getState = function() return isOn end,
+		setState = function(state)
+			if state == isOn then return end
+			isOn = state
+			Enabled.BatAimbot = isOn
+			local knobSize = toggleKnob.AbsoluteSize.X
+			local targetPosition
+			if isOn then
+				startBatAimbot()
+				targetPosition = UDim2.new(1, -(knobSize + 2), 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+			else
+				stopBatAimbot()
+				targetPosition = UDim2.new(0, 2, 0.5, -toggleKnob.AbsoluteSize.Y / 2)
+			end
+			tweenService:Create(toggleKnob, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Position = targetPosition
+			}):Play()
+		end
+	}
+	
+	toggleKnob.MouseButton1Click:Connect(function()
+		isOn = not isOn
+		Enabled.BatAimbot = isOn
+		local targetPosition
+		if isOn then
+			startBatAimbot()
+		else
+			stopBatAimbot()
+		end
+	end)
+end;
+task.spawn(C_f7);
+-- StarterGui.Xploits.AutoBat.ScrollingFrame.Drag
+local function C_fb()
+local script = G2L["fb"];
+	local UserInputService = game:GetService("UserInputService")
+	
+	local gui = script.Parent
+	
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	
+	local function update(input)
+		local delta = input.Position - dragStart
+		gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+	
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+			
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+end;
+task.spawn(C_fb);
+-- StarterGui.Xploits.MeleeAim.Drag
+local function C_fd()
+local script = G2L["fd"];
+	local UserInputService = game:GetService("UserInputService")
+	
+	local gui = script.Parent
+	
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	
+	local function update(input)
+		local delta = input.Position - dragStart
+		gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+	
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+			
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+end;
+task.spawn(C_fd);
+-- StarterGui.Xploits.MeleeAim.Drop
+local function C_fe()
+local script = G2L["fe"];
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+	local TweenService = game:GetService("TweenService")
+	local player = Players.LocalPlayer
+	local character = player.Character or player.CharacterAdded:Wait()
+	
+	local MELEE_ONLY_ENEMIES = true
+	local MELEE_RANGE = 20
+	
+	local meleeEnabled = false
+	local meleeConnection
+	local meleeAlignOrientation
+	local meleeAttachment
+	
+	local toggleKnob = script.Parent
+	
+	local function isValidMeleeTarget(humanoid, rootPart)
+		if not (humanoid and rootPart) then return false end
+		if humanoid.Health <= 0 then return false end
+		if MELEE_ONLY_ENEMIES then
+			local targetPlayer = Players:GetPlayerFromCharacter(humanoid.Parent)
+			if not targetPlayer or targetPlayer == player then
+				return false
+			end
+		end
+		return true
+	end
+	
+	local function getClosestMeleeTarget(hrp)
+		local closest
+		local minDist = MELEE_RANGE
+		for _, p in ipairs(Players:GetPlayers()) do
+			if p == player then continue end
+			local char = p.Character
+			if not char then continue end
+			local targetHrp = char:FindFirstChild("HumanoidRootPart")
+			local hum = char:FindFirstChildOfClass("Humanoid")
+			if isValidMeleeTarget(hum, targetHrp) then
+				local dist = (targetHrp.Position - hrp.Position).Magnitude
+				if dist < minDist then
+					minDist = dist
+					closest = targetHrp
+				end
+			end
+		end
+		return closest
+	end
+	
+	local function createMeleeAimbot(char)
+		local hrp = char:WaitForChild("HumanoidRootPart", 8)
+		local humanoid = char:WaitForChild("Humanoid", 8)
+		if not (hrp and humanoid) then return end
+	
+		if meleeAlignOrientation then
+			pcall(function() meleeAlignOrientation:Destroy() end)
+		end
+		if meleeAttachment then
+			pcall(function() meleeAttachment:Destroy() end)
+		end
+	
+		meleeAttachment = Instance.new("Attachment")
+		meleeAttachment.Parent = hrp
+	
+		meleeAlignOrientation = Instance.new("AlignOrientation")
+		meleeAlignOrientation.Attachment0 = meleeAttachment
+		meleeAlignOrientation.Mode = Enum.OrientationAlignmentMode.OneAttachment
+		meleeAlignOrientation.RigidityEnabled = true
+		meleeAlignOrientation.MaxTorque = 100000
+		meleeAlignOrientation.Responsiveness = 200
+		meleeAlignOrientation.Parent = hrp
+	
+		if meleeConnection then
+			meleeConnection:Disconnect()
+		end
+	
+		meleeConnection = RunService.RenderStepped:Connect(function()
+			if not char.Parent or not meleeEnabled then return end
+			local target = getClosestMeleeTarget(hrp)
+			if target then
+				humanoid.AutoRotate = false
+				meleeAlignOrientation.Enabled = true
+				local targetPos = Vector3.new(target.Position.X, hrp.Position.Y, target.Position.Z)
+				meleeAlignOrientation.CFrame = CFrame.lookAt(hrp.Position, targetPos)
+			else
+				meleeAlignOrientation.Enabled = false
+				humanoid.AutoRotate = true
+			end
+		end)
+	end
+	
+	local function disableMeleeAimbot()
+		meleeEnabled = false
+		if meleeConnection then
+			meleeConnection:Disconnect()
+			meleeConnection = nil
+		end
+		if meleeAlignOrientation then
+			meleeAlignOrientation.Enabled = false
+			pcall(function() meleeAlignOrientation:Destroy() end)
+			meleeAlignOrientation = nil
+		end
+		if character and character:FindFirstChild("Humanoid") then
+			character.Humanoid.AutoRotate = true
+		end
+		if meleeAttachment then
+			pcall(function() meleeAttachment:Destroy() end)
+			meleeAttachment = nil
+		end
+	end
+	
+	player.CharacterAdded:Connect(function(newChar)
+		character = newChar
+		if meleeEnabled then createMeleeAimbot(newChar) end
+	end)
+	
+	toggleKnob.MouseButton1Click:Connect(function()
+		meleeEnabled = not meleeEnabled
+		local knobSize = toggleKnob.AbsoluteSize.X
+		local targetPosition
+	
+		if meleeEnabled then
+			local char = player.Character
+			if char and meleeEnabled then createMeleeAimbot(char) end
+		else
+			disableMeleeAimbot()
+		end
+	end)
+end;
+task.spawn(C_fe);
+
+return G2L["1"], require;
