@@ -1,6 +1,6 @@
 export async function onRequest(context) {
-    const url = new URL(context.request.url)
-    const key = url.searchParams.get("key")
+    const uRl = new URL(context.request.url)
+    const key = uRl.searchParams.get("key")
 
     if (!key) return new Response("invalid")
 
