@@ -2,7 +2,7 @@ export async function onRequest(context) {
     const userAgent = context.request.headers.get("user-agent") || ""
 
     if (!userAgent.includes("Roblox")) {
-        return new Response("Not found", { status: 404 })
+        return new Response("404: Not Found", { status: 404 })
     }
 
     const script = await context.env.SCRIPTS.get("main")
