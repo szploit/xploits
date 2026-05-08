@@ -15,7 +15,7 @@ export async function onRequest(context) {
     const elapsed = now - started
 
     const MIN_WAIT_MS_BY_PROVIDER = {
-        linkvertise: 5000,
+        linkvertise: 50000,
         lootlabs: 15000,
     }
     const MIN_WAIT_MS = MIN_WAIT_MS_BY_PROVIDER[provider] || 30000
