@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Key System – Xploits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --red:#e63946;
+  --red-dim:#c1121f;
+  --bg:#0a0a0a;
+  --bg-card:#111111;
+  --muted:#666;
+  --muted2:#222;
+  --font-display:'Space Grotesk',system-ui,sans-serif;
+  --font-body:'Inter',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+
+body{
+  background:var(--bg);
+  color:#fff;
+  font-family:var(--font-body);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  overflow-x:hidden;
+}
+
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;height:56px;
+  border-bottom:1px solid #1a1a1a;
+  position:relative;z-index:10;
+}
+.logo{display:flex;align-items:center;gap:8px;font-family:var(--font-display);font-weight:800;font-size:15px;text-decoration:none;color:#fff}
+.logo-icon{background:var(--red);border-radius:6px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;font-family:'Arial Black',sans-serif;color:#fff;line-height:1}
+.nav-links{display:flex;gap:1.5rem}
+.nav-links a{color:#666;font-size:13px;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-btns{display:flex;gap:8px}
+.nav-btn{background:transparent;border:1px solid #2a2a2a;color:#fff;padding:6px 14px;border-radius:6px;font-size:13px;cursor:pointer;font-family:var(--font-body);transition:border-color .2s}
+.nav-btn:hover{border-color:#444}
+.nav-btn-red{background:var(--red);border:none;color:#fff;padding:6px 14px;border-radius:6px;font-size:13px;cursor:pointer;font-family:var(--font-body)}
+
+.bg-orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0}
+.grid-bg{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(230,57,70,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(230,57,70,0.04) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);
+}
+
+main{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  padding:3rem 2rem;position:relative;z-index:1;
+}
+
+.status-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(230,57,70,0.08);border:1px solid rgba(230,57,70,0.2);
+  border-radius:100px;padding:5px 14px;
+  font-size:0.72rem;color:#ff8b8b;font-family:var(--font-mono);letter-spacing:.05em;
+  margin-bottom:1.5rem;
+}
+.dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 6px #4ade80;animation:pulse 2s infinite}
+
+.card{
+  background:var(--bg-card);
+  border:1px solid #1e1e1e;
+  border-radius:16px;
+  width:100%;max-width:500px;
+  overflow:hidden;
+  position:relative;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(230,57,70,0.3),transparent);
+}
+
+.card-top{padding:2rem 2rem 1.5rem;text-align:center;border-bottom:1px solid #1a1a1a}
+.card-title{font-family:var(--font-display);font-size:1.5rem;font-weight:800;margin-bottom:.4rem}
+.card-sub{color:var(--muted);font-size:13px;font-family:var(--font-mono);letter-spacing:.03em}
+
+.card-body{padding:1.5rem;display:flex;flex-direction:column;gap:12px}
+
+.provider-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.provider-btn{
+  background:#0d0d0d;border:1px solid #2a2a2a;border-radius:10px;
+  padding:1rem;cursor:pointer;text-align:center;transition:all .2s;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+}
+.provider-btn:hover{border-color:rgba(230,57,70,0.4);background:rgba(230,57,70,0.04)}
+.provider-btn.selected{border-color:var(--red);background:rgba(230,57,70,0.08)}
+.provider-icon{font-size:1.5rem}
+.provider-name{font-size:13px;font-weight:600}
+.provider-desc{font-size:11px;color:var(--muted)}
+
+.notice{
+  background:rgba(230,57,70,0.06);border:1px solid rgba(230,57,70,0.15);
+  border-radius:8px;padding:.75rem 1rem;font-size:12px;color:#888;line-height:1.6;
+}
+.notice strong{color:var(--red)}
+
+.step{
+  background:#0d0d0d;border:1px solid #1e1e1e;border-radius:10px;
+  padding:1rem 1.25rem;display:flex;align-items:center;gap:14px;
+  transition:border-color .3s,opacity .3s;
+}
+.step.locked{opacity:.35;pointer-events:none}
+.step.active{border-color:rgba(230,57,70,0.35)}
+.step.done{border-color:rgba(74,222,128,.25)}
+
+.step-num{
+  width:32px;height:32px;border-radius:50%;
+  background:#1a1a1a;border:1px solid #2a2a2a;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:600;color:#666;flex-shrink:0;transition:all .2s;
+}
+.step.active .step-num{background:rgba(230,57,70,.15);border-color:var(--red);color:var(--red)}
+.step.done .step-num{background:rgba(74,222,128,.12);border-color:rgba(74,222,128,.5);color:#4ade80}
+
+.step-info{flex:1;min-width:0}
+.step-info strong{font-size:13px;font-weight:600;display:block;margin-bottom:2px}
+.step-info span{font-size:11px;color:var(--muted)}
+.step.done .step-info span{color:rgba(74,222,128,.6)}
+
+.timer-bar{height:2px;background:#1a1a1a;border-radius:2px;margin-top:8px;display:none}
+.timer-fill{height:100%;background:var(--red);border-radius:2px;width:0%;transition:width .4s linear}
+.timer-text{font-size:10px;color:var(--muted);margin-top:4px;font-family:var(--font-mono);display:none}
+
+.step-action-btn{
+  background:var(--red);color:#fff;border:none;
+  padding:7px 14px;border-radius:7px;font-size:12px;font-weight:600;
+  cursor:pointer;white-space:nowrap;transition:opacity .2s;font-family:var(--font-body);
+}
+.step-action-btn:hover{opacity:.85}
+.step-action-btn:disabled{opacity:.3;cursor:not-allowed}
+.done-badge{
+  background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);
+  color:#4ade80;font-size:11px;font-weight:600;padding:5px 10px;border-radius:6px;white-space:nowrap;
+}
+
+.divider{height:1px;background:#1a1a1a}
+
+.getkey-btn{
+  background:var(--red);color:#fff;border:none;padding:13px;border-radius:9px;
+  font-size:14px;font-weight:700;cursor:pointer;width:100%;
+  transition:opacity .2s,box-shadow .2s;font-family:var(--font-body);letter-spacing:.3px;
+  box-shadow:0 0 24px rgba(230,57,70,0.25);
+}
+.getkey-btn:hover:not(:disabled){opacity:.88;box-shadow:0 0 36px rgba(230,57,70,0.4)}
+.getkey-btn:disabled{opacity:.2;cursor:not-allowed;box-shadow:none}
+  
+.key-result{
+  display:none;background:#0d0d0d;border:1px solid rgba(74,222,128,.2);
+  border-radius:10px;padding:1rem 1.25rem;
+}
+.key-result label{font-size:10px;color:var(--muted);font-weight:600;letter-spacing:.6px;text-transform:uppercase;display:block;margin-bottom:8px;font-family:var(--font-mono)}
+.key-row{display:flex;gap:8px;align-items:center}
+.key-value{
+  flex:1;background:#111;border:1px solid #1e1e1e;border-radius:7px;
+  padding:9px 12px;font-family:var(--font-mono);font-size:14px;color:var(--red);letter-spacing:1.5px;
+}
+.copy-btn{
+  background:#1a1a1a;border:1px solid #2a2a2a;color:#fff;
+  padding:9px 14px;border-radius:7px;font-size:12px;cursor:pointer;
+  transition:background .2s;white-space:nowrap;font-family:var(--font-body);
+}
+.copy-btn:hover{background:#222}
+.key-expiry{font-size:11px;color:var(--muted);margin-top:8px;font-family:var(--font-mono)}
+.key-expiry span{color:#888}
+
+.screen{display:none;flex-direction:column;gap:12px}
+.screen.active{display:flex}
+
+#screen-choose{text-align:center}
+#screen-choose p{font-size:13px;color:var(--muted);margin-bottom:12px}
+
+footer{text-align:center;padding:1.5rem;color:#2a2a2a;font-size:12px;border-top:1px solid #111;position:relative;z-index:1}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.card{animation:fadeUp .4s ease both}
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="bg-orb" style="left:5%;top:10%;width:500px;height:500px;background:#e63946;opacity:.04;filter:blur(200px)"></div>
+<div class="bg-orb" style="left:65%;top:55%;width:400px;height:400px;background:#c1121f;opacity:.035;filter:blur(180px)"></div>
+
+<nav>
+  <a href="https://xploits.xyz" class="logo">
+    <div class="logo-icon">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 2L7 8L2 14H5.5L8 10.8L10.5 14H14L9 8L14 2H10.5L8 5.2L5.5 2H2Z" fill="white"/>
+      </svg>
+    </div>
+    xploits
+  </a>
+  <div class="nav-links">
+    <a href="https://xploits.xyz">Home</a>
+    <a href="https://xploits.xyz/executors">Executors</a>
+    <a href="https://xploits.xyz/externals">Externals</a>
+    <a href="https://xploits.xyz/tools">Tools</a>
+  </div>
+  <div class="nav-btns">
+    <a href="https://xploits.xyz/download" class="nav-btn" style="text-decoration:none;display:inline-flex;align-items:center">⬇ Download</a>
+    <a href="https://discord.gg/4hseHSkCEE" target="_blank" class="nav-btn-red" style="text-decoration:none;display:inline-flex;align-items:center">Discord</a>
+  </div>
+</nav>
+
+<main>
+  <div style="display:flex;flex-direction:column;align-items:center;width:100%;max-width:500px">
+
+    <div class="status-badge">
+      <span class="dot"></span>
+      KEY SYSTEM
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-title">Get Your Key</div>
+        <div class="card-sub" id="hwid-display">Loading session...</div>
+      </div>
+
+      <div class="card-body">
+
+        <div class="screen active" id="screen-choose">
+          <p>Choose your checkpoint provider to begin</p>
+          <div class="provider-grid">
+            <div class="provider-btn" id="prov-linkvertise" onclick="selectProvider('linkvertise')">
+              <div class="provider-icon"></div>
+              <div class="provider-name">Linkvertise</div>
+              <div class="provider-desc">2 steps</div>
+            </div>
+            <div class="provider-btn" id="prov-lootlabs" onclick="selectProvider('lootlabs')">
+              <div class="provider-icon"></div>
+              <div class="provider-name">Lootlabs</div>
+              <div class="provider-desc">2 steps · harder to bypass</div>
+            </div>
+          </div>
+          <button class="getkey-btn" id="choose-continue-btn" disabled onclick="startCheckpoints()" style="margin-top:4px">Continue →</button>
+        </div>
+
+        <div class="screen" id="screen-steps">
+          <div class="notice">
+            Complete both checkpoints below. Keys are valid for <strong>24 hours</strong> and are locked to your device.
+          </div>
+
+          <div class="step locked" id="step1-el">
+            <div class="step-num">1</div>
+            <div class="step-info">
+              <strong id="step1-title">Checkpoint 1</strong>
+              <span id="step1-sub">Click Start to begin</span>
+              <div class="timer-bar" id="timer1-bar"><div class="timer-fill" id="timer1-fill"></div></div>
+              <div class="timer-text" id="timer1-text"></div>
+            </div>
+            <button class="step-action-btn" id="step1-btn" onclick="startStep(1)">Start</button>
+          </div>
+
+          <div class="step locked" id="step2-el">
+            <div class="step-num">2</div>
+            <div class="step-info">
+              <strong id="step2-title">Checkpoint 2</strong>
+              <span id="step2-sub">Complete step 1 first</span>
+              <div class="timer-bar" id="timer2-bar"><div class="timer-fill" id="timer2-fill"></div></div>
+              <div class="timer-text" id="timer2-text"></div>
+            </div>
+            <button class="step-action-btn" id="step2-btn" onclick="startStep(2)" disabled>Start</button>
+          </div>
+
+          <div class="divider"></div>
+
+          <button class="getkey-btn" id="getkey-btn" disabled onclick="getKey()">Get Key</button>
+
+          <div class="key-result" id="key-result">
+            <label>Your Key</label>
+            <div class="key-row">
+              <div class="key-value" id="key-display"></div>
+              <button class="copy-btn" onclick="copyKey()">Copy</button>
+            </div>
+            <div class="key-expiry">Expires in: <span id="key-expiry"></span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>Xploits.xyz Roblox exploit tracker</footer>
+
+<script>
+const PROVIDERS = {
+  linkvertise: {
+    step1: "https://link-target.net/5628591/h8xfFT8eGffh",
+    step2: "https://link-target.net/5628591/DCZ7FhersuYM",
+  },
+  lootlabs: {
+    step1: "https://loot-link.com/s?YOUR_LL_STEP1_HASH",
+    step2: "https://loot-link.com/s?YOUR_LL_STEP2_HASH",
+  }
+}
+const MIN_WAIT_MS = 30000
+
+let hwid = window.location.pathname.split("/").filter(Boolean).pop()
+if (!hwid || hwid === "key-system") {
+  hwid = new URLSearchParams(window.location.search).get("hwid")
+    || localStorage.getItem("xp_hwid")
+    || "UNKNOWN"
+}
+localStorage.setItem("xp_hwid", hwid)
+document.getElementById("hwid-display").textContent = "HWID: " + hwid
+
+let selectedProvider = null
+let state = { step1Done: false, step2Done: false }
+let timerIntervals = {}
+
+function selectProvider(p) {
+  selectedProvider = p
+  document.getElementById("prov-linkvertise").classList.toggle("selected", p === "linkvertise")
+  document.getElementById("prov-lootlabs").classList.toggle("selected", p === "lootlabs")
+  document.getElementById("choose-continue-btn").disabled = false
+}
+
+function startCheckpoints() {
+  document.getElementById("screen-choose").classList.remove("active")
+  document.getElementById("screen-steps").classList.add("active")
+
+  const labels = selectedProvider === "linkvertise"
+    ? ["Linkvertise - Step 1", "Linkvertise - Step 2"]
+    : ["Lootlabs - Step 1", "Lootlabs - Step 2"]
+
+  document.getElementById("step1-title").textContent = labels[0]
+  document.getElementById("step2-title").textContent = labels[1]
+
+  const s1 = document.getElementById("step1-el")
+  s1.classList.remove("locked")
+  s1.classList.add("active")
+  document.getElementById("step1-sub").textContent = "Click Start to open the checkpoint"
+}
+
+function startStep(n) {
+  const urls = PROVIDERS[selectedProvider]
+  const url = n === 1 ? urls.step1 : urls.step2
+  const startTime = Date.now()
+
+  window.open(url + (url.includes("?") ? "&" : "?") + "hwid=" + encodeURIComponent(hwid), "_blank")
+
+  const btn = document.getElementById(`step${n}-btn`)
+  btn.textContent = "Waiting..."
+  btn.disabled = true
+  document.getElementById(`step${n}-sub`).textContent = "Complete the checkpoint in the new tab..."
+
+  const bar = document.getElementById(`timer${n}-bar`)
+  const fill = document.getElementById(`timer${n}-fill`)
+  const txt = document.getElementById(`timer${n}-text`)
+  bar.style.display = "block"
+  txt.style.display = "block"
+
+  timerIntervals[n] = setInterval(() => {
+    const elapsed = Date.now() - startTime
+    const pct = Math.min((elapsed / MIN_WAIT_MS) * 100, 100)
+    fill.style.width = pct + "%"
+    const rem = Math.max(0, Math.ceil((MIN_WAIT_MS - elapsed) / 1000))
+    if (rem > 0) {
+      txt.textContent = `Verifying — ${rem}s`
+    } else {
+      clearInterval(timerIntervals[n])
+      txt.textContent = "Checking with server..."
+      verifyStep(n, startTime)
+    }
+  }, 400)
+}
+
+async function verifyStep(n, startTime) {
+  const txt = document.getElementById(`timer${n}-text`)
+  try {
+    const res = await fetch(
+      `/api/checkpoint?hwid=${encodeURIComponent(hwid)}&step=${n}&started=${startTime}&provider=${selectedProvider}`
+    )
+    const body = await res.text()
+    if (body === "ok") {
+      markDone(n)
+    } else if (body === "too_fast") {
+      txt.textContent = "Completed too fast — please redo this step."
+      resetStep(n)
+    } else {
+      txt.textContent = "Verification failed — try again."
+      resetStep(n)
+    }
+  } catch {
+    txt.textContent = "Network error — try again."
+    resetStep(n)
+  }
+}
+
+function markDone(n) {
+  state[`step${n}Done`] = true
+  const el = document.getElementById(`step${n}-el`)
+  el.classList.remove("active")
+  el.classList.add("done")
+  document.getElementById(`step${n}-sub`).textContent = "Completed ✓"
+  document.getElementById(`timer${n}-bar`).style.display = "none"
+  document.getElementById(`timer${n}-text`).style.display = "none"
+  const btn = document.getElementById(`step${n}-btn`)
+  btn.outerHTML = `<div class="done-badge">Done</div>`
+
+  if (n === 1) {
+    const s2 = document.getElementById("step2-el")
+    s2.classList.remove("locked")
+    s2.classList.add("active")
+    document.getElementById("step2-sub").textContent = "Click Start to open the checkpoint"
+    document.getElementById("step2-btn").disabled = false
+  }
+
+  if (state.step1Done && state.step2Done) {
+    document.getElementById("getkey-btn").disabled = false
+  }
+}
+
+function resetStep(n) {
+  const btn = document.getElementById(`step${n}-btn`)
+  btn.textContent = "Retry"
+  btn.disabled = false
+}
+
+async function getKey() {
+  const btn = document.getElementById("getkey-btn")
+  btn.textContent = "Generating..."
+  btn.disabled = true
+  try {
+    const res = await fetch(`/api/getkey?hwid=${encodeURIComponent(hwid)}`)
+    const data = await res.json()
+    if (data.key) {
+      document.getElementById("key-display").textContent = data.key
+      const ms = new Date(data.expires) - new Date()
+      const hrs = Math.floor(ms / 3600000)
+      document.getElementById("key-expiry").textContent = hrs + " hours"
+      document.getElementById("key-result").style.display = "block"
+      btn.textContent = "Key Generated ✓"
+    } else {
+      btn.textContent = "Failed — Try Again"
+      btn.disabled = false
+    }
+  } catch {
+    btn.textContent = "Error — Try Again"
+    btn.disabled = false
+  }
+}
+
+function copyKey() {
+  const key = document.getElementById("key-display").textContent
+  navigator.clipboard.writeText(key).then(() => {
+    const b = document.querySelector(".copy-btn")
+    b.textContent = "Copied!"
+    setTimeout(() => b.textContent = "Copy", 2000)
+  })
+}
+</script>
+</body>
+</html>
