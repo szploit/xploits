@@ -422,7 +422,8 @@ function startStep(n) {
           txt.textContent = `Complete the checkpoint - ${rem}s remaining`
         } else {
           clearInterval(timerIntervals[n])
-          txt.textContent = "Complete checkpoint in Linkvertise. You will be redirected back automatically."
+          const providerName = selectedProvider === "lootlabs" ? "Lootlabs" : "Linkvertise"
+          txt.textContent = `Complete checkpoint in ${providerName}. You will be redirected back automatically.`
         }
       }, 400)
     })
