@@ -38,14 +38,15 @@ nav{
   position:relative;z-index:10;
 }
 .logo{display:flex;align-items:center;gap:8px;font-family:var(--font-display);font-weight:800;font-size:15px;text-decoration:none;color:#fff}
-.logo-icon{background:var(--red);border-radius:6px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;font-family:'Arial Black',sans-serif;color:#fff;line-height:1}
+.logo-icon{background:var(--red);border-radius:6px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.logo-icon img{width:18px;height:18px;object-fit:contain}
 .nav-links{display:flex;gap:1.5rem}
 .nav-links a{color:#666;font-size:13px;text-decoration:none;transition:color .2s}
 .nav-links a:hover{color:#fff}
 .nav-btns{display:flex;gap:8px}
-.nav-btn{background:transparent;border:1px solid #2a2a2a;color:#fff;padding:6px 14px;border-radius:6px;font-size:13px;cursor:pointer;font-family:var(--font-body);transition:border-color .2s}
+.nav-btn{background:transparent;border:1px solid #2a2a2a;color:#fff;padding:6px 14px;border-radius:6px;font-size:13px;cursor:pointer;font-family:var(--font-body);transition:border-color .2s;text-decoration:none;display:inline-flex;align-items:center}
 .nav-btn:hover{border-color:#444}
-.nav-btn-red{background:var(--red);border:none;color:#fff;padding:6px 14px;border-radius:6px;font-size:13px;cursor:pointer;font-family:var(--font-body)}
+.nav-btn-red{background:var(--red);border:none;color:#fff;padding:6px 14px;border-radius:6px;font-size:13px;cursor:pointer;font-family:var(--font-body);text-decoration:none;display:inline-flex;align-items:center}
 
 .bg-orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0}
 .grid-bg{
@@ -97,7 +98,7 @@ main{
 }
 .provider-btn:hover{border-color:rgba(230,57,70,0.4);background:rgba(230,57,70,0.04)}
 .provider-btn.selected{border-color:var(--red);background:rgba(230,57,70,0.08)}
-.provider-icon{font-size:1.5rem}
+.provider-icon{width:32px;height:32px;object-fit:contain}
 .provider-name{font-size:13px;font-weight:600}
 .provider-desc{font-size:11px;color:var(--muted)}
 
@@ -156,7 +157,7 @@ main{
 }
 .getkey-btn:hover:not(:disabled){opacity:.88;box-shadow:0 0 36px rgba(230,57,70,0.4)}
 .getkey-btn:disabled{opacity:.2;cursor:not-allowed;box-shadow:none}
-  
+
 .key-result{
   display:none;background:#0d0d0d;border:1px solid rgba(74,222,128,.2);
   border-radius:10px;padding:1rem 1.25rem;
@@ -198,9 +199,7 @@ footer{text-align:center;padding:1.5rem;color:#2a2a2a;font-size:12px;border-top:
 <nav>
   <a href="https://xploits.xyz" class="logo">
     <div class="logo-icon">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2 2L7 8L2 14H5.5L8 10.8L10.5 14H14L9 8L14 2H10.5L8 5.2L5.5 2H2Z" fill="white"/>
-      </svg>
+      <img src="/X.png" alt="Xploits"/>
     </div>
     xploits
   </a>
@@ -211,8 +210,8 @@ footer{text-align:center;padding:1.5rem;color:#2a2a2a;font-size:12px;border-top:
     <a href="https://xploits.xyz/tools">Tools</a>
   </div>
   <div class="nav-btns">
-    <a href="https://xploits.xyz/download" class="nav-btn" style="text-decoration:none;display:inline-flex;align-items:center">⬇ Download</a>
-    <a href="https://discord.gg/4hseHSkCEE" target="_blank" class="nav-btn-red" style="text-decoration:none;display:inline-flex;align-items:center">Discord</a>
+    <a href="https://xploits.xyz/download" class="nav-btn">⬇ Download</a>
+    <a href="https://discord.gg/4hseHSkCEE" target="_blank" class="nav-btn-red">Discord</a>
   </div>
 </nav>
 
@@ -236,12 +235,12 @@ footer{text-align:center;padding:1.5rem;color:#2a2a2a;font-size:12px;border-top:
           <p>Choose your checkpoint provider to begin</p>
           <div class="provider-grid">
             <div class="provider-btn" id="prov-linkvertise" onclick="selectProvider('linkvertise')">
-              <div class="provider-icon"></div>
+              <img class="provider-icon" src="https://linkvertise.com/favicon.ico" alt="Linkvertise" onerror="this.style.display='none'"/>
               <div class="provider-name">Linkvertise</div>
               <div class="provider-desc">2 steps</div>
             </div>
             <div class="provider-btn" id="prov-lootlabs" onclick="selectProvider('lootlabs')">
-              <div class="provider-icon"></div>
+              <img class="provider-icon" src="https://lootlabs.gg/favicon.ico" alt="Lootlabs" onerror="this.style.display='none'"/>
               <div class="provider-name">Lootlabs</div>
               <div class="provider-desc">2 steps · harder to bypass</div>
             </div>
@@ -295,7 +294,7 @@ footer{text-align:center;padding:1.5rem;color:#2a2a2a;font-size:12px;border-top:
   </div>
 </main>
 
-<footer>Xploits.xyz Roblox exploit tracker</footer>
+<footer>Xploits.xyz — Roblox exploit tracker</footer>
 
 <script>
 const PROVIDERS = {
@@ -322,6 +321,8 @@ document.getElementById("hwid-display").textContent = "HWID: " + hwid
 let selectedProvider = null
 let state = { step1Done: false, step2Done: false }
 let timerIntervals = {}
+let adTabRef = { 1: null, 2: null }
+let adTabOpen = { 1: false, 2: false }
 
 function selectProvider(p) {
   selectedProvider = p
@@ -352,12 +353,13 @@ function startStep(n) {
   const url = n === 1 ? urls.step1 : urls.step2
   const startTime = Date.now()
 
-  window.open(url + (url.includes("?") ? "&" : "?") + "hwid=" + encodeURIComponent(hwid), "_blank")
+  const tab = window.open(url + (url.includes("?") ? "&" : "?") + "hwid=" + encodeURIComponent(hwid), "_blank")
+  adTabRef[n] = tab
+  adTabOpen[n] = true
 
   const btn = document.getElementById(`step${n}-btn`)
   btn.textContent = "Waiting..."
   btn.disabled = true
-  document.getElementById(`step${n}-sub`).textContent = "Complete the checkpoint in the new tab..."
 
   const bar = document.getElementById(`timer${n}-bar`)
   const fill = document.getElementById(`timer${n}-fill`)
@@ -365,16 +367,36 @@ function startStep(n) {
   bar.style.display = "block"
   txt.style.display = "block"
 
+  const tabCheck = setInterval(() => {
+    if (adTabRef[n] && adTabRef[n].closed) {
+      adTabOpen[n] = false
+      clearInterval(tabCheck)
+    }
+  }, 500)
+
   timerIntervals[n] = setInterval(() => {
     const elapsed = Date.now() - startTime
     const pct = Math.min((elapsed / MIN_WAIT_MS) * 100, 100)
     fill.style.width = pct + "%"
     const rem = Math.max(0, Math.ceil((MIN_WAIT_MS - elapsed) / 1000))
     if (rem > 0) {
-      txt.textContent = `Verifying — ${rem}s`
+      if (!adTabOpen[n]) {
+        txt.textContent = `Tab closed early — reopen to continue (${rem}s)`
+        fill.style.background = "#f59e0b"
+      } else {
+        txt.textContent = `Complete the checkpoint — ${rem}s remaining`
+        fill.style.background = "var(--red)"
+      }
     } else {
       clearInterval(timerIntervals[n])
-      txt.textContent = "Checking with server..."
+      clearInterval(tabCheck)
+      if (!adTabOpen[n]) {
+        txt.textContent = "Tab was closed too early — please redo this step."
+        fill.style.background = "#ef4444"
+        resetStep(n)
+        return
+      }
+      txt.textContent = "Verifying with server..."
       verifyStep(n, startTime)
     }
   }, 400)
@@ -411,7 +433,7 @@ function markDone(n) {
   document.getElementById(`timer${n}-bar`).style.display = "none"
   document.getElementById(`timer${n}-text`).style.display = "none"
   const btn = document.getElementById(`step${n}-btn`)
-  btn.outerHTML = `<div class="done-badge">Done</div>`
+  if (btn) btn.outerHTML = `<div class="done-badge">Done</div>`
 
   if (n === 1) {
     const s2 = document.getElementById("step2-el")
@@ -427,9 +449,14 @@ function markDone(n) {
 }
 
 function resetStep(n) {
+  const fill = document.getElementById(`timer${n}-fill`)
+  fill.style.width = "0%"
+  fill.style.background = "var(--red)"
+  document.getElementById(`timer${n}-bar`).style.display = "none"
   const btn = document.getElementById(`step${n}-btn`)
-  btn.textContent = "Retry"
-  btn.disabled = false
+  if (btn) { btn.textContent = "Retry"; btn.disabled = false }
+  adTabOpen[n] = false
+  adTabRef[n] = null
 }
 
 async function getKey() {
