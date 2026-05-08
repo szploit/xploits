@@ -501,33 +501,52 @@ function resetStep(n) {
 }
 
 function handleReturnFromProvider() {
-  const params = new URLSearchParams(window.location.search)
-  const returned = params.get("returned")
-  const step = Number(params.get("step"))
-  const providerFromReturn = params.get("provider")
-  if (returned !== "1" || (step !== 1 && step !== 2)) return
+    const params = new URLSearchParams(window.location.search)
+    const returned = params.get("returned")
+    const step = Number(params.get("step"))
+    const providerFromReturn = params.get("provider")
+    if (returned !== "1" || (step !== 1 && step !== 2)) return
 
-  if (providerFromReturn === "linkvertise" || providerFromReturn === "lootlabs") {
-    selectedProvider = providerFromReturn
-    localStorage.setItem("xp_provider", providerFromReturn)
-    document.getElementById("prov-linkvertise").classList.toggle("selected", selectedProvider === "linkvertise")
-    document.getElementById("prov-lootlabs").classList.toggle("selected", selectedProvider === "lootlabs")
-  }
+    if (providerFromReturn === "linkvertise" || providerFromReturn === "lootlabs") {
+        selectedProvider = providerFromReturn
+        localStorage.setItem("xp_provider", providerFromReturn)
+        document.getElementById("prov-linkvertise").classList.toggle("selected", selectedProvider === "linkvertise")
+        document.getElementById("prov-lootlabs").classList.toggle("selected", selectedProvider === "lootlabs")
+    }
 
-  document.getElementById("screen-choose").classList.remove("active")
-  document.getElementById("screen-steps").classList.add("active")
-  const labels = selectedProvider === "linkvertise"
-    ? ["Linkvertise - Step 1", "Linkvertise - Step 2"]
-    : ["Lootlabs - Step 1", "Lootlabs - Step 2"]
-  document.getElementById("step1-title").textContent = labels[0]
-  document.getElementById("step2-title").textContent = labels[1]
-  document.getElementById(`timer${step}-bar`).style.display = "block"
-  document.getElementById(`timer${step}-text`).style.display = "block"
-  document.getElementById(`timer${step}-text`).textContent = "Verifying with server..."
-  verifyStep(step)
+    document.getElementById("screen-choose").classList.remove("active")
+    document.getElementById("screen-steps").classList.add("active")
+    const labels = selectedProvider === "linkvertise"
+        ? ["Linkvertise - Step 1", "Linkvertise - Step 2"]
+        : ["Lootlabs - Step 1", "Lootlabs - Step 2"]
+    document.getElementById("step1-title").textContent = labels[0]
+    document.getElementById("step2-title").textContent = labels[1]
 
-  const cleanPath = `/key-system/${encodeURIComponent(hwid)}`
-  window.history.replaceState({}, "", cleanPath)
+    if (step === 2) {
+        state.step1Done = true
+        const s1 = document.getElementById("step1-el")
+        s1.classList.remove("locked", "active")
+        s1.classList.add("done")
+        document.getElementById("step1-sub").textContent = "Completed ✓"
+        document.getElementById("timer1-bar").style.display = "none"
+        document.getElementById("timer1-text").style.display = "none"
+        const btn1 = document.getElementById("step1-btn")
+        if (btn1) btn1.outerHTML = `<div class="done-badge">Done</div>`
+
+        const s2 = document.getElementById("step2-el")
+        s2.classList.remove("locked")
+        s2.classList.add("active")
+        document.getElementById("step2-sub").textContent = "Click Start to open the checkpoint"
+        document.getElementById("step2-btn").disabled = false
+    }
+
+    document.getElementById(`timer${step}-bar`).style.display = "block"
+    document.getElementById(`timer${step}-text`).style.display = "block"
+    document.getElementById(`timer${step}-text`).textContent = "Verifying with server..."
+    verifyStep(step)
+
+    const cleanPath = `/key-system/${encodeURIComponent(hwid)}`
+    window.history.replaceState({}, "", cleanPath)
 }
 
 selectedProvider = localStorage.getItem("xp_provider") || "linkvertise"
