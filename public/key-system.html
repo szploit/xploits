@@ -300,7 +300,7 @@ const PROVIDERS = {
     step2: "https://link-target.net/5628591/DCZ7FhersuYM",
   },
   lootlabs: {
-    step1: "https://lootdest.org/s?9anC7m71",
+    step1: "https://loot-link.com/s?YOUR_LL_STEP1_HASH",
     step2: "https://loot-link.com/s?YOUR_LL_STEP2_HASH",
   }
 }
@@ -449,7 +449,7 @@ async function verifyStep(n) {
       localStorage.removeItem(`xp_attempt_${hwid}_${n}`)
       markDone(n)
     } else if (body === "not_completed") {
-      txt.textContent = "Checkpoint not completed yet. Finish Linkvertise and retry."
+      txt.textContent = "Checkpoint not completed yet. Make sure ad destination is https://xploits.xyz/api/lv-return, then finish provider and press Verify."
       const btn = document.getElementById(`step${n}-btn`)
       if (btn) { btn.textContent = "Verify"; btn.disabled = false }
     } else if (body === "too_fast") {
