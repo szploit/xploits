@@ -14,7 +14,11 @@ export async function onRequest(context) {
     const now = Date.now()
     const elapsed = now - started
 
-    const MIN_WAIT_MS = 30000
+    const MIN_WAIT_MS_BY_PROVIDER = {
+        linkvertise: 5000,
+        lootlabs: 15000,
+    }
+    const MIN_WAIT_MS = MIN_WAIT_MS_BY_PROVIDER[provider] || 30000
     if (elapsed < MIN_WAIT_MS) {
         return new Response("too_fast")
     }
