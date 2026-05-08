@@ -341,8 +341,7 @@ if (!pathHwid) {
 let selectedProvider = null
 let state = { step1Done: false, step2Done: false }
 let timerIntervals = {}
-let adTabRef = { 1: null, 2: null }
-let adTabOpen = { 1: false, 2: false }
+let stepAttempts = { 1: null, 2: null }
 
 function getMinWaitMs() {
   return MIN_WAIT_MS_BY_PROVIDER[selectedProvider] || DEFAULT_MIN_WAIT_MS
@@ -350,6 +349,7 @@ function getMinWaitMs() {
 
 function selectProvider(p) {
   selectedProvider = p
+  localStorage.setItem("xp_provider", p)
   document.getElementById("prov-linkvertise").classList.toggle("selected", p === "linkvertise")
   document.getElementById("prov-lootlabs").classList.toggle("selected", p === "lootlabs")
   document.getElementById("choose-continue-btn").disabled = false
@@ -373,17 +373,20 @@ function startCheckpoints() {
 }
 
 function startStep(n) {
+  if (stepAttempts[n] || localStorage.getItem(`xp_attempt_${hwid}_${n}`)) {
+    const txt = document.getElementById(`timer${n}-text`)
+    document.getElementById(`timer${n}-bar`).style.display = "block"
+    txt.style.display = "block"
+    txt.textContent = "Verifying with server..."
+    verifyStep(n)
+    return
+  }
+
   const urls = PROVIDERS[selectedProvider]
   const url = n === 1 ? urls.step1 : urls.step2
-  const startTime = Date.now()
   const minWaitMs = getMinWaitMs()
-
-  const tab = window.open(url + (url.includes("?") ? "&" : "?") + "hwid=" + encodeURIComponent(hwid), "_blank")
-  adTabRef[n] = tab
-  adTabOpen[n] = true
-
   const btn = document.getElementById(`step${n}-btn`)
-  btn.textContent = "Waiting..."
+  btn.textContent = "Opening..."
   btn.disabled = true
 
   const bar = document.getElementById(`timer${n}-bar`)
@@ -391,40 +394,64 @@ function startStep(n) {
   const txt = document.getElementById(`timer${n}-text`)
   bar.style.display = "block"
   txt.style.display = "block"
+  txt.textContent = "Preparing checkpoint..."
 
-  const tabCheck = setInterval(() => {
-    if (adTabRef[n] && adTabRef[n].closed) {
-      adTabOpen[n] = false
-      clearInterval(tabCheck)
-    }
-  }, 500)
+  fetch(`/api/start-checkpoint?hwid=${encodeURIComponent(hwid)}&step=${n}&provider=${selectedProvider}`)
+    .then((res) => res.json())
+    .then((data) => {
+      if (!data.attemptId) {
+        throw new Error("missing attempt id")
+      }
 
-  timerIntervals[n] = setInterval(() => {
-    const elapsed = Date.now() - startTime
-    const pct = Math.min((elapsed / minWaitMs) * 100, 100)
-    fill.style.width = pct + "%"
-    const rem = Math.max(0, Math.ceil((minWaitMs - elapsed) / 1000))
-    if (rem > 0) {
-      txt.textContent = `Complete the checkpoint - ${rem}s remaining`
-      fill.style.background = "var(--red)"
-    } else {
-      clearInterval(timerIntervals[n])
-      clearInterval(tabCheck)
-      txt.textContent = "Verifying with server..."
-      verifyStep(n, startTime)
-    }
-  }, 400)
+      stepAttempts[n] = data.attemptId
+      localStorage.setItem(`xp_attempt_${hwid}_${n}`, data.attemptId)
+
+      const tab = window.open(url + (url.includes("?") ? "&" : "?") + "hwid=" + encodeURIComponent(hwid), "_blank")
+      if (!tab) {
+        throw new Error("popup_blocked")
+      }
+
+      btn.textContent = "Waiting..."
+      let elapsed = 0
+      timerIntervals[n] = setInterval(() => {
+        elapsed += 400
+        const pct = Math.min((elapsed / minWaitMs) * 100, 100)
+        fill.style.width = pct + "%"
+        const rem = Math.max(0, Math.ceil((minWaitMs - elapsed) / 1000))
+        if (rem > 0) {
+          txt.textContent = `Complete the checkpoint - ${rem}s remaining`
+        } else {
+          clearInterval(timerIntervals[n])
+          txt.textContent = "Complete checkpoint in Linkvertise. You will be redirected back automatically."
+        }
+      }, 400)
+    })
+    .catch(() => {
+      txt.textContent = "Could not start checkpoint, try again."
+      resetStep(n)
+    })
 }
 
-async function verifyStep(n, startTime) {
+async function verifyStep(n) {
   const txt = document.getElementById(`timer${n}-text`)
+  const attemptId = stepAttempts[n] || localStorage.getItem(`xp_attempt_${hwid}_${n}`)
+  if (!attemptId) {
+    txt.textContent = "No checkpoint attempt found. Start again."
+    resetStep(n)
+    return
+  }
   try {
     const res = await fetch(
-      `/api/checkpoint?hwid=${encodeURIComponent(hwid)}&step=${n}&started=${startTime}&provider=${selectedProvider}`
+      `/api/checkpoint?hwid=${encodeURIComponent(hwid)}&step=${n}&attempt=${encodeURIComponent(attemptId)}&provider=${selectedProvider}`
     )
     const body = await res.text()
     if (body === "ok") {
+      localStorage.removeItem(`xp_attempt_${hwid}_${n}`)
       markDone(n)
+    } else if (body === "not_completed") {
+      txt.textContent = "Checkpoint not completed yet. Finish Linkvertise and retry."
+      const btn = document.getElementById(`step${n}-btn`)
+      if (btn) { btn.textContent = "Verify"; btn.disabled = false }
     } else if (body === "too_fast") {
       txt.textContent = "Completed too fast, please redo this step."
       resetStep(n)
@@ -469,9 +496,45 @@ function resetStep(n) {
   document.getElementById(`timer${n}-bar`).style.display = "none"
   const btn = document.getElementById(`step${n}-btn`)
   if (btn) { btn.textContent = "Retry"; btn.disabled = false }
-  adTabOpen[n] = false
-  adTabRef[n] = null
+  stepAttempts[n] = null
+  localStorage.removeItem(`xp_attempt_${hwid}_${n}`)
 }
+
+function handleReturnFromProvider() {
+  const params = new URLSearchParams(window.location.search)
+  const returned = params.get("returned")
+  const step = Number(params.get("step"))
+  const providerFromReturn = params.get("provider")
+  if (returned !== "1" || (step !== 1 && step !== 2)) return
+
+  if (providerFromReturn === "linkvertise" || providerFromReturn === "lootlabs") {
+    selectedProvider = providerFromReturn
+    localStorage.setItem("xp_provider", providerFromReturn)
+    document.getElementById("prov-linkvertise").classList.toggle("selected", selectedProvider === "linkvertise")
+    document.getElementById("prov-lootlabs").classList.toggle("selected", selectedProvider === "lootlabs")
+  }
+
+  document.getElementById("screen-choose").classList.remove("active")
+  document.getElementById("screen-steps").classList.add("active")
+  const labels = selectedProvider === "linkvertise"
+    ? ["Linkvertise - Step 1", "Linkvertise - Step 2"]
+    : ["Lootlabs - Step 1", "Lootlabs - Step 2"]
+  document.getElementById("step1-title").textContent = labels[0]
+  document.getElementById("step2-title").textContent = labels[1]
+  document.getElementById(`timer${step}-bar`).style.display = "block"
+  document.getElementById(`timer${step}-text`).style.display = "block"
+  document.getElementById(`timer${step}-text`).textContent = "Verifying with server..."
+  verifyStep(step)
+
+  const cleanPath = `/key-system/${encodeURIComponent(hwid)}`
+  window.history.replaceState({}, "", cleanPath)
+}
+
+selectedProvider = localStorage.getItem("xp_provider") || "linkvertise"
+document.getElementById("prov-linkvertise").classList.toggle("selected", selectedProvider === "linkvertise")
+document.getElementById("prov-lootlabs").classList.toggle("selected", selectedProvider === "lootlabs")
+document.getElementById("choose-continue-btn").disabled = false
+handleReturnFromProvider()
 
 async function getKey() {
   const btn = document.getElementById("getkey-btn")
