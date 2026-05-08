@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Key System – Xploits</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Manrope:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 
@@ -16,9 +16,9 @@
   --bg-card:#111111;
   --muted:#666;
   --muted2:#222;
-  --font-display:'Space Grotesk',system-ui,sans-serif;
-  --font-body:'Inter',system-ui,sans-serif;
-  --font-mono:'JetBrains Mono',monospace;
+  --font-display:'Syne',sans-serif;
+  --font-body:'Manrope',sans-serif;
+  --font-mono:'DM Mono',monospace;
 }
 
 body{
@@ -37,9 +37,8 @@ nav{
   border-bottom:1px solid #1a1a1a;
   position:relative;z-index:10;
 }
-.logo{display:flex;align-items:center;gap:8px;font-family:var(--font-display);font-weight:800;font-size:15px;text-decoration:none;color:#fff}
-.logo-icon{background:var(--red);border-radius:6px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
-.logo-icon img{width:18px;height:18px;object-fit:contain}
+.logo{display:flex;align-items:center;gap:8px;font-family:var(--font-display);font-weight:700;font-size:1.1rem;letter-spacing:-.03em;text-decoration:none;color:#fff}
+.logo-icon{width:28px;height:28px;border-radius:6px;object-fit:cover;flex-shrink:0}
 .nav-links{display:flex;gap:1.5rem}
 .nav-links a{color:#666;font-size:13px;text-decoration:none;transition:color .2s}
 .nav-links a:hover{color:#fff}
@@ -198,9 +197,7 @@ footer{text-align:center;padding:1.5rem;color:#2a2a2a;font-size:12px;border-top:
 
 <nav>
   <a href="https://xploits.xyz" class="logo">
-    <div class="logo-icon">
-      <img src="/X.png" alt="Xploits"/>
-    </div>
+    <img src="/X.png" alt="Xploits" class="logo-icon"/>
     xploits
   </a>
   <div class="nav-links">
@@ -294,7 +291,7 @@ footer{text-align:center;padding:1.5rem;color:#2a2a2a;font-size:12px;border-top:
   </div>
 </main>
 
-<footer>Xploits.xyz — Roblox exploit tracker</footer>
+<footer>Xploits.xyz - Roblox exploit tracker</footer>
 
 <script>
 const PROVIDERS = {
@@ -307,22 +304,49 @@ const PROVIDERS = {
     step2: "https://loot-link.com/s?YOUR_LL_STEP2_HASH",
   }
 }
-const MIN_WAIT_MS = 30000
-
-let hwid = window.location.pathname.split("/").filter(Boolean).pop()
-if (!hwid || hwid === "key-system") {
-  hwid = new URLSearchParams(window.location.search).get("hwid")
-    || localStorage.getItem("xp_hwid")
-    || "UNKNOWN"
+const MIN_WAIT_MS_BY_PROVIDER = {
+  linkvertise: 5000,
+  lootlabs: 15000,
 }
+const DEFAULT_MIN_WAIT_MS = 30000
+
+function makeHwid() {
+  if (window.crypto && typeof window.crypto.randomUUID === "function") {
+    return window.crypto.randomUUID().replace(/-/g, "").slice(0, 20)
+  }
+  return Math.random().toString(36).slice(2, 12) + Date.now().toString(36)
+}
+
+const pathParts = window.location.pathname.split("/").filter(Boolean)
+const pathTail = pathParts[pathParts.length - 1]
+const pathHwid = pathTail && pathTail !== "key-system" && pathTail !== "key-system.html"
+  ? decodeURIComponent(pathTail)
+  : null
+
+let hwid = pathHwid
+  || new URLSearchParams(window.location.search).get("hwid")
+  || localStorage.getItem("xp_hwid")
+  || makeHwid()
+
 localStorage.setItem("xp_hwid", hwid)
 document.getElementById("hwid-display").textContent = "HWID: " + hwid
+
+if (!pathHwid) {
+  const normalized = `/key-system/${encodeURIComponent(hwid)}`
+  if (window.location.pathname !== normalized) {
+    window.history.replaceState({}, "", normalized)
+  }
+}
 
 let selectedProvider = null
 let state = { step1Done: false, step2Done: false }
 let timerIntervals = {}
 let adTabRef = { 1: null, 2: null }
 let adTabOpen = { 1: false, 2: false }
+
+function getMinWaitMs() {
+  return MIN_WAIT_MS_BY_PROVIDER[selectedProvider] || DEFAULT_MIN_WAIT_MS
+}
 
 function selectProvider(p) {
   selectedProvider = p
@@ -352,6 +376,7 @@ function startStep(n) {
   const urls = PROVIDERS[selectedProvider]
   const url = n === 1 ? urls.step1 : urls.step2
   const startTime = Date.now()
+  const minWaitMs = getMinWaitMs()
 
   const tab = window.open(url + (url.includes("?") ? "&" : "?") + "hwid=" + encodeURIComponent(hwid), "_blank")
   adTabRef[n] = tab
@@ -376,26 +401,15 @@ function startStep(n) {
 
   timerIntervals[n] = setInterval(() => {
     const elapsed = Date.now() - startTime
-    const pct = Math.min((elapsed / MIN_WAIT_MS) * 100, 100)
+    const pct = Math.min((elapsed / minWaitMs) * 100, 100)
     fill.style.width = pct + "%"
-    const rem = Math.max(0, Math.ceil((MIN_WAIT_MS - elapsed) / 1000))
+    const rem = Math.max(0, Math.ceil((minWaitMs - elapsed) / 1000))
     if (rem > 0) {
-      if (!adTabOpen[n]) {
-        txt.textContent = `Tab closed early — reopen to continue (${rem}s)`
-        fill.style.background = "#f59e0b"
-      } else {
-        txt.textContent = `Complete the checkpoint — ${rem}s remaining`
-        fill.style.background = "var(--red)"
-      }
+      txt.textContent = `Complete the checkpoint - ${rem}s remaining`
+      fill.style.background = "var(--red)"
     } else {
       clearInterval(timerIntervals[n])
       clearInterval(tabCheck)
-      if (!adTabOpen[n]) {
-        txt.textContent = "Tab was closed too early — please redo this step."
-        fill.style.background = "#ef4444"
-        resetStep(n)
-        return
-      }
       txt.textContent = "Verifying with server..."
       verifyStep(n, startTime)
     }
@@ -412,14 +426,14 @@ async function verifyStep(n, startTime) {
     if (body === "ok") {
       markDone(n)
     } else if (body === "too_fast") {
-      txt.textContent = "Completed too fast — please redo this step."
+      txt.textContent = "Completed too fast, please redo this step."
       resetStep(n)
     } else {
-      txt.textContent = "Verification failed — try again."
+      txt.textContent = "Verification failed, try again."
       resetStep(n)
     }
   } catch {
-    txt.textContent = "Network error — try again."
+    txt.textContent = "Network error, try again."
     resetStep(n)
   }
 }
@@ -474,11 +488,11 @@ async function getKey() {
       document.getElementById("key-result").style.display = "block"
       btn.textContent = "Key Generated ✓"
     } else {
-      btn.textContent = "Failed — Try Again"
+      btn.textContent = "Failed - Try Again"
       btn.disabled = false
     }
   } catch {
-    btn.textContent = "Error — Try Again"
+    btn.textContent = "Error - Try Again"
     btn.disabled = false
   }
 }
