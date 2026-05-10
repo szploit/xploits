@@ -455,7 +455,7 @@ async function verify_step(n) {
 }
 
 function mark_done(n) {
-  state[`step${n}Done`] = true
+  state[`step${n}_done`] = true
   const el = document.getElementById(`step${n}-el`)
   el.classList.remove("active")
   el.classList.add("done")
