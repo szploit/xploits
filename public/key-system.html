@@ -61,13 +61,6 @@ main{
   padding:3rem 2rem;position:relative;z-index:1;
 }
 
-.status-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(230,57,70,0.08);border:1px solid rgba(230,57,70,0.2);
-  border-radius:100px;padding:5px 14px;
-  font-size:0.72rem;color:#ff8b8b;font-family:var(--font-mono);letter-spacing:.05em;
-  margin-bottom:1.5rem;
-}
 .dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 6px #4ade80;animation:pulse 2s infinite}
 
 .card{
@@ -215,11 +208,6 @@ footer{text-align:center;padding:1.5rem;color:#2a2a2a;font-size:12px;border-top:
 <main>
   <div style="display:flex;flex-direction:column;align-items:center;width:100%;max-width:500px">
 
-    <div class="status-badge">
-      <span class="dot"></span>
-      KEY SYSTEM
-    </div>
-
     <div class="card">
       <div class="card-top">
         <div class="card-title">Get Your Key</div>
@@ -231,23 +219,23 @@ footer{text-align:center;padding:1.5rem;color:#2a2a2a;font-size:12px;border-top:
         <div class="screen active" id="screen-choose">
           <p>Choose your checkpoint provider to begin</p>
           <div class="provider-grid">
-            <div class="provider-btn" id="prov-linkvertise" onclick="selectProvider('linkvertise')">
+            <div class="provider-btn" id="prov-linkvertise" onclick="select_provider('linkvertise')">
               <img class="provider-icon" src="https://img.sanishtech.com/u/84f3c674cf17632ca8ebbd9046f2d580.png" alt="Linkvertise" onerror="this.style.display='none'"/>
               <div class="provider-name">Linkvertise</div>
               <div class="provider-desc">2 steps</div>
             </div>
-            <div class="provider-btn" id="prov-lootlabs" onclick="selectProvider('lootlabs')">
+            <div class="provider-btn" id="prov-lootlabs" onclick="select_provider('lootlabs')">
               <img class="provider-icon" src="https://img.sanishtech.com/u/2a832bed95fc5572b3b923ecf7aad05e.png" alt="Lootlabs" onerror="this.style.display='none'"/>
               <div class="provider-name">Lootlabs</div>
               <div class="provider-desc">2 steps</div>
             </div>
           </div>
-          <button class="getkey-btn" id="choose-continue-btn" disabled onclick="startCheckpoints()" style="margin-top:4px">Continue →</button>
+          <button class="getkey-btn" id="choose-continue-btn" disabled onclick="start_checkpoints()" style="margin-top:4px">Continue →</button>
         </div>
 
         <div class="screen" id="screen-steps">
           <div class="notice">
-            Complete both checkpoints below. Keys are valid for <strong>24 hours</strong> and are locked to your device.
+            Complete both checkpoints below. Keys are valid for <strong>24 hours</strong> and are locked to your device
           </div>
 
           <div class="step locked" id="step1-el">
@@ -258,7 +246,7 @@ footer{text-align:center;padding:1.5rem;color:#2a2a2a;font-size:12px;border-top:
               <div class="timer-bar" id="timer1-bar"><div class="timer-fill" id="timer1-fill"></div></div>
               <div class="timer-text" id="timer1-text"></div>
             </div>
-            <button class="step-action-btn" id="step1-btn" onclick="startStep(1)">Start</button>
+            <button class="step-action-btn" id="step1-btn" onclick="start_step(1)">Start</button>
           </div>
 
           <div class="step locked" id="step2-el">
@@ -269,7 +257,7 @@ footer{text-align:center;padding:1.5rem;color:#2a2a2a;font-size:12px;border-top:
               <div class="timer-bar" id="timer2-bar"><div class="timer-fill" id="timer2-fill"></div></div>
               <div class="timer-text" id="timer2-text"></div>
             </div>
-            <button class="step-action-btn" id="step2-btn" onclick="startStep(2)" disabled>Start</button>
+            <button class="step-action-btn" id="step2-btn" onclick="start_step(2)" disabled>Start</button>
           </div>
 
           <div class="divider"></div>
@@ -310,56 +298,56 @@ const MIN_WAIT_MS_BY_PROVIDER = {
 }
 const DEFAULT_MIN_WAIT_MS = 30000
 
-function makeHwid() {
+function make_hwid() {
   if (window.crypto && typeof window.crypto.randomUUID === "function") {
     return window.crypto.randomUUID().replace(/-/g, "").slice(0, 20)
   }
   return Math.random().toString(36).slice(2, 12) + Date.now().toString(36)
 }
 
-const pathParts = window.location.pathname.split("/").filter(Boolean)
-const pathTail = pathParts[pathParts.length - 1]
-const pathHwid = pathTail && pathTail !== "key-system" && pathTail !== "key-system.html"
-  ? decodeURIComponent(pathTail)
+const path_parts = window.location.pathname.split("/").filter(Boolean)
+const path_tail = path_parts[path_parts.length - 1]
+const path_hwid = path_tail && path_tail !== "key-system" && path_tail !== "key-system.html"
+  ? decodeURIComponent(path_tail)
   : null
 
-let hwid = pathHwid
+let hwid = path_hwid
   || new URLSearchParams(window.location.search).get("hwid")
   || localStorage.getItem("xp_hwid")
-  || makeHwid()
+  || make_hwid()
 
 localStorage.setItem("xp_hwid", hwid)
 document.getElementById("hwid-display").textContent = "HWID: " + hwid
 
-if (!pathHwid) {
+if (!path_hwid) {
   const normalized = `/key-system/${encodeURIComponent(hwid)}`
   if (window.location.pathname !== normalized) {
     window.history.replaceState({}, "", normalized)
   }
 }
 
-let selectedProvider = null
-let state = { step1Done: false, step2Done: false }
-let timerIntervals = {}
-let stepAttempts = { 1: null, 2: null }
+let selected_provider = null
+let state = { step1_done: false, step2_done: false }
+let timer_intervals = {}
+let step_attempts = { 1: null, 2: null }
 
-function getMinWaitMs() {
-  return MIN_WAIT_MS_BY_PROVIDER[selectedProvider] || DEFAULT_MIN_WAIT_MS
+function get_min_wait_ms() {
+  return MIN_WAIT_MS_BY_PROVIDER[selected_provider] || DEFAULT_MIN_WAIT_MS
 }
 
-function selectProvider(p) {
-  selectedProvider = p
+function select_provider(p) {
+  selected_provider = p
   localStorage.setItem("xp_provider", p)
   document.getElementById("prov-linkvertise").classList.toggle("selected", p === "linkvertise")
   document.getElementById("prov-lootlabs").classList.toggle("selected", p === "lootlabs")
   document.getElementById("choose-continue-btn").disabled = false
 }
 
-function startCheckpoints() {
+function start_checkpoints() {
   document.getElementById("screen-choose").classList.remove("active")
   document.getElementById("screen-steps").classList.add("active")
 
-  const labels = selectedProvider === "linkvertise"
+  const labels = selected_provider === "linkvertise"
     ? ["Linkvertise - Step 1", "Linkvertise - Step 2"]
     : ["Lootlabs - Step 1", "Lootlabs - Step 2"]
 
@@ -372,19 +360,19 @@ function startCheckpoints() {
   document.getElementById("step1-sub").textContent = "Click Start to open the checkpoint"
 }
 
-function startStep(n) {
-  if (stepAttempts[n] || localStorage.getItem(`xp_attempt_${hwid}_${n}`)) {
+function start_step(n) {
+  if (step_attempts[n] || localStorage.getItem(`xp_attempt_${hwid}_${n}`)) {
     const txt = document.getElementById(`timer${n}-text`)
     document.getElementById(`timer${n}-bar`).style.display = "block"
     txt.style.display = "block"
     txt.textContent = "Verifying with server..."
-    verifyStep(n)
+    verify_step(n)
     return
   }
 
-  const urls = PROVIDERS[selectedProvider]
+  const urls = PROVIDERS[selected_provider]
   const url = n === 1 ? urls.step1 : urls.step2
-  const minWaitMs = getMinWaitMs()
+  const minWaitMs = get_min_wait_ms()
   const btn = document.getElementById(`step${n}-btn`)
   btn.textContent = "Opening..."
   btn.disabled = true
@@ -396,14 +384,14 @@ function startStep(n) {
   txt.style.display = "block"
   txt.textContent = "Preparing checkpoint..."
 
-  fetch(`/api/start-checkpoint?hwid=${encodeURIComponent(hwid)}&step=${n}&provider=${selectedProvider}`)
+  fetch(`/api/start-checkpoint?hwid=${encodeURIComponent(hwid)}&step=${n}&provider=${selected_provider}`)
     .then((res) => res.json())
     .then((data) => {
       if (!data.attemptId) {
         throw new Error("missing attempt id")
       }
 
-      stepAttempts[n] = data.attemptId
+      step_attempts[n] = data.attemptId
       localStorage.setItem(`xp_attempt_${hwid}_${n}`, data.attemptId)
 
       const tab = window.open(url + (url.includes("?") ? "&" : "?") + "hwid=" + encodeURIComponent(hwid), "_blank")
@@ -413,7 +401,7 @@ function startStep(n) {
 
       btn.textContent = "Waiting..."
       let elapsed = 0
-      timerIntervals[n] = setInterval(() => {
+      timer_intervals[n] = setInterval(() => {
         elapsed += 400
         const pct = Math.min((elapsed / minWaitMs) * 100, 100)
         fill.style.width = pct + "%"
@@ -421,52 +409,52 @@ function startStep(n) {
         if (rem > 0) {
           txt.textContent = `Complete the checkpoint - ${rem}s remaining`
         } else {
-          clearInterval(timerIntervals[n])
-          const providerName = selectedProvider === "lootlabs" ? "Lootlabs" : "Linkvertise"
+          clearInterval(timer_intervals[n])
+          const providerName = selected_provider === "lootlabs" ? "Lootlabs" : "Linkvertise"
           txt.textContent = `Complete checkpoint in ${providerName}. You will be redirected back automatically.`
         }
       }, 400)
     })
     .catch(() => {
-      txt.textContent = "Could not start checkpoint, try again."
-      resetStep(n)
+      txt.textContent = "Could not start checkpoint, try again"
+      reset_step(n)
     })
 }
 
-async function verifyStep(n) {
+async function verify_step(n) {
   const txt = document.getElementById(`timer${n}-text`)
-  const attemptId = stepAttempts[n] || localStorage.getItem(`xp_attempt_${hwid}_${n}`)
+  const attemptId = step_attempts[n] || localStorage.getItem(`xp_attempt_${hwid}_${n}`)
   if (!attemptId) {
-    txt.textContent = "No checkpoint attempt found. Start again."
-    resetStep(n)
+    txt.textContent = "No checkpoint attempt found. Start again"
+    reset_step(n)
     return
   }
   try {
     const res = await fetch(
-      `/api/checkpoint?hwid=${encodeURIComponent(hwid)}&step=${n}&attempt=${encodeURIComponent(attemptId)}&provider=${selectedProvider}`
+      `/api/checkpoint?hwid=${encodeURIComponent(hwid)}&step=${n}&attempt=${encodeURIComponent(attemptId)}&provider=${selected_provider}`
     )
     const body = await res.text()
     if (body === "ok") {
       localStorage.removeItem(`xp_attempt_${hwid}_${n}`)
-      markDone(n)
+      mark_done(n)
     } else if (body === "not_completed") {
-      txt.textContent = "Checkpoint not completed yet. Make sure ad destination is https://xploits.xyz/api/lv-return, then finish provider and press Verify."
+      txt.textContent = "Checkpoint not completed yet, finish provider then press get key"
       const btn = document.getElementById(`step${n}-btn`)
       if (btn) { btn.textContent = "Verify"; btn.disabled = false }
     } else if (body === "too_fast") {
-      txt.textContent = "Completed too fast, please redo this step."
-      resetStep(n)
+      txt.textContent = "Step completed too fast, please redo it"
+      reset_step(n)
     } else {
-      txt.textContent = "Verification failed, try again."
-      resetStep(n)
+      txt.textContent = "Verification failed, try again"
+      reset_step(n)
     }
   } catch {
-    txt.textContent = "Network error, try again."
-    resetStep(n)
+    txt.textContent = "Network error, try again"
+    reset_step(n)
   }
 }
 
-function markDone(n) {
+function mark_done(n) {
   state[`step${n}Done`] = true
   const el = document.getElementById(`step${n}-el`)
   el.classList.remove("active")
@@ -485,23 +473,23 @@ function markDone(n) {
     document.getElementById("step2-btn").disabled = false
   }
 
-  if (state.step1Done && state.step2Done) {
+  if (state.step1_done && state.step2_done) {
     document.getElementById("getkey-btn").disabled = false
   }
 }
 
-function resetStep(n) {
+function reset_step(n) {
   const fill = document.getElementById(`timer${n}-fill`)
   fill.style.width = "0%"
   fill.style.background = "var(--red)"
   document.getElementById(`timer${n}-bar`).style.display = "none"
   const btn = document.getElementById(`step${n}-btn`)
   if (btn) { btn.textContent = "Retry"; btn.disabled = false }
-  stepAttempts[n] = null
+  step_attempts[n] = null
   localStorage.removeItem(`xp_attempt_${hwid}_${n}`)
 }
 
-function handleReturnFromProvider() {
+function handle_return() {
     const params = new URLSearchParams(window.location.search)
     const returned = params.get("returned")
     const step = Number(params.get("step"))
@@ -509,22 +497,22 @@ function handleReturnFromProvider() {
     if (returned !== "1" || (step !== 1 && step !== 2)) return
 
     if (providerFromReturn === "linkvertise" || providerFromReturn === "lootlabs") {
-        selectedProvider = providerFromReturn
+        selected_provider = providerFromReturn
         localStorage.setItem("xp_provider", providerFromReturn)
-        document.getElementById("prov-linkvertise").classList.toggle("selected", selectedProvider === "linkvertise")
-        document.getElementById("prov-lootlabs").classList.toggle("selected", selectedProvider === "lootlabs")
+        document.getElementById("prov-linkvertise").classList.toggle("selected", selected_provider === "linkvertise")
+        document.getElementById("prov-lootlabs").classList.toggle("selected", selected_provider === "lootlabs")
     }
 
     document.getElementById("screen-choose").classList.remove("active")
     document.getElementById("screen-steps").classList.add("active")
-    const labels = selectedProvider === "linkvertise"
+    const labels = selected_provider === "linkvertise"
         ? ["Linkvertise - Step 1", "Linkvertise - Step 2"]
         : ["Lootlabs - Step 1", "Lootlabs - Step 2"]
     document.getElementById("step1-title").textContent = labels[0]
     document.getElementById("step2-title").textContent = labels[1]
 
     if (step === 2) {
-        state.step1Done = true
+        state.step1_done = true
         const s1 = document.getElementById("step1-el")
         s1.classList.remove("locked", "active")
         s1.classList.add("done")
@@ -544,17 +532,17 @@ function handleReturnFromProvider() {
     document.getElementById(`timer${step}-bar`).style.display = "block"
     document.getElementById(`timer${step}-text`).style.display = "block"
     document.getElementById(`timer${step}-text`).textContent = "Verifying with server..."
-    verifyStep(step)
+    verify_step(step)
 
     const cleanPath = `/key-system/${encodeURIComponent(hwid)}`
     window.history.replaceState({}, "", cleanPath)
 }
 
-selectedProvider = localStorage.getItem("xp_provider") || "linkvertise"
-document.getElementById("prov-linkvertise").classList.toggle("selected", selectedProvider === "linkvertise")
-document.getElementById("prov-lootlabs").classList.toggle("selected", selectedProvider === "lootlabs")
+selected_provider = localStorage.getItem("xp_provider") || "linkvertise"
+document.getElementById("prov-linkvertise").classList.toggle("selected", selected_provider === "linkvertise")
+document.getElementById("prov-lootlabs").classList.toggle("selected", selected_provider === "lootlabs")
 document.getElementById("choose-continue-btn").disabled = false
-handleReturnFromProvider()
+handle_return()
 
 async function getKey() {
   const btn = document.getElementById("getkey-btn")
@@ -569,7 +557,7 @@ async function getKey() {
       const hrs = Math.floor(ms / 3600000)
       document.getElementById("key-expiry").textContent = hrs + " hours"
       document.getElementById("key-result").style.display = "block"
-      btn.textContent = "Key Generated ✓"
+      btn.textContent = "Key Generated"
     } else {
       btn.textContent = "Failed - Try Again"
       btn.disabled = false
