@@ -437,7 +437,6 @@ async function verify_step(n) {
   const txt = document.getElementById(`timer${n}-text`)
   const attemptId = step_attempts[n] || localStorage.getItem(`xp_attempt_${hwid}_${n}`)
   if (!attemptId) {
-    txt.textContent = "No checkpoint attempt found. Start again"
     reset_step(n)
     return
   }
@@ -450,15 +449,17 @@ async function verify_step(n) {
       localStorage.removeItem(`xp_attempt_${hwid}_${n}`)
       mark_done(n)
     } else if (body === "not_completed") {
-      txt.textContent = "Checkpoint not completed yet, finish provider then press get key"
+      txt.textContent = "Checkpoint not completed yet, finish provider then press verify"
       const btn = document.getElementById(`step${n}-btn`)
       if (btn) { btn.textContent = "Verify"; btn.disabled = false }
-    } else if (body === "too_fast") {
-      txt.textContent = "Step completed too fast, please redo it"
-      reset_step(n)
     } else {
-      txt.textContent = "Verification failed, try again"
-      reset_step(n)
+      txt.textContent = "Starting fresh attempt..."
+      step_attempts[n] = null
+      localStorage.removeItem(`xp_attempt_${hwid}_${n}`)
+      setTimeout(() => {
+        reset_step(n)
+        start_step(n)
+      }, 1000)
     }
   } catch {
     txt.textContent = "Network error, try again"
