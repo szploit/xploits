@@ -12,7 +12,7 @@ export async function onRequest(context) {
         "loot-link",
         "lootlabs",
     ]
-    const trustedReferrer = allowedRef.some((entry) => ref.toLowerCase().includes(entry))
+    const trustedReferrer = !ref || allowedRef.some((entry) => ref.toLowerCase().includes(entry))
     if (!trustedReferrer) {
         return new Response("invalid referrer", { status: 403 })
     }
