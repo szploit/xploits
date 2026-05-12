@@ -1,6 +1,6 @@
 export async function onRequest(context) {
     const cookie = context.request.headers.get("cookie") || ""
-    const attemptId = getCookieValue(cookie, "xp_attempt")
+    const attemptId = url.searchParams.get("attempt") || getCookieValue(context.request.headers.get("cookie") || "", "xp_attempt")
     if (!attemptId) {
         return new Response("missing attempt cookie", { status: 400 })
     }
