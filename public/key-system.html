@@ -342,7 +342,14 @@ function get_min_wait_ms() {
 }
 
 function select_provider(p) {
- selected_provider = localStorage.getItem("xp_provider") || "linkvertise"
+  selected_provider = p
+  localStorage.setItem("xp_provider", p)
+  document.getElementById("prov-linkvertise").classList.toggle("selected", p === "linkvertise")
+  document.getElementById("prov-lootlabs").classList.toggle("selected", p === "lootlabs")
+  document.getElementById("choose-continue-btn").disabled = false
+}
+
+selected_provider = localStorage.getItem("xp_provider") || "linkvertise"
 document.getElementById("prov-linkvertise").classList.toggle("selected", selected_provider === "linkvertise")
 document.getElementById("prov-lootlabs").classList.toggle("selected", selected_provider === "lootlabs")
 document.getElementById("choose-continue-btn").disabled = false
@@ -354,8 +361,7 @@ if (!isReturning) {
 }
 
 handle_return()
-}
-
+  
 function start_checkpoints() {
   document.getElementById("screen-choose").classList.remove("active")
   document.getElementById("screen-steps").classList.add("active")
