@@ -180,6 +180,10 @@ main{
 
 footer{text-align:center;padding:1.5rem;color:#2a2a2a;font-size:12px;border-top:1px solid #111;position:relative;z-index:1}
 
+  .key-result {
+  animation: none;
+}
+
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
     .card{animation:fadeUp .4s ease both}
@@ -376,12 +380,20 @@ function start_step(n) {
   const url = n === 1 ? urls.step1 : urls.step2
   const minWaitMs = get_min_wait_ms()
   const btn = document.getElementById(`step${n}-btn`)
-  btn.textContent = "Opening..."
-  btn.disabled = true
-
   const bar = document.getElementById(`timer${n}-bar`)
   const fill = document.getElementById(`timer${n}-fill`)
   const txt = document.getElementById(`timer${n}-text`)
+
+  const tab = window.open("about:blank", "_blank")
+  if (!tab) {
+    bar.style.display = "block"
+    txt.style.display = "block"
+    txt.textContent = "Please allow popups for this site then try again"
+    return
+  }
+
+  btn.textContent = "Opening..."
+  btn.disabled = true
   bar.style.display = "block"
   txt.style.display = "block"
   txt.textContent = "Preparing checkpoint..."
@@ -390,16 +402,13 @@ function start_step(n) {
     .then((res) => res.json())
     .then((data) => {
       if (!data.attemptId) {
+        tab.close()
         throw new Error("missing attempt id")
       }
-
       step_attempts[n] = data.attemptId
       localStorage.setItem(`xp_attempt_${hwid}_${n}`, data.attemptId)
 
-      const tab = window.open(url + (url.includes("?") ? "&" : "?") + "hwid=" + encodeURIComponent(hwid), "_blank")
-      if (!tab) {
-        throw new Error("popup_blocked")
-      }
+      tab.location.href = url + (url.includes("?") ? "&" : "?") + "hwid=" + encodeURIComponent(hwid)
 
       btn.textContent = "Waiting..."
       let elapsed = 0
@@ -418,6 +427,7 @@ function start_step(n) {
       }, 400)
     })
     .catch(() => {
+      tab && tab.close()
       txt.textContent = "Could not start checkpoint, try again"
       reset_step(n)
     })
