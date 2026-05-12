@@ -408,7 +408,7 @@ function start_step(n) {
       step_attempts[n] = data.attemptId
       localStorage.setItem(`xp_attempt_${hwid}_${n}`, data.attemptId)
 
-      tab.location.href = url + (url.includes("?") ? "&" : "?") + "hwid=" + encodeURIComponent(hwid)
+      tab.location.href = url + (url.includes("?") ? "&" : "?") + "hwid=" + encodeURIComponent(hwid) + "&attempt=" + encodeURIComponent(data.attemptId)
 
       btn.textContent = "Waiting..."
       let elapsed = 0
