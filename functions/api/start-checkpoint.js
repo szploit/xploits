@@ -3,13 +3,17 @@ export async function onRequest(context) {
     const hwid = url.searchParams.get("hwid")
     const step = url.searchParams.get("step")
     const provider = url.searchParams.get("provider") || "unknown"
-
     if (!hwid || !step || !provider) {
         return json({ error: "missing params" }, 400)
     }
-
     if (step !== "1" && step !== "2") {
         return json({ error: "invalid step" }, 400)
+    }
+
+    const oldAttemptId = await context.env.KEYS.get(`current_attempt:${hwid}:${step}`)
+    if (oldAttemptId) {
+        await context.env.KEYS.delete(`attempt:${oldAttemptId}`)
+        await context.env.KEYS.delete(`current_attempt:${hwid}:${step}`)
     }
 
     const attemptId = crypto.randomUUID().replace(/-/g, "")
@@ -22,8 +26,11 @@ export async function onRequest(context) {
         startedAt: now,
         completedAt: null,
     }
-
     await context.env.KEYS.put(`attempt:${attemptId}`, JSON.stringify(payload), {
+        expirationTtl: 900
+    })
+
+    await context.env.KEYS.put(`current_attempt:${hwid}:${step}`, attemptId, {
         expirationTtl: 900
     })
 
@@ -36,7 +43,6 @@ export async function onRequest(context) {
         },
     })
 }
-
 function json(data, status = 200) {
     return new Response(JSON.stringify(data), {
         status,
