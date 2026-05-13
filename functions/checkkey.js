@@ -3,13 +3,13 @@ export async function onRequest(context) {
   const key = url.searchParams.get("key")
   if (!key) return new Response("invalid")
   
-  const raw = await context.env.KEYS.get(`key:${key}`)
+  const raw = await context.env.KEYS.get(key)
   if (!raw) return new Response("invalid")
   
   const data = JSON.parse(raw)
   if (new Date() > new Date(data.expires)) {
-    await context.env.KEYS.delete(`key:${key}`)
-    await context.env.KEYS.delete(`hwid:${data.hwid}`)
+    await context.env.KEYS.delete(key)
+    if (data.hwid) await context.env.KEYS.delete(`hwid:${data.hwid}`)
     return new Response("expired")
   }
   
