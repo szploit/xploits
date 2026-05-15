@@ -34,6 +34,13 @@ body{background:var(--bg);color:#fff;font-family:var(--font-body);min-height:100
 .grid-bg{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(230,57,70,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(230,57,70,0.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%)}
 .bg-orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0}
 
+.pill, .mode-btn, .gen-btn {
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
 nav{display:flex;align-items:center;justify-content:space-between;padding:0 1.25rem;height:56px;border-bottom:1px solid #1a1a1a;position:relative;z-index:10}
 .logo{display:flex;align-items:center;gap:8px;font-family:var(--font-display);font-weight:900;font-size:15px;text-decoration:none;color:#fff;letter-spacing:-.02em}
 .logo-icon{background:var(--red);border-radius:5px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
