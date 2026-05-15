@@ -56,10 +56,10 @@ main{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:2
 .mode-btn:hover{border-color:#333;color:#888}
 .mode-btn.active{background:rgba(230,57,70,.1);border-color:var(--red);color:#fff}
 
-.brainrot-grid{display:flex;flex-wrap:wrap;gap:6px;max-height:180px;overflow-y:auto;padding-right:4px}
+.brainrot-grid{display:flex;flex-wrap:wrap;gap:6px;max-height:180px;overflow-y:auto;padding-right:4px;contain:layout style paint}
 .brainrot-grid::-webkit-scrollbar{width:3px}
 .brainrot-grid::-webkit-scrollbar-thumb{background:var(--red);border-radius:10px}
-.pill{background:#0d0d0d;border:1px solid #1e1e1e;border-radius:6px;padding:5px 10px;font-size:10px;font-weight:600;color:#444;cursor:pointer;transition:all .2s;font-family:var(--font-mono);user-select:none}
+.pill{background:#0d0d0d;border:1px solid #1e1e1e;border-radius:6px;padding:5px 10px;font-size:10px;font-weight:600;color:#444;cursor:pointer;transition:all .2s;font-family:var(--font-mono);user-select:none;will-change:background,border-color,color}
 .pill:hover{border-color:#333;color:#777}
 .pill.active{background:rgba(230,57,70,.1);border-color:var(--red);color:#fff}
 .brainrot-actions button{font-size:10px;font-weight:700;color:var(--red);background:none;border:none;cursor:pointer;font-family:var(--font-mono);letter-spacing:.3px;text-transform:uppercase}
@@ -181,62 +181,87 @@ footer{text-align:center;padding:1.5rem;color:#222;font-size:12px;border-top:1px
 <script>
 const LOADERS = { normal: "normal_loader", freeze: "freeze_loader", duels: "duels_loader", insta: "insta_loader" }
 
-const brainrots = ["Garama and Madundung","Capitano Moby","Burguro And Fryuro","Ketchuru and Musturu","Lavadorito Spinito","Ketupat Kepat","Tictac Sahur","Tang Tang Keletang","Money Money Puggy","Nuclearo Dinossauro","Graipuss Medussi","Cerberus","Dragon Cannelloni","Agarrini la Palini","Fragola La La La","Los Hotspotsitos","Los Bros","Tralaledon","Los Puggies","Los Primos","Los Tacoritas","Los Spaghettis","Spooky and Pumpky","Fragrama and Chocrama","La Casa Boo","Ketupat Bros","Cooki and Milki","Popcuru and Fizzuru","La Supreme Combinasion","Dragon Gingerini","Headless Horseman","Hydra Dragon Cannelloni","Celularcini Viciosini","La Grande Combinasion","Los Trios","La Sahur Combinasion","Bacuru and Egguru","Eviledon","Orcaledon","Money Money Reindeer","Los Jolly Combinasionas","Jolly Jolly Sahur","Chicleteira Noelteira","Bisonte Giuppitere","Jackorilla","Reindeer Tralala","Pumpkini Spyderini","Frankentteo","Santteo","Telemorte","Spaghetti Tualetti","La Secret Combinasion","La Food Combinasion","Los Spooky Combinasionas","Karkerkar Kurkur","La Ginger Sekolah","Rosey and Teddy","Los Sekolahs","Reinito Sleighito","Swaggy Bros","La Taco Combinasion","Chipso and Queso","La Spooky Grande","Tuff Toucan","Chillin Chili","Gobblino Uniciclino","Strawberry Elephant","La Extinct Grande","Tacorita Bicicleta","Quesadillo Vampiro","Perrito Burrito","La Vacca Saturno Saturnita","Karker Sahur","Bunito Bunito Spinito","Pirulitoita Bicicleteira","Bunnyman","Brunito Marsito","Guest 666","Mariachi Corazoni","Swag Soda","Extinct Matteo","Los Quesadillas","Spinny Hammy","Meowl","Skibidi Toilet","Nacho Spyder","Griffin","W or L","La Jolly Grande","La Romantic Grande","Festive 67","Los Tralaleritos","Las Tralaleritas","GOAT","Love Love Bear","Ginger Gerat","Mieteteira Bicicleteira","Trenostruzzo Turbo 4000","La Karkerkar Combinasion","La Vacca Prese Presente","Rocco Disco","Cuadramat and Pakrahmatmamat","25","Cupid Cupid Sahur","Ho Ho Ho Sahur","Chill Puppy","Los Sweethearts","Las Sis","Los Planitos","Los Candies","Los Mobilis","Zombie Tralala","Boatito Auratito","Vulturino Skeletono","La Cucaracha","Extinct Tralalero","La Vacca Jacko Linterino","Triplito Tralaleritos","Trickolino","Giftini Spyderini","Love Love Love Sahur","Please my Present","Santa Hotspot","Naughty Naughty","Cupid Hotspot","Noo my Candy","Noo my Present","Ventoliero Pavonero","Los Cupids","Celestial Pegasus","Antonio","La Lucky Grande","Granny","Cloverat Clapat","Dug dug dug","Fortunu and Cashuru","Gold Gold Gold","Snailo Clovero","Noo my Gold","Luck Luck Luck Sahur","La Vacca Lepre Lepreino","Clovkur Kurkur","Patteo","Foxini Lanternini","Eid Eid Eid Sahur","To to to Sahur","Chicleteirina Bicicleteirina","Chicliterita bicicliterita","Chicleteira Bicicleteira","Job Job Job Sahur","Lovin Rose","List List List Sahur","Los Combinasionas","Los Amigos","Sammyni Fattini","Rosetti Tualetti","Los 67","Esok Sekolah","Pot Hotspot","Guerriro Digitale","Los Tortus","Torrtuginni Dragonfrutini","Los Mi Gatitos","Los Chicleteiras","Yess my examine","Noo my examine","1x1x1x1","Los Karkeritos","Las Vaquitas Saturnitas","Los Spyderinis","Los Matteos","Los Cucarachas","67","Los Burritos","Rang Ring Bus","Arcadopus","Los Nooo My Hotspotsitos","Burrito Bandito","Mi Gatito","Pot Pumpkin","Quesadilla Crocodila","Horegini Boom","Nooo My Hotspot","Tung Tung Tung Sahur","Los Jobcitos","Coffin Tung Tung Tung Sahur","Blackhole Goat","Chachechi","Dul Dul Dul","Sammyni Spyderini","Chicleteira Cupideira","Fishino Clownino","Chimnino","Noo my Heart","Los 25","Donkeyturbo Express","Elefanto Frigo","Noo my Eggs","Tirilikalika Tirilikalako","Signore Carapace","Bunny and Eggy","Boppin Bunny","Hopilikalika Hopilikalako","Hydra Bunny","Cash or Card","Arcadragon","Rico Dinero","Pancake and Syrup","Quackini Snackini","Pretzel-Bot 3000","Los Kalikakiikas","Digi Narwhal","Gym Bros","Camero Ricero Mechero","Los Chillis","Money Money Bros","Duggy Bros","Los Hackers","John Pork"]
+const brainrots = ["Garama and Madundung","Capitano Moby","Burguro And Fryuro","Ketchuru and Musturu","Lavadorito Spinito","Ketupat Kepat","Tictac Sahur","Tang Tang Keletang","Money Money Puggy","Nuclearo Dinossauro","Graipuss Medussi","Cerberus","Dragon Cannelloni","Agarrini la Palini","Fragola La La La","Los Hotspotsitos","Los Bros","Tralaledon","Los Puggies","Los Primos","Los Tacoritas","Los Spaghettis","Spooky and Pumpky","Fragrama and Chocrama","La Casa Boo","Ketupat Bros","Cooki and Milki","Popcuru and Fizzuru","La Supreme Combinasion","Dragon Gingerini","Headless Horseman","Hydra Dragon Cannelloni","Celularcini Viciosini","La Grande Combinasion","Los Trios","La Sahur Combinasion","Bacuru and Egguru","Eviledon","Orcaledon","Money Money Reindeer","Los Jolly Combinasionas","Jolly Jolly Sahur","Chicleteira Noelteira","Bisonte Giuppitere","Jackorilla","Reindeer Tralala","Pumpkini Spyderini","Frankentteo","Santteo","Telemorte","Spaghetti Tualetti","La Secret Combinasion","La Food Combinasion","Los Spooky Combinasionas","Karkerkar Kurkur","La Ginger Sekolah","Rosey and Teddy","Los Sekolahs","Reinito Sleighito","Swaggy Bros","La Taco Combinasion","Chipso and Queso","La Spooky Grande","Tuff Toucan","Chillin Chili","Gobblino Uniciclino","Strawberry Elephant","La Extinct Grande","Tacorita Bicicleta","Quesadilla Vampiro","Perrito Burrito","La Vacca Saturno Saturnita","Karker Sahur","Bunito Bunito Spinito","Pirulitoita Bicicleteira","Bunnyman","Brunito Marsito","Guest 666","Mariachi Corazoni","Swag Soda","Extinct Matteo","Los Quesadillas","Spinny Hammy","Meowl","Skibidi Toilet","Nacho Spyder","Griffin","W or L","La Jolly Grande","La Romantic Grande","Festive 67","Los Tralaleritos","Las Tralaleritas","GOAT","Love Love Bear","Ginger Gerat","Mieteteira Bicicleteira","Trenostruzzo Turbo 4000","La Karkerkar Combinasion","La Vacca Prese Presente","Rocco Disco","Cuadramat and Pakrahmatmamat","25","Cupid Cupid Sahur","Ho Ho Ho Sahur","Chill Puppy","Los Sweethearts","Las Sis","Los Planitos","Los Candies","Los Mobilis","Zombie Tralala","Boatito Auratito","Vulturino Skeletono","La Cucaracha","Extinct Tralalero","La Vacca Jacko Linterino","Triplito Tralaleritos","Trickolino","Giftini Spyderini","Love Love Love Sahur","Please my Present","Santa Hotspot","Naughty Naughty","Cupid Hotspot","Noo my Candy","Noo my Present","Ventoliero Pavonero","Los Cupids","Celestial Pegasus","Antonio","La Lucky Grande","Granny","Cloverat Clapat","Dug dug dug","Fortunu and Cashuru","Gold Gold Gold","Snailo Clovero","Noo my Gold","Luck Luck Luck Sahur","La Vacca Lepre Lepreino","Clovkur Kurkur","Patteo","Foxini Lanternini","Eid Eid Eid Sahur","To to to Sahur","Chicleteirina Bicicleteirina","Chicliterita bicicliterita","Chicleteira Bicicleteira","Job Job Job Sahur","Lovin Rose","List List List Sahur","Los Combinasionas","Los Amigos","Sammyni Fattini","Rosetti Tualetti","Los 67","Esok Sekolah","Pot Hotspot","Guerriro Digitale","Los Tortus","Torrtuginni Dragonfrutini","Los Mi Gatitos","Los Chicleteiras","Yess my examine","Noo my examine","1x1x1x1","Los Karkeritos","Las Vaquitas Saturnitas","Los Spyderinis","Los Matteos","Los Cucarachas","67","Los Burritos","Rang Rang Bus","Arcadopus","Los Nooo My Hotspotsitos","Burrito Bandito","Mi Gatito","Pot Pumpkin","Quesadilla Crocodila","Horegini Boom","Nooo My Hotspot","Tung Tung Tung Sahur","Los Jobcitos","Coffin Tung Tung Tung Sahur","Blackhole Goat","Chachechi","Dul Dul Dul","Sammyni Spyderini","Chicleteira Cupideira","Fishino Clownino","Chimnino","Noo my Heart","Los 25","Donkeyturbo Express","Elefanto Frigo","Noo my Eggs","Tirilikalika Tirilikalako","Signore Carapace","Bunny and Eggy","Boppin Bunny","Hopilikalika Hopilikalako","Hydra Bunny","Cash or Card","Arcadragon","Rico Dinero","Pancake and Syrup","Quackini Snackini","Pretzel-Bot 3000","Los Kalikakiikas","Digi Narwhal","Gym Bros","Camero Ricero Mechero","Los Chillis","Money Money Bros","Duggy Bros","Los Hackers","John Pork"]
 
 const selected = new Set()
 let currentMode = "normal"
 
 const c = document.getElementById("brainrot-container")
-let currentFiltered = brainrots
+const searchInput = document.getElementById("brainrot-search")
+const countText = document.getElementById("count-text")
 
+const pillMap = new Map()
+let searchTimeout
+
+const fragment = document.createDocumentFragment()
 brainrots.forEach(name => {
   const p = document.createElement("div")
   p.className = "pill"
   p.textContent = name
-  c.appendChild(p)
+  p.dataset.name = name
+  fragment.appendChild(p)
+  pillMap.set(name, p)
 })
+c.appendChild(fragment)
 
 c.addEventListener("click", e => {
   const pill = e.target.closest(".pill")
   if (!pill) return
-  const name = pill.textContent
-  selected.has(name) ? selected.delete(name) : selected.add(name)
-  pill.classList.toggle("active", selected.has(name))
-  document.getElementById("count-text").textContent = selected.size + " selected"
-})
+  const name = pill.dataset.name
+  const isSelected = selected.has(name)
+  
+  if (isSelected) {
+    selected.delete(name)
+    pill.classList.remove("active")
+  } else {
+    selected.add(name)
+    pill.classList.add("active")
+  }
+  
+  countText.textContent = selected.size + " selected"
+}, { passive: true })
 
-document.getElementById("brainrot-search").addEventListener("input", e => {
+searchInput.addEventListener("input", e => {
+  clearTimeout(searchTimeout)
   const term = e.target.value.toLowerCase()
-  currentFiltered = brainrots.filter(n => n.toLowerCase().includes(term))
-  c.innerHTML = ""
-  currentFiltered.forEach(name => {
-    const p = document.createElement("div")
-    p.className = "pill" + (selected.has(name) ? " active" : "")
-    p.textContent = name
-    c.appendChild(p)
-  })
-})
+  
+  searchTimeout = setTimeout(() => {
+    brainrots.forEach(name => {
+      const pill = pillMap.get(name)
+      const matches = name.toLowerCase().includes(term)
+      pill.style.display = matches ? "" : "none"
+    })
+  }, 150)
+}, { passive: true })
 
 document.querySelector(".select-all-btn").addEventListener("click", () => {
-  brainrots.forEach(n => selected.add(n))
-  c.querySelectorAll(".pill").forEach(p => p.classList.add("active"))
-  document.getElementById("count-text").textContent = selected.size + " selected"
-})
+  brainrots.forEach(n => {
+    selected.add(n)
+    const pill = pillMap.get(n)
+    if (pill.style.display !== "none") {
+      pill.classList.add("active")
+    }
+  })
+  countText.textContent = selected.size + " selected"
+}, { passive: true })
 
 document.querySelector(".deselect-all-btn").addEventListener("click", () => {
   selected.clear()
-  c.querySelectorAll(".pill").forEach(p => p.classList.remove("active"))
-  document.getElementById("count-text").textContent = "0 selected"
-})
+  pillMap.forEach(pill => pill.classList.remove("active"))
+  countText.textContent = "0 selected"
+}, { passive: true })
 
-;["normal","freeze","duels","insta"].forEach(m => {
-  document.getElementById("btn-" + m).addEventListener("click", () => {
-    currentMode = m
-    ;["normal","freeze","duels","insta"].forEach(x => {
-      document.getElementById("btn-" + x).className = "mode-btn" + (x === m ? " active" : "")
-    })
+const modesContainer = document.querySelector(".modes")
+modesContainer.addEventListener("click", e => {
+  if (!e.target.classList.contains("mode-btn")) return
+  
+  const mode = e.target.id.replace("btn-", "")
+  currentMode = mode
+  
+  modesContainer.querySelectorAll(".mode-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.id === "btn-" + mode)
   })
-})
+}, { passive: true })
 
 document.querySelector(".generate-btn").addEventListener("click", () => {
   const user = document.getElementById("roblox-username").value.trim() || "USER"
@@ -258,10 +283,11 @@ document.querySelector(".copy-btn").addEventListener("click", () => {
   const text = document.getElementById("script-display").textContent
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.querySelector(".copy-btn")
+    const originalText = btn.textContent
     btn.textContent = "Copied!"
-    setTimeout(() => btn.textContent = "Copy", 2000)
+    setTimeout(() => btn.textContent = originalText, 2000)
   })
-})
+}, { passive: true })
 </script>
 </body>
 </html>
