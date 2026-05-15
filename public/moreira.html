@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
 <title>Moreira – Xploits</title>
 <style>
   html, body {
@@ -263,17 +263,16 @@ document.querySelector(".deselect-all-btn").addEventListener("click", () => {
   countText.textContent = "0 selected"
 }, { passive: true })
 
-const modesContainer = document.querySelector(".modes")
-modesContainer.addEventListener("click", e => {
-  if (!e.target.classList.contains("mode-btn")) return
-  
-  const mode = e.target.id.replace("btn-", "")
-  currentMode = mode
-  
-  modesContainer.querySelectorAll(".mode-btn").forEach(btn => {
-    btn.classList.toggle("active", btn.id === "btn-" + mode)
+;["normal","freeze","duels","insta"].forEach(m => {
+  const btn = document.getElementById("btn-" + m)
+  btn.addEventListener("click", () => {
+    currentMode = m
+    console.log("Mode changed to:", currentMode)
+    ;["normal","freeze","duels","insta"].forEach(x => {
+      document.getElementById("btn-" + x).classList.toggle("active", x === m)
+    })
   })
-}, { passive: true })
+})
 
 document.querySelector(".generate-btn").addEventListener("click", () => {
   const user = document.getElementById("roblox-username").value.trim() || "USER"
