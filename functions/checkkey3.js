@@ -1,0 +1,34 @@
+export async function onRequest(context) {
+  const url = new URL(context.request.url)
+  const key = url.searchParams.get("key")
+  const hwid = url.searchParams.get("hwid")
+  const script = url.searchParams.get("script")
+  const corsheaders = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  }
+  if (context.request.method === "OPTIONS")
+    return new Response(null, { headers: corsheaders })
+  if (!key || !script)
+    return new Response("invalid", { headers: corsheaders })
+  const raw = await context.env.KEYS.get(key)
+  if (!raw) return new Response("invalid", { headers: corsheaders })
+  const data = JSON.parse(raw)
+  if (new Date() > new Date(data.expires)) {
+    await context.env.KEYS.delete(key)
+    return new Response("expired", { headers: corsheaders })
+  }
+  if (data.script !== script)
+    return new Response("invalid", { headers: corsheaders })
+  if (hwid) {
+    if (!data.hwid) {
+      data.hwid = hwid
+      await context.env.KEYS.put(key, JSON.stringify(data))
+    } else if (data.hwid !== hwid) {
+      return new Response("hwid_mismatch", { headers: corsheaders })
+    }
+  }
+
+  return new Response("valid", { headers: corsheaders })
+}
