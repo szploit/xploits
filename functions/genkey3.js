@@ -6,7 +6,7 @@ export async function onRequest(context) {
   if (!["spawner", "duper", "instasteal"].includes(script))
     return new Response("invalid script", { status: 400 })
   const days = parseInt(url.searchParams.get("days")) || 1
-  const newkey = crypto.randomUUID().replace(/-/g, "").toUpperCase()
+  const newkey = crypto.randomUUID().replace(/-/g, "")
   const expiry = new Date()
   expiry.setDate(expiry.getDate() + days)
   await context.env.KEYS.put(newkey, JSON.stringify({expires: expiry.toISOString(), hwid: null, script}))
