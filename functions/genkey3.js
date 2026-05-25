@@ -3,10 +3,10 @@ export async function onRequest(context) {
   const auth = url.searchParams.get("auth")
   if (auth !== context.env.ADMIN_SECRET) return new Response("forbidden", { status: 403})
   const script = url.searchParams.get("script")
-  if (!["spawner", "duper", "instastea"].includes(script))
+  if (!["spawner", "duper", "instasteal"].includes(script))
     return new Response("invalid script", { status: 400 })
   const days = parseInt(url.searchParams.get("days")) || 1
-  const newkey = crypto.randomUUID().replace(/-g/, "").toUpperCase()
+  const newkey = crypto.randomUUID().replace(/-/g, "").toUpperCase()
   const expiry = new Date()
   expiry.setDate(expiry.getDate() + days)
   await context.env.KEYS.put(newkey, JSON.stringify({expires: expiry.toISOString(), hwid: null, script}))
