@@ -404,7 +404,7 @@
     <div class="key-error" id="keyError"></div>
 
     <button class="btn-validate" id="validateBtn" onclick="validateKey()">
-      Validate Key
+      Check Key
     </button>
     <button class="btn-back" onclick="goToStep1()">Back</button>
   </div>
@@ -495,7 +495,7 @@ function validateKey() {
     scriptType = "spawner";
   } else {
     btn.disabled = false;
-    btn.innerHTML = `Validate Key <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+    btn.innerHTML = `Check Key <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
     showError("Invalid key format.");
     return;
   }
