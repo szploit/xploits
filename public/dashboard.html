@@ -488,10 +488,10 @@ function validateKey() {
 
  let endpoint, scriptType;
   if (val.startsWith("XPLOIT-")) {
-    endpoint = `${API_BASE}/checkkey?key=${encodeURIComponent(val)}`;
+    endpoint = `xploits.xyz/checkkey?key=${encodeURIComponent(val)}`;
     scriptType = "xploit";
   } else if (val.length === 32) {
-    endpoint = `${API_BASE}/checkkey3?key=${encodeURIComponent(val)}&script=spawner&discordid=web`;
+    endpoint = `xploits.xyz/checkkey3?key=${encodeURIComponent(val)}&script=spawner&discordid=web`;
     scriptType = "spawner";
   } else {
     btn.disabled = false;
