@@ -23,7 +23,7 @@ export async function onRequest(context) {
   if (data.script !== script)
     return new Response("invalid", { headers: corsheaders })
   if (data.discordId && data.discordId !== discordId) {
-    return new Response("already_redeemed", { headers: corshaeders })
+    return new Response("already_redeemed", { headers: corsheaders })
   }
   if (!data.discordId && discordId) {
     data.discordId = discordId
