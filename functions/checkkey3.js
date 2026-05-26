@@ -3,6 +3,7 @@ export async function onRequest(context) {
   const key = url.searchParams.get("key")
   const hwid = url.searchParams.get("hwid")
   const script = url.searchParams.get("script")
+  const discordId = url.searchParams.get("discordid")
   const corsheaders = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET, OPTIONS",
@@ -21,6 +22,13 @@ export async function onRequest(context) {
   }
   if (data.script !== script)
     return new Response("invalid", { headers: corsheaders })
+  if (data.discordId && data.discordId !== discordId) {
+    return new Response("already_redeemed", { headers: corshaeders })
+  }
+  if (!data.discordId && discordId) {
+    data.discordId = discordId
+    await context.env.KEYS.put(key, JSON.stringify(data))
+  }
   if (hwid) {
     if (!data.hwid) {
       data.hwid = hwid
