@@ -4,6 +4,9 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Dashboard — Xploits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -13,6 +16,9 @@
     --bg: #080808;
     --card: rgba(255,255,255,0.03);
     --border: rgba(255,255,255,0.07);
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'Manrope', sans-serif;
+    --font-mono: 'DM Mono', monospace;
     --muted: rgba(255,255,255,0.35);
     --discord: #5865F2;
   }
@@ -20,12 +26,21 @@
   body {
     background: var(--bg);
     color: #fff;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: var(--font-body);
     min-height: 100vh;
     overflow-x: hidden;
   }
 
   /* Grid bg */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C%2Ffilter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C%2Fsvg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
   body::before {
     content: '';
     position: fixed; inset: 0; pointer-events: none; z-index: 0;
@@ -54,13 +69,7 @@
     display: flex; align-items: center; gap: 8px;
     text-decoration: none;
   }
-  .nav-icon {
-    width: 28px; height: 28px; border-radius: 7px;
-    background: var(--red);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 900; font-size: 0.8rem; color: #fff;
-  }
-  .nav-name { font-weight: 800; font-size: 0.95rem; letter-spacing: -0.02em; color: #fff; }
+  .nav-name { font-family: var(--font-display); font-weight: 800; font-size: 1rem; letter-spacing: -0.02em; color: #fff; }
   .nav-discord {
     padding: 6px 16px; border-radius: 8px;
     background: var(--red); color: #fff;
@@ -108,7 +117,7 @@
     border: 1px solid rgba(230,57,70,0.25);
   }
 
-  .card h2 {
+  .card h2 { font-family: var(--font-display);
     font-size: 1.5rem; font-weight: 800;
     letter-spacing: -0.03em; margin-bottom: 0.5rem;
   }
@@ -235,7 +244,7 @@
     background: #22c55e; box-shadow: 0 0 6px #22c55e;
     animation: pulse 2s infinite;
   }
-  .panel-title { font-size: 1.75rem; font-weight: 900; letter-spacing: -0.04em; }
+  .panel-title { font-family: var(--font-display); font-size: 1.75rem; font-weight: 900; letter-spacing: -0.04em; }
   .panel-sub { color: var(--muted); font-size: 0.8rem; margin-top: 4px; }
 
   .search-input {
@@ -348,7 +357,7 @@
 <!-- Nav -->
 <nav>
   <a href="/" class="nav-logo">
-    <div class="nav-icon">X</div>
+    <img src="/X.png" style="width:32px;height:32px;object-fit:contain;" alt="Xploits"/>
     <span class="nav-name">xploits</span>
   </a>
   <a href="https://discord.gg/4hseHSkCEE" target="_blank" class="nav-discord">Discord</a>
