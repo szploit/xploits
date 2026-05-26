@@ -434,18 +434,12 @@
 </main>
 
 <script>
-const DISCORD_INVITE = "https://discord.gg/4hseHSkCEE";
 
-const SCRIPTS = [
-  { id: 1, name: "Blox Fruits",       description: "Auto farm, boss farm, fruit sniper",       tag: "RPG",     code: `loadstring(game:HttpGet("https://xploits.xyz/scripts/bloxfruits.lua"))()` },
-  { id: 2, name: "Pet Simulator 99",  description: "Auto collect, auto hatch, dupe",            tag: "FARM",    code: `loadstring(game:HttpGet("https://xploits.xyz/scripts/petsim99.lua"))()` },
-  { id: 3, name: "Brookhaven",        description: "ESP, teleport, god mode",                   tag: "UTILITY", code: `loadstring(game:HttpGet("https://xploits.xyz/scripts/brookhaven.lua"))()` },
-  { id: 4, name: "Da Hood",           description: "Aimbot, silent aim, anti-cheat bypass",     tag: "PVP",     code: `loadstring(game:HttpGet("https://xploits.xyz/scripts/dahood.lua"))()` },
-  { id: 5, name: "Murder Mystery 2",  description: "ESP, knife throw, coin farm",               tag: "UTILITY", code: `loadstring(game:HttpGet("https://xploits.xyz/scripts/mm2.lua"))()` },
-  { id: 6, name: "Anime Adventures",  description: "Auto wave, auto place, summon farm",        tag: "FARM",    code: `loadstring(game:HttpGet("https://xploits.xyz/scripts/animead.lua"))()` },
+const scripts = [
+  { id: "duels",   name: "Duels",   description: "...", tag: "PVP",  code: `script_key = "YOUR_KEY"\nloadstring(game:HttpGet("https://xploits.xyz/api/script"))()` },
+  { id: "duper",   name: "Duper",   description: "...", tag: "UTILITY", code: `script_key = "YOUR_KEY"\nloadstring(game:HttpGet("https://xploits.xyz/api/duper"))()` },
+  { id: "spawner", name: "Spawner", description: "...", tag: "FARM", code: `script_key = "YOUR_KEY"\nloadstring(game:HttpGet("https://xploits.xyz/api/spawner"))()` },
 ];
-
-const VALID_KEYS = ["XPLOITS-DEMO-2024", "TEST-KEY-1234"];
 
 const TAG_COLORS = {
   RPG:     { bg: "rgba(230,57,70,0.12)",  border: "rgba(230,57,70,0.3)",  text: "#e63946" },
@@ -492,18 +486,48 @@ function validateKey() {
   btn.disabled = true;
   btn.innerHTML = `<div class="spinner"></div> Validating...`;
 
-  setTimeout(() => {
+ let endpoint, scriptType;
+  if (val.startsWith("XPLOIT-")) {
+    endpoint = `${API_BASE}/checkkey?key=${encodeURIComponent(val)}`;
+    scriptType = "xploit";
+  } else if (val.length === 32) {
+    endpoint = `${API_BASE}/checkkey3?key=${encodeURIComponent(val)}&script=spawner&discordid=web`;
+    scriptType = "spawner";
+  } else {
     btn.disabled = false;
     btn.innerHTML = `Validate Key <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+    showError("Invalid key format.");
+    return;
+  }
 
-    if (VALID_KEYS.includes(val)) {
-      clearError();
-      renderScripts(SCRIPTS);
-      show("step3");
-    } else {
-      showError("Invalid key. Get one from our Discord server.");
-    }
-  }, 900);
+  fetch(endpoint)
+    .then(r => r.text())
+    .then(text => {
+      btn.disabled = false;
+      btn.innerHTML = `Check Key <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+
+      if (text === "valid") {
+        sessionStorage.setItem("xploits_key", val);
+        sessionStorage.setItem("xploits_type", scriptType);
+        clearError();
+        const scripts = scriptType === "spawner"
+          ? SCRIPTS.filter(s => s.id === "spawner")
+          : SCRIPTS.filter(s => s.id !== "spawner");
+        renderScripts(scripts);
+        show("step3");
+      } else if (text === "expired") {
+        showError("Your key has expired. Get a new one from Discord");
+      } else if (text === "already_redeemed") {
+        showError("This key is already redeemed by another account");
+      } else {
+        showError("Invalid key. Get one from our Discord server");
+      }
+    })
+    .catch(() => {
+      btn.disabled = false;
+      btn.innerHTML = `Check Key <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+      showError("Could not reach the server. Try again");
+    });
 }
 
 function showError(msg) {
@@ -539,9 +563,11 @@ function renderScripts(scripts) {
 function copyScript(id) {
   const script = SCRIPTS.find(s => s.id === id);
   if (!script) return;
-  navigator.clipboard.writeText(script.code);
+  const key = sessionStorage.getItem("xploits_key") || "";
+  const finalCode = script.code.replace("YOUR_KEY", key);
+  navigator.clipboard.writeText(finalCode);
   const btn = document.getElementById(`copy-${id}`);
-  btn.textContent = "✓ COPIED";
+  btn.textContent = "COPIED";
   btn.classList.add("copied");
   setTimeout(() => { btn.textContent = "COPY"; btn.classList.remove("copied"); }, 1800);
 }
