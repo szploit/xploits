@@ -479,7 +479,7 @@ function validateKey() {
   const input = document.getElementById("keyInput");
   const errEl = document.getElementById("keyError");
   const btn   = document.getElementById("validateBtn");
-  const val   = input.value.trim().toUpperCase();
+  const val   = input.value.trim()
 
   if (!val) { showError("Please enter your key."); return; }
 
