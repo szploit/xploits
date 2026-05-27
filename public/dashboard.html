@@ -539,13 +539,11 @@ function renderScripts(scripts) {
   countEl.textContent = `${scripts.length} scripts available · Click copy to use`;
 
   list.innerHTML = scripts.map((s, i) => {
-    const tc = TAG_COLORS[s.tag] || TAG_COLORS.UTILITY;
     const displayCode = s.code.replace("YOUR_KEY", key);
     return `
     <div class="script-card" style="animation-delay:${i * 0.06}s">
       <div class="script-top">
         <div class="script-left">
-          <span class="script-tag" style="background:${tc.bg};border:1px solid ${tc.border};color:${tc.text}">${s.tag}</span>
           <span class="script-name">${s.name}</span>
         </div>
         <button class="copy-btn" id="copy-${s.id}" onclick="copyScript('${s.id}')">COPY</button>
@@ -553,7 +551,7 @@ function renderScripts(scripts) {
       <div class="script-desc">${s.description}</div>
       <div class="script-code-preview">${displayCode}</div>
     </div>`;
-  }).join("");
+}).join("");
 }
 
 function copyScript(id) {
@@ -571,8 +569,8 @@ function copyScript(id) {
 function filter_scripts(query) {
   const q = query.toLowerCase();
   const filtered = SCRIPTS.filter(s =>
-    s.name.toLowerCase().includes(q) || s.tag.toLowerCase().includes(q)
-  );
+  s.name.toLowerCase().includes(q) || (s.tag && s.tag.toLowerCase().includes(q))
+);
   const noRes = document.getElementById("noResults");
   if (filtered.length === 0) {
     document.getElementById("scriptList").innerHTML = "";
