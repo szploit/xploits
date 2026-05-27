@@ -410,15 +410,13 @@
   </div>
 
   <div class="scripts-panel hidden" id="step3">
-    <div class="panel-header">
-      <div>
-        <div class="access-badge">
-         
-        <div class="panel-title">Scripts</div>
-        <div class="panel-sub" id="scriptCount"></div>
-      </div>
-      <input class="search-input" type="text" placeholder="Search scripts..." oninput="filter_scripts(this.value)" />
+  <div class="panel-header">
+    <div>
+      <div class="panel-title">Scripts</div>
+      <div class="panel-sub" id="scriptCount"></div>
     </div>
+    <input class="search-input" type="text" placeholder="Search scripts..." oninput="filter_scripts(this.value)" />
+  </div>
 
     <div class="script-list" id="scriptList"></div>
     <div class="no-results hidden" id="noResults"></div>
@@ -466,7 +464,7 @@ function clear_err() {
   inp.classList.remove("error");
 }
 
-function checK_key() {
+function check_key() {
   const input = document.getElementById("keyInput");
   const errEl = document.getElementById("keyError");
   const btn   = document.getElementById("validateBtn");
