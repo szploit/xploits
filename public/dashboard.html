@@ -364,7 +364,7 @@
       <div class="step-dot inactive">3</div>
     </div>
 
-    <button class="btn-discord" onclick="joinDiscord()">
+    <button class="btn-discord" onclick="join_discord()">
       Join Discord Server
     </button>
   </div>
@@ -399,23 +399,21 @@
       placeholder="XPLOITS-XXXX-XXXX"
       autocomplete="off"
       spellcheck="false"
-      onkeydown="if(event.key==='Enter') validateKey()"
+      onkeydown="if(event.key==='Enter') check_key()"
     />
     <div class="key-error" id="keyError"></div>
 
-    <button class="btn-validate" id="validateBtn" onclick="validateKey()">
+    <button class="btn-validate" id="validateBtn" onclick="check_key()">
       Check Key
     </button>
-    <button class="btn-back" onclick="goToStep1()">Back</button>
+    <button class="btn-back" onclick="redirect_step_1()">Back</button>
   </div>
 
   <div class="scripts-panel hidden" id="step3">
     <div class="panel-header">
       <div>
         <div class="access-badge">
-          <div class="pulse-dot"></div>
-          ACCESS GRANTED
-        </div>
+         
         <div class="panel-title">Scripts</div>
         <div class="panel-sub" id="scriptCount"></div>
       </div>
@@ -427,7 +425,7 @@
 
     <div class="panel-footer">
       <span class="footer-text">Xploits.xyz — Roblox Executor Tracker</span>
-      <button class="signout-btn" onclick="signOut()">Sign out</button>
+      <button class="signout-btn" onclick="sign_out()">Sign out</button>
     </div>
   </div>
 
@@ -448,33 +446,33 @@ function show(id) {
   main.classList.toggle("scripts-mode", id === "step3");
 }
 
-function joinDiscord() {
+function join_discord() {
   window.open("https://discord.gg/4hseHSkCEE", "_blank");
-  setTimeout(goToStep2, 800);
+  setTimeout(redirect_step_2, 800);
 }
-function goToStep2() { show("step2"); setTimeout(() => document.getElementById("keyInput").focus(), 50); }
-function goToStep1() { show("step1"); }
+function redirect_step_2() { show("step2"); setTimeout(() => document.getElementById("keyInput").focus(), 50); }
+function redirect_step_1() { show("step1"); }
 
-function signOut() {
+function sign_out() {
   document.getElementById("keyInput").value = "";
-  clearError();
+  clear_err();
   show("step1");
 }
 
-function clearError() {
+function clear_err() {
   const err = document.getElementById("keyError");
   const inp = document.getElementById("keyInput");
   err.classList.remove("show");
   inp.classList.remove("error");
 }
 
-function validateKey() {
+function checK_key() {
   const input = document.getElementById("keyInput");
   const errEl = document.getElementById("keyError");
   const btn   = document.getElementById("validateBtn");
   const val   = input.value.trim()
 
-  if (!val) { showError("Please enter your key."); return; }
+  if (!val) { display_err("Please enter your key."); return; }
 
   btn.disabled = true;
   btn.innerHTML = `<div class="spinner"></div> Checking...`;
@@ -489,7 +487,7 @@ function validateKey() {
   } else {
     btn.disabled = false;
     btn.innerHTML = `Check Key`;
-    showError("Invalid key format.");
+    display_err("Invalid key format.");
     return;
   }
 
@@ -502,28 +500,28 @@ function validateKey() {
       if (text === "valid") {
         sessionStorage.setItem("xploits_key", val);
         sessionStorage.setItem("xploits_type", scriptType);
-        clearError();
+        clear_err();
         const scripts = scriptType === "spawner"
           ? SCRIPTS.filter(s => s.id === "spawner")
           : SCRIPTS.filter(s => s.id !== "spawner");
-        renderScripts(scripts);
+        render(scripts);
         show("step3");
       } else if (text === "expired") {
-        showError("Your key has expired. Get a new one from Discord");
+        display_err("Your key has expired. Get a new one from Discord");
       } else if (text === "already_redeemed") {
-        showError("This key is already redeemed by another account");
+        display_err("This key is already redeemed by another account");
       } else {
-        showError("Invalid key. Get one from our Discord server");
+        display_err("Invalid key. Get one from our Discord server");
       }
     })
     .catch(() => {
       btn.disabled = false;
       btn.innerHTML = `Check Key`;
-      showError("Could not reach the server. Try again");
+      display_err("Could not reach the server. Try again");
     });
 }
 
-function showError(msg) {
+function display_err(msg) {
   const errEl = document.getElementById("keyError");
   const inp   = document.getElementById("keyInput");
   errEl.textContent = msg;
@@ -531,7 +529,7 @@ function showError(msg) {
   inp.classList.add("error");
 }
 
-function renderScripts(scripts) {
+function render(scripts) {
   const list = document.getElementById("scriptList");
   const countEl = document.getElementById("scriptCount");
   const key = sessionStorage.getItem("xploits_key") || "";
@@ -539,27 +537,27 @@ function renderScripts(scripts) {
   countEl.textContent = `${scripts.length} scripts available · Click copy to use`;
 
   list.innerHTML = scripts.map((s, i) => {
-    const displayCode = s.code.replace("YOUR_KEY", key);
+    const code = s.code.replace("YOUR_KEY", key).replace(/\n/g, "<br>");
     return `
     <div class="script-card" style="animation-delay:${i * 0.06}s">
       <div class="script-top">
         <div class="script-left">
           <span class="script-name">${s.name}</span>
         </div>
-        <button class="copy-btn" id="copy-${s.id}" onclick="copyScript('${s.id}')">COPY</button>
+        <button class="copy-btn" id="copy-${s.id}" onclick="copy('${s.id}')">COPY</button>
       </div>
       <div class="script-desc">${s.description}</div>
-      <div class="script-code-preview">${displayCode}</div>
+      <div class="script-code-preview">${code}</div>
     </div>`;
 }).join("");
 }
 
-function copyScript(id) {
+function copy(id) {
   const script = SCRIPTS.find(s => s.id === id);
   if (!script) return;
   const key = sessionStorage.getItem("xploits_key") || "";
-  const finalCode = script.code.replace("YOUR_KEY", key);
-  navigator.clipboard.writeText(finalCode);
+  const last_code = script.code.replace("YOUR_KEY", key);
+  navigator.clipboard.writeText(last_code);
   const btn = document.getElementById(`copy-${id}`);
   btn.textContent = "COPIED";
   btn.classList.add("copied");
@@ -571,14 +569,14 @@ function filter_scripts(query) {
   const filtered = SCRIPTS.filter(s =>
   s.name.toLowerCase().includes(q) || (s.tag && s.tag.toLowerCase().includes(q))
 );
-  const noRes = document.getElementById("noResults");
+  const nores = document.getElementById("noResults");
   if (filtered.length === 0) {
     document.getElementById("scriptList").innerHTML = "";
-    noRes.textContent = `No scripts found for "${query}"`;
-    noRes.classList.remove("hidden");
+    nores.textContent = `No scripts found for "${query}"`;
+    nores.classList.remove("hidden");
   } else {
-    noRes.classList.add("hidden");
-    renderScripts(filtered);
+    nores.classList.add("hidden");
+    render(filtered);
   }
 }
 </script>
