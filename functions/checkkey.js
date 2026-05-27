@@ -15,7 +15,7 @@ export async function onRequest(context) {
   const ratraw = await context.env.KEYS.get(ratkey);
   const attempts = ratraw ? parseInt(ratraw) : 0;
   if (attempts >= 3) return new Response("rate_limited", { headers: corsheaders });
-  await context.env.KEYS.put(ratkey, String(attempts + 1), { expirationTtl: 30 });
+  await context.env.KEYS.put(ratkey, String(attempts + 1), { expirationTtl: 60 });
 
   if (!key) return new Response("invalid", { headers: corsheaders });
 
