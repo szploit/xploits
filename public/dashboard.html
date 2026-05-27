@@ -435,7 +435,7 @@
 
 <script>
 
-const scripts = [
+const SCRIPTS = [
   { id: "duels",   name: "Duels",   description: "...", tag: "PVP",  code: `script_key = "YOUR_KEY"\nloadstring(game:HttpGet("https://xploits.xyz/api/script"))()` },
   { id: "duper",   name: "Duper",   description: "...", tag: "UTILITY", code: `script_key = "YOUR_KEY"\nloadstring(game:HttpGet("https://xploits.xyz/api/duper"))()` },
   { id: "spawner", name: "Spawner", description: "...", tag: "FARM", code: `script_key = "YOUR_KEY"\nloadstring(game:HttpGet("https://xploits.xyz/api/spawner"))()` },
@@ -484,7 +484,7 @@ function validateKey() {
   if (!val) { showError("Please enter your key."); return; }
 
   btn.disabled = true;
-  btn.innerHTML = `<div class="spinner"></div> Validating...`;
+  btn.innerHTML = `<div class="spinner"></div> Checking...`;
 
  let endpoint, scriptType;
   if (val.startsWith("XPLOIT-")) {
@@ -495,7 +495,7 @@ function validateKey() {
     scriptType = "spawner";
   } else {
     btn.disabled = false;
-    btn.innerHTML = `Check Key <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+    btn.innerHTML = `Check Key`;
     showError("Invalid key format.");
     return;
   }
@@ -504,7 +504,7 @@ function validateKey() {
     .then(r => r.text())
     .then(text => {
       btn.disabled = false;
-      btn.innerHTML = `Check Key <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+      btn.innerHTML = `Check Key`;
 
       if (text === "valid") {
         sessionStorage.setItem("xploits_key", val);
@@ -525,7 +525,7 @@ function validateKey() {
     })
     .catch(() => {
       btn.disabled = false;
-      btn.innerHTML = `Check Key <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+      btn.innerHTML = `Check Key`;
       showError("Could not reach the server. Try again");
     });
 }
@@ -552,7 +552,7 @@ function renderScripts(scripts) {
           <span class="script-tag" style="background:${tc.bg};border:1px solid ${tc.border};color:${tc.text}">${s.tag}</span>
           <span class="script-name">${s.name}</span>
         </div>
-        <button class="copy-btn" id="copy-${s.id}" onclick="copyScript(${s.id})">COPY</button>
+        <button class="copy-btn" id="copy-${s.id}" onclick="copyScript('${s.id}')">COPY</button>
       </div>
       <div class="script-desc">${s.description}</div>
       <div class="script-code-preview">${s.code}</div>
