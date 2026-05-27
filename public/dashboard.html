@@ -535,11 +535,12 @@ function renderScripts(scripts) {
   const list = document.getElementById("scriptList");
   const countEl = document.getElementById("scriptCount");
   const key = sessionStorage.getItem("xploits_key") || "";
-  const displayCode = s.code.replace("YOUR_KEY", key);
-  countEl.textContent = `${SCRIPTS.length} scripts available · Click copy to use`;
+
+  countEl.textContent = `${scripts.length} scripts available · Click copy to use`;
 
   list.innerHTML = scripts.map((s, i) => {
     const tc = TAG_COLORS[s.tag] || TAG_COLORS.UTILITY;
+    const displayCode = s.code.replace("YOUR_KEY", key);
     return `
     <div class="script-card" style="animation-delay:${i * 0.06}s">
       <div class="script-top">
