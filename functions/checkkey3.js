@@ -26,6 +26,7 @@ export async function onRequest(context) {
   if (!raw) return new Response("invalid", { headers: corsheaders });
 
   const data = JSON.parse(raw);
+
   if (new Date() > new Date(data.expires)) {
     await context.env.KEYS.delete(key);
     return new Response("expired", { headers: corsheaders });
@@ -34,14 +35,6 @@ export async function onRequest(context) {
   if (data.script !== script)
     return new Response("invalid", { headers: corsheaders });
 
-  if (data.discordId && data.discordId !== discordId)
-    return new Response("already_redeemed", { headers: corsheaders });
-
-  if (!data.discordId && discordId) {
-    data.discordId = discordId;
-    await context.env.KEYS.put(key, JSON.stringify(data));
-  }
-
   if (hwid) {
     if (!data.hwid) {
       data.hwid = hwid;
@@ -49,6 +42,13 @@ export async function onRequest(context) {
     } else if (data.hwid !== hwid) {
       return new Response("hwid_mismatch", { headers: corsheaders });
     }
+  }
+
+  if (data.discordId && data.discordId !== discordId)
+    return new Response("already_redeemed", { headers: corsheaders });
+  if (!data.discordId && discordId) {
+    data.discordId = discordId;
+    await context.env.KEYS.put(key, JSON.stringify(data));
   }
 
   return new Response("valid", { headers: corsheaders });
