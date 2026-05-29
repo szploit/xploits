@@ -1,0 +1,252 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Manrope:wght@300;400;500;600&family=DM+Mono&display=swap');
+  .store-root { font-family:'Manrope',sans-serif; color:#f0f0f0; min-height:900px; position:relative; overflow:hidden; }
+  .bg-photo { position:absolute; inset:0; z-index:0; background-image: url('https://images.wallpaperscraft.com/image/single/moon_planet_stars_121000_2560x1440.jpg'); background-size:cover; background-position:center top; }
+  .bg-overlay { position:absolute; inset:0; z-index:1; background:linear-gradient(to bottom, rgba(4,4,12,0.6) 0%, rgba(4,4,12,0.35) 30%, rgba(4,4,12,0.55) 65%, rgba(4,4,12,0.93) 100%); }
+  .canvas-bg { position:absolute; inset:0; pointer-events:none; z-index:2; }
+  .topbar { position:relative; z-index:10; display:flex; align-items:center; justify-content:space-between; padding:18px 32px; border-bottom:1px solid rgba(230,57,70,0.15); background:rgba(4,4,12,0.5); backdrop-filter:blur(14px); }
+  .logo { font-family:'Syne',sans-serif; font-weight:800; font-size:20px; color:#fff; display:flex; align-items:center; gap:8px; }
+  .logo-img { width:26px; height:26px; border-radius:6px; object-fit:cover; }
+  .logo-fallback { display:none; width:26px; height:26px; background:#e63946; border-radius:6px; align-items:center; justify-content:center; font-size:13px; font-weight:800; }
+  .topbar-right { display:flex; gap:10px; align-items:center; }
+  .btn-ghost { padding:7px 16px; border-radius:8px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.05); color:#f0f0f0; font-size:12px; font-family:'Manrope',sans-serif; cursor:pointer; display:flex; align-items:center; gap:6px; transition:all 0.2s; }
+  .btn-ghost:hover { border-color:rgba(230,57,70,0.4); background:rgba(230,57,70,0.08); }
+  .btn-discord { padding:7px 16px; border-radius:8px; border:none; background:#5865F2; color:#fff; font-size:12px; font-family:'Manrope',sans-serif; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:6px; }
+  .btn-red { padding:7px 16px; border-radius:8px; border:none; background:#e63946; color:#fff; font-size:12px; font-family:'Manrope',sans-serif; font-weight:600; cursor:pointer; box-shadow:0 0 16px rgba(230,57,70,0.35); }
+  .hero-section { position:relative; z-index:5; text-align:center; padding:60px 32px 36px; }
+  .hero-badge { display:inline-flex; align-items:center; gap:7px; background:rgba(230,57,70,0.1); border:1px solid rgba(230,57,70,0.25); border-radius:100px; padding:5px 14px; margin-bottom:20px; font-size:11px; color:#ff8b8b; font-family:'DM Mono',monospace; letter-spacing:0.05em; }
+  .pulse-dot { width:6px; height:6px; border-radius:50%; background:#4ade80; box-shadow:0 0 6px #4ade80; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .hero-title { font-family:'Syne',sans-serif; font-size:56px; font-weight:800; letter-spacing:-0.04em; line-height:1; margin-bottom:12px; color:#fff; text-shadow:0 2px 40px rgba(0,0,0,0.9); }
+  .hero-sub { font-size:14px; color:rgba(240,240,240,0.55); margin-bottom:28px; font-weight:300; }
+  .filter-row { display:flex; gap:8px; justify-content:center; margin-bottom:36px; flex-wrap:wrap; }
+  .filter-btn { padding:6px 16px; border-radius:100px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.04); color:rgba(240,240,240,0.5); font-size:12px; font-family:'Manrope',sans-serif; cursor:pointer; transition:all 0.2s; backdrop-filter:blur(6px); }
+  .filter-btn.active { border-color:rgba(230,57,70,0.5); background:rgba(230,57,70,0.12); color:#ff8b8b; }
+  .crypto-bar { position:relative; z-index:5; display:flex; align-items:center; justify-content:center; gap:20px; padding:11px 32px; background:rgba(4,4,12,0.5); border-top:1px solid rgba(255,255,255,0.05); border-bottom:1px solid rgba(255,255,255,0.05); backdrop-filter:blur(10px); font-size:11px; font-family:'DM Mono',monospace; color:#505050; }
+  .crypto-item { display:flex; align-items:center; gap:6px; }
+  .crypto-icon { width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:800; }
+  .btc { background:rgba(247,147,26,0.15); color:#f7931a; }
+  .eth { background:rgba(98,126,234,0.15); color:#627eea; }
+  .usdc { background:rgba(39,117,202,0.15); color:#2775ca; }
+  .sol { background:rgba(153,69,255,0.15); color:#9945ff; }
+  .product-grid { position:relative; z-index:5; display:grid; grid-template-columns:repeat(3,1fr); gap:16px; padding:0 32px 48px; max-width:960px; margin:0 auto; }
+  .product-card { background:rgba(6,6,18,0.72); border:1px solid rgba(255,255,255,0.07); border-radius:14px; overflow:hidden; backdrop-filter:blur(18px); transition:all 0.25s; cursor:pointer; position:relative; }
+  .product-card::before { content:''; position:absolute; inset:0; border-radius:14px; background:radial-gradient(200px circle at var(--mx,-999px) var(--my,-999px), rgba(230,57,70,0.09), transparent 70%); pointer-events:none; z-index:1; }
+  .product-card:hover { border-color:rgba(230,57,70,0.4); transform:translateY(-3px); box-shadow:0 12px 40px rgba(0,0,0,0.6), 0 0 20px rgba(230,57,70,0.07); }
+  .card-visual { height:130px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+  .card-badge { position:absolute; top:10px; right:10px; font-size:10px; font-family:'DM Mono',monospace; padding:3px 9px; border-radius:100px; letter-spacing:0.03em; }
+  .badge-new { background:rgba(74,222,128,0.12); color:#4ade80; border:1px solid rgba(74,222,128,0.25); }
+  .badge-hot { background:rgba(230,57,70,0.12); color:#ff8b8b; border:1px solid rgba(230,57,70,0.25); }
+  .badge-bundle { background:rgba(251,191,36,0.1); color:#fbbf24; border:1px solid rgba(251,191,36,0.2); }
+  .card-body { padding:14px 16px 16px; position:relative; z-index:2; }
+  .card-tag { font-size:10px; color:#404040; font-family:'DM Mono',monospace; letter-spacing:0.05em; margin-bottom:6px; }
+  .card-name { font-family:'Syne',sans-serif; font-size:16px; font-weight:700; color:#f0f0f0; margin-bottom:4px; }
+  .card-desc { font-size:12px; color:#4a4a4a; font-weight:300; line-height:1.5; margin-bottom:14px; }
+  .card-footer { display:flex; align-items:center; justify-content:space-between; }
+  .card-price { font-family:'Syne',sans-serif; font-size:20px; font-weight:800; color:#e63946; }
+  .card-price-sub { font-size:10px; color:#404040; font-family:'DM Mono',monospace; }
+  .buy-btn { padding:7px 14px; background:#e63946; border:none; border-radius:8px; color:#fff; font-size:12px; font-weight:600; font-family:'Manrope',sans-serif; cursor:pointer; transition:all 0.2s; box-shadow:0 0 12px rgba(230,57,70,0.3); }
+  .buy-btn:hover { background:#c1121f; }
+</style>
+
+<div class="store-root">
+  <div class="bg-photo"></div>
+  <div class="bg-overlay"></div>
+  <canvas class="canvas-bg" id="sc"></canvas>
+
+  <div class="topbar">
+    <div class="logo">
+      <img class="logo-img" src="https://xploits.xyz/X.png" alt="X" onerror="this.style.display='none';document.querySelector('.logo-fallback').style.display='flex'"/>
+      <div class="logo-fallback">X</div>
+      xploits
+    </div>
+    <div class="topbar-right">
+      <button class="btn-ghost"><i class="ti ti-shopping-bag" style="font-size:15px" aria-hidden="true"></i> Cart (0)</button>
+      <button class="btn-discord">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.03.053a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+        Discord
+      </button>
+      <button class="btn-red">Connect Wallet</button>
+    </div>
+  </div>
+
+  <div class="crypto-bar">
+    <div class="crypto-item"><div class="crypto-icon btc">₿</div><span>Bitcoin</span><span style="color:#6b6b6b">accepted</span></div>
+    <div style="color:#1a1a2e">|</div>
+    <div class="crypto-item"><div class="crypto-icon eth">Ξ</div><span>Ethereum</span><span style="color:#6b6b6b">accepted</span></div>
+    <div style="color:#1a1a2e">|</div>
+    <div class="crypto-item"><div class="crypto-icon usdc">$</div><span>USDC</span><span style="color:#6b6b6b">accepted</span></div>
+    <div style="color:#1a1a2e">|</div>
+    <div class="crypto-item"><div class="crypto-icon sol">◎</div><span>Solana</span><span style="color:#6b6b6b">accepted</span></div>
+    <div style="color:#1a1a2e">|</div>
+    <span style="color:#2a2a3e">Zero fees · Instant delivery</span>
+  </div>
+
+  <div class="hero-section">
+    <div class="hero-badge"><div class="pulse-dot"></div>STORE ONLINE</div>
+    <div class="hero-title">Store</div>
+    <div class="hero-sub">Premium tools & scripts. Pay with crypto, receive instantly.</div>
+    <div class="filter-row">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">Scripts</button>
+      <button class="filter-btn">Executors</button>
+      <button class="filter-btn">Cheats</button>
+      <button class="filter-btn">Bundles</button>
+    </div>
+  </div>
+
+  <div class="product-grid">
+    <div class="product-card" id="c1">
+      <div class="card-visual" style="background:linear-gradient(135deg,rgba(20,5,5,0.85),rgba(40,10,10,0.8))">
+        <div class="card-badge badge-hot">HOT</div>
+        <svg width="56" height="56" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" stroke="#e63946" stroke-width="0.5" stroke-dasharray="4 3" opacity="0.5"/><circle cx="32" cy="32" r="16" stroke="#e63946" stroke-width="0.5" opacity="0.3"/><circle cx="32" cy="32" r="6" fill="#e63946" opacity="0.2"/><circle cx="32" cy="32" r="3.5" fill="#e63946" opacity="0.9"/><circle cx="32" cy="32" r="1.5" fill="#fff"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">EXECUTOR</div>
+        <div class="card-name">Orion Pro</div>
+        <div class="card-desc">Full Lua execution, auto-update, undetected. Lifetime license.</div>
+        <div class="card-footer"><div><div class="card-price">$9.99</div><div class="card-price-sub">≈ 0.00011 BTC</div></div><button class="buy-btn">Buy Now</button></div>
+      </div>
+    </div>
+
+    <div class="product-card" id="c2">
+      <div class="card-visual" style="background:linear-gradient(135deg,rgba(5,10,20,0.85),rgba(10,18,35,0.8))">
+        <div class="card-badge badge-new">NEW</div>
+        <svg width="56" height="56" viewBox="0 0 64 64" fill="none"><polygon points="32,6 38,26 58,26 42,38 48,58 32,46 16,58 22,38 6,26 26,26" stroke="#627eea" stroke-width="0.8" fill="rgba(98,126,234,0.08)"/><circle cx="32" cy="32" r="5" fill="#627eea" opacity="0.7"/><circle cx="32" cy="32" r="2" fill="#fff"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">SCRIPT</div>
+        <div class="card-name">AimVault</div>
+        <div class="card-desc">Universal aimbot script. Works across 50+ supported games.</div>
+        <div class="card-footer"><div><div class="card-price">$4.99</div><div class="card-price-sub">≈ 0.0019 ETH</div></div><button class="buy-btn">Buy Now</button></div>
+      </div>
+    </div>
+
+    <div class="product-card" id="c3" style="border-color:rgba(230,57,70,0.22)">
+      <div class="card-visual" style="background:linear-gradient(135deg,rgba(18,14,4,0.85),rgba(30,22,5,0.8))">
+        <div class="card-badge badge-bundle">BUNDLE</div>
+        <svg width="56" height="56" viewBox="0 0 64 64" fill="none"><rect x="14" y="14" width="36" height="36" rx="6" stroke="#fbbf24" stroke-width="0.8" fill="rgba(251,191,36,0.05)"/><rect x="21" y="21" width="22" height="22" rx="4" stroke="#fbbf24" stroke-width="0.5" fill="rgba(251,191,36,0.05)"/><rect x="27" y="27" width="10" height="10" rx="2" fill="#fbbf24" opacity="0.8"/><circle cx="32" cy="32" r="2.5" fill="#fff"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">BUNDLE</div>
+        <div class="card-name">Nebula Pack</div>
+        <div class="card-desc">Orion Pro + AimVault + 3 exclusive scripts. Best value.</div>
+        <div class="card-footer"><div><div class="card-price">$19.99</div><div class="card-price-sub">≈ 21 USDC</div></div><button class="buy-btn">Buy Now</button></div>
+      </div>
+    </div>
+
+    <div class="product-card" id="c4">
+      <div class="card-visual" style="background:linear-gradient(135deg,rgba(5,15,8,0.85),rgba(8,25,12,0.8))">
+        <svg width="56" height="56" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="22" stroke="#4ade80" stroke-width="0.5" opacity="0.3"/><path d="M32 14 L36 28 L50 28 L39 37 L43 51 L32 42 L21 51 L25 37 L14 28 L28 28Z" stroke="#4ade80" stroke-width="0.8" fill="rgba(74,222,128,0.06)"/><circle cx="32" cy="32" r="3" fill="#4ade80" opacity="0.8"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">TOOL</div>
+        <div class="card-name">SpawnShield</div>
+        <div class="card-desc">Anti-kick & anti-detection layer. Works on most platforms.</div>
+        <div class="card-footer"><div><div class="card-price">$2.99</div><div class="card-price-sub">≈ 3 USDC</div></div><button class="buy-btn">Buy Now</button></div>
+      </div>
+    </div>
+
+    <div class="product-card" id="c5">
+      <div class="card-visual" style="background:linear-gradient(135deg,rgba(12,5,18,0.85),rgba(20,8,30,0.8))">
+        <svg width="56" height="56" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="20" stroke="#9945ff" stroke-width="0.5" opacity="0.35"/><path d="M20 32 Q26 20 32 14 Q38 20 44 32 Q38 44 32 50 Q26 44 20 32Z" stroke="#9945ff" stroke-width="0.8" fill="rgba(153,69,255,0.07)"/><circle cx="32" cy="32" r="3" fill="#9945ff" opacity="0.9"/><circle cx="32" cy="32" r="1.5" fill="#fff"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">SCRIPT</div>
+        <div class="card-name">VoidWalker</div>
+        <div class="card-desc">Speed & teleport script. Configurable via simple UI overlay.</div>
+        <div class="card-footer"><div><div class="card-price">$3.99</div><div class="card-price-sub">≈ 0.0059 SOL</div></div><button class="buy-btn">Buy Now</button></div>
+      </div>
+    </div>
+
+    <div class="product-card" id="c6">
+      <div class="card-visual" style="background:linear-gradient(135deg,rgba(14,10,4,0.85),rgba(24,18,6,0.8))">
+        <svg width="56" height="56" viewBox="0 0 64 64" fill="none"><rect x="16" y="27" width="32" height="2" rx="1" fill="#f97316" opacity="0.45"/><rect x="20" y="23" width="24" height="2" rx="1" fill="#f97316" opacity="0.3"/><rect x="24" y="19" width="16" height="2" rx="1" fill="#f97316" opacity="0.2"/><rect x="16" y="33" width="32" height="2" rx="1" fill="#f97316" opacity="0.45"/><rect x="20" y="37" width="24" height="2" rx="1" fill="#f97316" opacity="0.3"/><rect x="24" y="41" width="16" height="2" rx="1" fill="#f97316" opacity="0.2"/><circle cx="32" cy="32" r="4" fill="#f97316" opacity="0.75"/><circle cx="32" cy="32" r="1.5" fill="#fff"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">CHEAT</div>
+        <div class="card-name">Pulsar ESP</div>
+        <div class="card-desc">Full ESP with player tracking, items, and distance display.</div>
+        <div class="card-footer"><div><div class="card-price">$6.99</div><div class="card-price-sub">≈ 0.003 ETH</div></div><button class="buy-btn">Buy Now</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cv = document.getElementById('sc');
+const pr = cv.parentElement;
+cv.width = pr.offsetWidth || 960;
+cv.height = pr.scrollHeight || 900;
+const cx = cv.getContext('2d');
+const W = cv.width, H = cv.height;
+
+const stars = Array.from({length:500},()=>({
+  sx:Math.random()*W, sy:Math.random()*H,
+  r:Math.random()*1.3+0.15,
+  a:Math.random()*0.5+0.1,
+  sp:Math.random()*0.012+0.003,
+  off:Math.random()*Math.PI*2,
+  lay:Math.floor(Math.random()*3)
+}));
+
+const shoots = Array.from({length:5},()=>mkS({}));
+function mkS(s){
+  s.x=Math.random()*W*0.8; s.y=Math.random()*H*0.35;
+  s.len=50+Math.random()*100; s.spd=1.8+Math.random()*2.5;
+  s.a=0; s.fin=true; s.delay=80+Math.random()*350;
+  return s;
+}
+
+let t=0;
+function draw(){
+  cx.clearRect(0,0,W,H);
+  stars.forEach(s=>{
+    const tw=Math.sin(t*s.sp+s.off)*0.38+0.62;
+    const sz=s.lay===2?s.r*1.5:s.lay===1?s.r:s.r*0.55;
+    cx.beginPath(); cx.arc(s.sx,s.sy,sz,0,Math.PI*2);
+    cx.fillStyle=`rgba(255,255,255,${s.a*tw})`; cx.fill();
+    if(s.lay===2&&s.a>0.5&&tw>0.88){
+      cx.strokeStyle=`rgba(255,255,255,${s.a*tw*0.3})`;
+      cx.lineWidth=0.4;
+      cx.beginPath();cx.moveTo(s.sx-3,s.sy);cx.lineTo(s.sx+3,s.sy);cx.stroke();
+      cx.beginPath();cx.moveTo(s.sx,s.sy-3);cx.lineTo(s.sx,s.sy+3);cx.stroke();
+    }
+  });
+  shoots.forEach(s=>{
+    if(s.delay>0){s.delay--;return;}
+    if(s.fin){s.a+=0.05;if(s.a>=0.8)s.fin=false;}
+    else{s.a-=0.007;}
+    s.x+=s.spd; s.y+=s.spd*0.22;
+    if(s.a<=0||s.x>W+120) mkS(s);
+    const ex=s.x-s.len,ey=s.y-s.len*0.22;
+    const g=cx.createLinearGradient(ex,ey,s.x,s.y);
+    g.addColorStop(0,'transparent');
+    g.addColorStop(1,`rgba(255,235,235,${s.a})`);
+    cx.beginPath();cx.moveTo(ex,ey);cx.lineTo(s.x,s.y);
+    cx.strokeStyle=g;cx.lineWidth=0.9;cx.stroke();
+  });
+  t++;requestAnimationFrame(draw);
+}
+draw();
+
+document.querySelectorAll('.filter-btn').forEach(b=>{
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.filter-btn').forEach(e=>e.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+document.querySelectorAll('.product-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    card.style.setProperty('--mx',`${e.clientX-r.left}px`);
+    card.style.setProperty('--my',`${e.clientY-r.top}px`);
+  });
+  card.addEventListener('mouseleave',()=>{
+    card.style.setProperty('--mx','-999px');
+    card.style.setProperty('--my','-999px');
+  });
+});
+</script>
