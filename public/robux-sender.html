@@ -238,23 +238,81 @@
     }
     .ex-modal-ok:hover { background: var(--red-h); }
 
-    /* progress bar */
-    #progWrap {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: var(--bg2); border-top: 1px solid var(--border);
-      padding: 8px 16px; display: none; z-index: 900;
+    /* ── download overlay ── */
+    #dlOverlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.55);
+      z-index: 800;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 0;
     }
-    .phdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-    .phdr span { font-size: 11px; color: var(--sub); }
-    .pright { display: flex; gap: 10px; }
-    .ptrack { height: 3px; background: var(--bg4); border-radius: 2px; overflow: hidden; }
-    #progFill { height: 100%; width: 0%; background: var(--red); border-radius: 2px; transition: width .2s; }
+    #dlOverlay.active { display: flex; }
 
-    #logBox {
-      position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%);
-      width: min(700px, 95vw); display: flex; flex-direction: column;
-      gap: 4px; pointer-events: none; z-index: 900;
+    #dlPanel {
+      width: 100%; max-width: 800px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-bottom: none;
+      border-radius: 8px 8px 0 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      max-height: 70vh;
     }
+
+    /* log scroll area */
+    #logBox {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px 0;
+      display: flex;
+      flex-direction: column;
+      scroll-behavior: smooth;
+    }
+    #logBox::-webkit-scrollbar { width: 4px; }
+    #logBox::-webkit-scrollbar-track { background: transparent; }
+    #logBox::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 2px; }
+
+    .log-entry {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      align-items: baseline;
+      gap: 0 12px;
+      padding: 3px 16px;
+      font-size: 12px;
+      line-height: 1.5;
+      border-bottom: 1px solid rgba(255,255,255,.025);
+    }
+    .log-entry:last-child { border-bottom: none; }
+    .log-ts {
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--red);
+      opacity: .85;
+      white-space: nowrap;
+    }
+    .log-msg { color: var(--text); }
+    .log-msg.dim { color: var(--sub); }
+
+    /* progress footer */
+    #progWrap {
+      flex-shrink: 0;
+      background: var(--bg3);
+      border-top: 1px solid var(--border);
+      padding: 10px 16px 12px;
+    }
+    .phdr {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 7px;
+    }
+    #progMsg  { font-size: 12px; font-weight: 600; color: var(--sub); }
+    .pright   { display: flex; gap: 14px; align-items: center; }
+    #progEta  { font-size: 11px; color: var(--sub2); }
+    #progPct  { font-size: 13px; font-weight: 800; color: var(--red); min-width: 36px; text-align: right; }
+    .ptrack   { height: 4px; background: var(--bg4); border-radius: 2px; overflow: hidden; }
+    #progFill { height: 100%; width: 0%; background: var(--red); border-radius: 2px; transition: width .3s ease; }
 
     .no-select { user-select: none; }
   </style>
@@ -388,13 +446,20 @@
   </div>
 </div>
 
-<div id="logBox"></div>
-<div id="progWrap">
-  <div class="phdr">
-    <span id="progMsg"></span>
-    <div class="pright"><span id="progEta"></span><span id="progPct">0%</span></div>
+<div id="dlOverlay">
+  <div id="dlPanel">
+    <div id="logBox"></div>
+    <div id="progWrap">
+      <div class="phdr">
+        <span id="progMsg"></span>
+        <div class="pright">
+          <span id="progEta"></span>
+          <span id="progPct">0%</span>
+        </div>
+      </div>
+      <div class="ptrack"><div id="progFill"></div></div>
+    </div>
   </div>
-  <div class="ptrack"><div id="progFill"></div></div>
 </div>
 
 <script src="js/jszip.min.js"></script>
@@ -638,6 +703,93 @@
   }
 })();
 
+/* ── download overlay ── */
+(function(){
+  const overlay = document.getElementById('dlOverlay');
+  const logBox  = document.getElementById('logBox');
+  const progWrap= document.getElementById('progWrap');
+  const progFill= document.getElementById('progFill');
+  const progMsg = document.getElementById('progMsg');
+  const progEta = document.getElementById('progEta');
+  const progPct = document.getElementById('progPct');
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function ts(){
+    const d=new Date();
+    return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  }
+
+  /* public API — rdd.js calls these */
+  window.xploitsLog = function(msg, dim){
+    overlay.classList.add('active');
+    const row = document.createElement('div');
+    row.className = 'log-entry';
+    row.innerHTML = `<span class="log-ts">${ts()}</span><span class="log-msg${dim?' dim':''}">${msg}</span>`;
+    logBox.appendChild(row);
+    logBox.scrollTop = logBox.scrollHeight;
+  };
+
+  window.xploitsProgress = function(pct, msg, eta){
+    overlay.classList.add('active');
+    progFill.style.width = Math.min(100, pct) + '%';
+    if(msg) progMsg.textContent  = msg;
+    if(eta) progEta.textContent  = eta;
+    progPct.textContent = Math.round(pct) + '%';
+    if(pct >= 100){
+      setTimeout(()=>{
+        overlay.classList.remove('active');
+        logBox.innerHTML = '';
+        progFill.style.width = '0%';
+        progMsg.textContent  = '';
+        progEta.textContent  = '';
+        progPct.textContent  = '0%';
+      }, 1800);
+    }
+  };
+
+  /* patch rdd.js hooks if present */
+  if(typeof window.rddLog === 'function'){
+    const _orig = window.rddLog;
+    window.rddLog = function(msg){ window.xploitsLog(msg); _orig(msg); };
+  }
+
+  /* close overlay on backdrop click */
+  overlay.addEventListener('click', e => {
+    if(e.target === overlay) overlay.classList.remove('active');
+  });
+
+  /* demo — remove in production */
+  window._demoDownload = function(){
+    logBox.innerHTML='';
+    overlay.classList.add('active');
+    const files=[
+      'RobloxApp.zip','content-textures.zip','content-models.zip',
+      'content-sounds.zip','content-configs.zip','ssl.zip',
+      'content-platform-dictionaries.zip','WebView2RuntimeInstaller.zip',
+      'Libraries.zip','content-sky.zip','content-fonts.zip',
+    ];
+    const total=files.length; let done=0; let mb=0; const totalMb=199.33;
+    function next(){
+      if(done>=total){ window.xploitsProgress(100,'Download complete!',''); return; }
+      const f=files[done];
+      window.xploitsLog(`Received "${f}"!`);
+      const chunkMb=+(totalMb/total).toFixed(2);
+      setTimeout(()=>{
+        window.xploitsLog(`Extracting "${f}"…`, true);
+        setTimeout(()=>{
+          window.xploitsLog(`Extracted "${f}"!`);
+          done++; mb+=chunkMb;
+          const pct=Math.round(mb/totalMb*100);
+          const eta=`${total-done*2}s left`;
+          window.xploitsProgress(pct,`Downloading ${total} packages — ${mb.toFixed(2)} MB / ${totalMb} MB`, eta);
+          setTimeout(next, 180);
+        },150);
+      },90);
+    }
+    next();
+  };
+})();
+
 /* ── fallback link/download fns (active only if rdd.js not loaded) ── */
 function getLink() {
   const ch      = (document.getElementById('channel').value || 'LIVE').trim();
@@ -656,7 +808,7 @@ function getLink() {
   if (name) url += `&exploit=${encodeURIComponent(name)}`;
   return url;
 }
-window.dlLatest  = window.dlLatest  || function() { window.open(getLink() + '&dl=latest', '_blank'); };
+window.dlLatest  = window.dlLatest  || function() { window._demoDownload?.(); window.open(getLink() + '&dl=latest', '_blank'); };
 window.dlPrev    = window.dlPrev    || function() { window.open(getLink() + '&dl=prev',   '_blank'); };
 window.dlHash    = window.dlHash    || function() { window.open(getLink(), '_blank'); };
 window.copyLink  = window.copyLink  || function(btn) {
