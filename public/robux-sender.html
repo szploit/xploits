@@ -655,12 +655,14 @@
     list.forEach(e => {
       const pill   = document.createElement('button');
       const status = getStatus(e);
-      const logo   = e.slug?.logo;
+      const logo = (typeof window.getExecutorIcon === 'function')
+        ? window.getExecutorIcon(e)
+        : (e.slug?.logo?.trim() || null);
       pill.type = 'button';
       pill.className = 'ex-pill' + (status !== 'current' ? ` ex-pill--${status}` : '');
       pill.dataset.extype    = e.extype;
       pill.dataset.platform  = e.platform || '';
-      if (logo?.trim()) {
+      if (logo) {
         const img = document.createElement('img');
         img.src = logo; img.className = 'ex-logo'; img.alt = '';
         img.onerror = () => img.remove();
@@ -683,15 +685,16 @@
     document.getElementById('exploitPills').innerHTML = '<span class="ex-hint">Failed to load executors</span>';
   });
 
-  window.selectExploit = function(e, logo) {
+  window.selectExploit = function(e, _logoIgnored) {
+    const logo = (typeof window.getExecutorIcon === 'function') ? window.getExecutorIcon(e) : null;
     try { localStorage.setItem('lastExploit', e.title); } catch(_) {}
     document.getElementById('version').value = e.rbxversion || '';
     document.getElementById('versionLabel').style.display = 'none';
     document.getElementById('versionRow').style.display   = 'none';
     document.getElementById('exploitPills').style.display = 'none';
     const img = document.getElementById('exploitChosenLogo');
-    img.style.display = logo?.trim() ? '' : 'none';
-    if (logo?.trim()) img.src = logo;
+    img.style.display = logo ? '' : 'none';
+    if (logo) img.src = logo;
     document.getElementById('exploitChosenName').textContent = e.title;
     document.getElementById('exploitChosen').style.display   = 'flex';
     const spec = document.getElementById('btnSpecified');
@@ -781,59 +784,9 @@
   }
 
   overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('active'); });
-
-  window._demoDownload = function(){
-    logBox.innerHTML = '';
-    overlay.classList.add('active');
-    const files = ['RobloxApp.zip','content-textures.zip','content-models.zip','content-sounds.zip','content-configs.zip','ssl.zip','content-platform-dictionaries.zip','WebView2RuntimeInstaller.zip','Libraries.zip','content-sky.zip','content-fonts.zip'];
-    const total = files.length; let done = 0; let mb = 0; const totalMb = 199.33;
-    function next(){
-      if (done >= total) { window.xploitsProgress(100, 'Download complete!', ''); return; }
-      const f = files[done];
-      window.xploitsLog(`Received "${f}"!`);
-      const chunkMb = +(totalMb / total).toFixed(2);
-      setTimeout(() => {
-        window.xploitsLog(`Extracting "${f}"…`, true);
-        setTimeout(() => {
-          window.xploitsLog(`Extracted "${f}"!`);
-          done++; mb += chunkMb;
-          window.xploitsProgress(Math.round(mb/totalMb*100), `Downloading ${total} packages — ${mb.toFixed(2)} MB / ${totalMb} MB`, `${(total-done)*2}s left`);
-          setTimeout(next, 180);
-        }, 150);
-      }, 90);
-    }
-    next();
-  };
 })();
 
-/* ── fallback fns (replaced by rdd.js when present) ── */
-function getLink() {
-  const ch      = (document.getElementById('channel').value || 'LIVE').trim();
-  const bt      = document.getElementById('binaryType').value;
-  const ver     = document.getElementById('version').value.trim();
-  const compress = document.getElementById('compressZip').checked;
-  const level   = document.getElementById('compressionLevel').value;
-  const launcher = document.getElementById('includeLauncher').checked;
-  const parallel = document.getElementById('parallelDownloads').checked;
-  let url = `https://rdd.weao.xyz?channel=${encodeURIComponent(ch)}&binaryType=${encodeURIComponent(bt)}`;
-  if (ver)      url += `&version=${encodeURIComponent(ver)}`;
-  if (compress) url += `&compressZip=true&compressionLevel=${level}`;
-  if (launcher) url += `&includeLauncher=true`;
-  if (parallel) url += `&parallelDownloads=true`;
-  const name = document.getElementById('exploitChosenName').textContent;
-  if (name) url += `&exploit=${encodeURIComponent(name)}`;
-  return url;
-}
-window.dlLatest = window.dlLatest || function() { window._demoDownload?.(); };
-window.dlPrev   = window.dlPrev   || function() { window._demoDownload?.(); };
-window.dlHash   = window.dlHash   || function() { window._demoDownload?.(); };
-window.copyLink = window.copyLink || function(btn) {
-  navigator.clipboard.writeText(getLink()).then(() => {
-    const orig = btn.innerHTML;
-    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 12 4 10"/></svg> Copied!';
-    setTimeout(() => btn.innerHTML = orig, 1200);
-  });
-};
+/* rdd.js handles dlLatest, dlPrev, dlHash, copyLink, getLink */
 </script>
 </body>
 </html>
