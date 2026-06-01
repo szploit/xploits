@@ -4,24 +4,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Xploits — RDD</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --red:     #c0392b;
-      --red-h:   #e04030;
-      --red-dim: rgba(192,57,43,0.15);
-      --red-bdr: rgba(192,57,43,0.35);
+      --red-h:   #d94030;
+      --red-dim: rgba(192,57,43,0.13);
+      --red-bdr: rgba(192,57,43,0.4);
       --bg:      #0d0d0d;
-      --bg2:     #111111;
-      --bg3:     #161616;
-      --bg4:     #1c1c1c;
-      --border:  rgba(255,255,255,0.07);
-      --text:    #f0f0f0;
-      --sub:     #777777;
-      --sub2:    #555555;
-      --font:    'Barlow', sans-serif;
+      --bg2:     #141414;
+      --bg3:     #1a1a1a;
+      --bg4:     #202020;
+      --border:  rgba(255,255,255,0.08);
+      --text:    #e8e8e8;
+      --sub:     #888;
+      --sub2:    #555;
+      --font:    'Inter', sans-serif;
     }
 
     html, body {
@@ -30,288 +30,319 @@
       font-family: var(--font);
       font-size: 14px;
       min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
     }
 
     a { color: var(--red); text-decoration: none; }
-    a:hover { color: var(--red-h); text-decoration: underline; }
+    a:hover { color: var(--red-h); }
 
     .page {
-      max-width: 760px;
+      max-width: 720px;
       margin: 0 auto;
-      padding: 28px 16px 60px;
+      padding: 32px 20px 80px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
 
-    /* notice */
+    /* ── notice ── */
     .notice {
       background: var(--bg2);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 14px 16px;
+      border-radius: 10px;
+      padding: 13px 16px;
     }
-    .notice-row { display: flex; align-items: flex-start; gap: 8px; }
-    .notice-icon { flex-shrink: 0; margin-top: 1px; color: var(--sub2); }
-    .notice p { font-size: 12px; color: var(--sub); line-height: 1.6; }
-    .notice .brand { font-weight: 700; color: var(--text); }
+    .notice-row { display: flex; align-items: flex-start; gap: 9px; }
+    .notice-icon { flex-shrink: 0; margin-top: 2px; color: var(--sub2); }
+    .notice p { font-size: 12px; font-weight: 400; color: var(--sub); line-height: 1.65; }
+    .notice .brand { font-weight: 600; color: var(--text); }
     .notice .exps { color: var(--red); }
     .notice .online { color: #4ade80; }
 
-    /* main card */
+    /* ── main card ── */
     .card {
       background: var(--bg2);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 20px;
+      border-radius: 10px;
+      padding: 22px 20px 20px;
     }
+    .card-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .card-sub   { font-size: 12px; font-weight: 400; color: var(--sub); margin-bottom: 18px; }
+    .card-divider { height: 1px; background: var(--border); margin: 14px 0; }
 
-    /* form grid */
+    /* ── form grid ── */
     .fgrid {
       display: grid;
-      grid-template-columns: 140px 1fr;
+      grid-template-columns: 120px 1fr;
       align-items: center;
-      gap: 10px 16px;
+      gap: 12px 16px;
     }
     .fgrid label {
-      font-size: 12px; font-weight: 600; color: var(--sub); letter-spacing: .3px;
+      font-size: 13px; font-weight: 400; color: var(--sub);
     }
-    .fgrid input[type="text"] {
-      background: var(--bg3); border: 1px solid var(--border); border-radius: 5px;
-      color: var(--text); font-family: var(--font); font-size: 13px;
-      padding: 8px 11px; outline: none; width: 100%; transition: border-color .15s;
+
+    /* text inputs */
+    .finput {
+      width: 100%;
+      background: var(--bg3); border: 1px solid var(--border); border-radius: 7px;
+      color: var(--text); font-family: var(--font); font-size: 13px; font-weight: 400;
+      padding: 9px 12px; outline: none; transition: border-color .15s;
     }
-    .fgrid input[type="text"]:focus { border-color: var(--red); }
-    .fgrid input[type="text"]::placeholder { color: var(--sub2); }
+    .finput:focus { border-color: rgba(255,255,255,0.2); }
+    .finput::placeholder { color: var(--sub2); }
 
-    .sep { grid-column: 1 / -1; height: 1px; background: var(--border); margin: 4px 0; }
+    /* version hint row */
+    .frow { display: flex; align-items: center; gap: 10px; }
+    .frow .finput { flex: 1; }
+    .hint { font-size: 11px; font-weight: 400; color: var(--red); white-space: nowrap; opacity: .7; }
+    .hint.optional { color: var(--sub2); }
 
-    /* dropdown */
+    /* ── custom dropdown ── */
     .drop { position: relative; }
     .drop-btn {
       display: flex; align-items: center; justify-content: space-between;
-      width: 100%; background: var(--bg3); border: 1px solid var(--border);
-      border-radius: 5px; color: var(--text); font-family: var(--font);
-      font-size: 13px; font-weight: 600; padding: 8px 11px;
+      width: 180px; background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 7px; color: var(--text); font-family: var(--font);
+      font-size: 13px; font-weight: 500; padding: 9px 12px;
       cursor: pointer; transition: border-color .15s;
     }
-    .drop-btn:hover, .drop.open .drop-btn { border-color: var(--red); }
-    .drop-arrow { transition: transform .15s; flex-shrink: 0; }
+    .drop-btn:hover { border-color: rgba(255,255,255,.18); }
+    .drop.open .drop-btn { border-color: rgba(255,255,255,.2); }
+    .drop-arrow { transition: transform .15s; flex-shrink: 0; color: var(--sub); }
     .drop.open .drop-arrow { transform: rotate(180deg); }
     .drop-menu {
-      display: none; position: absolute; top: calc(100% + 4px); left: 0; right: 0;
-      background: var(--bg4); border: 1px solid var(--red-bdr);
-      border-radius: 6px; z-index: 100; overflow: hidden;
+      display: none; position: absolute; top: calc(100% + 4px); left: 0;
+      min-width: 180px;
+      background: var(--bg4); border: 1px solid var(--border);
+      border-radius: 8px; z-index: 100; overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,.4);
     }
     .drop.open .drop-menu { display: block; }
     .drop-item {
-      padding: 9px 12px; font-size: 13px; cursor: pointer;
+      padding: 9px 14px; font-size: 13px; font-weight: 400; cursor: pointer;
       color: var(--sub); transition: background .1s, color .1s;
     }
-    .drop-item:hover { background: var(--red-dim); color: var(--text); }
-    .drop-item.selected { color: var(--text); font-weight: 600; }
+    .drop-item:hover { background: rgba(255,255,255,.05); color: var(--text); }
+    .drop-item.selected { color: var(--text); font-weight: 500; }
 
-    /* version row */
-    .frow { display: flex; align-items: center; gap: 8px; }
-    .frow input { flex: 1; }
-    .hint { font-size: 11px; color: var(--sub2); white-space: nowrap; }
+    /* ── executor pills section ── */
+    .ex-section-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .ex-section-label { font-size: 12px; font-weight: 400; color: var(--sub); }
+    .ex-legend { display: flex; align-items: center; gap: 12px; }
+    .ex-legend span { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 400; color: var(--sub2); }
+    .ldot { width: 7px; height: 7px; border-radius: 50%; }
+    .ldot.up   { background: var(--sub2); }
+    .ldot.down { background: var(--red); }
 
-    /* exploit pills */
     .ex-pills { display: flex; flex-wrap: wrap; gap: 6px; }
     .ex-pill {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 5px 12px; border-radius: 20px;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px; border-radius: 20px;
       background: var(--bg3); border: 1px solid var(--border);
-      font-family: var(--font); font-size: 12px; font-weight: 700;
+      font-family: var(--font); font-size: 12px; font-weight: 400;
       color: var(--sub); cursor: pointer; transition: all .12s;
     }
-    .ex-pill:hover { border-color: var(--red-bdr); color: var(--text); background: var(--red-dim); }
-    .ex-pill.selected { border-color: var(--red); background: var(--red-dim); color: var(--text); }
-    .ex-pill--stale { border-color: rgba(251,191,36,.35); color: #fbbf24; }
-    .ex-pill--old   { border-color: rgba(239,68,68,.35);  color: #f87171; }
+    .ex-pill::before {
+      content: ''; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--sub2); flex-shrink: 0; transition: background .12s;
+    }
+    .ex-pill:hover { border-color: rgba(255,255,255,.15); color: var(--text); }
+    .ex-pill:hover::before { background: var(--sub); }
+    .ex-pill.selected { border-color: var(--red-bdr); background: var(--red-dim); color: var(--text); }
+    .ex-pill.selected::before { background: var(--red); }
+    .ex-pill--stale::before { background: rgba(251,191,36,.7) !important; }
+    .ex-pill--old::before   { background: var(--red) !important; }
     .ex-pill.plat-hide  { display: none; }
     .ex-pill.collapsed  { display: none; }
     .ex-more {
-      padding: 5px 12px; border-radius: 20px;
-      background: var(--bg3); border: 1px solid var(--border);
-      font-family: var(--font); font-size: 12px; font-weight: 700;
-      color: var(--sub); cursor: pointer; transition: all .12s;
+      padding: 5px 11px; border-radius: 20px;
+      background: transparent; border: 1px solid var(--border);
+      font-family: var(--font); font-size: 12px; font-weight: 400;
+      color: var(--sub2); cursor: pointer; transition: all .12s;
     }
-    .ex-more:hover { border-color: var(--red-bdr); color: var(--text); }
-    .ex-hint { font-size: 12px; color: var(--sub2); font-style: italic; }
+    .ex-more:hover { color: var(--text); border-color: rgba(255,255,255,.15); }
+    .ex-hint { font-size: 12px; font-weight: 400; color: var(--sub2); font-style: italic; }
     .ex-logo { width: 14px; height: 14px; object-fit: contain; border-radius: 3px; }
 
     /* chosen exploit */
     .ex-chosen {
       display: flex; align-items: center;
       background: var(--bg3); border: 1px solid var(--red-bdr);
-      border-radius: 6px; padding: 7px 11px; gap: 8px;
+      border-radius: 7px; padding: 8px 12px; gap: 8px;
     }
-    .ex-pick { display: flex; align-items: center; gap: 7px; flex: 1; }
-    .ex-pick span { font-size: 13px; font-weight: 700; color: var(--text); }
+    .ex-pick { display: flex; align-items: center; gap: 8px; flex: 1; }
+    .ex-pick span { font-size: 13px; font-weight: 500; color: var(--text); }
     .ex-clear {
       background: none; border: none; cursor: pointer; color: var(--sub);
       display: flex; align-items: center; padding: 2px; border-radius: 3px;
       transition: color .12s;
     }
-    .ex-clear:hover { color: var(--red); }
+    .ex-clear:hover { color: var(--text); }
 
-    /* checkboxes */
-    .fgrid input[type="checkbox"] {
-      appearance: none; -webkit-appearance: none;
-      width: 18px; height: 18px; border: 1px solid var(--border);
-      border-radius: 4px; background: var(--bg3); cursor: pointer;
-      position: relative; transition: all .12s; justify-self: start;
+    /* ── toggle switches ── */
+    .toggle-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 2px 0;
     }
-    .fgrid input[type="checkbox"]:checked { background: var(--red); border-color: var(--red); }
-    .fgrid input[type="checkbox"]:checked::after {
-      content: ''; position: absolute; left: 5px; top: 2px;
-      width: 5px; height: 9px;
-      border: 2px solid #fff; border-top: none; border-left: none;
-      transform: rotate(45deg);
+    .toggle-label { font-size: 13px; font-weight: 400; color: var(--sub); }
+    .toggle {
+      position: relative; width: 36px; height: 20px; flex-shrink: 0; cursor: pointer;
+    }
+    .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+    .toggle-track {
+      position: absolute; inset: 0;
+      background: var(--bg4); border: 1px solid var(--border);
+      border-radius: 10px; transition: background .2s, border-color .2s;
+    }
+    .toggle input:checked ~ .toggle-track {
+      background: var(--red); border-color: var(--red);
+    }
+    .toggle-thumb {
+      position: absolute; top: 3px; left: 3px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--sub); transition: transform .2s, background .2s;
+    }
+    .toggle input:checked ~ .toggle-thumb {
+      transform: translateX(16px); background: #fff;
     }
 
-    /* range */
-    input[type="range"] {
+    .toggles-grid { display: flex; flex-direction: column; gap: 10px; }
+
+    /* compression level row */
+    .comp-row {
+      display: none; align-items: center; gap: 10px; padding-left: 46px;
+    }
+    .comp-row.visible { display: flex; }
+    .comp-row input[type="range"] {
       -webkit-appearance: none; appearance: none;
-      height: 4px; border-radius: 2px; flex: 1;
+      height: 3px; border-radius: 2px; flex: 1; max-width: 160px;
       background: var(--bg4); cursor: pointer;
     }
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none; width: 14px; height: 14px;
+    .comp-row input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 13px; height: 13px;
       border-radius: 50%; background: var(--red); cursor: pointer;
     }
+    .comp-val { font-size: 11px; color: var(--sub2); min-width: 10px; }
+    .comp-label { font-size: 12px; color: var(--sub2); }
 
-    /* buttons */
-    .fbtns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+    /* ── action buttons ── */
+    .fbtns { display: flex; gap: 8px; flex-wrap: nowrap; margin-top: 20px; overflow-x: auto; }
     .fbtns button {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 10px 16px; border-radius: 6px;
-      font-family: var(--font); font-size: 12px; font-weight: 800;
-      letter-spacing: .4px; cursor: pointer; transition: all .12s;
-      border: 1px solid var(--border); background: var(--bg3); color: var(--sub);
-      flex: 1; justify-content: center; min-width: 130px;
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 10px 16px; border-radius: 8px;
+      font-family: var(--font); font-size: 13px; font-weight: 500;
+      letter-spacing: .1px; cursor: pointer; transition: all .12s;
+      border: 1px solid var(--border);
+      background: var(--bg3); color: var(--text);
+      white-space: nowrap; flex-shrink: 0;
     }
-    .fbtns button:hover { background: rgba(255,255,255,.05); color: var(--text); border-color: rgba(255,255,255,.15); }
-    #btnLatest { background: var(--red); border-color: var(--red); color: #fff; }
-    #btnLatest:hover { background: var(--red-h); border-color: var(--red-h); }
-    .fbtns button:disabled { opacity: .45; cursor: not-allowed; }
+    .fbtns button svg { color: var(--sub); flex-shrink: 0; transition: color .12s; }
+    .fbtns button:hover {
+      background: var(--bg4);
+      border-color: rgba(255,255,255,.14);
+    }
+    .fbtns button:hover svg { color: var(--text); }
+    .fbtns button:disabled { opacity: .4; cursor: not-allowed; }
 
-    /* usage */
+    /* ── usage ── */
     .usage {
       background: var(--bg2); border: 1px solid var(--border);
-      border-radius: 8px; padding: 18px 20px;
+      border-radius: 10px; padding: 18px 20px;
     }
     .u-title {
-      font-size: 13px; font-weight: 800; letter-spacing: .5px;
-      color: var(--text); text-transform: uppercase; margin-bottom: 12px;
+      font-size: 12px; font-weight: 600; letter-spacing: .5px;
+      color: var(--sub); text-transform: uppercase; margin-bottom: 12px;
     }
-    .usage ul { list-style: none; display: flex; flex-direction: column; gap: 6px; padding: 0; }
+    .usage ul { list-style: none; display: flex; flex-direction: column; gap: 7px; padding: 0; }
     .usage li {
-      font-size: 12px; color: var(--sub); line-height: 1.6;
-      padding-left: 14px; position: relative;
+      font-size: 12px; font-weight: 400; color: var(--sub);
+      line-height: 1.6;
     }
-    .usage li::before { content: '›'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
-    .usage li strong { color: var(--text); font-weight: 700; }
+    .usage li::before { content: ''; position: absolute; left: 0; color: var(--sub2); }
+    .usage li strong { color: var(--text); font-weight: 500; }
     .usage code {
       background: var(--bg3); border: 1px solid var(--border);
-      border-radius: 3px; padding: 1px 5px; font-size: 11px; color: var(--sub);
+      border-radius: 4px; padding: 1px 6px; font-size: 11px; color: var(--sub);
+      font-family: monospace;
     }
     .u-note { margin-top: 12px; font-size: 11px; color: var(--sub2); }
 
-    /* modal */
+    /* ── modal ── */
     .ex-modal {
-      position: fixed; inset: 0; background: rgba(0,0,0,.8);
+      position: fixed; inset: 0; background: rgba(0,0,0,.7);
       display: none; align-items: center; justify-content: center; z-index: 999;
     }
     .ex-modal.open { display: flex; }
     .ex-modal-card {
-      background: var(--bg2); border: 1px solid var(--red-bdr);
-      border-radius: 10px; padding: 24px; max-width: 360px; width: 90%;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px; max-width: 340px; width: 90%;
+      box-shadow: 0 20px 60px rgba(0,0,0,.6);
     }
-    .ex-modal-title { font-size: 15px; font-weight: 900; color: var(--text); margin-bottom: 10px; }
-    .ex-modal-msg   { font-size: 12px; color: var(--sub); line-height: 1.65; margin-bottom: 18px; }
+    .ex-modal-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+    .ex-modal-msg   { font-size: 12px; font-weight: 400; color: var(--sub); line-height: 1.65; margin-bottom: 18px; }
     .ex-modal-ok {
-      background: var(--red); border: none; border-radius: 6px;
-      color: #fff; font-family: var(--font); font-size: 13px; font-weight: 800;
-      padding: 10px 24px; cursor: pointer; transition: background .12s;
+      background: var(--bg3); border: 1px solid var(--border); border-radius: 7px;
+      color: var(--text); font-family: var(--font); font-size: 13px; font-weight: 500;
+      padding: 9px 20px; cursor: pointer; transition: background .12s;
     }
-    .ex-modal-ok:hover { background: var(--red-h); }
+    .ex-modal-ok:hover { background: var(--bg4); }
 
     /* ── download overlay ── */
     #dlOverlay {
       display: none;
       position: fixed; inset: 0;
-      background: rgba(0,0,0,.55);
+      background: rgba(0,0,0,.5);
       z-index: 800;
       align-items: flex-end;
       justify-content: center;
-      padding-bottom: 0;
     }
     #dlOverlay.active { display: flex; }
-
     #dlPanel {
       width: 100%; max-width: 800px;
       background: var(--bg2);
       border: 1px solid var(--border);
       border-bottom: none;
-      border-radius: 8px 8px 0 0;
+      border-radius: 10px 10px 0 0;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      max-height: 70vh;
+      max-height: 65vh;
     }
-
-    /* log scroll area */
     #logBox {
-      flex: 1;
-      overflow-y: auto;
-      padding: 10px 0;
-      display: flex;
-      flex-direction: column;
+      flex: 1; overflow-y: auto;
+      padding: 8px 0;
+      display: flex; flex-direction: column;
       scroll-behavior: smooth;
     }
-    #logBox::-webkit-scrollbar { width: 4px; }
+    #logBox::-webkit-scrollbar { width: 3px; }
     #logBox::-webkit-scrollbar-track { background: transparent; }
     #logBox::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 2px; }
-
     .log-entry {
       display: grid;
-      grid-template-columns: 80px 1fr;
-      align-items: baseline;
+      grid-template-columns: 72px 1fr;
       gap: 0 12px;
       padding: 3px 16px;
-      font-size: 12px;
-      line-height: 1.5;
+      font-size: 12px; font-weight: 400; line-height: 1.55;
       border-bottom: 1px solid rgba(255,255,255,.025);
     }
     .log-entry:last-child { border-bottom: none; }
-    .log-ts {
-      font-family: monospace;
-      font-size: 11px;
-      color: var(--red);
-      opacity: .85;
-      white-space: nowrap;
-    }
+    .log-ts  { font-family: monospace; font-size: 11px; color: var(--red); opacity: .8; white-space: nowrap; }
     .log-msg { color: var(--text); }
     .log-msg.dim { color: var(--sub); }
-
-    /* progress footer */
     #progWrap {
-      flex-shrink: 0;
-      background: var(--bg3);
+      flex-shrink: 0; background: var(--bg3);
       border-top: 1px solid var(--border);
-      padding: 10px 16px 12px;
+      padding: 10px 16px 13px;
     }
-    .phdr {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 7px;
-    }
-    #progMsg  { font-size: 12px; font-weight: 600; color: var(--sub); }
+    .phdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
+    #progMsg  { font-size: 12px; font-weight: 400; color: var(--sub); }
     .pright   { display: flex; gap: 14px; align-items: center; }
     #progEta  { font-size: 11px; color: var(--sub2); }
-    #progPct  { font-size: 13px; font-weight: 800; color: var(--red); min-width: 36px; text-align: right; }
-    .ptrack   { height: 4px; background: var(--bg4); border-radius: 2px; overflow: hidden; }
+    #progPct  { font-size: 13px; font-weight: 600; color: var(--red); min-width: 36px; text-align: right; }
+    .ptrack   { height: 3px; background: var(--bg4); border-radius: 2px; overflow: hidden; }
     #progFill { height: 100%; width: 0%; background: var(--red); border-radius: 2px; transition: width .3s ease; }
 
     .no-select { user-select: none; }
@@ -323,7 +354,7 @@
   <!-- notice -->
   <div class="notice no-select">
     <div class="notice-row">
-      <svg class="notice-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <svg class="notice-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
       <p>
         This is an unofficial fork of RDD, maintained independently by
         <a target="_blank" href="https://whatexpsare.online" class="brand">What<span class="exps">Exps</span>Are.<span class="online">Online</span></a>.
@@ -333,12 +364,15 @@
     </div>
   </div>
 
-  <!-- form card -->
+  <!-- main card -->
   <div class="card" id="formDiv">
+    <p class="card-title">RBX Downgrader — xploits edition</p>
+    <p class="card-sub">Select an executor to download its compatible Roblox version</p>
+
     <form id="form" target="_blank" action="">
       <div class="fgrid">
 
-        <label>Binary Type</label>
+        <label>Binary type</label>
         <div class="drop" id="binDrop">
           <button type="button" class="drop-btn" aria-haspopup="listbox" aria-expanded="false">
             <span class="drop-val">WindowsPlayer</span>
@@ -359,62 +393,90 @@
         </div>
 
         <label for="channel">Channel</label>
-        <input id="channel" name="channel" type="text" placeholder="LIVE">
+        <input id="channel" name="channel" class="finput" type="text" placeholder="LIVE">
 
-        <label for="version" id="versionLabel">Version Hash</label>
+        <label for="version" id="versionLabel">Selected version hash</label>
         <div class="frow" id="versionRow">
-          <input id="version" name="version" type="text">
-          <span class="hint" id="versionHint">Optional</span>
+          <input id="version" name="version" class="finput" type="text">
+          <span class="hint optional" id="versionHint">Optional</span>
         </div>
-
-        <label id="exploitLabel">Exploit</label>
-        <div id="exploitWrap">
-          <div id="exploitPills" class="ex-pills">
-            <span class="ex-hint">Loading exploits…</span>
-          </div>
-          <div id="exploitChosen" class="ex-chosen" style="display:none">
-            <div class="ex-pick">
-              <img id="exploitChosenLogo" class="ex-logo" src="" alt="" style="display:none">
-              <span id="exploitChosenName"></span>
-            </div>
-            <button type="button" class="ex-clear" onclick="clearExploit()">
-              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <div class="sep"></div><div class="sep"></div>
-
-        <label for="compressZip" title="Reduces zip size but takes longer to download">Compress Zip</label>
-        <input id="compressZip" name="compressZip" type="checkbox">
-
-        <label for="compressionLevel" id="compLabel" style="display:none">Compression Level</label>
-        <div class="frow" id="compRow" style="display:none">
-          <input id="compressionLevel" name="compressionLevel" type="range" min="1" max="9" value="1" step="1">
-          <span class="hint" id="compVal">1</span>
-        </div>
-
-        <label for="includeLauncher" title="Lets you launch directly from Roblox or private servers">Include Launcher</label>
-        <input id="includeLauncher" name="includeLauncher" type="checkbox" checked>
-
-        <label for="parallelDownloads" title="Downloads multiple files at once">Parallel Downloads</label>
-        <input id="parallelDownloads" name="parallelDownloads" type="checkbox" checked>
 
       </div>
 
+      <div class="card-divider"></div>
+
+      <!-- executors -->
+      <div class="ex-section-head no-select">
+        <span class="ex-section-label">Executors — click to select version</span>
+        <div class="ex-legend">
+          <span><span class="ldot up"></span> updated</span>
+          <span><span class="ldot down"></span> down / outdated</span>
+        </div>
+      </div>
+      <div id="exploitWrap">
+        <div id="exploitPills" class="ex-pills">
+          <span class="ex-hint">Loading executors…</span>
+        </div>
+        <div id="exploitChosen" class="ex-chosen" style="display:none">
+          <div class="ex-pick">
+            <img id="exploitChosenLogo" class="ex-logo" src="" alt="" style="display:none">
+            <span id="exploitChosenName"></span>
+          </div>
+          <button type="button" class="ex-clear" onclick="clearExploit()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="card-divider"></div>
+
+      <!-- toggles -->
+      <div class="toggles-grid">
+        <div class="toggle-row">
+          <label class="toggle">
+            <input type="checkbox" id="includeLauncher" name="includeLauncher" checked>
+            <span class="toggle-track"></span>
+            <span class="toggle-thumb"></span>
+          </label>
+          <span class="toggle-label">Include launcher</span>
+        </div>
+        <div class="toggle-row">
+          <label class="toggle">
+            <input type="checkbox" id="parallelDownloads" name="parallelDownloads" checked>
+            <span class="toggle-track"></span>
+            <span class="toggle-thumb"></span>
+          </label>
+          <span class="toggle-label">Parallel downloads</span>
+        </div>
+        <div class="toggle-row">
+          <label class="toggle">
+            <input type="checkbox" id="compressZip" name="compressZip">
+            <span class="toggle-track"></span>
+            <span class="toggle-thumb"></span>
+          </label>
+          <span class="toggle-label">Compress zip</span>
+        </div>
+        <div class="comp-row" id="compRow">
+          <span class="comp-label">Level</span>
+          <input id="compressionLevel" name="compressionLevel" type="range" min="1" max="9" value="1" step="1">
+          <span class="comp-val" id="compVal">1</span>
+        </div>
+      </div>
+
+      <!-- buttons -->
       <div class="fbtns">
         <button id="btnLatest" type="button" onclick="dlLatest()">
           <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download Latest
+          Download version
         </button>
         <button id="btnPrev" type="button" onclick="dlPrev()">
           <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-          Download Previous
+          Download previous
         </button>
-        <button id="btnSpecified" type="button" onclick="dlHash()">Download Specified</button>
+        <button id="btnSpecified" type="button" onclick="dlHash()">Download specified</button>
         <button id="btnCopy" type="button" onclick="copyLink(this)">
           <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          Copy Link
+          Copy link
         </button>
       </div>
     </form>
@@ -427,9 +489,9 @@
       <li>Select a <strong>Binary Type</strong> and optionally enter a <strong>Channel</strong> (defaults to <code>LIVE</code>).</li>
       <li>Leave <strong>Version Hash</strong> empty to grab the latest, or paste a specific hash.</li>
       <li><strong>Compress Zip:</strong> Reduces the zip size but takes longer to download.</li>
-      <li><strong>Download Latest:</strong> Fetches the current live build.</li>
-      <li><strong>Download Previous:</strong> Fetches the previous build (downgrade).</li>
-      <li><strong>Copy Link:</strong> Copies a direct URL for the selected config.</li>
+      <li><strong>Download version:</strong> Downloads the version compatible with the selected executor.</li>
+      <li><strong>Download previous:</strong> Fetches the previous build (downgrade).</li>
+      <li><strong>Copy link:</strong> Copies a direct URL for the selected config.</li>
       <li>Enable <strong>Include Launcher</strong> to launch directly from Roblox / private servers.</li>
     </ul>
     <p class="u-note">Direct url params: <code>?channel=&lt;NAME&gt;&amp;binaryType=&lt;TYPE&gt;&amp;version=&lt;HASH&gt;</code></p>
@@ -446,16 +508,14 @@
   </div>
 </div>
 
+<!-- download overlay -->
 <div id="dlOverlay">
   <div id="dlPanel">
     <div id="logBox"></div>
     <div id="progWrap">
       <div class="phdr">
         <span id="progMsg"></span>
-        <div class="pright">
-          <span id="progEta"></span>
-          <span id="progPct">0%</span>
-        </div>
+        <div class="pright"><span id="progEta"></span><span id="progPct">0%</span></div>
       </div>
       <div class="ptrack"><div id="progFill"></div></div>
     </div>
@@ -464,8 +524,8 @@
 
 <script src="js/jszip.min.js"></script>
 <script src="js/rdd.js?v=1"></script>
-
 <script>
+
 /* ── dropdown ── */
 (function(){
   const drop  = document.getElementById('binDrop');
@@ -495,9 +555,8 @@
       document.getElementById('btnLatest').style.display = studio ? 'none' : '';
       document.getElementById('btnPrev').style.display   = studio ? 'none' : '';
       const hint = document.getElementById('versionHint');
-      hint.textContent      = studio ? 'Required' : 'Optional';
-      hint.style.color      = studio ? 'rgba(192,57,43,.8)' : '';
-      hint.style.fontWeight = studio ? '700' : '';
+      if (studio) { hint.textContent = 'Required'; hint.className = 'hint'; }
+      else        { hint.textContent = 'Optional';  hint.className = 'hint optional'; }
       window.filterPlatform?.(item.dataset.value);
     });
   });
@@ -506,12 +565,11 @@
 /* ── compress toggle ── */
 (function(){
   const cb     = document.getElementById('compressZip');
-  const lbl    = document.getElementById('compLabel');
   const row    = document.getElementById('compRow');
   const slider = document.getElementById('compressionLevel');
   const valEl  = document.getElementById('compVal');
   cb.addEventListener('change', () => {
-    lbl.style.display = row.style.display = cb.checked ? '' : 'none';
+    row.classList.toggle('visible', cb.checked);
   });
   slider.addEventListener('input', () => { valEl.textContent = slider.value; });
 })();
@@ -525,14 +583,8 @@
   const LIMIT      = 8;
 
   const MODAL_COPY = {
-    stale: {
-      title: 'Outdated Exploit',
-      msg:   'This exploit requires the previous version of Roblox. It may still work, but if you receive Error Code 280 while joining a game, that version has been blocklisted by Roblox.',
-    },
-    old: {
-      title: 'Very Outdated Exploit',
-      msg:   'This exploit supports a version older than the previous Roblox release. Downgrading to it is unlikely to work right now, but you can still try.',
-    },
+    stale: { title:'Outdated Executor', msg:'This executor requires the previous version of Roblox. It may still work, but if you receive Error Code 280 while joining a game, that version has been blocklisted by Roblox.' },
+    old:   { title:'Very Outdated Executor', msg:'This executor supports a version older than the previous Roblox release. Downgrading to it is unlikely to work right now, but you can still try.' },
   };
 
   function showModal(status, cb) {
@@ -545,7 +597,7 @@
     const close = (then) => { modal.classList.remove('open'); ok.removeEventListener('click', onOk); then?.(); };
     const onOk  = () => close(cb);
     ok.addEventListener('click', onOk);
-    modal.addEventListener('click', e => { if (e.target === modal) close(); }, { once: true });
+    modal.addEventListener('click', e => { if (e.target === modal) close(); }, { once:true });
   }
 
   Promise.all([
@@ -559,14 +611,11 @@
     const list = data
       .filter(e => !e.hidden && TYPES.has(e.extype))
       .sort((a, b) => {
-        const d = (PLAT_ORDER[a.extype] ?? 9) - (PLAT_ORDER[b.extype] ?? 9);
-        return d !== 0 ? d : (a.index ?? 99) - (b.index ?? 99);
+        const d = (PLAT_ORDER[a.extype]??9) - (PLAT_ORDER[b.extype]??9);
+        return d !== 0 ? d : (a.index??99) - (b.index??99);
       });
 
-    if (!list.length) {
-      wrap.innerHTML = '<span class="ex-hint">No exploits available</span>';
-      return;
-    }
+    if (!list.length) { wrap.innerHTML = '<span class="ex-hint">No executors available</span>'; return; }
 
     function getStatus(e) {
       const mac = e.platform === 'Mac';
@@ -587,18 +636,13 @@
       const btn = document.createElement('button');
       btn.type = 'button'; btn.className = 'ex-more';
       btn.textContent = `+${vis.length - LIMIT} more`;
-      btn.onclick = () => {
-        wrap.querySelectorAll('.ex-pill.collapsed').forEach(p => p.classList.remove('collapsed'));
-        btn.remove();
-      };
+      btn.onclick = () => { wrap.querySelectorAll('.ex-pill.collapsed').forEach(p => p.classList.remove('collapsed')); btn.remove(); };
       wrap.appendChild(btn);
     }
 
     window.filterPlatform = function(bt) {
-      const studio = STUDIOS.has(bt);
-      const mac    = MAC.has(bt);
-      document.getElementById('exploitLabel').style.display = studio ? 'none' : '';
-      document.getElementById('exploitWrap').style.display  = studio ? 'none' : '';
+      const studio = STUDIOS.has(bt), mac = MAC.has(bt);
+      document.getElementById('exploitWrap').style.display = studio ? 'none' : '';
       if (studio) window.clearExploit?.();
       wrap.querySelectorAll('.ex-pill').forEach(p => {
         p.classList.toggle('plat-hide', mac ? p.dataset.platform !== 'Mac' : p.dataset.platform === 'Mac');
@@ -622,12 +666,9 @@
         img.onerror = () => img.remove();
         pill.appendChild(img);
       }
-      const span = document.createElement('span');
-      span.textContent = e.title;
+      const span = document.createElement('span'); span.textContent = e.title;
       pill.appendChild(span);
-      pill.onclick = () => {
-        status !== 'current' ? showModal(status, () => window.selectExploit(e, logo)) : window.selectExploit(e, logo);
-      };
+      pill.onclick = () => { status !== 'current' ? showModal(status, () => window.selectExploit(e, logo)) : window.selectExploit(e, logo); };
       wrap.appendChild(pill);
     });
 
@@ -636,14 +677,10 @@
     let saved = null;
     try { saved = localStorage.getItem('lastExploit'); } catch(_) {}
     if (new URLSearchParams(location.search).get('exploit')) window._autoSelect?.();
-    else if (saved) {
-      const m = list.find(e => e.title === saved);
-      if (m) window.selectExploit(m, m.slug?.logo || '');
-    }
+    else if (saved) { const m = list.find(e => e.title === saved); if (m) window.selectExploit(m, m.slug?.logo || ''); }
 
   }).catch(() => {
-    document.getElementById('exploitPills').innerHTML =
-      '<span class="ex-hint">Failed to load exploits</span>';
+    document.getElementById('exploitPills').innerHTML = '<span class="ex-hint">Failed to load executors</span>';
   });
 
   window.selectExploit = function(e, logo) {
@@ -672,8 +709,9 @@
     document.getElementById('exploitChosenName').textContent = '';
     try { localStorage.removeItem('lastExploit'); } catch(_) {}
     const spec = document.getElementById('btnSpecified');
-    if (spec) spec.textContent = 'Download Specified';
+    if (spec) spec.textContent = 'Download specified';
     const bt = document.querySelector('#binDrop select')?.value;
+    const STUDIOS = new Set(['WindowsStudio64','MacStudio']);
     if (!STUDIOS.has(bt)) {
       document.getElementById('btnLatest').style.display = '';
       document.getElementById('btnPrev').style.display   = '';
@@ -688,16 +726,12 @@
     if (m) window.selectExploit(m, m.slug?.logo || '');
   };
 
-  /* patch getLink to append exploit param if selected */
   const _origGetLink = window.getLink;
   if (typeof _origGetLink === 'function') {
     window.getLink = function() {
       let url  = _origGetLink();
       const name = document.getElementById('exploitChosenName').textContent;
-      if (name) {
-        url = url.replace(/[&?]version=[^&]*/g, '');
-        url += '&exploit=' + encodeURIComponent(name);
-      }
+      if (name) { url = url.replace(/[&?]version=[^&]*/g, ''); url += '&exploit=' + encodeURIComponent(name); }
       return url;
     };
   }
@@ -707,19 +741,14 @@
 (function(){
   const overlay = document.getElementById('dlOverlay');
   const logBox  = document.getElementById('logBox');
-  const progWrap= document.getElementById('progWrap');
   const progFill= document.getElementById('progFill');
   const progMsg = document.getElementById('progMsg');
   const progEta = document.getElementById('progEta');
   const progPct = document.getElementById('progPct');
 
   function pad(n){ return String(n).padStart(2,'0'); }
-  function ts(){
-    const d=new Date();
-    return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
-  }
+  function ts(){ const d=new Date(); return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`; }
 
-  /* public API — rdd.js calls these */
   window.xploitsLog = function(msg, dim){
     overlay.classList.add('active');
     const row = document.createElement('div');
@@ -732,65 +761,52 @@
   window.xploitsProgress = function(pct, msg, eta){
     overlay.classList.add('active');
     progFill.style.width = Math.min(100, pct) + '%';
-    if(msg) progMsg.textContent  = msg;
-    if(eta) progEta.textContent  = eta;
+    if (msg) progMsg.textContent = msg;
+    if (eta) progEta.textContent = eta;
     progPct.textContent = Math.round(pct) + '%';
-    if(pct >= 100){
-      setTimeout(()=>{
+    if (pct >= 100) {
+      setTimeout(() => {
         overlay.classList.remove('active');
         logBox.innerHTML = '';
         progFill.style.width = '0%';
-        progMsg.textContent  = '';
-        progEta.textContent  = '';
-        progPct.textContent  = '0%';
+        progMsg.textContent = progEta.textContent = '';
+        progPct.textContent = '0%';
       }, 1800);
     }
   };
 
-  /* patch rdd.js hooks if present */
-  if(typeof window.rddLog === 'function'){
+  if (typeof window.rddLog === 'function') {
     const _orig = window.rddLog;
     window.rddLog = function(msg){ window.xploitsLog(msg); _orig(msg); };
   }
 
-  /* close overlay on backdrop click */
-  overlay.addEventListener('click', e => {
-    if(e.target === overlay) overlay.classList.remove('active');
-  });
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('active'); });
 
-  /* demo — remove in production */
   window._demoDownload = function(){
-    logBox.innerHTML='';
+    logBox.innerHTML = '';
     overlay.classList.add('active');
-    const files=[
-      'RobloxApp.zip','content-textures.zip','content-models.zip',
-      'content-sounds.zip','content-configs.zip','ssl.zip',
-      'content-platform-dictionaries.zip','WebView2RuntimeInstaller.zip',
-      'Libraries.zip','content-sky.zip','content-fonts.zip',
-    ];
-    const total=files.length; let done=0; let mb=0; const totalMb=199.33;
+    const files = ['RobloxApp.zip','content-textures.zip','content-models.zip','content-sounds.zip','content-configs.zip','ssl.zip','content-platform-dictionaries.zip','WebView2RuntimeInstaller.zip','Libraries.zip','content-sky.zip','content-fonts.zip'];
+    const total = files.length; let done = 0; let mb = 0; const totalMb = 199.33;
     function next(){
-      if(done>=total){ window.xploitsProgress(100,'Download complete!',''); return; }
-      const f=files[done];
+      if (done >= total) { window.xploitsProgress(100, 'Download complete!', ''); return; }
+      const f = files[done];
       window.xploitsLog(`Received "${f}"!`);
-      const chunkMb=+(totalMb/total).toFixed(2);
-      setTimeout(()=>{
+      const chunkMb = +(totalMb / total).toFixed(2);
+      setTimeout(() => {
         window.xploitsLog(`Extracting "${f}"…`, true);
-        setTimeout(()=>{
+        setTimeout(() => {
           window.xploitsLog(`Extracted "${f}"!`);
-          done++; mb+=chunkMb;
-          const pct=Math.round(mb/totalMb*100);
-          const eta=`${total-done*2}s left`;
-          window.xploitsProgress(pct,`Downloading ${total} packages — ${mb.toFixed(2)} MB / ${totalMb} MB`, eta);
+          done++; mb += chunkMb;
+          window.xploitsProgress(Math.round(mb/totalMb*100), `Downloading ${total} packages — ${mb.toFixed(2)} MB / ${totalMb} MB`, `${(total-done)*2}s left`);
           setTimeout(next, 180);
-        },150);
-      },90);
+        }, 150);
+      }, 90);
     }
     next();
   };
 })();
 
-/* ── fallback link/download fns (active only if rdd.js not loaded) ── */
+/* ── fallback fns (replaced by rdd.js when present) ── */
 function getLink() {
   const ch      = (document.getElementById('channel').value || 'LIVE').trim();
   const bt      = document.getElementById('binaryType').value;
@@ -808,10 +824,10 @@ function getLink() {
   if (name) url += `&exploit=${encodeURIComponent(name)}`;
   return url;
 }
-window.dlLatest  = window.dlLatest  || function() { window._demoDownload?.(); window.open(getLink() + '&dl=latest', '_blank'); };
-window.dlPrev    = window.dlPrev    || function() { window.open(getLink() + '&dl=prev',   '_blank'); };
-window.dlHash    = window.dlHash    || function() { window.open(getLink(), '_blank'); };
-window.copyLink  = window.copyLink  || function(btn) {
+window.dlLatest = window.dlLatest || function() { window._demoDownload?.(); };
+window.dlPrev   = window.dlPrev   || function() { window._demoDownload?.(); };
+window.dlHash   = window.dlHash   || function() { window._demoDownload?.(); };
+window.copyLink = window.copyLink || function(btn) {
   navigator.clipboard.writeText(getLink()).then(() => {
     const orig = btn.innerHTML;
     btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 12 4 10"/></svg> Copied!';
