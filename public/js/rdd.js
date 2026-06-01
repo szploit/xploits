@@ -403,10 +403,17 @@ function getExecutorIcon(executor) {
 }
 
 // Expose everything the HTML needs
-window.getLink        = getLink;
-window.copyLink       = copyLink;
-window.dlLatest       = dlLatest;
-window.dlPrev         = dlPrev;
-window.dlHash         = dlHash;
+// Direct names (used by any code calling window.dlLatest etc.)
+window.getLink         = getLink;
+window.copyLink        = copyLink;
+window.dlLatest        = dlLatest;
+window.dlPrev          = dlPrev;
+window.dlHash          = dlHash;
 window.getExecutorIcon = getExecutorIcon;
 window.EXECUTOR_ICONS  = EXECUTOR_ICONS;
+
+// _rdd* names — resolved by the safe forwarders in the HTML
+window._rddDlLatest   = dlLatest;
+window._rddDlPrev     = dlPrev;
+window._rddDlHash     = dlHash;
+window._rddCopyLink   = copyLink;
