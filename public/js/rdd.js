@@ -1,0 +1,412 @@
+/*
+    xploits-rdd — custom Roblox Deployment Downloader
+    Built for xploits.lol | Powered by WEAO API
+*/
+
+"use strict";
+
+// ── config ────────────────────────────────────────────────────────────────────
+const RDD_HOST = "https://setup-aws.rbxcdn.com";
+
+const EXTRACT_ROOTS = {
+    player: {
+        "RobloxApp.zip":                        "",
+        "redist.zip":                           "",
+        "shaders.zip":                          "shaders/",
+        "ssl.zip":                              "ssl/",
+        "WebView2.zip":                         "",
+        "WebView2RuntimeInstaller.zip":         "WebView2RuntimeInstaller/",
+        "content-avatar.zip":                   "content/avatar/",
+        "content-configs.zip":                  "content/configs/",
+        "content-fonts.zip":                    "content/fonts/",
+        "content-sky.zip":                      "content/sky/",
+        "content-sounds.zip":                   "content/sounds/",
+        "content-textures2.zip":                "content/textures/",
+        "content-models.zip":                   "content/models/",
+        "content-platform-fonts.zip":           "PlatformContent/pc/fonts/",
+        "content-platform-dictionaries.zip":    "PlatformContent/pc/shared_compression_dictionaries/",
+        "content-terrain.zip":                  "PlatformContent/pc/terrain/",
+        "content-textures3.zip":                "PlatformContent/pc/textures/",
+        "extracontent-luapackages.zip":         "ExtraContent/LuaPackages/",
+        "extracontent-translations.zip":        "ExtraContent/translations/",
+        "extracontent-models.zip":              "ExtraContent/models/",
+        "extracontent-textures.zip":            "ExtraContent/textures/",
+        "extracontent-places.zip":              "ExtraContent/places/",
+    },
+    studio: {
+        "RobloxStudio.zip":                     "",
+        "RibbonConfig.zip":                     "RibbonConfig/",
+        "redist.zip":                           "",
+        "Libraries.zip":                        "",
+        "LibrariesQt5.zip":                     "",
+        "WebView2.zip":                         "",
+        "WebView2RuntimeInstaller.zip":         "",
+        "shaders.zip":                          "shaders/",
+        "ssl.zip":                              "ssl/",
+        "Qml.zip":                              "Qml/",
+        "Plugins.zip":                          "Plugins/",
+        "StudioFonts.zip":                      "StudioFonts/",
+        "BuiltInPlugins.zip":                   "BuiltInPlugins/",
+        "ApplicationConfig.zip":                "ApplicationConfig/",
+        "BuiltInStandalonePlugins.zip":         "BuiltInStandalonePlugins/",
+        "content-qt_translations.zip":          "content/qt_translations/",
+        "content-sky.zip":                      "content/sky/",
+        "content-fonts.zip":                    "content/fonts/",
+        "content-avatar.zip":                   "content/avatar/",
+        "content-models.zip":                   "content/models/",
+        "content-sounds.zip":                   "content/sounds/",
+        "content-configs.zip":                  "content/configs/",
+        "content-api-docs.zip":                 "content/api_docs/",
+        "content-textures2.zip":                "content/textures/",
+        "content-studio_svg_textures.zip":      "content/studio_svg_textures/",
+        "content-platform-fonts.zip":           "PlatformContent/pc/fonts/",
+        "content-platform-dictionaries.zip":    "PlatformContent/pc/shared_compression_dictionaries/",
+        "content-terrain.zip":                  "PlatformContent/pc/terrain/",
+        "content-textures3.zip":                "PlatformContent/pc/textures/",
+        "extracontent-translations.zip":        "ExtraContent/translations/",
+        "extracontent-luapackages.zip":         "ExtraContent/LuaPackages/",
+        "extracontent-textures.zip":            "ExtraContent/textures/",
+        "extracontent-scripts.zip":             "ExtraContent/scripts/",
+        "extracontent-models.zip":              "ExtraContent/models/",
+        "studiocontent-models.zip":             "StudioContent/models/",
+        "studiocontent-textures.zip":           "StudioContent/textures/",
+    }
+};
+
+const BINARY_TYPES = {
+    WindowsPlayer:   { blobDirs: { "x86-64": "/" } },
+    WindowsStudio64: { blobDirs: { "x86-64": "/" } },
+    MacPlayer:       { defaultArch: "arm64", blobDirs: { "arm64": "/mac/arm64/", "x86-64": "/mac/" } },
+    MacStudio:       { defaultArch: "arm64", blobDirs: { "arm64": "/mac/arm64/", "x86-64": "/mac/" } },
+};
+
+// Fallback icons for executors (used if WEAO slug logo is absent)
+// Keys are executor titles exactly as returned by the WEAO API
+const EXECUTOR_ICONS = {
+    "Synapse Z":     "https://synz.lol/favicon.ico",
+    "Wave":          "https://getwave.gg/favicon.ico",
+    "Potassium":     "https://potassium.pro/favicon.ico",
+    "Xeno":          "https://www.xeno.onl/favicon.ico",
+    "Seliware":      "https://seliware.com/favicon.ico",
+    "Solara":        "https://solara.to/favicon.ico",
+    "Velocity":      "https://velocity.lol/favicon.ico",
+    "Bunni.lol":     "https://realbunni.com/favicon.ico",
+    "Photon":        "https://photonsys.sellpass.io/favicon.ico",
+    "Matcha":        "https://discord.gg/favicon.ico",
+    "Cosmic":        "https://discord.gg/favicon.ico",
+    "Madiun":        "https://discord.gg/favicon.ico",
+    "SirHurt":       "https://sirhurt.net/favicon.ico",
+    "Serotonin":     "https://discord.gg/favicon.ico",
+    "Severe":        "https://discord.gg/favicon.ico",
+    "Lumen":         "https://discord.gg/favicon.ico",
+};
+
+// ── logging helpers ───────────────────────────────────────────────────────────
+// These call into the overlay system defined in xploits-rdd.html
+function rddLog(msg, dim = false) {
+    if (typeof window.xploitsLog === "function") {
+        window.xploitsLog(msg, dim);
+    } else {
+        console.log(msg);
+    }
+}
+
+function rddProgress(pct, msg, eta) {
+    if (typeof window.xploitsProgress === "function") {
+        window.xploitsProgress(pct, msg, eta);
+    }
+}
+
+// ── URL helpers ───────────────────────────────────────────────────────────────
+function getLink() {
+    const form     = document.getElementById("form");
+    const channel  = (document.getElementById("channel")?.value || "LIVE").trim();
+    const bt       = document.getElementById("binaryType")?.value || "WindowsPlayer";
+    const ver      = document.getElementById("version")?.value.trim() || "";
+    const compress = document.getElementById("compressZip")?.checked || false;
+    const level    = document.getElementById("compressionLevel")?.value || "1";
+    const launcher = document.getElementById("includeLauncher")?.checked || false;
+    const parallel = document.getElementById("parallelDownloads")?.checked || false;
+
+    const base = window.location.href.split("?")[0];
+    let url = `${base}?channel=${encodeURIComponent(channel)}&binaryType=${encodeURIComponent(bt)}`;
+    if (ver)      url += `&version=${encodeURIComponent(ver)}`;
+    if (compress) url += `&compressZip=true&compressionLevel=${encodeURIComponent(level)}`;
+    if (launcher) url += `&includeLauncher=true`;
+    if (parallel) url += `&parallelDownloads=true`;
+
+    const exploit = document.getElementById("exploitChosenName")?.textContent || "";
+    if (exploit) url += `&exploit=${encodeURIComponent(exploit)}`;
+
+    return url;
+}
+
+function copyLink(btn) {
+    navigator.clipboard.writeText(getLink()).then(() => {
+        if (!btn) return;
+        const orig = btn.innerHTML;
+        btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 12 4 10"/></svg> Copied!`;
+        setTimeout(() => btn.innerHTML = orig, 1200);
+    });
+}
+
+// ── core download entry points ────────────────────────────────────────────────
+function dlLatest() {
+    const channel    = (document.getElementById("channel")?.value || "LIVE").trim();
+    const binaryType = document.getElementById("binaryType")?.value || "WindowsPlayer";
+    startDownload({ channel, binaryType, version: null, mode: "latest" });
+}
+
+function dlPrev() {
+    const channel    = (document.getElementById("channel")?.value || "LIVE").trim();
+    const binaryType = document.getElementById("binaryType")?.value || "WindowsPlayer";
+    startDownload({ channel, binaryType, version: null, mode: "prev" });
+}
+
+function dlHash() {
+    const channel    = (document.getElementById("channel")?.value || "LIVE").trim();
+    const binaryType = document.getElementById("binaryType")?.value || "WindowsPlayer";
+    const version    = document.getElementById("version")?.value.trim() || null;
+    startDownload({ channel, binaryType, version, mode: "hash" });
+}
+
+// ── main downloader ───────────────────────────────────────────────────────────
+async function startDownload({ channel, binaryType, version, mode }) {
+    const compress      = document.getElementById("compressZip")?.checked || false;
+    const compressLevel = parseInt(document.getElementById("compressionLevel")?.value || "1");
+    const parallel      = document.getElementById("parallelDownloads")?.checked !== false;
+
+    if (!(binaryType in BINARY_TYPES)) {
+        rddLog(`Error: unsupported binaryType "${binaryType}"`);
+        return;
+    }
+
+    const btObj   = BINARY_TYPES[binaryType];
+    const arch    = btObj.defaultArch || Object.keys(btObj.blobDirs)[0];
+    const blobDir = btObj.blobDirs[arch];
+
+    // Resolve channel path
+    let channelPath = RDD_HOST;
+    if (channel !== "LIVE") {
+        channelPath = `${RDD_HOST}/channel/${channel.toLowerCase()}`;
+    }
+
+    // Resolve version hash
+    if (!version) {
+        rddLog(`Fetching latest version hash for ${binaryType}…`, true);
+        try {
+            version = await resolveLatestVersion(channel, binaryType, mode);
+        } catch (e) {
+            rddLog(`Failed to resolve version: ${e.message}`);
+            return;
+        }
+        rddLog(`Resolved version: ${version}`);
+    } else {
+        if (!version.startsWith("version-")) version = "version-" + version;
+    }
+
+    rddProgress(0, `Starting download for ${version}`, "");
+
+    // Mac — single zip download
+    if (binaryType === "MacPlayer" || binaryType === "MacStudio") {
+        const zipName  = binaryType === "MacPlayer" ? "RobloxPlayer.zip" : "RobloxStudioApp.zip";
+        const blobUrl  = `${channelPath}${blobDir}${version}-${zipName}`;
+        const outName  = `${channel}-${binaryType}-${version}.zip`;
+        rddLog(`Downloading ${zipName}…`);
+        try {
+            const data = await fetchBinary(blobUrl, (loaded, total) => {
+                const pct = total ? Math.round(loaded / total * 100) : 0;
+                rddProgress(pct, `Downloading ${zipName} — ${fmtBytes(loaded)} / ${fmtBytes(total)}`, "");
+            });
+            triggerDownload(outName, data);
+            rddLog(`Done! Saved as ${outName}`);
+            rddProgress(100, "Download complete!", "");
+        } catch (e) {
+            rddLog(`Download failed: ${e.message}`);
+        }
+        return;
+    }
+
+    // Windows — manifest-based multi-package download
+    const versionBase = `${channelPath}${blobDir}${version}-`;
+    rddLog(`Fetching package manifest for ${version}@${channel}…`, true);
+
+    let manifestText;
+    try {
+        manifestText = await fetchText(versionBase + "rbxPkgManifest.txt");
+    } catch (_) {
+        // Fallback to common channel
+        try {
+            const fallbackBase = `${RDD_HOST}/channel/common${blobDir}${version}-`;
+            manifestText = await fetchText(fallbackBase + "rbxPkgManifest.txt");
+        } catch (e) {
+            rddLog(`Failed to fetch manifest: ${e.message}`);
+            return;
+        }
+    }
+
+    const packages = parseManifest(manifestText);
+    if (!packages) {
+        rddLog("Error: unrecognised manifest format");
+        return;
+    }
+
+    const isPlayer = packages.includes("RobloxApp.zip");
+    const roots    = isPlayer ? EXTRACT_ROOTS.player : EXTRACT_ROOTS.studio;
+
+    rddLog(`Found ${packages.length} packages to download`);
+    rddProgress(2, `Downloading ${packages.length} packages…`, "");
+
+    const zip = new JSZip();
+    zip.file("AppSettings.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<Settings>\n\t<ContentFolder>content</ContentFolder>\n\t<BaseUrl>http://www.roblox.com</BaseUrl>\n</Settings>\n`);
+
+    let totalBytes = 0;
+    let loadedBytes = 0;
+    let done = 0;
+    const total = packages.length;
+
+    // Helper that updates overall progress
+    function onChunk(loaded, pkgTotal) {
+        // Approximate overall: sum of known sizes
+        const overall = Math.round(2 + (done / total) * 90 + (loaded / Math.max(pkgTotal, 1)) * (90 / total));
+        const eta     = total - done > 0 ? `${(total - done) * 3}s left` : "";
+        rddProgress(Math.min(overall, 92), `Downloading ${total} packages — package ${done + 1}/${total}`, eta);
+    }
+
+    async function downloadOne(pkgName) {
+        const url  = versionBase + pkgName;
+        rddLog(`Received "${pkgName}"!`);
+        const data = await fetchBinary(url, onChunk);
+        rddLog(`Extracting "${pkgName}"…`, true);
+
+        const extractRoot = pkgName in roots ? roots[pkgName] : null;
+        if (extractRoot === null) {
+            zip.file(pkgName, data);
+            rddLog(`Moved "${pkgName}" to root (no extract rule)`);
+        } else {
+            const inner = await JSZip.loadAsync(data);
+            const fileJobs = [];
+            inner.forEach((path, obj) => {
+                if (path.endsWith("\\") || path.endsWith("/")) return;
+                const fixed = path.replace(/\\/g, "/");
+                fileJobs.push(obj.async("arraybuffer").then(d => zip.file(extractRoot + fixed, d)));
+            });
+            await Promise.all(fileJobs);
+            rddLog(`Extracted "${pkgName}"!`);
+        }
+        done++;
+    }
+
+    try {
+        if (parallel) {
+            await Promise.all(packages.map(p => downloadOne(p)));
+        } else {
+            for (const p of packages) await downloadOne(p);
+        }
+    } catch (e) {
+        rddLog(`Package download failed: ${e.message}`);
+        return;
+    }
+
+    // Assemble final zip
+    const outName = `${channel}-${binaryType}-${version}.zip`;
+    rddLog(`Assembling "${outName}"…`, true);
+    rddProgress(93, `Assembling final zip…`, "");
+
+    if (compress) {
+        rddLog(`Compressing at level ${compressLevel}/9 (may take a moment)…`, true);
+    }
+
+    const outputData = await zip.generateAsync({
+        type: "arraybuffer",
+        compression: compress ? "DEFLATE" : "STORE",
+        compressionOptions: { level: compressLevel },
+    }, ({ percent }) => {
+        rddProgress(93 + Math.round(percent * 0.06), `Assembling final zip… ${Math.round(percent)}%`, "");
+    });
+
+    triggerDownload(outName, outputData);
+    rddLog(`Done! Saved as ${outName}`);
+    rddProgress(100, "Download complete!", "");
+}
+
+// ── version resolution ────────────────────────────────────────────────────────
+async function resolveLatestVersion(channel, binaryType, mode) {
+    // Use WEAO's version API
+    const isLatest = mode !== "prev";
+    const endpoint = isLatest
+        ? "https://weao.xyz/api/versions/current"
+        : "https://weao.xyz/api/versions/past";
+
+    const res  = await fetch(endpoint);
+    if (!res.ok) throw new Error(`WEAO versions API returned ${res.status}`);
+    const data = await res.json();
+
+    const isMac = binaryType.startsWith("Mac");
+    const hash  = isMac ? (data.Mac || data.mac) : (data.Windows || data.windows);
+    if (!hash) throw new Error("Could not find version hash in WEAO response");
+    return hash;
+}
+
+// ── low-level helpers ─────────────────────────────────────────────────────────
+function fetchText(url) {
+    return fetch(url).then(r => {
+        if (!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
+        return r.text();
+    });
+}
+
+function fetchBinary(url, onProgress) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.responseType = "arraybuffer";
+        xhr.onprogress = e => { if (e.lengthComputable && onProgress) onProgress(e.loaded, e.total); };
+        xhr.onload = () => {
+            if (xhr.status !== 200) { reject(new Error(`HTTP ${xhr.status} for ${url}`)); return; }
+            resolve(xhr.response);
+        };
+        xhr.onerror = () => reject(new Error(`Network error fetching ${url}`));
+        xhr.send();
+    });
+}
+
+function parseManifest(text) {
+    const lines = text.split("\n").map(l => l.trim());
+    if (lines[0] !== "v0") return null;
+    return lines.filter(l => l.endsWith(".zip"));
+}
+
+function triggerDownload(fileName, data) {
+    const blob = new Blob([data], { type: "application/zip" });
+    const a    = document.createElement("a");
+    a.href     = URL.createObjectURL(blob);
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+}
+
+function fmtBytes(n) {
+    if (!n) return "0 B";
+    if (n < 1024) return `${n} B`;
+    if (n < 1048576) return `${(n/1024).toFixed(1)} KB`;
+    return `${(n/1048576).toFixed(2)} MB`;
+}
+
+// ── executor icon helper (used by pill renderer in HTML) ──────────────────────
+function getExecutorIcon(executor) {
+    // Prefer WEAO slug logo, fall back to our own map
+    const slug = executor?.slug?.logo;
+    if (slug && slug.trim()) return slug.trim();
+    return EXECUTOR_ICONS[executor?.title] || null;
+}
+
+// Expose everything the HTML needs
+window.getLink        = getLink;
+window.copyLink       = copyLink;
+window.dlLatest       = dlLatest;
+window.dlPrev         = dlPrev;
+window.dlHash         = dlHash;
+window.getExecutorIcon = getExecutorIcon;
+window.EXECUTOR_ICONS  = EXECUTOR_ICONS;
