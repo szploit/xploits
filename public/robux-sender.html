@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RDD</title>
+  <title>Xploits — RDD</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -45,6 +45,7 @@
       gap: 14px;
     }
 
+    /* ── notice ── */
     .notice {
       background: var(--bg2);
       border: 1px solid var(--border);
@@ -58,6 +59,7 @@
     .notice .exps { color: var(--red); }
     .notice .online { color: #4ade80; }
 
+    /* ── main card ── */
     .card {
       background: var(--bg2);
       border: 1px solid var(--border);
@@ -68,6 +70,7 @@
     .card-sub   { font-size: 12px; font-weight: 400; color: var(--sub); margin-bottom: 18px; }
     .card-divider { height: 1px; background: var(--border); margin: 14px 0; }
 
+    /* ── form grid ── */
     .fgrid {
       display: grid;
       grid-template-columns: 120px 1fr;
@@ -78,6 +81,7 @@
       font-size: 13px; font-weight: 400; color: var(--sub);
     }
 
+    /* text inputs */
     .finput {
       width: 100%;
       background: var(--bg3); border: 1px solid var(--border); border-radius: 7px;
@@ -87,11 +91,13 @@
     .finput:focus { border-color: rgba(255,255,255,0.2); }
     .finput::placeholder { color: var(--sub2); }
 
+    /* version hint row */
     .frow { display: flex; align-items: center; gap: 10px; }
     .frow .finput { flex: 1; }
     .hint { font-size: 11px; font-weight: 400; color: var(--red); white-space: nowrap; opacity: .7; }
     .hint.optional { color: var(--sub2); }
 
+    /* ── custom dropdown ── */
     .drop { position: relative; }
     .drop-btn {
       display: flex; align-items: center; justify-content: space-between;
@@ -119,6 +125,7 @@
     .drop-item:hover { background: rgba(255,255,255,.05); color: var(--text); }
     .drop-item.selected { color: var(--text); font-weight: 500; }
 
+    /* ── executor pills section ── */
     .ex-section-head {
       display: flex; align-items: center; justify-content: space-between;
       margin-bottom: 10px;
@@ -160,6 +167,7 @@
     .ex-hint { font-size: 12px; font-weight: 400; color: var(--sub2); font-style: italic; }
     .ex-logo { width: 14px; height: 14px; object-fit: contain; border-radius: 3px; }
 
+    /* chosen exploit */
     .ex-chosen {
       display: flex; align-items: center;
       background: var(--bg3); border: 1px solid var(--red-bdr);
@@ -174,6 +182,7 @@
     }
     .ex-clear:hover { color: var(--text); }
 
+    /* ── toggle switches ── */
     .toggle-row {
       display: flex; align-items: center; gap: 10px;
       padding: 2px 0;
@@ -202,6 +211,7 @@
 
     .toggles-grid { display: flex; flex-direction: column; gap: 10px; }
 
+    /* compression level row */
     .comp-row {
       display: none; align-items: center; gap: 10px; padding-left: 46px;
     }
@@ -218,6 +228,7 @@
     .comp-val { font-size: 11px; color: var(--sub2); min-width: 10px; }
     .comp-label { font-size: 12px; color: var(--sub2); }
 
+    /* ── action buttons ── */
     .fbtns { display: flex; gap: 8px; flex-wrap: nowrap; margin-top: 20px; overflow-x: auto; }
     .fbtns button {
       display: inline-flex; align-items: center; gap: 7px;
@@ -236,6 +247,7 @@
     .fbtns button:hover svg { color: var(--text); }
     .fbtns button:disabled { opacity: .4; cursor: not-allowed; }
 
+    /* ── usage ── */
     .usage {
       background: var(--bg2); border: 1px solid var(--border);
       border-radius: 10px; padding: 18px 20px;
@@ -258,6 +270,7 @@
     }
     .u-note { margin-top: 12px; font-size: 11px; color: var(--sub2); }
 
+    /* ── modal ── */
     .ex-modal {
       position: fixed; inset: 0; background: rgba(0,0,0,.7);
       display: none; align-items: center; justify-content: center; z-index: 999;
@@ -277,6 +290,7 @@
     }
     .ex-modal-ok:hover { background: var(--bg4); }
 
+    /* ── download overlay ── */
     #dlOverlay {
       display: none;
       position: fixed; inset: 0;
@@ -337,6 +351,7 @@
 <body>
 <div class="page">
 
+  <!-- notice -->
   <div class="notice no-select">
     <div class="notice-row">
       <svg class="notice-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -349,8 +364,9 @@
     </div>
   </div>
 
+  <!-- main card -->
   <div class="card" id="formDiv">
-    <p class="card-title">Xploits RDD</p>
+    <p class="card-title">RBX Downgrader — xploits edition</p>
     <p class="card-sub">Select an executor to download its compatible Roblox version</p>
 
     <form id="form" target="_blank" action="">
@@ -389,11 +405,12 @@
 
       <div class="card-divider"></div>
 
+      <!-- executors -->
       <div class="ex-section-head no-select">
-        <span class="ex-section-label">Executors - click to select version</span>
+        <span class="ex-section-label">Executors — click to select version</span>
         <div class="ex-legend">
-          <span><span class="ldot up"></span> Updated</span>
-          <span><span class="ldot down"></span> Down / Outdated</span>
+          <span><span class="ldot up"></span> updated</span>
+          <span><span class="ldot down"></span> down / outdated</span>
         </div>
       </div>
       <div id="exploitWrap">
@@ -413,6 +430,7 @@
 
       <div class="card-divider"></div>
 
+      <!-- toggles -->
       <div class="toggles-grid">
         <div class="toggle-row">
           <label class="toggle">
@@ -445,6 +463,7 @@
         </div>
       </div>
 
+      <!-- buttons -->
       <div class="fbtns">
         <button id="btnLatest" type="button" onclick="dlLatest()">
           <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -463,6 +482,7 @@
     </form>
   </div>
 
+  <!-- usage -->
   <div class="usage no-select">
     <p class="u-title">Usage</p>
     <ul>
@@ -479,6 +499,7 @@
 
 </div>
 
+<!-- modal -->
 <div id="exModal" class="ex-modal">
   <div class="ex-modal-card">
     <p class="ex-modal-title" id="exModalTitle"></p>
@@ -487,6 +508,7 @@
   </div>
 </div>
 
+<!-- download overlay -->
 <div id="dlOverlay">
   <div id="dlPanel">
     <div id="logBox"></div>
@@ -501,9 +523,18 @@
 </div>
 
 <script src="js/jszip.min.js"></script>
+<script>
+/* Safe forwarders — defined immediately so onclick attrs never throw,
+   even if rdd.js is still loading or hasn't loaded yet. */
+function dlLatest()       { window._rddDlLatest?.()  || console.warn("rdd.js not loaded"); }
+function dlPrev()         { window._rddDlPrev?.()    || console.warn("rdd.js not loaded"); }
+function dlHash()         { window._rddDlHash?.()    || console.warn("rdd.js not loaded"); }
+function copyLink(btn)    { window._rddCopyLink?.(btn) || navigator.clipboard?.writeText(window.getLink?.()); }
+</script>
 <script src="js/rdd.js?v=1"></script>
 <script>
 
+/* ── dropdown ── */
 (function(){
   const drop  = document.getElementById('binDrop');
   const btn   = drop.querySelector('.drop-btn');
@@ -539,6 +570,7 @@
   });
 })();
 
+/* ── compress toggle ── */
 (function(){
   const cb     = document.getElementById('compressZip');
   const row    = document.getElementById('compRow');
@@ -550,6 +582,7 @@
   slider.addEventListener('input', () => { valEl.textContent = slider.value; });
 })();
 
+/* ── exploit pills — live from WEAO API ── */
 (function(){
   const PLAT_ORDER = { wexecutor:0, wexternal:1, mexecutor:2 };
   const TYPES      = new Set(['wexecutor','wexternal','mexecutor']);
@@ -715,6 +748,7 @@
   }
 })();
 
+/* ── download overlay ── */
 (function(){
   const overlay = document.getElementById('dlOverlay');
   const logBox  = document.getElementById('logBox');
@@ -760,6 +794,7 @@
   overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('active'); });
 })();
 
+/* rdd.js handles dlLatest, dlPrev, dlHash, copyLink, getLink */
 </script>
 </body>
 </html>
