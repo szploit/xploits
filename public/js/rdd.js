@@ -86,7 +86,7 @@ const EXECUTOR_ICONS = {
     "Potassium":  "icons/potassium.png",
     "Xeno":       "icons/download.png",
     "Seliware":   "icons/seliware.png",
-    "Solara":     "icons/solara.png",
+    "Solara":     "icons/solara_2.png",
     "Velocity":   "icons/velocity.png",
     "Bunni.lol":  "icons/bunni.png",
     "Photon":     "icons/photon.png",
