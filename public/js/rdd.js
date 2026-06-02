@@ -96,6 +96,7 @@ const EXECUTOR_ICONS = {
     "SirHurt":    "icons/sirhurt.png",
     "Serotonin":  "icons/serotonin.png",
     "Severe":     "icons/severe.png",
+    "Volt":       "icons/volt.png",
     "Lumen":      "icons/lumen.png",
 };
 
