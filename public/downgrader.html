@@ -647,12 +647,12 @@ function copyLink(btn) {
 
     window._exps = list;
 
-    list.forEach(e => {
+  list.forEach(e => {
       const pill   = document.createElement('button');
       const status = getStatus(e);
       const logo = (typeof window.getExecutorIcon === 'function')
         ? window.getExecutorIcon(e)
-        : (e.slug?.logo?.trim() || null);
+        : (window.EXECUTOR_ICONS?.[e.title] || null);
       pill.type = 'button';
       pill.className = 'ex-pill' + (status !== 'current' ? ` ex-pill--${status}` : '');
       pill.dataset.extype    = e.extype;
@@ -668,7 +668,6 @@ function copyLink(btn) {
       pill.onclick = () => { status !== 'current' ? showModal(status, () => window.selectExploit(e, logo)) : window.selectExploit(e, logo); };
       wrap.appendChild(pill);
     });
-
     window.filterPlatform(document.getElementById('binaryType').value);
 
     let saved = null;
