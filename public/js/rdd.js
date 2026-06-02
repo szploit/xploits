@@ -84,6 +84,7 @@ const EXECUTOR_ICONS = {
     "Synapse Z":  "icons/synapsez.png",
     "Wave":       "icons/wave.png",
     "Potassium":  "icons/potassium.png",
+    "Madium":     "https://getmadium.net/favicon.png",
     "Xeno":       "icons/download.png",
     "Seliware":   "icons/seliware.png",
     "Solara":     "icons/solara_2.png",
