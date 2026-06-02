@@ -595,6 +595,10 @@ function copyLink(btn) {
     modal.addEventListener('click', e => { if (e.target === modal) close(); }, { once:true });
   }
 
+  window.getExecutorIcon = function(e) {
+    return window.EXECUTOR_ICONS?.[e?.title] || null;
+};
+  
   Promise.all([
     fetch('https://weao.xyz/api/status/exploits', { headers: {'User-Agent':'WEAO-3PService'} }).then(r => r.json()),
     fetch('https://weao.xyz/api/versions/current', { headers: {'User-Agent':'WEAO-3PService'} }).then(r => r.json()).catch(() => null),
