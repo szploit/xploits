@@ -1,11 +1,10 @@
 /*
-    xploits-rdd — custom Roblox Deployment Downloader
-    Built for xploits.lol | Powered by WEAO API
+    Xploits - RDD
+    Exploit status tracked by WEAO - weao.xyz, whatexpsare.online
 */
 
 "use strict";
 
-// ── config ────────────────────────────────────────────────────────────────────
 const RDD_HOST = "https://setup-aws.rbxcdn.com";
 
 const EXTRACT_ROOTS = {
@@ -80,10 +79,9 @@ const BINARY_TYPES = {
     MacStudio:       { defaultArch: "arm64", blobDirs: { "arm64": "mac/arm64/", "x86-64": "mac/" } },
 };
 
-// Fallback icons for executors (used if WEAO slug logo is absent)
-// Keys are executor titles exactly as returned by the WEAO API
+
 const EXECUTOR_ICONS = {
-    "Synapse Z":     "https://synz.lol/favicon.ico",
+    "Synapse Z":     "https://z.synapse.do/favicon.ico",
     "Wave":          "https://getwave.gg/favicon.ico",
     "Potassium":     "https://potassium.pro/favicon.ico",
     "Xeno":          "https://www.xeno.onl/favicon.ico",
@@ -101,8 +99,6 @@ const EXECUTOR_ICONS = {
     "Lumen":         "https://discord.gg/favicon.ico",
 };
 
-// ── logging helpers ───────────────────────────────────────────────────────────
-// These call into the overlay system defined in xploits-rdd.html
 function rddLog(msg, dim = false) {
     if (typeof window.xploitsLog === "function") {
         window.xploitsLog(msg, dim);
@@ -117,7 +113,6 @@ function rddProgress(pct, msg, eta) {
     }
 }
 
-// ── URL helpers ───────────────────────────────────────────────────────────────
 function getLink() {
     const form     = document.getElementById("form");
     const channel  = (document.getElementById("channel")?.value || "LIVE").trim();
@@ -141,7 +136,7 @@ function getLink() {
     return url;
 }
 
-function copyLink(btn) {
+function copy(btn) {
     navigator.clipboard.writeText(getLink()).then(() => {
         if (!btn) return;
         const orig = btn.innerHTML;
@@ -150,28 +145,26 @@ function copyLink(btn) {
     });
 }
 
-// ── core download entry points ────────────────────────────────────────────────
 function dlLatest() {
     const channel    = (document.getElementById("channel")?.value || "LIVE").trim();
     const binaryType = document.getElementById("binaryType")?.value || "WindowsPlayer";
-    startDownload({ channel, binaryType, version: null, mode: "latest" });
+    beginDownload({ channel, binaryType, version: null, mode: "latest" });
 }
 
 function dlPrev() {
     const channel    = (document.getElementById("channel")?.value || "LIVE").trim();
     const binaryType = document.getElementById("binaryType")?.value || "WindowsPlayer";
-    startDownload({ channel, binaryType, version: null, mode: "prev" });
+    beginDownload({ channel, binaryType, version: null, mode: "prev" });
 }
 
 function dlHash() {
     const channel    = (document.getElementById("channel")?.value || "LIVE").trim();
     const binaryType = document.getElementById("binaryType")?.value || "WindowsPlayer";
     const version    = document.getElementById("version")?.value.trim() || null;
-    startDownload({ channel, binaryType, version, mode: "hash" });
+    beginDownload({ channel, binaryType, version, mode: "hash" });
 }
 
-// ── main downloader ───────────────────────────────────────────────────────────
-async function startDownload({ channel, binaryType, version, mode }) {
+async function beginDownload({ channel, binaryType, version, mode }) {
     const compress      = document.getElementById("compressZip")?.checked || false;
     const compressLevel = parseInt(document.getElementById("compressionLevel")?.value || "1");
     const parallel      = document.getElementById("parallelDownloads")?.checked !== false;
@@ -185,7 +178,7 @@ async function startDownload({ channel, binaryType, version, mode }) {
     const arch    = btObj.defaultArch || Object.keys(btObj.blobDirs)[0];
     const blobDir = btObj.blobDirs[arch];
 
-    // Resolve channel path
+    // Channel path
     // For LIVE Windows: https://setup-aws.rbxcdn.com/{version}-{pkg}
     // For non-LIVE:     https://setup-aws.rbxcdn.com/channel/{channel}/{version}-{pkg}
     // For Mac:          https://setup-aws.rbxcdn.com/mac/arm64/{version}-{pkg}
@@ -194,7 +187,6 @@ async function startDownload({ channel, binaryType, version, mode }) {
         channelPath = `${RDD_HOST}/channel/${channel.toLowerCase()}`;
     }
 
-    // Resolve version hash
     if (!version) {
         rddLog(`Fetching latest version hash for ${binaryType}…`, true);
         try {
@@ -210,7 +202,6 @@ async function startDownload({ channel, binaryType, version, mode }) {
 
     rddProgress(0, `Starting download for ${version}`, "");
 
-    // Mac — single zip download
     if (binaryType === "MacPlayer" || binaryType === "MacStudio") {
         const zipName  = binaryType === "MacPlayer" ? "RobloxPlayer.zip" : "RobloxStudioApp.zip";
         const blobUrl  = blobDir
@@ -232,7 +223,6 @@ async function startDownload({ channel, binaryType, version, mode }) {
         return;
     }
 
-    // Windows — manifest-based multi-package download
     const sep = blobDir ? "/" : "";
     const versionBase = blobDir
         ? `${channelPath}/${blobDir}${version}-`
@@ -243,7 +233,6 @@ async function startDownload({ channel, binaryType, version, mode }) {
     try {
         manifestText = await fetchText(versionBase + "rbxPkgManifest.txt");
     } catch (_) {
-        // Fallback to common channel
         try {
             const fallbackBase = `${RDD_HOST}/channel/common${blobDir}${version}-`;
             manifestText = await fetchText(fallbackBase + "rbxPkgManifest.txt");
@@ -273,9 +262,7 @@ async function startDownload({ channel, binaryType, version, mode }) {
     let done = 0;
     const total = packages.length;
 
-    // Helper that updates overall progress
     function onChunk(loaded, pkgTotal) {
-        // Approximate overall: sum of known sizes
         const overall = Math.round(2 + (done / total) * 90 + (loaded / Math.max(pkgTotal, 1)) * (90 / total));
         const eta     = total - done > 0 ? `${(total - done) * 3}s left` : "";
         rddProgress(Math.min(overall, 92), `Downloading ${total} packages — package ${done + 1}/${total}`, eta);
@@ -316,7 +303,6 @@ async function startDownload({ channel, binaryType, version, mode }) {
         return;
     }
 
-    // Assemble final zip
     const outName = `${channel}-${binaryType}-${version}.zip`;
     rddLog(`Assembling "${outName}"…`, true);
     rddProgress(93, `Assembling final zip…`, "");
@@ -338,7 +324,6 @@ async function startDownload({ channel, binaryType, version, mode }) {
     rddProgress(100, "Download complete!", "");
 }
 
-// ── version resolution ────────────────────────────────────────────────────────
 async function resolveLatestVersion(channel, binaryType, mode) {
     const isLatest = mode !== "prev";
     const endpoint = isLatest
@@ -350,13 +335,11 @@ async function resolveLatestVersion(channel, binaryType, mode) {
     const data = await res.json();
 
     const isMac = binaryType.startsWith("Mac");
-    // WEAO returns { Windows: "version-xxx", Mac: "version-xxx" }
     const hash = isMac
         ? (data.Mac || data.mac || data.MacPlayer || data.macPlayer)
         : (data.Windows || data.windows || data.WindowsPlayer || data.windowsPlayer);
 
     if (!hash) {
-        // If executor was selected, its rbxversion is already in the version field
         const ver = document.getElementById("version")?.value?.trim();
         if (ver) return ver.startsWith("version-") ? ver : "version-" + ver;
         throw new Error("Could not resolve version hash from WEAO API");
@@ -364,7 +347,6 @@ async function resolveLatestVersion(channel, binaryType, mode) {
     return hash;
 }
 
-// ── low-level helpers ─────────────────────────────────────────────────────────
 function fetchText(url) {
     return fetch(url).then(r => {
         if (!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
@@ -410,25 +392,20 @@ function fmtBytes(n) {
     return `${(n/1048576).toFixed(2)} MB`;
 }
 
-// ── executor icon helper (used by pill renderer in HTML) ──────────────────────
-function getExecutorIcon(executor) {
-    // Prefer WEAO slug logo, fall back to our own map
+function getIcon(executor) {
     const slug = executor?.slug?.logo;
     if (slug && slug.trim()) return slug.trim();
     return EXECUTOR_ICONS[executor?.title] || null;
 }
 
-// Expose everything the HTML needs
-// Direct names (used by any code calling window.dlLatest etc.)
 window.getLink         = getLink;
-window.copyLink        = copyLink;
+window.copyLink        = copy;
 window.dlLatest        = dlLatest;
 window.dlPrev          = dlPrev;
 window.dlHash          = dlHash;
-window.getExecutorIcon = getExecutorIcon;
+window.getExecutorIcon = getIcon;
 window.EXECUTOR_ICONS  = EXECUTOR_ICONS;
 
-// _rdd* names — resolved by the safe forwarders in the HTML
 window._rddDlLatest   = dlLatest;
 window._rddDlPrev     = dlPrev;
 window._rddDlHash     = dlHash;
