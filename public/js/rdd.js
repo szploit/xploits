@@ -91,14 +91,16 @@ const EXECUTOR_ICONS = {
     "Velocity":   "icons/velocity.png",
     "Bunni.lol":  "icons/bunni.png",
     "RbxCli":     "https://cdn.discordapp.com/icons/1425607951032258681/749b368b97793d950a5d7fb5197576bc.webp?size=32&quot",
-    "Photon":     "icons/photon.png",
-    "Matcha":     "https://cdn.discordapp.com/icons/1420041567481364703/af3984b3a8068de9ebadf5687df09556.webp?size=32&quot",
-    "Cosmic":     "icons/cosmic.png",
+    "Photon":     "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://photonsys.sellpass.io/t&size=32",
+    "Matcha":     "https://cdn.discordapp.com/icons/1420041567481364703/af3984b3a8068de9ebadf5687df09556.webp?size=64&quot",
+    "Cosmic":     "https://cosmic.best/favicon.ico",
     "SirHurt":    "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://sirhurt.net&size=32",
     "Serotonin":  "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://serotonin.win&size=32",
     "Severe":     "https://cdn.discordapp.com/icons/876072383033798667/4e80cdfbaf0045d1416b1631a22d597d.webp?size=32&quot",
     "Volt":       "icons/volt.png",
     "Lumen":      "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://getlumen.net&size=32",
+    "Matrix Hub": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://matrixhubs.shop/&size=32",
+    "DX9WARE V2": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://cultofintellect.com/&size=32",
 };
 
 function rddLog(msg, dim = false) {
