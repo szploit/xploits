@@ -81,22 +81,21 @@ const BINARY_TYPES = {
 
 
 const EXECUTOR_ICONS = {
-    "Synapse Z":     "https://z.synapse.do/favicon.ico",
-    "Wave":          "https://getwave.gg/favicon.ico",
-    "Potassium":     "https://potassium.pro/favicon.ico",
-    "Xeno":          "https://www.xeno.onl/favicon.ico",
-    "Seliware":      "https://seliware.com/favicon.ico",
-    "Solara":        "https://solara.to/favicon.ico",
-    "Velocity":      "https://velocity.lol/favicon.ico",
-    "Bunni.lol":     "https://realbunni.com/favicon.ico",
-    "Photon":        "https://photonsys.sellpass.io/favicon.ico",
-    "Matcha":        "https://discord.gg/favicon.ico",
-    "Cosmic":        "https://discord.gg/favicon.ico",
-    "Madiun":        "https://discord.gg/favicon.ico",
-    "SirHurt":       "https://sirhurt.net/favicon.ico",
-    "Serotonin":     "https://discord.gg/favicon.ico",
-    "Severe":        "https://discord.gg/favicon.ico",
-    "Lumen":         "https://getlumen.net/WLumen.png",
+    "Synapse Z":  "https://www.google.com/s2/favicons?domain=synz.lol&sz=32",
+    "Wave":       "https://www.google.com/s2/favicons?domain=getwave.gg&sz=32",
+    "Potassium":  "https://www.google.com/s2/favicons?domain=potassium.pro&sz=32",
+    "Xeno":       "https://www.google.com/s2/favicons?domain=xeno.onl&sz=32",
+    "Seliware":   "https://www.google.com/s2/favicons?domain=seliware.com&sz=32",
+    "Solara":     "https://www.google.com/s2/favicons?domain=solara.to&sz=32",
+    "Velocity":   "https://www.google.com/s2/favicons?domain=velocity.lol&sz=32",
+    "Bunni.lol":  "https://www.google.com/s2/favicons?domain=realbunni.com&sz=32",
+    "Photon":     "https://www.google.com/s2/favicons?domain=photonsys.sellpass.io&sz=32",
+    "Matcha":     "https://www.google.com/s2/favicons?domain=bloxproducts.com&sz=32",
+    "Cosmic":     "https://www.google.com/s2/favicons?domain=cosmicv4.xyz&sz=32",
+    "SirHurt":    "https://www.google.com/s2/favicons?domain=sirhurt.net&sz=32",
+    "Serotonin":  "https://www.google.com/s2/favicons?domain=serotonin.lol&sz=32",
+    "Severe":     "https://www.google.com/s2/favicons?domain=severe.lol&sz=32",
+    "Lumen":      "https://www.google.com/s2/favicons?domain=getlumen.net&sz=32",
 };
 
 function rddLog(msg, dim = false) {
