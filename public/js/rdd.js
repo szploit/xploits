@@ -96,7 +96,7 @@ const EXECUTOR_ICONS = {
     "SirHurt":       "https://sirhurt.net/favicon.ico",
     "Serotonin":     "https://discord.gg/favicon.ico",
     "Severe":        "https://discord.gg/favicon.ico",
-    "Lumen":         "https://discord.gg/favicon.ico",
+    "Lumen":         "https://getlumen.net/WLumen.png",
 };
 
 function rddLog(msg, dim = false) {
