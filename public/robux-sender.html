@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Xploits RDD</title>
+  <title>Xploits — RDD</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
       --red:     #c0392b;
       --red-h:   #d94030;
@@ -22,138 +23,355 @@
       --sub2:    #555;
       --font:    'Inter', sans-serif;
     }
-    html, body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 14px; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 14px;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
     a { color: var(--red); text-decoration: none; }
     a:hover { color: var(--red-h); }
-    .page { max-width: 720px; margin: 0 auto; padding: 32px 20px 80px; display: flex; flex-direction: column; gap: 14px; }
-    .notice { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 13px 16px; }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 32px 20px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* ── notice ── */
+    .notice {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 13px 16px;
+    }
     .notice-row { display: flex; align-items: flex-start; gap: 9px; }
     .notice-icon { flex-shrink: 0; margin-top: 2px; color: var(--sub2); }
-    .notice p { font-size: 12px; color: var(--sub); line-height: 1.65; }
-    .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 22px 20px 20px; }
+    .notice p { font-size: 12px; font-weight: 400; color: var(--sub); line-height: 1.65; }
+    .notice .brand { font-weight: 600; color: var(--text); }
+    .notice .exps { color: var(--red); }
+    .notice .online { color: #4ade80; }
+
+    /* ── main card ── */
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px 20px 20px;
+    }
     .card-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
-    .card-sub { font-size: 12px; color: var(--sub); margin-bottom: 18px; }
+    .card-sub   { font-size: 12px; font-weight: 400; color: var(--sub); margin-bottom: 18px; }
     .card-divider { height: 1px; background: var(--border); margin: 14px 0; }
-    .fgrid { display: grid; grid-template-columns: 120px 1fr; align-items: center; gap: 12px 16px; }
-    .fgrid label { font-size: 13px; color: var(--sub); }
-    .finput { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 7px; color: var(--text); font-family: var(--font); font-size: 13px; padding: 9px 12px; outline: none; transition: border-color .15s; }
+
+    /* ── form grid ── */
+    .fgrid {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      align-items: center;
+      gap: 12px 16px;
+    }
+    .fgrid label {
+      font-size: 13px; font-weight: 400; color: var(--sub);
+    }
+
+    /* text inputs */
+    .finput {
+      width: 100%;
+      background: var(--bg3); border: 1px solid var(--border); border-radius: 7px;
+      color: var(--text); font-family: var(--font); font-size: 13px; font-weight: 400;
+      padding: 9px 12px; outline: none; transition: border-color .15s;
+    }
     .finput:focus { border-color: rgba(255,255,255,0.2); }
     .finput::placeholder { color: var(--sub2); }
+
+    /* version hint row */
     .frow { display: flex; align-items: center; gap: 10px; }
     .frow .finput { flex: 1; }
-    .hint { font-size: 11px; color: var(--red); white-space: nowrap; opacity: .7; }
+    .hint { font-size: 11px; font-weight: 400; color: var(--red); white-space: nowrap; opacity: .7; }
     .hint.optional { color: var(--sub2); }
+
+    /* ── custom dropdown ── */
     .drop { position: relative; }
-    .drop-btn { display: flex; align-items: center; justify-content: space-between; width: 180px; background: var(--bg3); border: 1px solid var(--border); border-radius: 7px; color: var(--text); font-family: var(--font); font-size: 13px; font-weight: 500; padding: 9px 12px; cursor: pointer; transition: border-color .15s; }
+    .drop-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 180px; background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 7px; color: var(--text); font-family: var(--font);
+      font-size: 13px; font-weight: 500; padding: 9px 12px;
+      cursor: pointer; transition: border-color .15s;
+    }
     .drop-btn:hover { border-color: rgba(255,255,255,.18); }
     .drop.open .drop-btn { border-color: rgba(255,255,255,.2); }
     .drop-arrow { transition: transform .15s; flex-shrink: 0; color: var(--sub); }
     .drop.open .drop-arrow { transform: rotate(180deg); }
-    .drop-menu { display: none; position: absolute; top: calc(100% + 4px); left: 0; min-width: 180px; background: var(--bg4); border: 1px solid var(--border); border-radius: 8px; z-index: 100; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.4); }
+    .drop-menu {
+      display: none; position: absolute; top: calc(100% + 4px); left: 0;
+      min-width: 180px;
+      background: var(--bg4); border: 1px solid var(--border);
+      border-radius: 8px; z-index: 100; overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,.4);
+    }
     .drop.open .drop-menu { display: block; }
-    .drop-item { padding: 9px 14px; font-size: 13px; cursor: pointer; color: var(--sub); transition: background .1s, color .1s; }
+    .drop-item {
+      padding: 9px 14px; font-size: 13px; font-weight: 400; cursor: pointer;
+      color: var(--sub); transition: background .1s, color .1s;
+    }
     .drop-item:hover { background: rgba(255,255,255,.05); color: var(--text); }
     .drop-item.selected { color: var(--text); font-weight: 500; }
-    .ex-section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-    .ex-section-label { font-size: 12px; color: var(--sub); }
+
+    /* ── executor pills section ── */
+    .ex-section-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .ex-section-label { font-size: 12px; font-weight: 400; color: var(--sub); }
     .ex-legend { display: flex; align-items: center; gap: 12px; }
-    .ex-legend span { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--sub2); }
+    .ex-legend span { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 400; color: var(--sub2); }
     .ldot { width: 7px; height: 7px; border-radius: 50%; }
-    .ldot.up { background: var(--sub2); }
+    .ldot.up   { background: var(--sub2); }
     .ldot.down { background: var(--red); }
+
     .ex-pills { display: flex; flex-wrap: wrap; gap: 6px; }
-    .ex-pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 20px; background: var(--bg3); border: 1px solid var(--border); font-family: var(--font); font-size: 12px; color: var(--sub); cursor: pointer; transition: all .12s; }
-    .ex-pill::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--sub2); flex-shrink: 0; transition: background .12s; }
+    .ex-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px; border-radius: 20px;
+      background: var(--bg3); border: 1px solid var(--border);
+      font-family: var(--font); font-size: 12px; font-weight: 400;
+      color: var(--sub); cursor: pointer; transition: all .12s;
+    }
+    .ex-pill::before {
+      content: ''; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--sub2); flex-shrink: 0; transition: background .12s;
+    }
     .ex-pill:hover { border-color: rgba(255,255,255,.15); color: var(--text); }
     .ex-pill:hover::before { background: var(--sub); }
     .ex-pill.selected { border-color: var(--red-bdr); background: var(--red-dim); color: var(--text); }
     .ex-pill.selected::before { background: var(--red); }
     .ex-pill--stale::before { background: rgba(251,191,36,.7) !important; }
-    .ex-pill--old::before { background: var(--red) !important; }
-    .ex-pill.plat-hide { display: none; }
-    .ex-pill.collapsed { display: none; }
-    .ex-more { padding: 5px 11px; border-radius: 20px; background: transparent; border: 1px solid var(--border); font-family: var(--font); font-size: 12px; color: var(--sub2); cursor: pointer; transition: all .12s; }
+    .ex-pill--old::before   { background: var(--red) !important; }
+    .ex-pill.plat-hide  { display: none; }
+    .ex-pill.collapsed  { display: none; }
+    .ex-more {
+      padding: 5px 11px; border-radius: 20px;
+      background: transparent; border: 1px solid var(--border);
+      font-family: var(--font); font-size: 12px; font-weight: 400;
+      color: var(--sub2); cursor: pointer; transition: all .12s;
+    }
     .ex-more:hover { color: var(--text); border-color: rgba(255,255,255,.15); }
-    .ex-hint { font-size: 12px; color: var(--sub2); font-style: italic; }
+    .ex-hint { font-size: 12px; font-weight: 400; color: var(--sub2); font-style: italic; }
     .ex-logo { width: 14px; height: 14px; object-fit: contain; border-radius: 3px; }
-    .ex-chosen { display: flex; align-items: center; background: var(--bg3); border: 1px solid var(--red-bdr); border-radius: 7px; padding: 8px 12px; gap: 8px; }
+
+    /* chosen exploit */
+    .ex-chosen {
+      display: flex; align-items: center;
+      background: var(--bg3); border: 1px solid var(--red-bdr);
+      border-radius: 7px; padding: 8px 12px; gap: 8px;
+    }
     .ex-pick { display: flex; align-items: center; gap: 8px; flex: 1; }
     .ex-pick span { font-size: 13px; font-weight: 500; color: var(--text); }
-    .ex-clear { background: none; border: none; cursor: pointer; color: var(--sub); display: flex; align-items: center; padding: 2px; border-radius: 3px; transition: color .12s; }
+    .ex-clear {
+      background: none; border: none; cursor: pointer; color: var(--sub);
+      display: flex; align-items: center; padding: 2px; border-radius: 3px;
+      transition: color .12s;
+    }
     .ex-clear:hover { color: var(--text); }
-    .toggle-row { display: flex; align-items: center; gap: 10px; padding: 2px 0; }
-    .toggle-label { font-size: 13px; color: var(--sub); }
-    .toggle { position: relative; width: 36px; height: 20px; flex-shrink: 0; cursor: pointer; }
+
+    /* ── toggle switches ── */
+    .toggle-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 2px 0;
+    }
+    .toggle-label { font-size: 13px; font-weight: 400; color: var(--sub); }
+    .toggle {
+      position: relative; width: 36px; height: 20px; flex-shrink: 0; cursor: pointer;
+    }
     .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
-    .toggle-track { position: absolute; inset: 0; background: var(--bg4); border: 1px solid var(--border); border-radius: 10px; transition: background .2s, border-color .2s; }
-    .toggle input:checked ~ .toggle-track { background: var(--red); border-color: var(--red); }
-    .toggle-thumb { position: absolute; top: 3px; left: 3px; width: 12px; height: 12px; border-radius: 50%; background: var(--sub); transition: transform .2s, background .2s; }
-    .toggle input:checked ~ .toggle-thumb { transform: translateX(16px); background: #fff; }
+    .toggle-track {
+      position: absolute; inset: 0;
+      background: var(--bg4); border: 1px solid var(--border);
+      border-radius: 10px; transition: background .2s, border-color .2s;
+    }
+    .toggle input:checked ~ .toggle-track {
+      background: var(--red); border-color: var(--red);
+    }
+    .toggle-thumb {
+      position: absolute; top: 3px; left: 3px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--sub); transition: transform .2s, background .2s;
+    }
+    .toggle input:checked ~ .toggle-thumb {
+      transform: translateX(16px); background: #fff;
+    }
+
     .toggles-grid { display: flex; flex-direction: column; gap: 10px; }
-    .comp-row { display: none; align-items: center; gap: 10px; padding-left: 46px; }
+
+    /* compression level row */
+    .comp-row {
+      display: none; align-items: center; gap: 10px; padding-left: 46px;
+    }
     .comp-row.visible { display: flex; }
-    .comp-row input[type="range"] { -webkit-appearance: none; appearance: none; height: 3px; border-radius: 2px; flex: 1; max-width: 160px; background: var(--bg4); cursor: pointer; }
-    .comp-row input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--red); cursor: pointer; }
+    .comp-row input[type="range"] {
+      -webkit-appearance: none; appearance: none;
+      height: 3px; border-radius: 2px; flex: 1; max-width: 160px;
+      background: var(--bg4); cursor: pointer;
+    }
+    .comp-row input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 13px; height: 13px;
+      border-radius: 50%; background: var(--red); cursor: pointer;
+    }
     .comp-val { font-size: 11px; color: var(--sub2); min-width: 10px; }
     .comp-label { font-size: 12px; color: var(--sub2); }
+
+    /* ── action buttons ── */
     .fbtns { display: flex; gap: 8px; flex-wrap: nowrap; margin-top: 20px; overflow-x: auto; }
-    .fbtns button { display: inline-flex; align-items: center; gap: 7px; padding: 10px 16px; border-radius: 8px; font-family: var(--font); font-size: 13px; font-weight: 500; cursor: pointer; transition: all .12s; border: 1px solid var(--border); background: var(--bg3); color: var(--text); white-space: nowrap; flex-shrink: 0; }
+    .fbtns button {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 10px 16px; border-radius: 8px;
+      font-family: var(--font); font-size: 13px; font-weight: 500;
+      letter-spacing: .1px; cursor: pointer; transition: all .12s;
+      border: 1px solid var(--border);
+      background: var(--bg3); color: var(--text);
+      white-space: nowrap; flex-shrink: 0;
+    }
     .fbtns button svg { color: var(--sub); flex-shrink: 0; transition: color .12s; }
-    .fbtns button:hover { background: var(--bg4); border-color: rgba(255,255,255,.14); }
+    .fbtns button:hover {
+      background: var(--bg4);
+      border-color: rgba(255,255,255,.14);
+    }
     .fbtns button:hover svg { color: var(--text); }
     .fbtns button:disabled { opacity: .4; cursor: not-allowed; }
-    .usage { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
-    .u-title { font-size: 12px; font-weight: 600; letter-spacing: .5px; color: var(--sub); text-transform: uppercase; margin-bottom: 12px; }
+
+    /* ── usage ── */
+    .usage {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 18px 20px;
+    }
+    .u-title {
+      font-size: 12px; font-weight: 600; letter-spacing: .5px;
+      color: var(--sub); text-transform: uppercase; margin-bottom: 12px;
+    }
     .usage ul { list-style: none; display: flex; flex-direction: column; gap: 7px; padding: 0; }
-    .usage li { font-size: 12px; color: var(--sub); line-height: 1.6; }
+    .usage li {
+      font-size: 12px; font-weight: 400; color: var(--sub);
+      line-height: 1.6;
+    }
+    .usage li::before { content: ''; position: absolute; left: 0; color: var(--sub2); }
     .usage li strong { color: var(--text); font-weight: 500; }
-    .usage code { background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; font-size: 11px; color: var(--sub); font-family: monospace; }
+    .usage code {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 4px; padding: 1px 6px; font-size: 11px; color: var(--sub);
+      font-family: monospace;
+    }
     .u-note { margin-top: 12px; font-size: 11px; color: var(--sub2); }
-    .ex-modal { position: fixed; inset: 0; background: rgba(0,0,0,.7); display: none; align-items: center; justify-content: center; z-index: 999; }
+
+    /* ── modal ── */
+    .ex-modal {
+      position: fixed; inset: 0; background: rgba(0,0,0,.7);
+      display: none; align-items: center; justify-content: center; z-index: 999;
+    }
     .ex-modal.open { display: flex; }
-    .ex-modal-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 24px; max-width: 340px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,.6); }
+    .ex-modal-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px; max-width: 340px; width: 90%;
+      box-shadow: 0 20px 60px rgba(0,0,0,.6);
+    }
     .ex-modal-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
-    .ex-modal-msg { font-size: 12px; color: var(--sub); line-height: 1.65; margin-bottom: 18px; }
-    .ex-modal-ok { background: var(--bg3); border: 1px solid var(--border); border-radius: 7px; color: var(--text); font-family: var(--font); font-size: 13px; font-weight: 500; padding: 9px 20px; cursor: pointer; transition: background .12s; }
+    .ex-modal-msg   { font-size: 12px; font-weight: 400; color: var(--sub); line-height: 1.65; margin-bottom: 18px; }
+    .ex-modal-ok {
+      background: var(--bg3); border: 1px solid var(--border); border-radius: 7px;
+      color: var(--text); font-family: var(--font); font-size: 13px; font-weight: 500;
+      padding: 9px 20px; cursor: pointer; transition: background .12s;
+    }
     .ex-modal-ok:hover { background: var(--bg4); }
-    #dlOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 800; align-items: flex-end; justify-content: center; }
+
+    /* ── download overlay ── */
+    #dlOverlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.5);
+      z-index: 800;
+      align-items: flex-end;
+      justify-content: center;
+    }
     #dlOverlay.active { display: flex; }
-    #dlPanel { width: 100%; max-width: 800px; background: var(--bg2); border: 1px solid var(--border); border-bottom: none; border-radius: 10px 10px 0 0; overflow: hidden; display: flex; flex-direction: column; max-height: 65vh; }
-    #logBox { flex: 1; overflow-y: auto; padding: 8px 0; display: flex; flex-direction: column; scroll-behavior: smooth; }
+    #dlPanel {
+      width: 100%; max-width: 800px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-bottom: none;
+      border-radius: 10px 10px 0 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      max-height: 65vh;
+    }
+    #logBox {
+      flex: 1; overflow-y: auto;
+      padding: 8px 0;
+      display: flex; flex-direction: column;
+      scroll-behavior: smooth;
+    }
     #logBox::-webkit-scrollbar { width: 3px; }
+    #logBox::-webkit-scrollbar-track { background: transparent; }
     #logBox::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 2px; }
-    .log-entry { display: grid; grid-template-columns: 72px 1fr; gap: 0 12px; padding: 3px 16px; font-size: 12px; line-height: 1.55; border-bottom: 1px solid rgba(255,255,255,.025); }
+    .log-entry {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 0 12px;
+      padding: 3px 16px;
+      font-size: 12px; font-weight: 400; line-height: 1.55;
+      border-bottom: 1px solid rgba(255,255,255,.025);
+    }
     .log-entry:last-child { border-bottom: none; }
-    .log-ts { font-family: monospace; font-size: 11px; color: var(--red); opacity: .8; white-space: nowrap; }
+    .log-ts  { font-family: monospace; font-size: 11px; color: var(--red); opacity: .8; white-space: nowrap; }
     .log-msg { color: var(--text); }
     .log-msg.dim { color: var(--sub); }
-    #progWrap { flex-shrink: 0; background: var(--bg3); border-top: 1px solid var(--border); padding: 10px 16px 13px; }
+    #progWrap {
+      flex-shrink: 0; background: var(--bg3);
+      border-top: 1px solid var(--border);
+      padding: 10px 16px 13px;
+    }
     .phdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
-    #progMsg { font-size: 12px; color: var(--sub); }
-    .pright { display: flex; gap: 14px; align-items: center; }
-    #progEta { font-size: 11px; color: var(--sub2); }
-    #progPct { font-size: 13px; font-weight: 600; color: var(--red); min-width: 36px; text-align: right; }
-    .ptrack { height: 3px; background: var(--bg4); border-radius: 2px; overflow: hidden; }
+    #progMsg  { font-size: 12px; font-weight: 400; color: var(--sub); }
+    .pright   { display: flex; gap: 14px; align-items: center; }
+    #progEta  { font-size: 11px; color: var(--sub2); }
+    #progPct  { font-size: 13px; font-weight: 600; color: var(--red); min-width: 36px; text-align: right; }
+    .ptrack   { height: 3px; background: var(--bg4); border-radius: 2px; overflow: hidden; }
     #progFill { height: 100%; width: 0%; background: var(--red); border-radius: 2px; transition: width .3s ease; }
+
     .no-select { user-select: none; }
   </style>
 </head>
 <body>
 <div class="page">
 
+  <!-- notice -->
   <div class="notice no-select">
     <div class="notice-row">
       <svg class="notice-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      <p>Xploits RDD - Roblox Deployment Downloader. Select an executor below to downgrade Roblox to its compatible version.</p>
+      <p>
+        This is an unofficial fork of RDD, maintained independently by
+        <a target="_blank" href="https://whatexpsare.online" class="brand">What<span class="exps">Exps</span>Are.<span class="online">Online</span></a>.
+        Trusted domains: rdd.whatexpsare.online, rdd.weao.gg, rdd.weao.xyz.
+        Questions? <a target="_blank" href="https://discord.gg/weaoxyz">Join our Discord</a>.
+      </p>
     </div>
   </div>
 
+  <!-- main card -->
   <div class="card" id="formDiv">
-    <p class="card-title">RBX Downgrader</p>
+    <p class="card-title">RBX Downgrader — xploits edition</p>
     <p class="card-sub">Select an executor to download its compatible Roblox version</p>
 
     <form id="form" target="_blank" action="">
       <div class="fgrid">
+
         <label>Binary type</label>
         <div class="drop" id="binDrop">
           <button type="button" class="drop-btn" aria-haspopup="listbox" aria-expanded="false">
@@ -182,12 +400,14 @@
           <input id="version" name="version" class="finput" type="text">
           <span class="hint optional" id="versionHint">Optional</span>
         </div>
+
       </div>
 
       <div class="card-divider"></div>
 
+      <!-- executors -->
       <div class="ex-section-head no-select">
-        <span class="ex-section-label">Executors - click to select version</span>
+        <span class="ex-section-label">Executors — click to select version</span>
         <div class="ex-legend">
           <span><span class="ldot up"></span> updated</span>
           <span><span class="ldot down"></span> down / outdated</span>
@@ -195,7 +415,7 @@
       </div>
       <div id="exploitWrap">
         <div id="exploitPills" class="ex-pills">
-          <span class="ex-hint">Loading executors...</span>
+          <span class="ex-hint">Loading executors…</span>
         </div>
         <div id="exploitChosen" class="ex-chosen" style="display:none">
           <div class="ex-pick">
@@ -210,6 +430,7 @@
 
       <div class="card-divider"></div>
 
+      <!-- toggles -->
       <div class="toggles-grid">
         <div class="toggle-row">
           <label class="toggle">
@@ -242,6 +463,7 @@
         </div>
       </div>
 
+      <!-- buttons -->
       <div class="fbtns">
         <button id="btnLatest" type="button" onclick="dlLatest()">
           <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -260,6 +482,7 @@
     </form>
   </div>
 
+  <!-- usage -->
   <div class="usage no-select">
     <p class="u-title">Usage</p>
     <ul>
@@ -276,14 +499,16 @@
 
 </div>
 
+<!-- modal -->
 <div id="exModal" class="ex-modal">
   <div class="ex-modal-card">
     <p class="ex-modal-title" id="exModalTitle"></p>
-    <p class="ex-modal-msg" id="exModalMsg"></p>
+    <p class="ex-modal-msg"   id="exModalMsg"></p>
     <button type="button" class="ex-modal-ok" id="exModalOk">OK, got it</button>
   </div>
 </div>
 
+<!-- download overlay -->
 <div id="dlOverlay">
   <div id="dlPanel">
     <div id="logBox"></div>
@@ -299,13 +524,43 @@
 
 <script src="js/jszip.min.js"></script>
 <script>
+/* Safe forwarders — defined immediately so onclick attrs never throw,
+   even if rdd.js is still loading or hasn't loaded yet. */
+function getLink() {
+  const ch  = (document.getElementById('channel')?.value || 'LIVE').trim();
+  const bt  = document.getElementById('binaryType')?.value || 'WindowsPlayer';
+  const ver = document.getElementById('version')?.value?.trim() || '';
+  const compress = document.getElementById('compressZip')?.checked;
+  const level    = document.getElementById('compressionLevel')?.value || '1';
+  const launcher = document.getElementById('includeLauncher')?.checked;
+  const parallel = document.getElementById('parallelDownloads')?.checked;
+  const base = window.location.href.split('?')[0];
+  let url = base + '?channel=' + encodeURIComponent(ch) + '&binaryType=' + encodeURIComponent(bt);
+  if (ver)      url += '&version='    + encodeURIComponent(ver);
+  if (compress) url += '&compressZip=true&compressionLevel=' + encodeURIComponent(level);
+  if (launcher) url += '&includeLauncher=true';
+  if (parallel) url += '&parallelDownloads=true';
+  const exploit = document.getElementById('exploitChosenName')?.textContent || '';
+  if (exploit)  url += '&exploit=' + encodeURIComponent(exploit);
+  return url;
+}
 function dlLatest()    { window._rddDlLatest?.(); }
 function dlPrev()      { window._rddDlPrev?.(); }
 function dlHash()      { window._rddDlHash?.(); }
-function copyLink(btn) { window._rddCopyLink?.(btn) || navigator.clipboard?.writeText(window.getLink?.()); }
+function copyLink(btn) {
+  if (window._rddCopyLink) { window._rddCopyLink(btn); return; }
+  navigator.clipboard?.writeText(getLink()).then(() => {
+    if (!btn) return;
+    const orig = btn.innerHTML;
+    btn.innerHTML = 'Copied!';
+    setTimeout(() => btn.innerHTML = orig, 1200);
+  });
+}
 </script>
 <script src="js/rdd.js?v=1"></script>
 <script>
+
+/* ── dropdown ── */
 (function(){
   const drop  = document.getElementById('binDrop');
   const btn   = drop.querySelector('.drop-btn');
@@ -313,8 +568,16 @@ function copyLink(btn) { window._rddCopyLink?.(btn) || navigator.clipboard?.writ
   const sel   = drop.querySelector('select');
   const items = drop.querySelectorAll('.drop-item');
   const STUDIOS = new Set(['WindowsStudio64','MacStudio']);
-  btn.addEventListener('click', e => { e.stopPropagation(); drop.classList.toggle('open'); btn.setAttribute('aria-expanded', drop.classList.contains('open')); });
-  document.addEventListener('click', () => { drop.classList.remove('open'); btn.setAttribute('aria-expanded','false'); });
+
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    drop.classList.toggle('open');
+    btn.setAttribute('aria-expanded', drop.classList.contains('open'));
+  });
+  document.addEventListener('click', () => {
+    drop.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+  });
   items.forEach(item => {
     item.addEventListener('click', () => {
       items.forEach(i => i.classList.remove('selected'));
@@ -333,21 +596,26 @@ function copyLink(btn) { window._rddCopyLink?.(btn) || navigator.clipboard?.writ
   });
 })();
 
+/* ── compress toggle ── */
 (function(){
   const cb     = document.getElementById('compressZip');
   const row    = document.getElementById('compRow');
   const slider = document.getElementById('compressionLevel');
   const valEl  = document.getElementById('compVal');
-  cb.addEventListener('change', () => { row.classList.toggle('visible', cb.checked); });
+  cb.addEventListener('change', () => {
+    row.classList.toggle('visible', cb.checked);
+  });
   slider.addEventListener('input', () => { valEl.textContent = slider.value; });
 })();
 
+/* ── exploit pills — live from WEAO API ── */
 (function(){
   const PLAT_ORDER = { wexecutor:0, wexternal:1, mexecutor:2 };
   const TYPES      = new Set(['wexecutor','wexternal','mexecutor']);
   const STUDIOS    = new Set(['WindowsStudio64','MacStudio']);
   const MAC        = new Set(['MacPlayer','MacStudio']);
   const LIMIT      = 8;
+
   const MODAL_COPY = {
     stale: { title:'Outdated Executor', msg:'This executor requires the previous version of Roblox. It may still work, but if you receive Error Code 280 while joining a game, that version has been blocklisted by Roblox.' },
     old:   { title:'Very Outdated Executor', msg:'This executor supports a version older than the previous Roblox release. Downgrading to it is unlikely to work right now, but you can still try.' },
@@ -367,28 +635,32 @@ function copyLink(btn) { window._rddCopyLink?.(btn) || navigator.clipboard?.writ
   }
 
   Promise.all([
-    fetch('https://rdd.latte.to/api/exploits').then(r => r.json()),
-    fetch('https://rdd.latte.to/api/versions/current').then(r => r.json()).catch(() => null),
-    fetch('https://rdd.latte.to/api/versions/past').then(r => r.json()).catch(() => null),
+    fetch('https://weao.xyz/api/status/exploits', { headers: {'User-Agent':'WEAO-3PService'} }).then(r => r.json()),
+    fetch('https://weao.xyz/api/versions/current', { headers: {'User-Agent':'WEAO-3PService'} }).then(r => r.json()).catch(() => null),
+    fetch('https://weao.xyz/api/versions/past',    { headers: {'User-Agent':'WEAO-3PService'} }).then(r => r.json()).catch(() => null),
   ]).then(([data, curr, past]) => {
     const wrap = document.getElementById('exploitPills');
     wrap.innerHTML = '';
+
     const list = data
       .filter(e => !e.hidden && TYPES.has(e.extype))
       .sort((a, b) => {
         const d = (PLAT_ORDER[a.extype]??9) - (PLAT_ORDER[b.extype]??9);
         return d !== 0 ? d : (a.index??99) - (b.index??99);
       });
+
     if (!list.length) { wrap.innerHTML = '<span class="ex-hint">No executors available</span>'; return; }
 
     function getStatus(e) {
-      const mac = e.platform === 'Mac';
-      const cv  = mac ? curr?.Mac : curr?.Windows;
-      const pv  = mac ? past?.Mac : past?.Windows;
-      if (!cv) return 'current';
-      if (e.rbxversion === cv) return 'current';
-      if (e.rbxversion === pv) return 'stale';
-      return 'old';
+      // WEAO API: updateStatus=true means updated, false means outdated
+      if (e.updateStatus === true)  return 'current';
+      if (e.updateStatus === false) {
+        // Check if it's one version behind (stale) vs very old
+        const mac = e.platform === 'Mac';
+        const pv  = mac ? past?.Mac : past?.Windows;
+        return (pv && e.rbxversion === pv) ? 'stale' : 'old';
+      }
+      return 'current';
     }
 
     function collapse() {
@@ -399,7 +671,7 @@ function copyLink(btn) { window._rddCopyLink?.(btn) || navigator.clipboard?.writ
       vis.slice(LIMIT).forEach(p => p.classList.add('collapsed'));
       const btn = document.createElement('button');
       btn.type = 'button'; btn.className = 'ex-more';
-      btn.textContent = '+' + (vis.length - LIMIT) + ' more';
+      btn.textContent = `+${vis.length - LIMIT} more`;
       btn.onclick = () => { wrap.querySelectorAll('.ex-pill.collapsed').forEach(p => p.classList.remove('collapsed')); btn.remove(); };
       wrap.appendChild(btn);
     }
@@ -419,19 +691,20 @@ function copyLink(btn) { window._rddCopyLink?.(btn) || navigator.clipboard?.writ
     list.forEach(e => {
       const pill   = document.createElement('button');
       const status = getStatus(e);
-      const logo   = e.slug?.logo?.trim() || null;
+      const logo = (typeof window.getExecutorIcon === 'function')
+        ? window.getExecutorIcon(e)
+        : (e.slug?.logo?.trim() || null);
       pill.type = 'button';
-      pill.className = 'ex-pill' + (status !== 'current' ? ' ex-pill--' + status : '');
-      pill.dataset.extype   = e.extype;
-      pill.dataset.platform = e.platform || '';
+      pill.className = 'ex-pill' + (status !== 'current' ? ` ex-pill--${status}` : '');
+      pill.dataset.extype    = e.extype;
+      pill.dataset.platform  = e.platform || '';
       if (logo) {
         const img = document.createElement('img');
         img.src = logo; img.className = 'ex-logo'; img.alt = '';
         img.onerror = () => img.remove();
         pill.appendChild(img);
       }
-      const span = document.createElement('span');
-      span.textContent = e.title;
+      const span = document.createElement('span'); span.textContent = e.title;
       pill.appendChild(span);
       pill.onclick = () => { status !== 'current' ? showModal(status, () => window.selectExploit(e, logo)) : window.selectExploit(e, logo); };
       wrap.appendChild(pill);
@@ -448,7 +721,8 @@ function copyLink(btn) { window._rddCopyLink?.(btn) || navigator.clipboard?.writ
     document.getElementById('exploitPills').innerHTML = '<span class="ex-hint">Failed to load executors</span>';
   });
 
-  window.selectExploit = function(e, logo) {
+  window.selectExploit = function(e, _logoIgnored) {
+    const logo = (typeof window.getExecutorIcon === 'function') ? window.getExecutorIcon(e) : null;
     try { localStorage.setItem('lastExploit', e.title); } catch(_) {}
     document.getElementById('version').value = e.rbxversion || '';
     document.getElementById('versionLabel').style.display = 'none';
@@ -494,7 +768,7 @@ function copyLink(btn) { window._rddCopyLink?.(btn) || navigator.clipboard?.writ
   const _origGetLink = window.getLink;
   if (typeof _origGetLink === 'function') {
     window.getLink = function() {
-      let url = _origGetLink();
+      let url  = _origGetLink();
       const name = document.getElementById('exploitChosenName').textContent;
       if (name) { url = url.replace(/[&?]version=[^&]*/g, ''); url += '&exploit=' + encodeURIComponent(name); }
       return url;
@@ -502,22 +776,23 @@ function copyLink(btn) { window._rddCopyLink?.(btn) || navigator.clipboard?.writ
   }
 })();
 
+/* ── download overlay ── */
 (function(){
-  const overlay  = document.getElementById('dlOverlay');
-  const logBox   = document.getElementById('logBox');
-  const progFill = document.getElementById('progFill');
-  const progMsg  = document.getElementById('progMsg');
-  const progEta  = document.getElementById('progEta');
-  const progPct  = document.getElementById('progPct');
+  const overlay = document.getElementById('dlOverlay');
+  const logBox  = document.getElementById('logBox');
+  const progFill= document.getElementById('progFill');
+  const progMsg = document.getElementById('progMsg');
+  const progEta = document.getElementById('progEta');
+  const progPct = document.getElementById('progPct');
 
   function pad(n){ return String(n).padStart(2,'0'); }
-  function ts(){ const d=new Date(); return pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds()); }
+  function ts(){ const d=new Date(); return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`; }
 
   window.xploitsLog = function(msg, dim){
     overlay.classList.add('active');
     const row = document.createElement('div');
     row.className = 'log-entry';
-    row.innerHTML = '<span class="log-ts">'+ts()+'</span><span class="log-msg'+(dim?' dim':'')+'">'+msg+'</span>';
+    row.innerHTML = `<span class="log-ts">${ts()}</span><span class="log-msg${dim?' dim':''}">${msg}</span>`;
     logBox.appendChild(row);
     logBox.scrollTop = logBox.scrollHeight;
   };
@@ -539,8 +814,15 @@ function copyLink(btn) { window._rddCopyLink?.(btn) || navigator.clipboard?.writ
     }
   };
 
+  if (typeof window.rddLog === 'function') {
+    const _orig = window.rddLog;
+    window.rddLog = function(msg){ window.xploitsLog(msg); _orig(msg); };
+  }
+
   overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('active'); });
 })();
+
+/* rdd.js handles dlLatest, dlPrev, dlHash, copyLink, getLink */
 </script>
 </body>
 </html>
