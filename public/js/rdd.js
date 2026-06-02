@@ -393,7 +393,9 @@ function fmtBytes(n) {
 
 function getIcon(executor) {
     const slug = executor?.slug?.logo;
-    if (slug && slug.trim() && slug.startsWith('http')) return slug.trim();
+    if (slug && slug.startsWith('http') && !slug.includes('cdn.weao.gg')) {
+        return slug.trim().replace('cdn.weao.gg', 'cdn.weao.xyz');
+    }
     return EXECUTOR_ICONS[executor?.title] || null;
 }
 
