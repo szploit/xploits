@@ -669,7 +669,7 @@ function copyLink(btn) {
       }
       const span = document.createElement('span'); span.textContent = e.title;
       pill.appendChild(span);
-      pill.onclick = () => { status !== 'current' ? showModal(status, () => window.selectExploit(e, logo)) : window.selectExploit(e, logo); };
+      pill.onclick = () => { status !== 'current' ? showModal(status, () => window.selectExploit(e)) : window.selectExploit(e); };
       wrap.appendChild(pill);
     });
     window.filterPlatform(document.getElementById('binaryType').value);
@@ -683,8 +683,8 @@ function copyLink(btn) {
     document.getElementById('exploitPills').innerHTML = '<span class="ex-hint">Failed to load executors</span>';
   });
 
-  window.selectExploit = function(e, _logoIgnored) {
-    const logo = (typeof window.getExecutorIcon === 'function') ? window.getExecutorIcon(e) : null;
+  window.selectExploit = function(e) {
+    const logo = window.EXECUTOR_ICONS?.[e.title] || null;
     try { localStorage.setItem('lastExploit', e.title); } catch(_) {}
     document.getElementById('version').value = e.rbxversion || '';
     document.getElementById('versionLabel').style.display = 'none';
