@@ -393,7 +393,7 @@ function fmtBytes(n) {
 
 function getIcon(executor) {
     const slug = executor?.slug?.logo;
-    if (slug && slug.trim()) return slug.trim();
+    if (slug && slug.trim() && slug.startsWith('http')) return slug.trim();
     return EXECUTOR_ICONS[executor?.title] || null;
 }
 
