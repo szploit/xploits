@@ -74,10 +74,10 @@ const EXTRACT_ROOTS = {
 };
 
 const BINARY_TYPES = {
-    WindowsPlayer:   { blobDirs: { "x86-64": "/" } },
-    WindowsStudio64: { blobDirs: { "x86-64": "/" } },
-    MacPlayer:       { defaultArch: "arm64", blobDirs: { "arm64": "/mac/arm64/", "x86-64": "/mac/" } },
-    MacStudio:       { defaultArch: "arm64", blobDirs: { "arm64": "/mac/arm64/", "x86-64": "/mac/" } },
+    WindowsPlayer:   { blobDirs: { "x86-64": "" } },
+    WindowsStudio64: { blobDirs: { "x86-64": "" } },
+    MacPlayer:       { defaultArch: "arm64", blobDirs: { "arm64": "mac/arm64/", "x86-64": "mac/" } },
+    MacStudio:       { defaultArch: "arm64", blobDirs: { "arm64": "mac/arm64/", "x86-64": "mac/" } },
 };
 
 // Fallback icons for executors (used if WEAO slug logo is absent)
@@ -186,6 +186,9 @@ async function startDownload({ channel, binaryType, version, mode }) {
     const blobDir = btObj.blobDirs[arch];
 
     // Resolve channel path
+    // For LIVE Windows: https://setup-aws.rbxcdn.com/{version}-{pkg}
+    // For non-LIVE:     https://setup-aws.rbxcdn.com/channel/{channel}/{version}-{pkg}
+    // For Mac:          https://setup-aws.rbxcdn.com/mac/arm64/{version}-{pkg}
     let channelPath = RDD_HOST;
     if (channel !== "LIVE") {
         channelPath = `${RDD_HOST}/channel/${channel.toLowerCase()}`;
@@ -210,7 +213,9 @@ async function startDownload({ channel, binaryType, version, mode }) {
     // Mac — single zip download
     if (binaryType === "MacPlayer" || binaryType === "MacStudio") {
         const zipName  = binaryType === "MacPlayer" ? "RobloxPlayer.zip" : "RobloxStudioApp.zip";
-        const blobUrl  = `${channelPath}${blobDir}${version}-${zipName}`;
+        const blobUrl  = blobDir
+            ? `${channelPath}/${blobDir}${version}-${zipName}`
+            : `${channelPath}/${version}-${zipName}`;
         const outName  = `${channel}-${binaryType}-${version}.zip`;
         rddLog(`Downloading ${zipName}…`);
         try {
@@ -228,7 +233,10 @@ async function startDownload({ channel, binaryType, version, mode }) {
     }
 
     // Windows — manifest-based multi-package download
-    const versionBase = `${channelPath}${blobDir}${version}-`;
+    const sep = blobDir ? "/" : "";
+    const versionBase = blobDir
+        ? `${channelPath}/${blobDir}${version}-`
+        : `${channelPath}/${version}-`;
     rddLog(`Fetching package manifest for ${version}@${channel}…`, true);
 
     let manifestText;
@@ -332,19 +340,27 @@ async function startDownload({ channel, binaryType, version, mode }) {
 
 // ── version resolution ────────────────────────────────────────────────────────
 async function resolveLatestVersion(channel, binaryType, mode) {
-    // Use WEAO's version API
     const isLatest = mode !== "prev";
     const endpoint = isLatest
         ? "https://weao.xyz/api/versions/current"
         : "https://weao.xyz/api/versions/past";
 
-    const res  = await fetch(endpoint);
+    const res = await fetch(endpoint, { headers: { "User-Agent": "WEAO-3PService" } });
     if (!res.ok) throw new Error(`WEAO versions API returned ${res.status}`);
     const data = await res.json();
 
     const isMac = binaryType.startsWith("Mac");
-    const hash  = isMac ? (data.Mac || data.mac) : (data.Windows || data.windows);
-    if (!hash) throw new Error("Could not find version hash in WEAO response");
+    // WEAO returns { Windows: "version-xxx", Mac: "version-xxx" }
+    const hash = isMac
+        ? (data.Mac || data.mac || data.MacPlayer || data.macPlayer)
+        : (data.Windows || data.windows || data.WindowsPlayer || data.windowsPlayer);
+
+    if (!hash) {
+        // If executor was selected, its rbxversion is already in the version field
+        const ver = document.getElementById("version")?.value?.trim();
+        if (ver) return ver.startsWith("version-") ? ver : "version-" + ver;
+        throw new Error("Could not resolve version hash from WEAO API");
+    }
     return hash;
 }
 
