@@ -162,7 +162,7 @@ footer{text-align:center;padding:1.5rem;color:#2a2a2a;font-size:12px;border-top:
     <div class="card">
       <div class="card-top">
         <div class="card-title">Dashboard</div>
-        <div class="card-sub">Gag 2 Script — Grow a Garden</div>
+        <div class="card-sub">Gag 2 Script - Grow a Garden</div>
       </div>
       <div class="card-body">
 
@@ -236,7 +236,7 @@ function confirm() {
   const ds = document.getElementById("discord-step")
   ds.classList.remove("active")
   ds.classList.add("done")
-  document.getElementById("discord-sub").textContent = "Joined ✓"
+  document.getElementById("discord-sub").textContent = "Joined "
   const dbtn = document.getElementById("discord-btn")
   if (dbtn) dbtn.outerHTML = `<div class="done-badge">Done</div>`
 
@@ -280,7 +280,7 @@ async function verify() {
       const ks = document.getElementById("key-step")
       ks.classList.remove("active")
       ks.classList.add("done")
-      document.getElementById("key-sub").textContent = "Verified ✓"
+      document.getElementById("key-sub").textContent = "Verified "
       document.getElementById("key-input-area").style.display = "none"
 
       document.getElementById("gate").style.display = "none"
@@ -290,8 +290,8 @@ async function verify() {
   `script_key = "${key}"\nloadstring(game:HttpGet("${data.script}"})()`
     } else {
       const msg = data.error === "key expired"
-        ? "Key expired — get a new one at the key system"
-        : "Invalid key — check it and try again"
+        ? "Key expired - get a new one at the key system"
+        : "Invalid or expired key"
       input.classList.add("error")
       errorEl.textContent = msg
       errorEl.style.display = "block"
