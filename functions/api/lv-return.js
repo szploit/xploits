@@ -11,6 +11,9 @@ export async function onRequest(context) {
         "link-target",
         "loot-link",
         "lootlabs",
+        "lootdest",
+        "loot-dest",
+        "links.lootlabs.gg",
     ]
     const trustedReferrer = !ref || allowedRef.some((entry) => ref.toLowerCase().includes(entry))
     if (!trustedReferrer) {
