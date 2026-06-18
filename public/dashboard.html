@@ -123,6 +123,7 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:3rem 
 .script-value{
   flex:1;background:#111;border:1px solid #1e1e1e;border-radius:7px;
   padding:9px 12px;font-family:var(--font-mono);font-size:12px;color:var(--red);
+  white-space: pre;
   word-break:break-all;
 }
 .copy-btn{
@@ -286,7 +287,7 @@ async function verify() {
       const dash = document.getElementById("dashboard")
       dash.style.display = "flex"
       document.getElementById("script-display").textContent =
-        `loadstring(game:HttpGet("${data.script}"))()`
+  `script_key = "${key}"\nloadstring(game:HttpGet("${data.script}"})()`
     } else {
       const msg = data.error === "key expired"
         ? "Key expired — get a new one at the key system"
