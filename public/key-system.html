@@ -334,8 +334,8 @@ const PROVIDERS = {
     step2: "https://link-center.net/5717785/rnLQaehzaa9h",
   },
   lootlabs: {
-    step1: "https://lootdest.org/s?9anC7m71",
-    step2: "https://lootdest.org/s?9anC7m71",
+    step1: "https://loot-link.com/s?hTLojFT1",
+    step2: "https://loot-link.com/s?hTLojFT1",
   }
 }
 const MIN_WAIT_MS_BY_PROVIDER = {
@@ -482,11 +482,9 @@ function start_step(n) {
       step_attempts[n] = data.attemptId
       localStorage.setItem(`xp_attempt_${hwid}_${n}`, data.attemptId)
 
-      const lootlabsBase = "https://lootdest.org/s?9anC7m71"
-      const returnUrl = `https://xploits.xyz/api/lv-return?hwid=${encodeURIComponent(hwid)}&step=${n}&provider=lootlabs`
-
       if (selected_provider === "lootlabs") {
-        tab.location.href = lootlabsBase + "&r=" + encodeURIComponent(returnUrl)
+      const lootlabsBase = "https://loot-link.com/s?hTLojFT1"
+        tab.location.href = lootlabsBase + "&custom=" + encodeURIComponent(data.attemptId)
       } else {
         tab.location.href = url + (url.includes("?") ? "&" : "?") + "hwid=" + encodeURIComponent(hwid) + "&attempt=" + encodeURIComponent(data.attemptId)
       }
