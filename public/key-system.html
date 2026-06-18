@@ -439,6 +439,19 @@ function start_checkpoints() {
 }
 
 function start_step(n) {
+  // Lootlabs flow has no auto-return — if an attempt is already pending, go straight to manual verify
+  if (selected_provider === "lootlabs" && (step_attempts[n] || localStorage.getItem(`xp_attempt_${hwid}_${n}`))) {
+    const txt = document.getElementById(`timer${n}-text`)
+    const btn = document.getElementById(`step${n}-btn`)
+    document.getElementById(`timer${n}-bar`).style.display = "none"
+    txt.style.display = "block"
+    txt.textContent = "Click Verify once you've completed the checkpoint"
+    btn.textContent = "Verify"
+    btn.disabled = false
+    btn.onclick = () => verify_step(n)
+    return
+  }
+
   if (step_attempts[n] || localStorage.getItem(`xp_attempt_${hwid}_${n}`)) {
     const txt = document.getElementById(`timer${n}-text`)
     document.getElementById(`timer${n}-bar`).style.display = "block"
@@ -480,11 +493,29 @@ function start_step(n) {
       step_attempts[n] = data.attemptId
       localStorage.setItem(`xp_attempt_${hwid}_${n}`, data.attemptId)
 
+      // Lootlabs doesn't support passing custom data through their redirect,
+      // so we open the plain checkpoint link and rely on manual Verify instead
+      // of waiting for an automatic redirect back.
+      tab.location.href = url + (url.includes("?") ? "&" : "?") + "hwid=" + encodeURIComponent(hwid) + "&attempt=" + encodeURIComponent(data.attemptId)
+
       if (selected_provider === "lootlabs") {
-      const lootlabsBase = "https://loot-link.com/s?hTLojFT1"
-        tab.location.href = lootlabsBase + "&custom=" + encodeURIComponent(data.attemptId)
-      } else {
-        tab.location.href = url + (url.includes("?") ? "&" : "?") + "hwid=" + encodeURIComponent(hwid) + "&attempt=" + encodeURIComponent(data.attemptId)
+        btn.textContent = "Waiting..."
+        bar.style.display = "none"
+        let elapsed = 0
+        timer_intervals[n] = setInterval(() => {
+          elapsed += 400
+          const rem = Math.max(0, Math.ceil((minWaitMs - elapsed) / 1000))
+          if (rem > 0) {
+            txt.textContent = `Complete the checkpoint - ${rem}s remaining`
+          } else {
+            clearInterval(timer_intervals[n])
+            txt.textContent = "Click Verify once you've completed the checkpoint"
+            btn.textContent = "Verify"
+            btn.disabled = false
+            btn.onclick = () => verify_step(n)
+          }
+        }, 400)
+        return
       }
 
       btn.textContent = "Waiting..."
@@ -498,8 +529,7 @@ function start_step(n) {
           txt.textContent = `Complete the checkpoint - ${rem}s remaining`
         } else {
           clearInterval(timer_intervals[n])
-          const providerName = selected_provider === "lootlabs" ? "Lootlabs" : "Linkvertise"
-          txt.textContent = `Complete checkpoint in ${providerName}. You will be redirected back automatically.`
+          txt.textContent = "Complete checkpoint in Linkvertise. You will be redirected back automatically."
         }
       }, 400)
     })
@@ -549,7 +579,7 @@ function mark_done(n) {
   const el = document.getElementById(`step${n}-el`)
   el.classList.remove("active")
   el.classList.add("done")
-  document.getElementById(`step${n}-sub`).textContent = "Completed "
+  document.getElementById(`step${n}-sub`).textContent = "Completed ✓"
   document.getElementById(`timer${n}-bar`).style.display = "none"
   document.getElementById(`timer${n}-text`).style.display = "none"
   const btn = document.getElementById(`step${n}-btn`)
@@ -615,7 +645,7 @@ function handle_return() {
     const s1 = document.getElementById("step1-el")
     s1.classList.remove("locked", "active")
     s1.classList.add("done")
-    document.getElementById("step1-sub").textContent = "Completed "
+    document.getElementById("step1-sub").textContent = "Completed ✓"
     document.getElementById("timer1-bar").style.display = "none"
     document.getElementById("timer1-text").style.display = "none"
     const btn1 = document.getElementById("step1-btn")
@@ -656,7 +686,6 @@ async function getKey() {
       document.getElementById("key-expiry").textContent = hrs + " hours"
       document.getElementById("key-result").style.display = "block"
 
-      // Show redeem notice only for Gag 2
       if (selected_script === "gag2") {
         document.getElementById("redeem-notice").style.display = "block"
       }
