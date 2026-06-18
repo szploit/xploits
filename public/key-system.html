@@ -482,7 +482,14 @@ function start_step(n) {
       step_attempts[n] = data.attemptId
       localStorage.setItem(`xp_attempt_${hwid}_${n}`, data.attemptId)
 
-      tab.location.href = url + (url.includes("?") ? "&" : "?") + "hwid=" + encodeURIComponent(hwid) + "&attempt=" + encodeURIComponent(data.attemptId)
+      const lootlabsBase = "https://lootdest.org/s?9anC7m71"
+      const returnUrl = `https://xploits.xyz/api/lv-return?hwid=${encodeURIComponent(hwid)}&step=${n}&provider=lootlabs`
+
+      if (selected_provider === "lootlabs") {
+        tab.location.href = lootlabsBase + "&r=" + encodeURIComponent(returnUrl)
+      } else {
+        tab.location.href = url + (url.includes("?") ? "&" : "?") + "hwid=" + encodeURIComponent(hwid) + "&attempt=" + encodeURIComponent(data.attemptId)
+      }
 
       btn.textContent = "Waiting..."
       let elapsed = 0
