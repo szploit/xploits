@@ -32,12 +32,12 @@ export async function onRequest(context) {
         return new Response("attempt not pending", { status: 400 })
     }
 
-    const MIN_WAIT_MS_BY_PROVIDER = { linkvertise: 5000, lootlabs: 15000 }
-const minWait = MIN_WAIT_MS_BY_PROVIDER[attempt.provider] || 30000
-const elapsedSinceStart = Date.now() - Number(attempt.startedAt)
-if (elapsedSinceStart < minWait) {
-    return new Response("too fast", { status: 400 })
-}
+    const MIN_WAIT_MS_BY_PROVIDER = { linkvertise: 5000, lootlabs: 30000 }
+    const minWait = MIN_WAIT_MS_BY_PROVIDER[attempt.provider] || 30000
+    const elapsedSinceStart = Date.now() - Number(attempt.startedAt)
+    if (elapsedSinceStart < minWait) {
+        return new Response("too fast", { status: 400 })
+    }
 
     attempt.status = "completed"
     attempt.completedAt = Date.now()
