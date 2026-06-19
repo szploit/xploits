@@ -251,6 +251,10 @@ footer{text-align:center;padding:1.5rem;color:#2a2a2a;font-size:12px;border-top:
                 <div class="script-name">Gag 2 Script</div>
                 <div class="script-desc">Grow a Garden key</div>
               </div>
+              <div class="script-btn" id="script-gag2fruit" onclick="select_script('gag2fruit')">
+                <div class="script-name">Gag 2 - Fruit and Seed Spawner</div>
+                <div class="script-desc">1 day key</div>
+              </div>
             </div>
           </div>
 
@@ -389,6 +393,7 @@ function select_script(s) {
   localStorage.setItem("xp_script", s)
   document.getElementById("script-normal").classList.toggle("selected", s === "normal")
   document.getElementById("script-gag2").classList.toggle("selected", s === "gag2")
+  document.getElementById("script-gag2fruit").classList.toggle("selected", s === "gag2fruit")
   update_continue_btn()
 }
 
@@ -409,6 +414,7 @@ if (selected_provider) {
 if (selected_script) {
   document.getElementById("script-normal").classList.toggle("selected", selected_script === "normal")
   document.getElementById("script-gag2").classList.toggle("selected", selected_script === "gag2")
+  document.getElementById("script-gag2fruit").classList.toggle("selected", selected_script === "gag2fruit")
 }
 update_continue_btn()
 
@@ -431,6 +437,12 @@ function start_checkpoints() {
 
   document.getElementById("step1-title").textContent = labels[0]
   document.getElementById("step2-title").textContent = labels[1]
+
+  if (selected_script === "gag2fruit") {
+    document.getElementById("step2-el").style.display = "none"
+  } else {
+    document.getElementById("step2-el").style.display = "flex"
+  }
 
   const s1 = document.getElementById("step1-el")
   s1.classList.remove("locked")
@@ -578,11 +590,15 @@ function mark_done(n) {
   if (btn) btn.outerHTML = `<div class="done-badge">Done</div>`
 
   if (n === 1) {
-    const s2 = document.getElementById("step2-el")
-    s2.classList.remove("locked")
-    s2.classList.add("active")
-    document.getElementById("step2-sub").textContent = "Click Start to open the checkpoint"
-    document.getElementById("step2-btn").disabled = false
+    if (selected_script === "gag2fruit") {
+      state.step2_done = true
+    } else {
+      const s2 = document.getElementById("step2-el")
+      s2.classList.remove("locked")
+      s2.classList.add("active")
+      document.getElementById("step2-sub").textContent = "Click Start to open the checkpoint"
+      document.getElementById("step2-btn").disabled = false
+    }
   }
 
   if (state.step1_done && state.step2_done) {
@@ -617,11 +633,12 @@ function handle_return() {
     document.getElementById("prov-lootlabs").classList.toggle("selected", selected_provider === "lootlabs")
   }
 
-  if (scriptFromReturn === "normal" || scriptFromReturn === "gag2") {
+  if (scriptFromReturn === "normal" || scriptFromReturn === "gag2" || scriptFromReturn === "gag2fruit") {
     selected_script = scriptFromReturn
     localStorage.setItem("xp_script", scriptFromReturn)
     document.getElementById("script-normal").classList.toggle("selected", selected_script === "normal")
     document.getElementById("script-gag2").classList.toggle("selected", selected_script === "gag2")
+    document.getElementById("script-gag2fruit").classList.toggle("selected", selected_script === "gag2fruit")
   }
 
   document.getElementById("screen-choose").classList.remove("active")
@@ -631,6 +648,12 @@ function handle_return() {
     : ["Lootlabs - Step 1", "Lootlabs - Step 2"]
   document.getElementById("step1-title").textContent = labels[0]
   document.getElementById("step2-title").textContent = labels[1]
+
+  if (selected_script === "gag2fruit") {
+    document.getElementById("step2-el").style.display = "none"
+  } else {
+    document.getElementById("step2-el").style.display = "flex"
+  }
 
   if (step === 2) {
     state.step1_done = true
@@ -664,7 +687,9 @@ async function getKey() {
   btn.textContent = "Generating..."
   btn.disabled = true
 
-  const endpoint = selected_script === "gag2"
+  const endpoint = selected_script === "gag2fruit"
+    ? `/api/genkey3?auth=${encodeURIComponent(hwid)}&script=fruit&days=1`
+    : selected_script === "gag2"
     ? `/api/getkey-gag2?hwid=${encodeURIComponent(hwid)}`
     : `/api/getkey?hwid=${encodeURIComponent(hwid)}`
 
@@ -678,7 +703,7 @@ async function getKey() {
       document.getElementById("key-expiry").textContent = hrs + " hours"
       document.getElementById("key-result").style.display = "block"
 
-      if (selected_script === "gag2") {
+      if (selected_script === "gag2" || selected_script === "gag2fruit") {
         document.getElementById("redeem-notice").style.display = "block"
       }
 
