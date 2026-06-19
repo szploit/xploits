@@ -493,9 +493,6 @@ function start_step(n) {
       step_attempts[n] = data.attemptId
       localStorage.setItem(`xp_attempt_${hwid}_${n}`, data.attemptId)
 
-      // Lootlabs doesn't support passing custom data through their redirect,
-      // so we open the plain checkpoint link and rely on manual Verify instead
-      // of waiting for an automatic redirect back.
       tab.location.href = url + (url.includes("?") ? "&" : "?") + "hwid=" + encodeURIComponent(hwid) + "&attempt=" + encodeURIComponent(data.attemptId)
 
       if (selected_provider === "lootlabs") {
@@ -560,13 +557,10 @@ async function verify_step(n) {
       const btn = document.getElementById(`step${n}-btn`)
       if (btn) { btn.textContent = "Verify"; btn.disabled = false }
     } else {
-      txt.textContent = "Starting fresh attempt..."
-      step_attempts[n] = null
-      localStorage.removeItem(`xp_attempt_${hwid}_${n}`)
-      setTimeout(() => {
-        reset_step(n)
-        start_step(n)
-      }, 1000)
+  txt.textContent = `Server said: "${body}" — click Verify to retry`
+  const btn = document.getElementById(`step${n}-btn`)
+  if (btn) { btn.textContent = "Verify"; btn.disabled = false }
+}
     }
   } catch {
     txt.textContent = "Network error, try again"
