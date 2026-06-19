@@ -2,24 +2,21 @@ export async function onRequest(context) {
     const url = new URL(context.request.url)
     const cookie = context.request.headers.get("cookie") || ""
     const attemptId = url.searchParams.get("attempt") || getCookieValue(cookie, "xp_attempt")
+    const hash = url.searchParams.get("hash")
 
     if (!attemptId) {
         return new Response("missing attempt", { status: 400 })
     }
+    if (!hash) {
+        return new Response("missing hash", { status: 400 })
+    }
 
-    const ref = context.request.headers.get("referer") || ""
-    const allowedRef = [
-        "linkvertise",
-        "link-target",
-        "link-center",
-        "lootlabs",
-        "lootdest",
-        "loot-link",
-        "links.lootlabs.gg"
-    ]
-    const trustedReferrer = !ref || allowedRef.some((entry) => ref.toLowerCase().includes(entry))
-    if (!trustedReferrer) {
-        return new Response("invalid referrer", { status: 403 })
+    const verifyUrl = `https://publisher.linkvertise.com/api/v1/anti_bypassing?token=${encodeURIComponent(context.env.LINKVERTISE_AUTH_TOKEN)}&hash=${encodeURIComponent(hash)}`
+    const verifyRes = await fetch(verifyUrl, { method: "POST" })
+    const verifyText = (await verifyRes.text()).trim()
+
+    if (verifyText !== "TRUE") {
+        return new Response("hash verification failed", { status: 403 })
     }
 
     const attemptRaw = await context.env.KEYS.get(`attempt:${attemptId}`)
@@ -30,13 +27,6 @@ export async function onRequest(context) {
     const attempt = JSON.parse(attemptRaw)
     if (attempt.status !== "pending") {
         return new Response("attempt not pending", { status: 400 })
-    }
-
-    const MIN_WAIT_MS_BY_PROVIDER = { linkvertise: 5000, lootlabs: 30000 }
-    const minWait = MIN_WAIT_MS_BY_PROVIDER[attempt.provider] || 30000
-    const elapsedSinceStart = Date.now() - Number(attempt.startedAt)
-    if (elapsedSinceStart < minWait) {
-        return new Response("too fast", { status: 400 })
     }
 
     attempt.status = "completed"
