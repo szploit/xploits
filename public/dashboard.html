@@ -162,7 +162,7 @@ footer{text-align:center;padding:1.5rem;color:#2a2a2a;font-size:12px;border-top:
     <div class="card">
       <div class="card-top">
         <div class="card-title">Dashboard</div>
-        <div class="card-sub">Gag 2 Script - Grow a Garden</div>
+        <div class="card-sub">Gag 2 - Fruit and Seed Spawner</div>
       </div>
       <div class="card-body">
 
@@ -201,7 +201,7 @@ footer{text-align:center;padding:1.5rem;color:#2a2a2a;font-size:12px;border-top:
 
         <div id="dashboard">
           <div class="dash-header">
-            <h2>Gag 2 Script</h2>
+            <h2>Fruit and Seed Spawner</h2>
             <p>Copy the loadstring below and paste it into your executor</p>
           </div>
           <div class="script-box">
@@ -273,7 +273,7 @@ async function verify() {
   mainBtn.disabled = true
 
   try {
-    const res = await fetch(`/api/verify-key?key=${encodeURIComponent(key)}`)
+    const res = await fetch(`/api/verify-key-fruit?key=${encodeURIComponent(key)}`)
     const data = await res.json()
 
     if (data.valid && data.script) {
