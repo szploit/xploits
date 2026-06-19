@@ -264,12 +264,12 @@ footer{text-align:center;padding:1.5rem;color:#2a2a2a;font-size:12px;border-top:
               <div class="provider-btn" id="prov-linkvertise" onclick="select_provider('linkvertise')">
                 <img class="provider-icon" src="https://img.sanishtech.com/u/84f3c674cf17632ca8ebbd9046f2d580.png" alt="Linkvertise" onerror="this.style.display='none'"/>
                 <div class="provider-name">Linkvertise</div>
-                <div class="provider-desc">2 steps</div>
+                <div class="provider-desc" id="prov-linkvertise-desc">2 steps</div>
               </div>
               <div class="provider-btn" id="prov-lootlabs" onclick="select_provider('lootlabs')">
                 <img class="provider-icon" src="https://img.sanishtech.com/u/2a832bed95fc5572b3b923ecf7aad05e.png" alt="Lootlabs" onerror="this.style.display='none'"/>
                 <div class="provider-name">Lootlabs</div>
-                <div class="provider-desc">2 steps</div>
+                <div class="provider-desc" id="prov-lootlabs-desc">2 steps</div>
               </div>
             </div>
           </div>
@@ -306,7 +306,7 @@ footer{text-align:center;padding:1.5rem;color:#2a2a2a;font-size:12px;border-top:
 
           <div class="divider"></div>
 
-          <button class="getkey-btn" id="getkey-btn" disabled onclick="getKey()">Get Key</button>
+          <button class="getkey-btn" id="getkey-btn" disabled onclick="getkey()">Get Key</button>
 
           <div class="key-result" id="key-result">
             <label>Your Key</label>
@@ -394,6 +394,9 @@ function select_script(s) {
   document.getElementById("script-normal").classList.toggle("selected", s === "normal")
   document.getElementById("script-gag2").classList.toggle("selected", s === "gag2")
   document.getElementById("script-gag2fruit").classList.toggle("selected", s === "gag2fruit")
+  const stepsLabel = s === "gag2fruit" ? "1 step" : "2 steps"
+  document.getElementById("prov-linkvertise-desc").textContent = stepsLabel
+  document.getElementById("prov-lootlabs-desc").textContent = stepsLabel
   update_continue_btn()
 }
 
@@ -415,6 +418,8 @@ if (selected_script) {
   document.getElementById("script-normal").classList.toggle("selected", selected_script === "normal")
   document.getElementById("script-gag2").classList.toggle("selected", selected_script === "gag2")
   document.getElementById("script-gag2fruit").classList.toggle("selected", selected_script === "gag2fruit")
+  document.getElementById("prov-linkvertise-desc").textContent = selected_script === "gag2fruit" ? "1 step" : "2 steps"
+  document.getElementById("prov-lootlabs-desc").textContent = selected_script === "gag2fruit" ? "1 step" : "2 steps"
 }
 update_continue_btn()
 
@@ -682,7 +687,7 @@ function handle_return() {
   window.history.replaceState({}, "", cleanPath)
 }
 
-async function getKey() {
+async function getkey() {
   const btn = document.getElementById("getkey-btn")
   btn.textContent = "Generating..."
   btn.disabled = true
