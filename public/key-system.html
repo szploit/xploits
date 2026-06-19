@@ -557,10 +557,9 @@ async function verify_step(n) {
       const btn = document.getElementById(`step${n}-btn`)
       if (btn) { btn.textContent = "Verify"; btn.disabled = false }
     } else {
-  txt.textContent = `Server said: "${body}" — click Verify to retry`
-  const btn = document.getElementById(`step${n}-btn`)
-  if (btn) { btn.textContent = "Verify"; btn.disabled = false }
-}
+      txt.textContent = `Server said: "${body}" — click Verify to retry`
+      const btn = document.getElementById(`step${n}-btn`)
+      if (btn) { btn.textContent = "Verify"; btn.disabled = false }
     }
   } catch {
     txt.textContent = "Network error, try again"
