@@ -308,7 +308,7 @@ footer{text-align:center;padding:1.5rem;color:#2a2a2a;font-size:12px;border-top:
             <label>Your Key</label>
             <div class="key-row">
               <div class="key-value" id="key-display"></div>
-              <button class="copy-btn" onclick="copyKey()">Copy</button>
+              <button class="copy-btn" onclick="copy()">Copy</button>
             </div>
             <div class="key-expiry">Expires in: <span id="key-expiry"></span></div>
           </div>
@@ -439,7 +439,6 @@ function start_checkpoints() {
 }
 
 function start_step(n) {
-  // Lootlabs flow has no auto-return — if an attempt is already pending, go straight to manual verify
   if (selected_provider === "lootlabs" && (step_attempts[n] || localStorage.getItem(`xp_attempt_${hwid}_${n}`))) {
     const txt = document.getElementById(`timer${n}-text`)
     const btn = document.getElementById(`step${n}-btn`)
@@ -694,7 +693,7 @@ async function getKey() {
   }
 }
 
-function copyKey() {
+function copy() {
   const key = document.getElementById("key-display").textContent
   navigator.clipboard.writeText(key).then(() => {
     const b = document.querySelector(".copy-btn")
