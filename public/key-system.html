@@ -688,7 +688,7 @@ async function getKey() {
   btn.disabled = true
 
   const endpoint = selected_script === "gag2fruit"
-    ? `/api/genkey3?auth=${encodeURIComponent(hwid)}&script=fruit&days=1`
+    ? `/api/getkey-gag2fruit?hwid=${encodeURIComponent(hwid)}`
     : selected_script === "gag2"
     ? `/api/getkey-gag2?hwid=${encodeURIComponent(hwid)}`
     : `/api/getkey?hwid=${encodeURIComponent(hwid)}`
