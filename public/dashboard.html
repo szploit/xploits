@@ -273,7 +273,7 @@ async function verify() {
   mainBtn.disabled = true
 
   try {
-    const res = await fetch(`/api/verify-key-fruit?key=${encodeURIComponent(key)}`)
+    const res = await fetch(`/api/verify-key?key=${encodeURIComponent(key)}`)
     const data = await res.json()
 
     if (data.valid && data.script) {
