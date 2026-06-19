@@ -61,9 +61,9 @@ export async function onRequest(context) {
         return new Response("step1_required")
     }
 
-    if (step === "1" && stepsData.step2) {
+    if (step === "1" && stepsData.step1 && stepsData.step2) {
         return new Response("already_completed")
-    }
+    }    
 
     stepsData[`step${step}`] = now
     stepsData.provider = provider
