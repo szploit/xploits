@@ -4,7 +4,14 @@ export async function onRequest(context) {
     const attemptId = url.searchParams.get("attempt") || getCookieValue(cookie, "xp_attempt")
     const hash = url.searchParams.get("hash")
 
-    const verifyUrl = `https://publisher.linkvertise.com/api/v1/anti_bypassing?token=${encodeURIComponent(context.env.LINKVERTISE_AUTH_TOKEN)}&hash=${encodeURIComponent(hash || "")}`
+    if (!attemptId) {
+        return new Response("missing attempt", { status: 400 })
+    }
+    if (!hash) {
+        return new Response("missing hash", { status: 400 })
+    }
+
+    const verifyUrl = `https://publisher.linkvertise.com/api/v1/anti_bypassing?token=${encodeURIComponent(context.env.LINKVERTISE_AUTH_TOKEN)}&hash=${encodeURIComponent(hash)}`
     const verifyRes = await fetch(verifyUrl, {
         method: "POST",
         headers: {
@@ -12,20 +19,38 @@ export async function onRequest(context) {
             "Accept": "*/*"
         }
     })
-    const verifyText = (await verifyRes.text()).trim()
 
-    return new Response(JSON.stringify({
-        receivedHash: hash,
-        attemptIdFromCookie: getCookieValue(cookie, "xp_attempt"),
-        cookieHeader: cookie,
-        tokenLength: context.env.LINKVERTISE_AUTH_TOKEN ? context.env.LINKVERTISE_AUTH_TOKEN.length : 0,
-        tokenFirst10: context.env.LINKVERTISE_AUTH_TOKEN ? context.env.LINKVERTISE_AUTH_TOKEN.slice(0, 10) : null,
-        verifyHttpStatus: verifyRes.status,
-        verifyResponseText: verifyText.slice(0, 500)
-    }, null, 2), {
-        status: 200,
-        headers: { "Content-Type": "application/json" }
+    let verifyData
+    try {
+        verifyData = await verifyRes.json()
+    } catch {
+        return new Response("hash verification error", { status: 502 })
+    }
+
+    if (verifyData.status !== true) {
+        return new Response("hash verification failed", { status: 403 })
+    }
+
+    const attemptRaw = await context.env.KEYS.get(`attempt:${attemptId}`)
+    if (!attemptRaw) {
+        return new Response("invalid attempt", { status: 400 })
+    }
+
+    const attempt = JSON.parse(attemptRaw)
+    if (attempt.status !== "pending") {
+        return new Response("attempt not pending", { status: 400 })
+    }
+
+    attempt.status = "completed"
+    attempt.completedAt = Date.now()
+    await context.env.KEYS.put(`attempt:${attemptId}`, JSON.stringify(attempt), {
+        expirationTtl: 900
     })
+
+    const redirectUrl = new URL(context.request.url)
+    redirectUrl.pathname = `/key-system/${encodeURIComponent(attempt.hwid)}`
+    redirectUrl.search = `?returned=1&step=${encodeURIComponent(attempt.step)}&provider=${encodeURIComponent(attempt.provider)}`
+    return Response.redirect(redirectUrl.toString(), 302)
 }
 
 function getCookieValue(cookieHeader, name) {
