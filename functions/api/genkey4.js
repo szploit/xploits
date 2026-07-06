@@ -15,7 +15,7 @@ export async function onRequest(context) {
     return new Response("forbidden", { status: 403 })
 
   const uuid = crypto.randomUUID().toUpperCase()
-  const newKey = uuid
+  const newKey = "SRC-" + uuid
   const expiry = new Date()
   expiry.setDate(expiry.getDate() + days)
 
