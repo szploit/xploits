@@ -17,7 +17,7 @@ export async function onRequest(context) {
   const attempts = ratRaw ? parseInt(ratRaw) : 0
 
   if (attempts >= 3)
-    return new Response("rate_limited", { headers: corsHeaders })
+    return new Response("rate_limited", { status: 429, headers: corsHeaders })
 
   await context.env.KEYS.put(ratKey, String(attempts + 1), { expirationTtl: 60 })
 
@@ -65,6 +65,5 @@ export async function onRequest(context) {
     data.discordId = discordId
 
   await context.env.KEYS.put(key, JSON.stringify(data))
-
   return new Response("valid", { headers: corsHeaders })
 }
