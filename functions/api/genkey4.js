@@ -1,18 +1,27 @@
 export async function onRequest(context) {
+  const corsHeaders = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  }
+
+  if (context.request.method === "OPTIONS")
+    return new Response(null, { headers: corsHeaders })
+
   if (context.request.method !== "POST")
-    return new Response("method_not_allowed", { status: 405 })
+    return new Response("method_not_allowed", { status: 405, headers: corsHeaders })
 
   let body
   try {
     body = await context.request.json()
   } catch {
-    return new Response("invalid_body", { status: 400 })
+    return new Response("invalid_body", { status: 400, headers: corsHeaders })
   }
 
   const { auth, days = 1, script = "sources" } = body
 
   if (auth !== context.env.ADMIN_SECRET)
-    return new Response("forbidden", { status: 403 })
+    return new Response("forbidden", { status: 403, headers: corsHeaders })
 
   const uuid = crypto.randomUUID().toUpperCase()
   const newKey = "SRC-" + uuid
@@ -33,5 +42,5 @@ export async function onRequest(context) {
     expires: expiry.toISOString(),
     script,
     days
-  }), { headers: { "Content-Type": "application/json" } })
+  }), { headers: { ...corsHeaders, "Content-Type": "application/json" } })
 }
