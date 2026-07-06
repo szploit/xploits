@@ -62,5 +62,8 @@ export async function onRequest(context) {
     data.discordId = discordId
 
   await context.env.KEYS.put(key, JSON.stringify(data))
-  return new Response("valid", { headers: corsHeaders })
+
+  return new Response(JSON.stringify({ status: "valid", expires: data.expires }), {
+    headers: { ...corsHeaders, "Content-Type": "application/json" }
+  })
 }
