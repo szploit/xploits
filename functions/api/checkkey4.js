@@ -33,9 +33,6 @@ export async function onRequest(context) {
   if (!key || !script)
     return new Response("invalid", { headers: corsHeaders })
 
-  if (!key.startsWith("SRC-"))
-    return new Response("invalid", { headers: corsHeaders })
-
   const raw = await context.env.KEYS.get(key)
   if (!raw) return new Response("invalid", { headers: corsHeaders })
 
