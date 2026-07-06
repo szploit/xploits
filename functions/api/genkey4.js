@@ -23,8 +23,11 @@ export async function onRequest(context) {
   if (auth !== context.env.ADMIN_SECRET)
     return new Response("forbidden", { status: 403, headers: corsHeaders })
 
-  const uuid = crypto.randomUUID().toUpperCase()
-  const newKey = "SRC-" + uuid
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+  const newKey = Array.from(crypto.getRandomValues(new Uint8Array(32)))
+    .map(b => chars[b % chars.length])
+    .join("")
+
   const expiry = new Date()
   expiry.setDate(expiry.getDate() + days)
 
