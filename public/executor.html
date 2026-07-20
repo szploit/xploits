@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09090b">
+  <meta name="description" content="Xploits is a free upcoming executor with amazing performance.">
+  <title>Xploits - Download</title>
+  <link rel="icon" href="assets/xploits-official.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Syne:wght@600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --background: #080808;
+      --surface: rgba(15, 15, 15, 0.82);
+      --surface-strong: #141414;
+      --border: rgba(255, 255, 255, 0.1);
+      --border-bright: rgba(255, 255, 255, 0.18);
+      --text: #f0f0f0;
+      --muted: #77777e;
+      --red: #e63946;
+      --red-bright: #ed4b58;
+      --red-dark: #c1121f;
+      --green: #69d98c;
+      --font-display: "Syne", "Segoe UI", sans-serif;
+      --font-body: "Manrope", "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 50% 38%, rgba(143, 31, 43, 0.14), transparent 34rem),
+        linear-gradient(rgba(160, 46, 57, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(160, 46, 57, 0.055) 1px, transparent 1px),
+        var(--background);
+      background-size: auto, 60px 60px, 60px 60px, auto;
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+      caret-color: transparent;
+      user-select: none;
+    }
+
+    input,
+    textarea,
+    [contenteditable="true"] {
+      caret-color: auto;
+      user-select: text;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      z-index: 20;
+      top: 0;
+      height: 72px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+      background: rgba(9, 9, 11, 0.78);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1;
+    }
+
+    .brand-logo {
+      display: block;
+      width: 34px;
+      height: 34px;
+      flex: 0 0 34px;
+      border-radius: 8px;
+      object-fit: cover;
+      image-rendering: auto;
+      box-shadow: 0 8px 22px rgba(230, 57, 70, 0.22);
+    }
+
+    .discord-link {
+      display: inline-flex;
+      min-height: 38px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 8px;
+      color: #e8e8eb;
+      background: rgba(255, 255, 255, 0.025);
+      font-size: 13px;
+      font-weight: 800;
+      transition: 160ms ease;
+    }
+
+    .discord-link:hover {
+      border-color: rgba(230, 57, 70, 0.48);
+      color: #ffffff;
+      background: rgba(230, 57, 70, 0.08);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-link {
+      padding: 9px 14px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 650;
+      transition: 160ms ease;
+    }
+
+    .nav-link:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .nav-link.active {
+      color: var(--text);
+      border-color: rgba(213, 60, 76, 0.34);
+      background: rgba(213, 60, 76, 0.1);
+    }
+
+    .nav-download {
+      margin-left: 8px;
+      padding: 10px 17px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 750;
+      transition: 160ms ease;
+    }
+
+    .nav-download:hover {
+      border-color: rgba(239, 83, 97, 0.72);
+      background: rgba(213, 60, 76, 0.1);
+    }
+
+    .hero {
+      display: grid;
+      min-height: calc(100vh - 72px);
+      place-items: center;
+      padding: 80px 0 96px;
+    }
+
+    .hero-content {
+      width: min(760px, 100%);
+      text-align: center;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px rgba(105, 217, 140, 0.82);
+    }
+
+    .hero-logo {
+      display: block;
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 26px;
+      border-radius: 17px;
+      object-fit: cover;
+      image-rendering: auto;
+      box-shadow: 0 18px 45px rgba(230, 57, 70, 0.22);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(54px, 9vw, 92px);
+      font-weight: 700;
+      letter-spacing: -0.045em;
+      line-height: 1;
+    }
+
+    h1 span {
+      color: var(--red-bright);
+    }
+
+    .hero-copy {
+      max-width: 590px;
+      margin: 25px auto 0;
+      color: #a0a0a8;
+      font-size: clamp(16px, 2vw, 19px);
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 22px;
+      border: 1px solid var(--border-bright);
+      border-radius: 9px;
+      font-size: 14px;
+      font-weight: 780;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      border-color: #ee5261;
+      background: linear-gradient(135deg, var(--red-bright), #bd2b3a);
+      box-shadow: 0 8px 18px rgba(230, 57, 70, 0.1);
+    }
+
+    .button-primary:hover {
+      box-shadow: 0 10px 22px rgba(230, 57, 70, 0.16);
+    }
+
+    .download-icon {
+      position: relative;
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      flex: 0 0 18px;
+    }
+
+    .download-arrow::before {
+      position: absolute;
+      top: 0;
+      left: 8px;
+      width: 2px;
+      height: 9px;
+      border-radius: 2px;
+      background: currentColor;
+      content: "";
+    }
+
+    .download-arrow::after {
+      position: absolute;
+      top: 4px;
+      left: 5px;
+      width: 6px;
+      height: 6px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      content: "";
+      transform: rotate(45deg);
+    }
+
+    .download-icon::after {
+      position: absolute;
+      bottom: 1px;
+      left: 2px;
+      width: 14px;
+      height: 2px;
+      border-radius: 2px;
+      background: currentColor;
+      content: "";
+    }
+
+    .button-secondary {
+      color: #d6d6da;
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .button-secondary:hover {
+      border-color: rgba(255, 255, 255, 0.32);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .download-note {
+      margin-top: 16px;
+      color: #676771;
+      font-size: 12px;
+    }
+
+    .details {
+      padding: 24px 0 120px;
+    }
+
+    .details-card {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(14, 14, 17, 0.86);
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.35);
+    }
+
+    .steps {
+      padding: 42px;
+    }
+
+    .section-label {
+      margin: 0 0 10px;
+      color: var(--red-bright);
+      font-family: Consolas, monospace;
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 38px);
+      letter-spacing: -0.04em;
+    }
+
+    .step-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.065);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.018);
+    }
+
+    .step-number {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border: 1px solid rgba(213, 60, 76, 0.35);
+      border-radius: 8px;
+      color: #ff8994;
+      background: rgba(213, 60, 76, 0.08);
+      font-family: Consolas, monospace;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 14px;
+    }
+
+    .step span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .file-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 42px;
+      border-left: 1px solid var(--border);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(213, 60, 76, 0.14), transparent 17rem),
+        var(--surface);
+    }
+
+    .file-icon {
+      display: grid;
+      width: 52px;
+      height: 52px;
+      margin-bottom: 22px;
+      place-items: center;
+      border: 1px solid rgba(213, 60, 76, 0.38);
+      border-radius: 11px;
+      color: #ff7885;
+      background: rgba(213, 60, 76, 0.08);
+      font-size: 25px;
+    }
+
+    .file-name {
+      margin: 0;
+      overflow-wrap: anywhere;
+      font-size: 19px;
+      font-weight: 780;
+    }
+
+    .file-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 26px;
+    }
+
+    .chip {
+      padding: 6px 9px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      color: #9797a0;
+      background: rgba(255, 255, 255, 0.025);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .file-panel .button {
+      align-self: flex-start;
+    }
+
+    footer {
+      padding: 26px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      color: #686871;
+      font-size: 12px;
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .footer-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-status .status-dot {
+      width: 6px;
+      height: 6px;
+    }
+
+    :focus-visible {
+      outline: 2px solid #ff6a78;
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 760px) {
+      .shell {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .nav-link {
+        display: none;
+      }
+
+      .nav-download {
+        margin-left: 0;
+        padding-inline: 14px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 84px 0 94px;
+      }
+
+      .details-card {
+        grid-template-columns: 1fr;
+      }
+
+      .steps,
+      .file-panel {
+        padding: 28px;
+      }
+
+      .file-panel {
+        border-top: 1px solid var(--border);
+        border-left: 0;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .hero-actions,
+      .button,
+      .file-panel .button {
+        width: 100%;
+      }
+
+      .nav {
+        padding: 0 16px;
+      }
+
+      .hero-logo {
+        width: 62px;
+        height: 62px;
+      }
+
+      .steps,
+      .file-panel {
+        padding: 22px;
+      }
+
+      .footer-row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Xploits home">
+        <img class="brand-logo" src="assets/xploits-official.png?v=2" alt="">
+        <span>xploits</span>
+      </a>
+      <a class="discord-link" href="https://discord.gg/4hseHSkCEE" target="_blank" rel="noopener noreferrer">Discord</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-content shell">
+        <img class="hero-logo" src="assets/xploits-official.png?v=2" alt="Xploits logo">
+        <h1>Get <span>Xploits</span></h1>
+        <p class="hero-copy">Xploits is a free upcoming executor with amazing performance</p>
+
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://xploits.xyz/Xploits-Bootstrapper.exe">
+            <span class="download-icon" aria-hidden="true"><span class="download-arrow"></span></span>
+            Download Bootstrapper
+          </a>
+        </div>
+
+        <p class="download-note">Built for Windows 10 and Windows 11</p>
+      </div>
+    </section>
+
+    <section class="details shell" id="install">
+      <div class="details-card">
+        <div class="steps">
+          <p class="section-label">Simple setup</p>
+          <h2>Ready in three steps</h2>
+
+          <div class="step-list">
+            <div class="step">
+              <div class="step-number">01</div>
+              <div><strong>Download</strong><span>Save the bootstrapper to your computer.</span></div>
+            </div>
+            <div class="step">
+              <div class="step-number">02</div>
+              <div><strong>Open</strong><span>Run the bootstrapper and choose Install.</span></div>
+            </div>
+            <div class="step">
+              <div class="step-number">03</div>
+              <div><strong>Launch</strong><span>Open Xploits when setup is complete.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="file-panel">
+          <div class="file-icon" aria-hidden="true">↓</div>
+          <p class="file-name">Xploits-Bootstrapper.exe</p>
+          <div class="file-meta">
+            <span class="chip">WINDOWS</span>
+            <span class="chip">X64</span>
+            <span class="chip">OFFICIAL DOWNLOAD</span>
+          </div>
+          <a class="button button-primary" href="https://xploits.xyz/Xploits-Bootstrapper.exe">Download now</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-row shell">
+      <span>© 2026 Xploits</span>
+      <span class="footer-status"><span class="status-dot"></span> Download service online</span>
+    </div>
+  </footer>
+</body>
+</html>
