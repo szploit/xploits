@@ -511,15 +511,16 @@ function start_step(n) {
 
       const destination = new URL(url);
 
-      if (selected_provider === "lootlabs") {
-        const separator = url.includes("?") ? "&" : "?";
-         tab.location.href = `${url}${separator}puid=${encodeURIComponent(data.attemptId)}`;
-      } else {
-        const destination = new URL(url);
-        destination.searchParams.set("attempt", data.attemptId);
-        tab.location.href = destination.toString();
-      }
-
+if (selected_provider === "lootlabs") {
+  const separator = url.includes("?") ? "&" : "?";
+  const checkpointUrl = `${url}${separator}puid=${encodeURIComponent(data.attemptId)}`;
+  console.log("Opening LootLabs:", checkpointUrl);
+  tab.location.href = checkpointUrl;
+} else {
+  const destination = new URL(url);
+  destination.searchParams.set("attempt", data.attemptId);
+  tab.location.href = destination.toString();
+}
       tab.location.href = destination.toString();
 
       if (selected_provider === "lootlabs") {
