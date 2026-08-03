@@ -3,6 +3,7 @@ const SCRIPT_POLICIES = Object.freeze({
   duper: { defaultDays: 1, maxDays: 30 },
   fruit: { defaultDays: 1, maxDays: 30 },
   growagarden: { defaultDays: 1, maxDays: 30 },
+  admin_panel: { defaultDays: 1, maxDays: 100 },
 });
 
 export async function onRequestPost(context) {
