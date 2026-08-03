@@ -2,7 +2,14 @@ export async function onRequest(context) {
     const url = new URL(context.request.url)
     const hwid = url.searchParams.get("hwid")
     const step = url.searchParams.get("step")
-    const provider = url.searchParams.get("provider") || "unknown"
+    const provider = url.searchParams.get("provider")
+
+    const ALLOWED_PROVIDERS = new Set(["linkvertise"]);
+
+    if (!ALLOWED_PROVIDERS.has(provider)) {
+      return json({ error: "invalid or unavailable provider" }, 400);
+    }
+    
     if (!hwid || !step || !provider) return json({ error: "missing params" }, 400)
     if (step !== "1" && step !== "2") return json({ error: "invalid step" }, 400)
 
