@@ -13,6 +13,10 @@ export async function onRequest(context) {
     if (!hwid || !step || !provider) return json({ error: "missing params" }, 400)
     if (step !== "1" && step !== "2") return json({ error: "invalid step" }, 400)
 
+    if (step === "1") {
+          await context.env.KEYS.delete(`steps:${hwid}`);
+    }
+
     const oldAttemptId = await context.env.KEYS.get(`current_attempt:${hwid}:${step}`)
     if (oldAttemptId) {
         await context.env.KEYS.delete(`attempt:${oldAttemptId}`)
