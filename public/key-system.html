@@ -512,9 +512,12 @@ function start_step(n) {
       const destination = new URL(url);
 
       if (selected_provider === "lootlabs") {
-          destination.searchParams.set("puid", data.attemptId);
+        const separator = url.includes("?") ? "&" : "?";
+         tab.location.href = `${url}${separator}puid=${encodeURIComponent(data.attemptId)}`;
       } else {
+        const destination = new URL(url);
         destination.searchParams.set("attempt", data.attemptId);
+        tab.location.href = destination.toString();
       }
 
       tab.location.href = destination.toString();
