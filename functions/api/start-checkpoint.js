@@ -4,7 +4,7 @@ export async function onRequest(context) {
     const step = url.searchParams.get("step")
     const provider = url.searchParams.get("provider")
 
-    const ALLOWED_PROVIDERS = new Set(["linkvertise"]);
+    const ALLOWED_PROVIDERS = new Set(["linkvertise", "lootlabs"]);
 
     if (!ALLOWED_PROVIDERS.has(provider)) {
       return json({ error: "invalid or unavailable provider" }, 400);
