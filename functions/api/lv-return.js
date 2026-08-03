@@ -1,13 +1,15 @@
+import { currentAttemptKey, getCookie, readJsonKv, sha256, text, validAttemptId } from "../_lib/key-system.js";
+
 export async function onRequestGet(context) {
   const { request, env } = context;
   const url = new URL(request.url);
   const cookie = request.headers.get("cookie") || "";
-  const cookieAttemptId = getCookieValue(cookie, "xp_attempt");
+  const cookieAttemptId = getCookie(cookie, "xp_attempt");
   const queryAttemptId = url.searchParams.get("attempt");
   const attemptId = cookieAttemptId;
   const hash = url.searchParams.get("hash");
 
-  if (!attemptId || !/^[a-f0-9]{32}$/.test(attemptId)) {
+  if (!validAttemptId(attemptId)) {
     return text("invalid attempt", 400);
   }
 
@@ -19,18 +21,9 @@ export async function onRequestGet(context) {
     return text("invalid hash", 400);
   }
 
-  const attemptRaw = await env.KEYS.get(`attempt:${attemptId}`);
-
-  if (!attemptRaw) {
+  const attempt = await readJsonKv(env, `attempt:${attemptId}`);
+  if (!attempt) {
     return text("invalid or expired attempt", 400);
-  }
-
-  let attempt;
-
-  try {
-    attempt = JSON.parse(attemptRaw);
-  } catch {
-    return text("invalid attempt data", 500);
   }
 
   if (attempt.status !== "pending") {
@@ -57,7 +50,7 @@ export async function onRequestGet(context) {
     return text("attempt expired", 403);
   }
 
-  const currentAttemptId = await env.KEYS.get(`current_attempt:${attempt.hwid}:${attempt.step}`);
+  const currentAttemptId = await env.KEYS.get(currentAttemptKey(attempt.script, attempt.hwid, attempt.step));
 
   if (currentAttemptId !== attemptId) {
     return text("attempt is no longer current", 409);
@@ -114,7 +107,7 @@ export async function onRequestGet(context) {
 
   const redirectUrl = new URL(request.url);
   redirectUrl.pathname = `/key-system/${encodeURIComponent(attempt.hwid)}`;
-  redirectUrl.search = `?returned=1&step=${encodeURIComponent(attempt.step)}&provider=linkvertise`;
+  redirectUrl.search = `?returned=1&step=${encodeURIComponent(attempt.step)}&provider=linkvertise&script=${encodeURIComponent(attempt.script)}`;
 
   return new Response(null, {
     status: 302,
@@ -129,32 +122,4 @@ export async function onRequestGet(context) {
 
 export async function onRequest(context) {
   return text("method not allowed", 405, { "Allow": "GET" });
-}
-
-async function sha256(value) {
-  const encoded = new TextEncoder().encode(value);
-  const digest = await crypto.subtle.digest("SHA-256", encoded);
-  return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, "0")).join("");
-}
-
-function getCookieValue(cookieHeader, name) {
-  const cookies = cookieHeader.split(";");
-
-  for (const rawCookie of cookies) {
-    const cookie = rawCookie.trim();
-
-    if (cookie.startsWith(`${name}=`)) {
-      try {
-        return decodeURIComponent(cookie.slice(name.length + 1));
-      } catch {
-        return null;
-      }
-    }
-  }
-
-  return null;
-}
-
-function text(message, status = 200, extraHeaders = {}) {
-  return new Response(message, { status, headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store", ...extraHeaders } });
 }
