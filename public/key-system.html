@@ -384,6 +384,10 @@ let state = { step1_done: false, step2_done: false }
 let timer_intervals = {}
 let step_attempts = { 1: null, 2: null }
 
+function attempt_storage_key(n) {
+  return `xp_attempt_${hwid}_${selected_script}_${selected_provider}_${n}`
+}
+
 function get_min_wait_ms() {
   return MIN_WAIT_MS_BY_PROVIDER[selected_provider] || DEFAULT_MIN_WAIT_MS
 }
@@ -431,8 +435,8 @@ update_continue_btn()
 
 const isReturning = new URLSearchParams(window.location.search).get("returned") === "1"
 if (!isReturning) {
-  localStorage.removeItem(`xp_attempt_${hwid}_1`)
-  localStorage.removeItem(`xp_attempt_${hwid}_2`)
+  localStorage.removeItem(attempt_storage_key(1))
+  localStorage.removeItem(attempt_storage_key(2))
 }
 
 handle_return()
@@ -462,7 +466,7 @@ function start_checkpoints() {
 }
 
 function start_step(n) {
-  if (selected_provider === "lootlabs" && (step_attempts[n] || localStorage.getItem(`xp_attempt_${hwid}_${n}`))) {
+  if (selected_provider === "lootlabs" && (step_attempts[n] || localStorage.getItem(attempt_storage_key(n)))) {
     const txt = document.getElementById(`timer${n}-text`)
     const btn = document.getElementById(`step${n}-btn`)
     document.getElementById(`timer${n}-bar`).style.display = "none"
@@ -474,7 +478,7 @@ function start_step(n) {
     return
   }
 
-  if (step_attempts[n] || localStorage.getItem(`xp_attempt_${hwid}_${n}`)) {
+  if (step_attempts[n] || localStorage.getItem(attempt_storage_key(n))) {
     const txt = document.getElementById(`timer${n}-text`)
     document.getElementById(`timer${n}-bar`).style.display = "block"
     txt.style.display = "block"
@@ -505,7 +509,7 @@ function start_step(n) {
   txt.style.display = "block"
   txt.textContent = "Preparing checkpoint..."
 
-  fetch(`/api/start-checkpoint?hwid=${encodeURIComponent(hwid)}&step=${n}&provider=${selected_provider}`)
+  fetch("/api/start-checkpoint", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ hwid, step: n, provider: selected_provider, script: selected_script }) })
     .then((res) => res.json())
     .then((data) => {
       if (!data.attemptId) {
@@ -513,7 +517,7 @@ function start_step(n) {
         throw new Error("missing attempt id")
       }
       step_attempts[n] = data.attemptId
-      localStorage.setItem(`xp_attempt_${hwid}_${n}`, data.attemptId)
+      localStorage.setItem(attempt_storage_key(n), data.attemptId)
 
       if (selected_provider === "lootlabs") {
         const separator = url.includes("?") ? "&" : "?";
@@ -569,25 +573,23 @@ function start_step(n) {
 
 async function verify_step(n) {
   const txt = document.getElementById(`timer${n}-text`)
-  const attemptId = step_attempts[n] || localStorage.getItem(`xp_attempt_${hwid}_${n}`)
+  const attemptId = step_attempts[n] || localStorage.getItem(attempt_storage_key(n))
   if (!attemptId) {
     reset_step(n)
     return
   }
   try {
-    const res = await fetch(
-      `/api/checkpoint?hwid=${encodeURIComponent(hwid)}&step=${n}&attempt=${encodeURIComponent(attemptId)}&provider=${selected_provider}`
-    )
-    const body = await res.text()
-    if (body === "ok") {
-      localStorage.removeItem(`xp_attempt_${hwid}_${n}`)
+    const res = await fetch("/api/checkpoint", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ hwid, step: n, attemptId, provider: selected_provider, script: selected_script }) })
+    const body = await res.json()
+    if (res.ok && body.ok === true) {
+      localStorage.removeItem(attempt_storage_key(n))
       mark_done(n)
-    } else if (body === "not_completed") {
+    } else if (res.status === 409 && body.error === "not completed") {
       txt.textContent = "Checkpoint not completed yet, finish provider then press verify"
       const btn = document.getElementById(`step${n}-btn`)
       if (btn) { btn.textContent = "Verify"; btn.disabled = false }
     } else {
-      txt.textContent = `Server said: "${body}" — click Verify to retry`
+      txt.textContent = `${body.error || "Verification failed"} - click Verify to retry`
       const btn = document.getElementById(`step${n}-btn`)
       if (btn) { btn.textContent = "Verify"; btn.disabled = false }
     }
@@ -633,7 +635,7 @@ function reset_step(n) {
   const btn = document.getElementById(`step${n}-btn`)
   if (btn) { btn.textContent = "Retry"; btn.disabled = false }
   step_attempts[n] = null
-  localStorage.removeItem(`xp_attempt_${hwid}_${n}`)
+  localStorage.removeItem(attempt_storage_key(n))
 }
 
 function handle_return() {
@@ -732,15 +734,15 @@ async function getkey() {
   btn.disabled = true
 
   const endpoint = selected_script === "gag2fruit"
-    ? `/api/getkey-gag2fruit?hwid=${encodeURIComponent(hwid)}`
+    ? "/api/getkey-gag2fruit"
     : selected_script === "gag2"
-    ? `/api/getkey-gag2?hwid=${encodeURIComponent(hwid)}`
+    ? "/api/getkey-gag2"
     : selected_script === "admin_panel"
-    ? `/api/getkey-admin-panel?hwid=${encodeURIComponent(hwid)}`
-    : `/api/getkey?hwid=${encodeURIComponent(hwid)}`
+    ? "/api/getkey-admin-panel"
+    : "/api/getkey"
 
   try {
-    const res = await fetch(endpoint)
+    const res = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ hwid, provider: selected_provider }) })
     const data = await res.json()
     if (data.key) {
       document.getElementById("key-display").textContent = data.key
