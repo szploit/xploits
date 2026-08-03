@@ -509,19 +509,15 @@ function start_step(n) {
       step_attempts[n] = data.attemptId
       localStorage.setItem(`xp_attempt_${hwid}_${n}`, data.attemptId)
 
-      const destination = new URL(url);
-
-if (selected_provider === "lootlabs") {
-  const separator = url.includes("?") ? "&" : "?";
-  const checkpointUrl = `${url}${separator}puid=${encodeURIComponent(data.attemptId)}`;
-  console.log("Opening LootLabs:", checkpointUrl);
-  tab.location.href = checkpointUrl;
-} else {
-  const destination = new URL(url);
-  destination.searchParams.set("attempt", data.attemptId);
-  tab.location.href = destination.toString();
-}
-      tab.location.href = destination.toString();
+      if (selected_provider === "lootlabs") {
+        const separator = url.includes("?") ? "&" : "?";
+        const checkpointUrl = `${url}${separator}puid=${encodeURIComponent(data.attemptId)}`;
+        tab.location.href = checkpointUrl;
+      } else {
+        const destination = new URL(url);
+        destination.searchParams.set("attempt", data.attemptId);
+        tab.location.href = destination.toString();
+      }
 
       if (selected_provider === "lootlabs") {
         btn.textContent = "Waiting..."
