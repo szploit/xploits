@@ -6,6 +6,8 @@ export async function onRequestGet(context) {
   const uniqueId = url.searchParams.get("unique_id");
   const completedIp = url.searchParams.get("ip");
 
+  console.log("LootLabs postback received", { secretPresent: Boolean(secret), secretMatches: secret === env.LOOTLABS_POSTBACK_SECRET, clickIdPresent: Boolean(attemptId), clickIdLength: attemptId?.length || 0, uniqueIdPresent: Boolean(uniqueId), ipPresent: Boolean(completedIp) });
+
   if (!secret || secret !== env.LOOTLABS_POSTBACK_SECRET) {
     return text("forbidden", 403);
   }
