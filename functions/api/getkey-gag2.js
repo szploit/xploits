@@ -24,9 +24,15 @@ export async function onRequest(context) {
         return json({ error: "steps expired, please redo" }, 403)
     }
 
-    const genkeyUrl = `https://xploits.xyz/genkey3?auth=${encodeURIComponent(context.env.ADMIN_SECRET)}&script=growagarden&days=1`
-    const genkeyRes = await fetch(genkeyUrl)
-    const genkeyData = await genkeyRes.json()
+const issuanceId = crypto.randomUUID().replaceAll("-", "");
+
+const genkeyRes = await fetch("https://xploits.xyz/genkey3", {
+  method: "POST",
+  headers: { "Authorization": `Bearer ${context.env.ADMIN_SECRET}`, "Content-Type": "application/json" },
+  body: JSON.stringify({ script: "growagarden", days: 1, issuanceId }),
+});
+
+const genkeyData = await genkeyRes.json();
     if (!genkeyData.key) return json({ error: "key generation failed" }, 500)
 
     const keyData = {
