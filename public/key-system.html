@@ -509,7 +509,15 @@ function start_step(n) {
       step_attempts[n] = data.attemptId
       localStorage.setItem(`xp_attempt_${hwid}_${n}`, data.attemptId)
 
-      tab.location.href = url + (url.includes("?") ? "&" : "?") + "hwid=" + encodeURIComponent(hwid) + "&attempt=" + encodeURIComponent(data.attemptId)
+      const destination = new URL(url);
+
+      if (selected_provider === "lootlabs") {
+          destination.searchParams.set("puid", data.attemptId);
+      } else {
+        destination.searchParams.set("attempt", data.attemptId);
+      }
+
+      tab.location.href = destination.toString();
 
       if (selected_provider === "lootlabs") {
         btn.textContent = "Waiting..."
