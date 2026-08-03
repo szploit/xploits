@@ -1,24 +1,17 @@
+import { getCookie, text, validAttemptId, readJsonKv } from "../_lib/key-system.js";
+
 export async function onRequestGet(context) {
   const { request, env } = context;
   const cookie = request.headers.get("cookie") || "";
-  const attemptId = getCookieValue(cookie, "xp_attempt");
+  const attemptId = getCookie(cookie, "xp_attempt");
 
-  if (!attemptId || !/^[a-f0-9]{32}$/.test(attemptId)) {
+  if (!validAttemptId(attemptId)) {
     return text("invalid or missing attempt", 400);
   }
 
-  const attemptRaw = await env.KEYS.get(`attempt:${attemptId}`);
-
-  if (!attemptRaw) {
+  const attempt = await readJsonKv(env, `attempt:${attemptId}`);
+  if (!attempt) {
     return text("attempt expired, return to the key system and try again", 400);
-  }
-
-  let attempt;
-
-  try {
-    attempt = JSON.parse(attemptRaw);
-  } catch {
-    return text("invalid attempt data", 500);
   }
 
   if (attempt.provider !== "lootlabs") {
@@ -31,7 +24,7 @@ export async function onRequestGet(context) {
 
   const redirectUrl = new URL(request.url);
   redirectUrl.pathname = `/key-system/${encodeURIComponent(attempt.hwid)}`;
-  redirectUrl.search = `?returned=1&step=${encodeURIComponent(attempt.step)}&provider=lootlabs`;
+  redirectUrl.search = `?returned=1&step=${encodeURIComponent(attempt.step)}&provider=lootlabs&script=${encodeURIComponent(attempt.script)}`;
 
   return new Response(null, {
     status: 302,
@@ -45,26 +38,4 @@ export async function onRequestGet(context) {
 
 export async function onRequest(context) {
   return text("method not allowed", 405, { "Allow": "GET" });
-}
-
-function getCookieValue(cookieHeader, name) {
-  const cookies = cookieHeader.split(";");
-
-  for (const rawCookie of cookies) {
-    const cookie = rawCookie.trim();
-
-    if (cookie.startsWith(`${name}=`)) {
-      try {
-        return decodeURIComponent(cookie.slice(name.length + 1));
-      } catch {
-        return null;
-      }
-    }
-  }
-
-  return null;
-}
-
-function text(message, status = 200, extraHeaders = {}) {
-  return new Response(message, { status, headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store", ...extraHeaders } });
 }
