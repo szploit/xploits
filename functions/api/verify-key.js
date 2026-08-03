@@ -15,6 +15,12 @@ export async function onRequest(context) {
         if (fruitText.trim() === "valid") {
             return json({ valid: true, script: "https://xploits.xyz/api/gagspawn" })
         }
+        const adminUrl = `https://xploits.xyz/checkkey3?key=${encodeURIComponent(key)}&script=admin_panel`
+        const adminRes = await fetch(adminUrl)
+        const adminText = await adminRes.text()
+        if (adminText.trim() === "valid") {
+            return json({ valid: true, script: "https://xploits.xyz/api/admin" })
+        }
         return json({ error: "invalid key" }, 403)
     } catch {
         return json({ error: "verification failed" }, 500)
