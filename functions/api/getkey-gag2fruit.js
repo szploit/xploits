@@ -20,9 +20,19 @@ export async function onRequest(context) {
         await context.env.KEYS.delete(`steps:${hwid}`)
         return json({ error: "step expired, please redo" }, 403)
     }
-    const genkeyUrl = `https://xploits.xyz/genkey3?auth=${encodeURIComponent(context.env.ADMIN_SECRET)}&script=fruit&days=1`
-    const genkeyRes = await fetch(genkeyUrl)
-    const genkeyData = await genkeyRes.json()
+const issuanceId = crypto.randomUUID().replaceAll("-", "");
+
+const genkeyRes = await fetch("https://xploits.xyz/genkey3", {
+  method: "POST",
+  headers: { "Authorization": `Bearer ${context.env.ADMIN_SECRET}`, "Content-Type": "application/json" },
+  body: JSON.stringify({ script: "growagarden", days: 1, issuanceId }),
+});
+
+    if (!genkeyRes.ok || !genkeyData.key) {
+  console.error("GAG2 generation failed", { status: genkeyRes.status, error: genkeyData.error || "unknown" });
+  return json({ error: "key generation failed" }, 500);
+}
+const genkeyData = await genkeyRes.json();
     if (!genkeyData.key) return json({ error: "key generation failed" }, 500)
     const keyData = {
         key: genkeyData.key,
