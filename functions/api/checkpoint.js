@@ -1,87 +1,39 @@
-export async function onRequest(context) {
+import { SCRIPT_RULES, STEP_TTL, currentAttemptKey, json, readJsonKv, stepsKey, validAttemptId, validHwid } from "../_lib/key-system.js";
+
+const MIN_WAIT = Object.freeze({ linkvertise: 5000, lootlabs: 15000 });
+
+export async function onRequestPost(context) {
   const { request, env } = context;
-  const url = new URL(request.url);
-  const hwid = url.searchParams.get("hwid");
-
-  if (!hwid) {
-    return json({ error: "missing hwid" }, 400);
-  }
-
-  const existingRaw = await env.KEYS.get(`hwid-gag2fruit:${hwid}`);
-
-  if (existingRaw) {
-    const existing = JSON.parse(existingRaw);
-
-    if (new Date() < new Date(existing.expires)) {
-      return json({ key: existing.key, expires: existing.expires });
-    }
-
-    await env.KEYS.delete(existing.key);
-    await env.KEYS.delete(`key-gag2fruit:${existing.key}`);
-    await env.KEYS.delete(`hwid-gag2fruit:${hwid}`);
-  }
-
-  const stepsRaw = await env.KEYS.get(`steps:${hwid}`);
-
-  if (!stepsRaw) {
-    return json({ error: "steps not completed" }, 403);
-  }
-
-  const steps = JSON.parse(stepsRaw);
-
-  if (!steps.step1) {
-    return json({ error: "step required" }, 403);
-  }
-
-  const now = Date.now();
-
-  if (now - steps.step1 > 3600000) {
-    await env.KEYS.delete(`steps:${hwid}`);
-    return json({ error: "step expired, please redo" }, 403);
-  }
-
-  const issuanceId = crypto.randomUUID().replaceAll("-", "");
-  let genkeyRes;
-
-  try {
-    genkeyRes = await fetch("https://xploits.xyz/genkey3", {
-      method: "POST",
-      headers: { "Authorization": `Bearer ${env.ADMIN_SECRET}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ script: "fruit", days: 1, issuanceId }),
-    });
-  } catch {
-    return json({ error: "generator request failed" }, 502);
-  }
-
-  let genkeyData;
-
-  try {
-    genkeyData = await genkeyRes.json();
-  } catch {
-    return json({ error: "generator returned invalid response" }, 502);
-  }
-
-  if (!genkeyRes.ok || !genkeyData.key) {
-    console.error("Fruit generation failed", { status: genkeyRes.status, error: genkeyData.error || "unknown" });
-    return json({ error: "key generation failed" }, 502);
-  }
-
-  const keyData = {
-    key: genkeyData.key,
-    expires: genkeyData.expires,
-    hwid,
-    script: "gag2fruit",
-    provider: steps.provider || "unknown",
-    createdAt: new Date().toISOString(),
-  };
-
-  await env.KEYS.put(`hwid-gag2fruit:${hwid}`, JSON.stringify(keyData), { expirationTtl: 86400 });
-  await env.KEYS.put(`key-gag2fruit:${genkeyData.key}`, JSON.stringify(keyData), { expirationTtl: 86400 });
-  await env.KEYS.delete(`steps:${hwid}`);
-
-  return json({ key: genkeyData.key, expires: genkeyData.expires });
+  let body;
+  try { body = await request.json(); } catch { return json({ error: "invalid JSON" }, 400); }
+  const { hwid, provider, script, attemptId } = body || {};
+  const step = String(body?.step || "");
+  const rule = SCRIPT_RULES[script];
+  if (!validHwid(hwid) || !validAttemptId(attemptId) || !rule || !MIN_WAIT[provider] || (step !== "1" && step !== "2")) return json({ error: "invalid request" }, 400);
+  const attempt = await readJsonKv(env, `attempt:${attemptId}`);
+  if (!attempt) return json({ error: "invalid or expired attempt" }, 410);
+  if (attempt.hwid !== hwid || attempt.step !== step || attempt.provider !== provider || attempt.script !== script) return json({ error: "attempt mismatch" }, 403);
+  if (attempt.status === "consumed") return json({ ok: true });
+  if (attempt.status !== "completed") return json({ error: "not completed" }, 409);
+  const startedAt = Number(attempt.startedAt);
+  const completedAt = Number(attempt.completedAt);
+  const elapsed = Date.now() - startedAt;
+  if (!Number.isSafeInteger(startedAt) || !Number.isSafeInteger(completedAt) || startedAt <= 0 || completedAt < startedAt) return json({ error: "invalid attempt timestamps" }, 403);
+  if (elapsed < MIN_WAIT[provider]) return json({ error: "completed too quickly" }, 403);
+  if (elapsed > 900000 || Date.now() - completedAt > STEP_TTL * 1000) return json({ error: "attempt expired" }, 410);
+  const currentKey = currentAttemptKey(script, hwid, step);
+  if (await env.KEYS.get(currentKey) !== attemptId) return json({ error: "attempt is no longer current" }, 409);
+  const stateKey = stepsKey(script, hwid);
+  const steps = (await readJsonKv(env, stateKey)) || { script, provider };
+  if (steps.script !== script || steps.provider !== provider) return json({ error: "selection mismatch" }, 409);
+  if (step === "2" && !steps.step1) return json({ error: "step 1 required" }, 409);
+  steps[`step${step}`] = completedAt;
+  await env.KEYS.put(stateKey, JSON.stringify(steps), { expirationTtl: STEP_TTL });
+  attempt.status = "consumed";
+  attempt.consumedAt = Date.now();
+  await env.KEYS.put(`attempt:${attemptId}`, JSON.stringify(attempt), { expirationTtl: 300 });
+  await env.KEYS.delete(currentKey);
+  return json({ ok: true });
 }
 
-function json(data, status = 200) {
-  return new Response(JSON.stringify(data), { status, headers: { "Content-Type": "application/json", "Cache-Control": "no-store" } });
-}
+export async function onRequest() { return json({ error: "method not allowed" }, 405, { Allow: "POST" }); }
