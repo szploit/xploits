@@ -25,8 +25,15 @@ const issuanceId = crypto.randomUUID().replaceAll("-", "");
 const genkeyRes = await fetch("https://xploits.xyz/genkey3", {
   method: "POST",
   headers: { "Authorization": `Bearer ${context.env.ADMIN_SECRET}`, "Content-Type": "application/json" },
-  body: JSON.stringify({ script: "growagarden", days: 1, issuanceId }),
+  body: JSON.stringify({ script: "fruit", days: 1, issuanceId }),
 });
+
+const genkeyData = await genkeyRes.json();
+
+if (!genkeyRes.ok || !genkeyData.key) {
+  console.error("Fruit generation failed", { status: genkeyRes.status, error: genkeyData.error || "unknown" });
+  return json({ error: "key generation failed" }, 500);
+}
 
     if (!genkeyRes.ok || !genkeyData.key) {
   console.error("GAG2 generation failed", { status: genkeyRes.status, error: genkeyData.error || "unknown" });
