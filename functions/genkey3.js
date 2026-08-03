@@ -61,7 +61,7 @@ export async function onRequestPost(context) {
   const result = { key, expires, script, days: requestedDays, issuanceId };
   const keyData = { expires, hwid: null, script, days: requestedDays, issuanceId, createdAt: new Date().toISOString(), revokedAt: null };
 
-  await env.KEYS.put(`key:${key}`, JSON.stringify(keyData), { expirationTtl: requestedDays * 86400 });
+  await env.KEYS.put(key, JSON.stringify(keyData), { expirationTtl: requestedDays * 86400 });
   await env.KEYS.put(issuanceKey, JSON.stringify(result), { expirationTtl: requestedDays * 86400 });
 
   return json(result, 201);
