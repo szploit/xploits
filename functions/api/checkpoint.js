@@ -61,9 +61,14 @@ export async function onRequest(context) {
         return new Response("step1_required")
     }
 
-    if (step === "1" && stepsData.step1 && stepsData.step2) {
-        return new Response("already_completed")
-    }    
+    if (stepsData[`step${step}`]) {
+      if (stepsData.provider && stepsData.provider !== provider) {
+        return new Response("provider_mismatch");
+      }
+
+      await context.env.KEYS.delete(`attempt:${attemptId}`);
+      return new Response("ok");
+    }
 
     stepsData[`step${step}`] = now
     stepsData.provider = provider
