@@ -1,3 +1,5 @@
+import { currentAttemptKey, readJsonKv, sha256, text, validAttemptId } from "../_lib/key-system.js";
+
 export async function onRequestGet(context) {
   const { request, env } = context;
   const url = new URL(request.url);
@@ -12,7 +14,7 @@ export async function onRequestGet(context) {
     return text("forbidden", 403);
   }
 
-  if (!attemptId || !/^[a-f0-9]{32}$/.test(attemptId)) {
+  if (!validAttemptId(attemptId)) {
     return text("invalid click ID", 400);
   }
 
@@ -20,18 +22,9 @@ export async function onRequestGet(context) {
     return text("invalid unique ID", 400);
   }
 
-  const attemptRaw = await env.KEYS.get(`attempt:${attemptId}`);
-
-  if (!attemptRaw) {
+  const attempt = await readJsonKv(env, `attempt:${attemptId}`);
+  if (!attempt) {
     return text("invalid or expired attempt", 404);
-  }
-
-  let attempt;
-
-  try {
-    attempt = JSON.parse(attemptRaw);
-  } catch {
-    return text("invalid attempt data", 500);
   }
 
   if (attempt.provider !== "lootlabs") {
@@ -57,7 +50,7 @@ export async function onRequestGet(context) {
     return text("attempt expired", 403);
   }
 
-  const currentAttemptId = await env.KEYS.get(`current_attempt:${attempt.hwid}:${attempt.step}`);
+  const currentAttemptId = await env.KEYS.get(currentAttemptKey(attempt.script, attempt.hwid, attempt.step));
 
   if (currentAttemptId !== attemptId) {
     return text("attempt is no longer current", 409);
@@ -84,14 +77,4 @@ export async function onRequestGet(context) {
 
 export async function onRequest(context) {
   return text("method not allowed", 405, { "Allow": "GET" });
-}
-
-async function sha256(value) {
-  const encoded = new TextEncoder().encode(value);
-  const digest = await crypto.subtle.digest("SHA-256", encoded);
-  return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, "0")).join("");
-}
-
-function text(message, status = 200, extraHeaders = {}) {
-  return new Response(message, { status, headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store", ...extraHeaders } });
 }
