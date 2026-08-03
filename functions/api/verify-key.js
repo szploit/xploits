@@ -1,31 +1,38 @@
 export async function onRequest(context) {
-    const url = new URL(context.request.url)
-    const key = url.searchParams.get("key")
-    if (!key) return json({ error: "missing key" }, 400)
+    const { request } = context
+
+    let key
     try {
-        const growagardenUrl = `https://xploits.xyz/checkkey3?key=${encodeURIComponent(key)}&script=growagarden`
-        const growagardenRes = await fetch(growagardenUrl)
-        const growagardenText = await growagardenRes.text()
-        if (growagardenText.trim() === "valid") {
+        const body = await request.json()
+        key = body?.key
+    } catch {
+        return json({ error: "missing key" }, 400)
+    }
+
+    if (!key) return json({ error: "missing key" }, 400)
+
+    try {
+        const growagardenRes = await fetch(`https://xploits.xyz/checkkey3?key=${encodeURIComponent(key)}&script=growagarden`)
+        if ((await growagardenRes.text()).trim() === "valid") {
             return json({ valid: true, script: "https://xploits.xyz/api/gagspawner" })
         }
-        const fruitUrl = `https://xploits.xyz/checkkey3?key=${encodeURIComponent(key)}&script=fruit`
-        const fruitRes = await fetch(fruitUrl)
-        const fruitText = await fruitRes.text()
-        if (fruitText.trim() === "valid") {
+
+        const fruitRes = await fetch(`https://xploits.xyz/checkkey3?key=${encodeURIComponent(key)}&script=fruit`)
+        if ((await fruitRes.text()).trim() === "valid") {
             return json({ valid: true, script: "https://xploits.xyz/api/gagspawn" })
         }
-        const adminUrl = `https://xploits.xyz/checkkey3?key=${encodeURIComponent(key)}&script=admin_panel`
-        const adminRes = await fetch(adminUrl)
-        const adminText = await adminRes.text()
-        if (adminText.trim() === "valid") {
+
+        const adminRes = await fetch(`https://xploits.xyz/checkkey3?key=${encodeURIComponent(key)}&script=admin_panel`)
+        if ((await adminRes.text()).trim() === "valid") {
             return json({ valid: true, script: "https://xploits.xyz/api/admin" })
         }
+
         return json({ error: "invalid key" }, 403)
     } catch {
         return json({ error: "verification failed" }, 500)
     }
 }
+
 function json(data, status = 200) {
     return new Response(JSON.stringify(data), {
         status,
