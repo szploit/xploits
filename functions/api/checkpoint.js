@@ -1,82 +1,87 @@
-
-
 export async function onRequest(context) {
-    const url = new URL(context.request.url)
-    const hwid = url.searchParams.get("hwid")
-    const step = url.searchParams.get("step")
-    const attemptId = url.searchParams.get("attempt")
-    const provider = url.searchParams.get("provider") || "unknown"
+  const { request, env } = context;
+  const url = new URL(request.url);
+  const hwid = url.searchParams.get("hwid");
 
-    if (!hwid || !step || !attemptId) {
-        return new Response("missing params", { status: 400 })
+  if (!hwid) {
+    return json({ error: "missing hwid" }, 400);
+  }
+
+  const existingRaw = await env.KEYS.get(`hwid-gag2fruit:${hwid}`);
+
+  if (existingRaw) {
+    const existing = JSON.parse(existingRaw);
+
+    if (new Date() < new Date(existing.expires)) {
+      return json({ key: existing.key, expires: existing.expires });
     }
 
-    const attemptRaw = await context.env.KEYS.get(`attempt:${attemptId}`)
-    if (!attemptRaw) {
-        return new Response("invalid_attempt")
-    }
-    const attempt = JSON.parse(attemptRaw)
+    await env.KEYS.delete(existing.key);
+    await env.KEYS.delete(`key-gag2fruit:${existing.key}`);
+    await env.KEYS.delete(`hwid-gag2fruit:${hwid}`);
+  }
 
-    const MIN_WAIT_MS_BY_PROVIDER = {
-        linkvertise: 5000,
-        lootlabs: 15000,
-    }
-    const MIN_WAIT_MS = MIN_WAIT_MS_BY_PROVIDER[attempt.provider] || 30000
-    const startedAt = Number(attempt.startedAt || 0)
-    const completedAt = Number(attempt.completedAt || 0)
-    const elapsed = completedAt - startedAt
+  const stepsRaw = await env.KEYS.get(`steps:${hwid}`);
 
-    if (attempt.hwid !== hwid || attempt.step !== step) {
-        return new Response("attempt_mismatch")
-    }
+  if (!stepsRaw) {
+    return json({ error: "steps not completed" }, 403);
+  }
 
-    if (attempt.provider !== provider) {
-        return new Response("provider_mismatch")
-    }
+  const steps = JSON.parse(stepsRaw);
 
-    if (attempt.status !== "completed") {
-        return new Response("not_completed")
-    }
+  if (!steps.step1) {
+    return json({ error: "step required" }, 403);
+  }
 
-    if (elapsed < MIN_WAIT_MS) {
-        return new Response("too_fast")
-    }
+  const now = Date.now();
 
-    const MAX_WAIT_MS = 600000
-    if (elapsed > MAX_WAIT_MS) {
-        return new Response("expired_attempt")
-    }
+  if (now - steps.step1 > 3600000) {
+    await env.KEYS.delete(`steps:${hwid}`);
+    return json({ error: "step expired, please redo" }, 403);
+  }
 
-    if (startedAt <= 0 || completedAt <= 0 || completedAt < startedAt) {
-        return new Response("invalid_timestamp")
-    }
+  const issuanceId = crypto.randomUUID().replaceAll("-", "");
+  let genkeyRes;
 
-    const now = Date.now()
+  try {
+    genkeyRes = await fetch("https://xploits.xyz/genkey3", {
+      method: "POST",
+      headers: { "Authorization": `Bearer ${env.ADMIN_SECRET}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ script: "fruit", days: 1, issuanceId }),
+    });
+  } catch {
+    return json({ error: "generator request failed" }, 502);
+  }
 
-    const stepsKey = `steps:${hwid}`
-    const existing = await context.env.KEYS.get(stepsKey)
-    const stepsData = existing ? JSON.parse(existing) : {}
+  let genkeyData;
 
-    if (step === "2" && !stepsData.step1) {
-        return new Response("step1_required")
-    }
+  try {
+    genkeyData = await genkeyRes.json();
+  } catch {
+    return json({ error: "generator returned invalid response" }, 502);
+  }
 
-    if (stepsData[`step${step}`]) {
-      if (stepsData.provider && stepsData.provider !== provider) {
-        return new Response("provider_mismatch");
-      }
+  if (!genkeyRes.ok || !genkeyData.key) {
+    console.error("Fruit generation failed", { status: genkeyRes.status, error: genkeyData.error || "unknown" });
+    return json({ error: "key generation failed" }, 502);
+  }
 
-      await context.env.KEYS.delete(`attempt:${attemptId}`);
-      return new Response("ok");
-    }
+  const keyData = {
+    key: genkeyData.key,
+    expires: genkeyData.expires,
+    hwid,
+    script: "gag2fruit",
+    provider: steps.provider || "unknown",
+    createdAt: new Date().toISOString(),
+  };
 
-    stepsData[`step${step}`] = now
-    stepsData.provider = provider
+  await env.KEYS.put(`hwid-gag2fruit:${hwid}`, JSON.stringify(keyData), { expirationTtl: 86400 });
+  await env.KEYS.put(`key-gag2fruit:${genkeyData.key}`, JSON.stringify(keyData), { expirationTtl: 86400 });
+  await env.KEYS.delete(`steps:${hwid}`);
 
-    await context.env.KEYS.put(stepsKey, JSON.stringify(stepsData), {
-        expirationTtl: 3600
-    })
-    await context.env.KEYS.delete(`attempt:${attemptId}`)
+  return json({ key: genkeyData.key, expires: genkeyData.expires });
+}
 
-    return new Response("ok")
+function json(data, status = 200) {
+  return new Response(JSON.stringify(data), { status, headers: { "Content-Type": "application/json", "Cache-Control": "no-store" } });
 }
